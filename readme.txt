@@ -9,7 +9,7 @@ If you are interested to try QChartist or even to improve it, you can download i
 http://julienweb.ddns.net/files/trading/QChartist.zip
 You can also visit my blog http://julienweb.ddns.net/spip/ where you can find useful things.
 IMPORTANT: i just ask that you respect the following things when you use my software:
-- to keep my name and my email intact everywhere i did mention it in the software files.
+- to keep my name,email,urls intact everywhere i did mention it in the software files.
 - if you use portions of my source files in your project, i ask that you mention my name and my email in your project (somewhere visible to the final user)
 - to share your source files with me when you improve the software
 Thank you for using my software and i wish that you will appreciate the fruit of so many years of work.
