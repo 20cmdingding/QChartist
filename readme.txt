@@ -12,4 +12,5 @@ IMPORTANT: i just ask that you respect the following things when you use my soft
 - to keep my name,email,urls intact everywhere i did mention it in the software files.
 - if you use portions of my source files in your project, i ask that you mention my name and my email in your project (somewhere visible to the final user)
 - to share your source files with me when you improve the software
+- to share your derivated work with me
 Thank you for using my software and i wish that you will appreciate the fruit of so many years of work.
