@@ -1,0 +1,2 @@
+# QChartist
+Technical analysis software
