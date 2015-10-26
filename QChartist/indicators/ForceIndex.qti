@@ -1,0 +1,39 @@
+declare sub ForceIndex ' This line of code must stay here
+dim forceindexbuffer(0 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+dim ForceIndexsma(0 to 1000) as double
+declare sub ForceIndexsmasub(period as integer)
+
+sub ForceIndex
+' Put your indicator code here
+dim extforceperiod as integer
+extforceperiod=13
+dim nlimit as integer
+nlimit=300
+dim i as integer
+for i=0 to nlimit-1
+ForceIndexsmasub(extforceperiod)
+forceindexbuffer(i)=volume(i)*(ForceIndexsma(i)-ForceIndexsma(i+1))
+next i
+end sub
+
+sub ForceIndexsmasub(period as integer)
+
+    dim sum as double
+
+    sum=0
+    dim i as integer,p as integer
+    p=bars-1
+    p=300
+
+    for i=1 to period-1
+        sum=sum+close(p)
+        p--
+    next i
+    while p>=0
+        sum=sum+close(p)
+        ForceIndexsma(p)=sum/period
+        sum=sum-close(p+period-1)
+        p--
+    wend
+
+end sub  

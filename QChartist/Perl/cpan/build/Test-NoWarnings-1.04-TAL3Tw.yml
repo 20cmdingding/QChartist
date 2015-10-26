@@ -1,0 +1,59 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
+  CHECKSUM_STATUS: OK
+  ID: A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: ADAMK
+  archived: tar
+  build_dir: C:\Perl\cpan\build\Test-NoWarnings-1.04-TAL3Tw
+  incommandcolor: 2
+  install: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414371
+  localfile: C:\Perl\cpan\sources\authors\id\A\AD\ADAMK\Test-NoWarnings-1.04.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414355
+  make_test: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414357
+  mandatory: 1
+  negative_prefs_cache: 1
+  prefs:
+    install: {}
+  prereq_pm:
+    build_requires:
+      Test::More: '0.47'
+      Test::Tester: '0.107'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      Test::Builder: '0.86'
+      perl: '5.006'
+  reqtype: b
+  sponsored_mods:
+    Test::Tester: 1
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414280
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414281
+perl:
+  $^X: c:\perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426414371

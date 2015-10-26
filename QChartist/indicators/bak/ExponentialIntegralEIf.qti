@@ -1,0 +1,10 @@
+declare sub ExponentialIntegralEIf ' This line of code must stay here
+dim ExponentialIntegralEIfbuffer(0 to 1000) as double ' This line of code must stay here.
+
+sub ExponentialIntegralEIf
+' Put your indicator code here
+dim i as integer
+for i=200 to 0 step -1
+ExponentialIntegralEIfbuffer(i)=ExponentialIntegralEI(close(i))
+next i
+end sub

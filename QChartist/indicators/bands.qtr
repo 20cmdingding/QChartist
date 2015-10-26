@@ -1,0 +1,28 @@
+'--------Bollinger Bands-------------------------------------------------------------
+indiid++
+        
+                    if indicatorslistsel.item(indiid)="x" then 
+
+                        if lbar=1 then     
+                            bands
+                        end if
+
+                         barsback=val(bandsbarsbackedit.text)
+                    
+
+                        if ibar>=lastbar-barsback then
+            
+                            indicolor(drawid)=mediumseagreen
+				.Data_Indi.Cell(drawid,lbar)= STR$(bandsmovingbuffer(offset))
+				drawid=drawid+2
+                            indicolor(drawid)=mediumseagreen
+				.Data_Indi.Cell(drawid,lbar)= STR$(bandsupperbuffer(offset))
+				drawid=drawid+2
+                            indicolor(drawid)=mediumseagreen                                                                    
+                            .Data_Indi.Cell(drawid,lbar)= STR$(bandslowerbuffer(offset))          
+				drawid=drawid+2
+                        end if                      
+                                             
+                    end if
+        
+        '--------End Bollinger Bands----------------------------------------------------------                    

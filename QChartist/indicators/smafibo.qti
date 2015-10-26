@@ -1,0 +1,49 @@
+declare sub smafibo ' This line of code must stay here
+dim fibobuffer1(0 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+dim fibobuffer2(0 to 1000) as double
+dim fibobuffer3(0 to 1000) as double
+dim fibobuffer4(0 to 1000) as double
+dim fibobuffer5(0 to 1000) as double
+dim fibobuffer6(0 to 1000) as double
+dim fibobuffer7(0 to 1000) as double
+dim fibobuffer8(0 to 1000) as double
+
+sub smafibo
+' Put your indicator code here
+defint barscount=500,maperiod=100,i,barsback=230
+defdbl max=0,min=0,inc0=0,inc1=0,inc2=0,inc3=0,_
+m,top,bottom
+mabarsbackedit.text="230"
+sma(100)
+
+for i=barsback to 0 step -1
+	m=ExtMapBuffer(i)
+	top=high(i)-m
+	if top>max then max=top
+	bottom=low(i)-m
+	if bottom<min then min=bottom
+next i
+
+if abs(max)>abs(min) then
+	inc3=max
+else
+	inc3=min
+end if
+
+inc2=inc3*0.618
+inc1=inc3*0.5
+inc0=inc3*0.236
+inc3=inc3*0.382
+
+for i=barsback to 0 step -1
+fibobuffer1(i)=ExtMapBuffer(i)+inc2
+fibobuffer2(i)=ExtMapBuffer(i)+inc1
+fibobuffer3(i)=ExtMapBuffer(i)+inc3
+fibobuffer4(i)=ExtMapBuffer(i)+inc0
+fibobuffer5(i)=ExtMapBuffer(i)-inc0
+fibobuffer6(i)=ExtMapBuffer(i)-inc3
+fibobuffer7(i)=ExtMapBuffer(i)-inc1
+fibobuffer8(i)=ExtMapBuffer(i)-inc2
+next i
+
+end sub

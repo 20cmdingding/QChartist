@@ -1,0 +1,9 @@
+'
+' -------------------------------------------------------------------
+' RQPC FB EXAMPLE: FB Code Minimum                nov 2006   Jacques
+' -------------------------------------------------------------------
+'
+' ''RQEXPORT function AddInt (i1, i2)
+Function AddInt (i1, i2, i3, i4) As Long
+    Function = i1 + i2
+End Function

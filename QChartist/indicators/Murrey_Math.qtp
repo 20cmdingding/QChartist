@@ -1,0 +1,34 @@
+declare sub hideMurrey_Mathform
+
+CREATE Murrey_Mathform as qform
+
+    Center
+    Caption = "Settings for: Murrey_Math"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Murrey_Mathbarsbacklab as qlabel
+        left=0
+        top=0
+        caption="Bars back:"
+    end create
+
+    create Murrey_Mathbarsbackedit as qedit
+        left=Murrey_Mathbarsbacklab.width+100
+        top=0
+        text="500"
+    end create
+
+    create Murrey_Mathbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideMurrey_Mathform
+    end create
+
+END CREATE
+
+sub hideMurrey_Mathform
+    Murrey_Mathform.visible=0
+end sub

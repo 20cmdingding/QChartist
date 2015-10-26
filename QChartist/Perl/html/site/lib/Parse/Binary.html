@@ -1,0 +1,108 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Parse::Binary - Unpack binary data structures into object hierarchies</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>This document describes version 0.11 of Parse::Binary, released January 25, 2009.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p># This class represents a Win32 <i>.ico</i> file:</p>
+
+<pre><code>    <span class="keyword">package</span> <span class="variable">IconFile</span><span class="operator">;</span>
+    <span class="keyword">use</span> <span class="variable">base</span> <span class="string">'Parse::Binary'</span><span class="operator">;</span>
+    <span class="keyword">use</span> <span class="variable">constant</span> <span class="string">FORMAT</span> <span class="operator">=&gt;</span> <span class="operator">(</span>
+        <span class="string">Magic</span>           <span class="operator">=&gt;</span> <span class="string">'a2'</span><span class="operator">,</span>
+        <span class="string">Type</span>            <span class="operator">=&gt;</span> <span class="string">'v'</span><span class="operator">,</span>
+        <span class="string">Count</span>           <span class="operator">=&gt;</span> <span class="string">'v'</span><span class="operator">,</span>
+        <span class="string">'Icon'</span>          <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="string">'a16'</span><span class="operator">,</span> <span class="string">'{$Count}'</span><span class="operator">,</span> <span class="number">1</span> <span class="operator">]</span><span class="operator">,</span>
+        <span class="string">Data</span>            <span class="operator">=&gt;</span> <span class="string">'a*'</span><span class="operator">,</span>
+    <span class="operator">);</span>
+</code></pre>
+
+<p># An individual icon resource:</p>
+
+<pre><code>    <span class="keyword">package</span> <span class="variable">Icon</span><span class="operator">;</span>
+    <span class="keyword">use</span> <span class="variable">base</span> <span class="string">'Parse::Binary'</span><span class="operator">;</span>
+    <span class="keyword">use</span> <span class="variable">constant</span> <span class="string">FORMAT</span> <span class="operator">=&gt;</span> <span class="operator">(</span>
+        <span class="string">Width</span>           <span class="operator">=&gt;</span> <span class="string">'C'</span><span class="operator">,</span>
+        <span class="string">Height</span>          <span class="operator">=&gt;</span> <span class="string">'C'</span><span class="operator">,</span>
+        <span class="string">ColorCount</span>      <span class="operator">=&gt;</span> <span class="string">'C'</span><span class="operator">,</span>
+        <span class="string">Reserved</span>        <span class="operator">=&gt;</span> <span class="string">'C'</span><span class="operator">,</span>
+        <span class="string">Planes</span>          <span class="operator">=&gt;</span> <span class="string">'v'</span><span class="operator">,</span>
+        <span class="string">BitCount</span>        <span class="operator">=&gt;</span> <span class="string">'v'</span><span class="operator">,</span>
+        <span class="string">ImageSize</span>       <span class="operator">=&gt;</span> <span class="string">'V'</span><span class="operator">,</span>
+        <span class="string">ImageOffset</span>     <span class="operator">=&gt;</span> <span class="string">'v'</span><span class="operator">,</span>
+    <span class="operator">);</span>
+    <span class="keyword">sub</span><span class="variable"> Data </span><span class="operator">{</span>
+        <span class="keyword">my</span> <span class="operator">(</span><span class="variable">$self</span><span class="operator">)</span> <span class="operator">=</span> <span class="variable">@_</span><span class="operator">;</span>
+        <span class="keyword">return</span> <span class="variable">$self</span><span class="operator">-&gt;</span><span class="variable">parent</span><span class="operator">-&gt;</span><span class="variable">substr</span><span class="operator">(</span><span class="variable">$self</span><span class="operator">-&gt;</span><span class="variable">ImageOffset</span><span class="operator">,</span> <span class="variable">$self</span><span class="operator">-&gt;</span><span class="variable">ImageSize</span><span class="operator">);</span>
+    <span class="operator">}</span>
+</code></pre>
+
+<p># Simple <i>.ico</i> file dumper that uses them:</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">IconFile</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">$icon_file</span> <span class="operator">=</span> <span class="variable">IconFile</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">'input.ico'</span><span class="operator">);</span>
+    <span class="keyword">foreach</span> <span class="keyword">my</span> <span class="variable">$icon</span> <span class="operator">(</span><span class="variable">$icon_file</span><span class="operator">-&gt;</span><span class="variable">members</span><span class="operator">)</span> <span class="operator">{</span>
+        <span class="keyword">print</span> <span class="string">"Dimension: "</span><span class="operator">,</span> <span class="variable">$icon</span><span class="operator">-&gt;</span><span class="variable">Width</span><span class="operator">,</span> <span class="string">"x"</span><span class="operator">,</span> <span class="variable">$icon</span><span class="operator">-&gt;</span><span class="variable">Height</span><span class="operator">,</span> <span class="variable">$/</span><span class="operator">;</span>
+        <span class="keyword">print</span> <span class="string">"Colors: "</span><span class="operator">,</span> <span class="number">2</span> <span class="operator">**</span> <span class="variable">$icon</span><span class="operator">-&gt;</span><span class="variable">BitCount</span><span class="operator">,</span> <span class="variable">$/</span><span class="operator">;</span>
+        <span class="keyword">print</span> <span class="string">"Image Size: "</span><span class="operator">,</span> <span class="variable">$icon</span><span class="operator">-&gt;</span><span class="variable">ImageSize</span><span class="operator">,</span> <span class="string">" bytes"</span><span class="operator">,</span> <span class="variable">$/</span><span class="operator">;</span>
+        <span class="keyword">print</span> <span class="string">"Actual Size: "</span><span class="operator">,</span> <span class="keyword">length</span><span class="operator">(</span><span class="variable">$icon</span><span class="operator">-&gt;</span><span class="variable">Data</span><span class="operator">),</span> <span class="string">" bytes"</span><span class="operator">,</span> <span class="variable">$/</span><span class="operator">,</span> <span class="variable">$/</span><span class="operator">;</span>
+    <span class="operator">}</span>
+    <span class="variable">$icon_file</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">(</span><span class="string">'output.ico'</span><span class="operator">);</span> <span class="comment"># save as another .ico file</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module makes parsing binary data structures much easier, by serving as a base class for classes that represents the binary data, which may contain objects of other classes to represent parts of itself.</p>
+
+<p>Documentation is unfortunately a bit lacking at this moment. Please read the tests and source code of <a>Parse::AFP</a> and <a>Win32::Exe</a> for examples of using this module.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2004-2009 by Audrey Tang &lt;cpan@audreyt.org&gt;.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

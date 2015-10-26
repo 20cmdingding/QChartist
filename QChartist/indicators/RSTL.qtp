@@ -1,0 +1,34 @@
+declare sub hideRSTLform
+
+CREATE RSTLform as qform
+
+    Center
+    Caption = "Settings for: RSTL"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create RSTLperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create RSTLperiodedit as qedit
+        left=RSTLperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create RSTLbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideRSTLform
+    end create
+
+END CREATE
+
+sub hideRSTLform
+    RSTLform.visible=0
+end sub

@@ -1,0 +1,722 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Datatypes">Datatypes</a></li>
+      <li><a href="#PerlEzCreate">PerlEzCreate</a></li>
+      <li><a href="#PerlEzCreateOpt">PerlEzCreateOpt</a></li>
+      <li><a href="#PerlEzDelete">PerlEzDelete</a></li>
+      <li><a href="#PerlEzEvalString">PerlEzEvalString</a></li>
+      <li><a href="#PerlEzCall1">PerlEzCall1</a></li>
+      <li><a href="#PerlEzCall2">PerlEzCall2</a></li>
+      <li><a href="#PerlEzCall4">PerlEzCall4</a></li>
+      <li><a href="#PerlEzCall8">PerlEzCall8</a></li>
+      <li><a href="#PerlEzCall">PerlEzCall</a></li>
+      <li><a href="#PerlEzCallContext">PerlEzCallContext</a></li>
+      <li><a href="#PerlEzSetMagicScalarFunctions">PerlEzSetMagicScalarFunctions</a></li>
+      <li><a href="#PerlEzSetMagicScalarName">PerlEzSetMagicScalarName</a></li>
+      <li><a href="#Format-String">Format String</a></li>
+      <li><a href="#Error-Codes">Error Codes</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#POD-ERRORS">POD ERRORS</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>PerlEz - PerlEz host DLL</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This document attempts to describe the functions of the PerlEz host Dynamically Linked Library (DLL). Please refer any questions or comments to the author below.</p>
+
+<h2 id="Datatypes">Datatypes</h2>
+
+<p>PerlEz has one specific data type, PERLEZHANDLE; this is a non-zero handle to a Perl interpreter that is created and can be accessed by the routines described below.</p>
+
+<h2 id="PerlEzCreate">PerlEzCreate</h2>
+
+<ul>
+
+<pre><code> <span class="variable">PERLEZHANDLE</span> <span class="variable">PerlEzCreate</span><span class="operator">(</span><span class="variable">LPCSTR</span> <span class="variable">lpFileName</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpOptions</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Creates a Perl interpreter. The return value is required parameter for all subsequent &#145;PerlEz&#146; calls. Multiple interpreters can be created, but only one will be executing at a time.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>lpFileName a pointer to a ASCIIZ string that is the name of a file; can be NULL</p>
+
+<p>*</p>
+
+<p>lpOptions a pointer to a ASCIIZ string that are the command line options that will be provided before the script; can be NULL. This parameter is used for setting @INC or debugging.</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A non zero handle to a Perl interpreter if successful; zero otherwise. Call PerlEzDelete to release this handle.</p>
+
+<p>See also <a href="#PerlEzDelete">&quot;PerlEzDelete&quot;</a> <a href="#PerlEzCreateOpt">&quot;PerlEzCreateOpt&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzCreateOpt">PerlEzCreateOpt</h2>
+
+<ul>
+
+<pre><code> <span class="variable">PERLEZHANDLE</span> <span class="variable">PerlEzCreateOpt</span><span class="operator">(</span><span class="variable">LPCSTR</span> <span class="variable">lpFileName</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpOptions</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpScriptOpts</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Creates a Perl interpreter. The return value is required parameter for all subsequent &#145;PerlEz&#146; calls. Multiple interpreters can be created, but only one will be executing at a time.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>lpFileName a pointer to a ASCIIZ string that is the name of a file; can be NULL</p>
+
+<p>*</p>
+
+<p>lpOptions a pointer to a ASCIIZ string that are the command line options that will be provided before the script; can be NULL. This parameter is used for setting @INC or debugging.</p>
+
+<p>*</p>
+
+<p>lpScriptOpts a pointer to a ASCIIZ string that are the command line options that will be provided as parameters to the script; can be NULL.</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A non zero handle to a Perl interpreter if successful; zero otherwise. Call PerlEzDelete to release this handle.</p>
+
+<p>See also <a href="#PerlEzDelete">&quot;PerlEzDelete&quot;</a> <a href="#PerlEzCreate">&quot;PerlEzCreate&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzDelete">PerlEzDelete</h2>
+
+<ul>
+
+<pre><code> <span class="variable">BOOL</span> <span class="variable">PerlEzDelete</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Deletes a previously created Perl interpreter. Releases all resources allocated by PerlEzCreate or PerlEzCreateOpt.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>True if no error false otherwise.</p>
+
+</ul>
+
+<h2 id="PerlEzEvalString">PerlEzEvalString</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzEvalString</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpString</span><span class="operator">,</span> <span class="variable">LPSTR</span> <span class="variable">lpBuffer</span><span class="operator">,</span> <span class="variable">DWORD</span> <span class="variable">dwBufSize</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Evaluates the string a returns the result in lpBuffer. If there is an error $! is returned in lpBuffer.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>lpString a pointer to the ASCIIZ string to evaluate</p>
+
+<p>*</p>
+
+<p>lpBuffer a pointer to the buffer where the result will be placed</p>
+
+<p>*</p>
+
+<p>dwBufSize the size in bytes of the space where lpBuffer points</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzCall1">PerlEzCall1</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzCall1</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpFunction</span><span class="operator">,</span> <span class="variable">LPSTR</span> <span class="variable">lpBuffer</span><span class="operator">,</span> <span class="variable">DWORD</span> <span class="variable">dwBufSize</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpFormat</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Calls the function lpFunction and returns the result in the buffer lpBuffer.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>lpFunction a pointer name of the function to call</p>
+
+<p>*</p>
+
+<p>lpBuffer a pointer to the buffer where the result will be placed</p>
+
+<p>*</p>
+
+<p>dwBufSize the size in bytes of the space where lpBuffer points</p>
+
+<p>*</p>
+
+<p>lpFormat a pointer to the parameter specifier; can be NULL. See <a href="#Format-String">&quot;Format String&quot;</a></p>
+
+<p>*</p>
+
+<p>lpVoid a pointer to a parameter will be interpreted based on lpFormat</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzCall2">PerlEzCall2</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzCall2</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpFunction</span><span class="operator">,</span> <span class="variable">LPSTR</span> <span class="variable">lpBuffer</span><span class="operator">,</span> <span class="variable">DWORD</span> <span class="variable">dwBufSize</span><span class="operator">,</span>
+  <span class="variable">LPCSTR</span> <span class="variable">lpFormat</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid1</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid2</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Calls the function lpFunction and returns the result in the buffer lpBuffer.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>lpFunction a pointer name of the function to call</p>
+
+<p>*</p>
+
+<p>lpBuffer a pointer to the buffer where the result will be placed</p>
+
+<p>*</p>
+
+<p>dwBufSize the size in bytes of the space where lpBuffer points</p>
+
+<p>*</p>
+
+<p>lpFormat a pointer to the parameter specifier; can be NULL. See <a href="#Format-String">&quot;Format String&quot;</a></p>
+
+<p>*</p>
+
+<p>lpVoid1...2 pointers to parameters that will be interpreted based on lpFormat</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzCall4">PerlEzCall4</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzCall4</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpFunction</span><span class="operator">,</span> <span class="variable">LPSTR</span> <span class="variable">lpBuffer</span><span class="operator">,</span> <span class="variable">DWORD</span> <span class="variable">dwBufSize</span><span class="operator">,</span>
+   <span class="variable">LPCSTR</span> <span class="variable">lpFormat</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid1</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid2</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid3</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid4</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Calls the function lpFunction and returns the result in the buffer lpBuffer.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>lpFunction a pointer name of the function to call</p>
+
+<p>*</p>
+
+<p>lpBuffer a pointer to the buffer where the result will be placed</p>
+
+<p>*</p>
+
+<p>dwBufSize the size in bytes of the space where lpBuffer points</p>
+
+<p>*</p>
+
+<p>lpFormat a pointer to the parameter specifier; can be NULL. See <a href="#Format-String">&quot;Format String&quot;</a></p>
+
+<p>*</p>
+
+<p>lpVoid1...4 pointers to parameters that will be interpreted based on lpFormat</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzCall8">PerlEzCall8</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzCall8</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpFunction</span><span class="operator">,</span> <span class="variable">LPSTR</span> <span class="variable">lpBuffer</span><span class="operator">,</span> <span class="variable">DWORD</span> <span class="variable">dwBufSize</span><span class="operator">,</span>
+   <span class="variable">LPCSTR</span> <span class="variable">lpFormat</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid1</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid2</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid3</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid4</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid5</span><span class="operator">,</span>
+   <span class="variable">LPVOID</span> <span class="variable">lpVoid6</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid7</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpVoid8</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Calls the function lpFunction and returns the result in the buffer lpBuffer.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>lpFunction a pointer name of the function to call</p>
+
+<p>*</p>
+
+<p>lpBuffer a pointer to the buffer where the result will be placed</p>
+
+<p>*</p>
+
+<p>dwBufSize the size in bytes of the space where lpBuffer points</p>
+
+<p>*</p>
+
+<p>lpFormat a pointer to the parameter specifier; can be NULL. See <a href="#Format-String">&quot;Format String&quot;</a></p>
+
+<p>*</p>
+
+<p>lpVoid1...8 pointers to parameters that will be interpreted based on lpFormat</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzCall">PerlEzCall</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzCall</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpFunction</span><span class="operator">,</span> <span class="variable">LPSTR</span> <span class="variable">lpBuffer</span><span class="operator">,</span> <span class="variable">DWORD</span> <span class="variable">dwBufSize</span><span class="operator">,</span>
+   <span class="variable">LPCSTR</span> <span class="variable">lpFormat</span><span class="operator">,</span> <span class="operator">...);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Calls the function lpFunction and returns the result in the buffer lpBuffer.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>lpFunction a pointer name of the function to call</p>
+
+<p>*</p>
+
+<p>lpBuffer a pointer to the buffer where the result will be placed</p>
+
+<p>*</p>
+
+<p>dwBufSize the size in bytes of the space where lpBuffer points</p>
+
+<p>*</p>
+
+<p>lpFormat a pointer to the parameter specifier; can be NULL. See <a href="#Format-String">&quot;Format String&quot;</a></p>
+
+<p>*</p>
+
+<p>... parameters to be interpreted based on lpFormat</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzCallContext">PerlEzCallContext</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzCallContext</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpFunction</span><span class="operator">,</span> <span class="variable">LPVOID</span> <span class="variable">lpContextInfo</span><span class="operator">,</span>
+   <span class="variable">LPSTR</span> <span class="variable">lpBuffer</span><span class="operator">,</span> <span class="variable">DWORD</span> <span class="variable">dwBufSize</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">lpFormat</span><span class="operator">,</span> <span class="operator">...);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Calls the function lpFunction and returns the result in the buffer lpBuffer.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>lpFunction a pointer name of the function to call</p>
+
+<p>*</p>
+
+<p>lpContextInfo context info for magic fetch and store functions</p>
+
+<p>*</p>
+
+<p>lpBuffer a pointer to the buffer where the result will be placed</p>
+
+<p>*</p>
+
+<p>dwBufSize the size in bytes of the space where lpBuffer points</p>
+
+<p>*</p>
+
+<p>lpFormat a pointer to the parameter specifier; can be NULL. See <a href="#Format-String">&quot;Format String&quot;</a></p>
+
+<p>*</p>
+
+<p>... parameters to be interpreted based on lpFormat</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzSetMagicScalarFunctions">PerlEzSetMagicScalarFunctions</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzSetMagicScalarFunctions</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPFETCHVALUEFUNCTION</span> <span class="variable">lpfFetch</span><span class="operator">,</span>
+                <span class="variable">LPSTOREVALUEFUNCTION</span> <span class="variable">lpfStore</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Sets the call back function pointers for magic scalar variables.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>lpfFetch a pointer to the call back function for fetching a string. if lpfFetch is NULL, then the scalar is write only.</p>
+
+<p>*</p>
+
+<p>lpfStore a pointer to the call back function for storinging a string. if lpfStore is NULL, then the scalar is read only.</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a> NOTE: if lpfFetch and lpfStore are both NULL, then it is an error.</p>
+
+<p>See also <a href="#PerlEzSetMagicScalarName">&quot;PerlEzSetMagicScalarName&quot;</a></p>
+
+</ul>
+
+<h2 id="PerlEzSetMagicScalarName">PerlEzSetMagicScalarName</h2>
+
+<ul>
+
+<pre><code> <span class="keyword">int</span> <span class="variable">PerlEzSetMagicScalarName</span><span class="operator">(</span><span class="variable">PERLEZHANDLE</span> <span class="variable">hHandle</span><span class="operator">,</span> <span class="variable">LPCSTR</span> <span class="variable">pVariableName</span><span class="operator">);</span>
+</code></pre>
+
+<p>DESCRIPTION:</p>
+
+<p>*</p>
+
+<p>Creates the variable if it does not exists and sets it to be tied to the call back function pointer for magic variables.</p>
+
+<p>PARAMS:</p>
+
+<p>*</p>
+
+<p>hHandle a handle returned by the call to PerlEzCreate or PerlEzCreateOpt</p>
+
+<p>*</p>
+
+<p>pVariableName a pointer to the name of the variable.</p>
+
+<p>RETURNS:</p>
+
+<p>*</p>
+
+<p>A zero if no error; otherwise error code. See <a href="#Error-Codes">&quot;Error Codes&quot;</a></p>
+
+<p>See also <a href="#PerlEzSetMagicScalarFunctions">&quot;PerlEzSetMagicScalarFunctions&quot;</a></p>
+
+</ul>
+
+<h2 id="Format-String">Format String</h2>
+
+<ul>
+
+<p>The format string is a series of characters that represents the type of parameters being supplied.</p>
+
+<p>s</p>
+
+<p>*</p>
+
+<p>this parameter is a pointer to a null terminated string.</p>
+
+<p>i</p>
+
+<p>*</p>
+
+<p>this parameter is to be considered an integer.</p>
+
+<p>d</p>
+
+<p>*</p>
+
+<p>this parameter is to be considered a double.</p>
+
+<p>l[s | i | d]x</p>
+
+<p>*</p>
+
+<p>the next &#39;x&#39; parameters will be put into an anonymous list of the type specifed. Either &#39;s&#39;, &#39;i&#39;, or &#39;d&#39;</p>
+
+</ul>
+
+<h2 id="Error-Codes">Error Codes</h2>
+
+<ol>
+
+<li><p>More space is needed to return a result</p>
+
+</li>
+<li><p>Error string returned in the buffer</p>
+
+</li>
+<li><p>More space needed to return the error message</p>
+
+</li>
+<li><p>Format string is invalid</p>
+
+</li>
+<li><p>Function call caused an exception</p>
+
+</li>
+<li><p>Handle is invalid</p>
+
+</li>
+<li><p>The second call to PerlEzSetMagicFunction failed</p>
+
+</li>
+<li><p>Invalid parameter was passed to the routine</p>
+
+</li>
+<li><p>Cannot allocate more memory</p>
+
+</li>
+</ol>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Copyright (c) 1998-2003 ActiveState Corp. All rights reserved.</p>
+
+<h1 id="POD-ERRORS">POD ERRORS</h1>
+
+<p>Hey! <b>The above document had some coding errors, which are explained below:</b></p>
+
+<dl>
+
+<dt id="Around-line-17">Around line 17:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 21) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-25">Around line 25:</dt>
+<dd>
+
+<p>Non-ASCII character seen before =encoding in &#39;&#145;PerlEz&#146;&#39;. Assuming ISO8859-1</p>
+
+</dd>
+<dt id="Around-line-51">Around line 51:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 55) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-90">Around line 90:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 94) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-116">Around line 116:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 120) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-154">Around line 154:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 158) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-200">Around line 200:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 205) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-247">Around line 247:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 252) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-294">Around line 294:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 300) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-342">Around line 342:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 347) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-389">Around line 389:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 394) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-440">Around line 440:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 445) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-480">Around line 480:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 484) unless the first thing after the =over is an =item</p>
+
+</dd>
+<dt id="Around-line-513">Around line 513:</dt>
+<dd>
+
+<p>You can&#39;t have =items (as at line 517) unless the first thing after the =over is an =item</p>
+
+</dd>
+</dl>
+
+
+</body>
+
+</html>
+
+

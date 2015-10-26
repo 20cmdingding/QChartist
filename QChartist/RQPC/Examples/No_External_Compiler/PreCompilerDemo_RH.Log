@@ -1,0 +1,16 @@
+[26 mai 2014, 22:41:52]
+
+[FileNames]
+Exe=C:\RQPC\Examples\No_External_Compiler\PreCompilerDemo.Exe
+SaveAs=C:\RQPC\Examples\No_External_Compiler\PreCompilerDemo.Exe
+Log=C:\RQPC\Examples\No_External_Compiler\PreCompilerDemo_RH.Log
+
+[Commands]
+-addoverwrite "C:\RQPC\Examples\No_External_Compiler\PreCompilerDemo.Bc", TBYTECODE, NBYTECODE, 0
+  Added: TBYTECODE,NBYTECODE,0
+-addoverwrite "C:\RQPC\Examples\No_External_Compiler\Globe.ico", ICONGROUP, MAINICON, 0
+  Modified: ICONGROUP,MAINICON,1033
+-addoverwrite "C:\RQPC\RQ32.Dll", TRQ32DLL, NRQ32DLL, 0
+  Added: TRQ32DLL,NRQ32DLL,0
+
+Commands completed

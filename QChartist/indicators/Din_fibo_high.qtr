@@ -1,0 +1,25 @@
+'------------------------- Din fibo high cpp -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=Din_fibo_highperiodedit.text
+curtfstr=Din_fibo_highcurtfedit.text
+cpptmpfuncreturn=varptr$(dinfibohighcpp(varptr(curtfstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(Din_fibo_highbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="dinfibohighbuffer1"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="dinfibohighbuffer2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Din fibo high cpp -------------------------------------------------

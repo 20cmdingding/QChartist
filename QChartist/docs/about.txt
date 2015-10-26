@@ -1,0 +1,35 @@
+RapidQ est né un peu avant 2000. Créé par William Yu, il a su conquérir beaucoup de monde par sa simplicité. Mais voilà qu'un jour son créateur a annoncé la fin du développement. RapidQ est gratuit, mais en aucun cas libre. William Yu a déjà publié un compilateur sous licence GNU, mais il a refusé de le faire pour RapidQ.
+
+Quelques semaines plus tard, William Yu a publié une lettre sur sa liste de diffusion, où il expliquait son choix. William était confronté à un dilemme : vendre son travail à RealBASIC et se faire embaucher, ou continuer à distribuer RapidQ : "The facts are, I could have made more money working at McDonalds than the time spent on Rapid-Q and what Geoff has offered me to stop working on it", déclarait-il dans sa lettre d'Octobre 2000.
+Il s'en est suivit une discussion assez mouvementée sur la liste. Certain en ont voulu à Geoff, le directeur général de RealBASIC, car il était très présent sur la liste de diffusion pour parler de sa société. Cela a été vu comme de la publicité gratuite. Certain on dit aussi que Geoff avait tout intérêt à faire disparaitre le langage, et son développeur avec. Lorsque l'on compare ces deux langages, ils se ressemblent en tout point. Il est même possible de créer des fenêtres avec l'éditeur de RapidQ et de compiler le code sans aucune modification sous RealBASIC (Real Studio).
+
+C'était il y a 11 ans, la liberté de diffusion n'était pas encore un argument commercial pour les entreprises, et elle n'avait pas encore cette puissance chez les développeurs. Les amateurs de RapidQ diront que son rachat est une catastrophe car ils pensaient que RapidQ allait devenir un très grand langage. Mais avec un peu de recul, on se rend compte que la version de 2000 n'est pas buggée et qu'elle est toujours compatible avec les dernières version de Windows (et de Linux, puisqu'il existe des versions multiplateforme). Encore une fois, la puissance de ce langage réside dans sa simplicité : il est possible de faire appel très simplement à des DLL, ce qui rend ses possiblités presques infinies.
+
+Biensûr, j'aurais aimé qu'il en soit autrement, que le langage soit publié en GNU. Mais l'informatique n'est-elle pas un secteur où l'on peut devenir célèbre ? Où son tallent (car c'est bien de cela qu'il s'agit pour William Yu) peut être reconnu, et permettre de s'élever socialement ?
+Finalement, William Yu a gagné le respect de milliers de développeurs, et a trouvé un emploi dans une société implantée dans 7 pays. Une belle carrière dans l'informatique, non ?
+
+William Yu : I'm sorry ...
+Hi,
+
+I have remained silent through all of this, and I apologize for leaving people in the dark about the current situation. I had a letter written up a few weeks ago, but I never posted. 
+
+To be quite honest I didn't know what to say. For one thing, and I hope people truely believe this but, all the time I've spent on Rapid-Q was one of the most enjoyable experiences in my life because of the great people on the mailing list.
+I know how it looks now, like I've double crossed everyone here who's helped me along the way, but I did not go into this demanding anything, and I hope there's no one here who feels that they demand something now.
+
+I created Rapid-Q to help people get started on Windows programming, and I believe that I have, but I'm not going to make any apologies for my decision.
+I know this situation has upset a lot of people, but please take away the blame on Geoff and put it where it really belongs, me. It's not like I didn't know what I was getting myself into, because I did.
+
+I can understand the frustration in not open sourcing Rapid-Q in the first place, and I do feel like I let people down because of it, but would it have cost me my job here, perhaps. 
+I don't know how many here have worked on a project for over a year to just let it go public. Just ask Max Reason to open source XBasic when he first created it, or Carl Gundel for that matter. No one is obligated to do anything. If this is a character flaw on my part, then you must make your own assumptions, are we all bad because we don't open source our creations? Rapid-Q, as it stands today,is still fully useable without royalties. No one here, or anywhere else, can tell you otherwise, Rapid-Q is still free for public consumption, it's just that it will no longer be maintained as Rapid-Q. It may someday manifest as REALbasic to some degree.
+
+The facts are, I could have made more money working at McDonalds than the time spent on Rapid-Q and what Geoff has offered me to stop working on
+it. So if you think I'm selling out, so be it. I'm not perfect, we all have tough decisions to make, I'm thinking about my future right now, so if this seems selfish of me, then I can't help you there either. We all want to feel like we're doing the right thing, I can't tell you that I am, I can only ask for your forgiveness for my mistakes, and if you feel this is one of them, then you'll know that I'll be paying for it sooner or later.
+
+I hope this letter didn't sound too formal, I hope nothing like this ever happens again either, to me or anyone else. I share in your pain, it hasn't been easy to walk away from people such as Gerome GUILLEMIN, Steven E, Chris B, Erlend, Thomas S, Jordi, Pavel, Bryn, Andrew G, and all those who've offered their support and constructive criticism. 
+They're all great people and I'm sure you'll all do great things. Thank you for believing in Rapid-Q and for your countless time and energy devoted to helping it succeed, I just hope this experience doesn't stop you from believing in projects like this. I know we've all learned something from this whole situation.
+
+I'm sorry it has come to this, I really feel bad for not saying something sooner, but I hope that this message at least clarifies some things, good or bad, I'm sure you'll let me know. You're all free to speak up, I'm glad most of you have, and the mailing list will not be terminated unless everyone here leaves. The Rapid-Q page will still remain, but it may be moved in the future, you will all know if or when it does. I still have yet to settle in, as I am writing this up in my hotel room, but hopefully we can all move on from this and be better off for it.
+
+Thanks for your attention and support,
+
+William Yu

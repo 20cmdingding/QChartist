@@ -1,0 +1,378 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#LABELS">LABELS</a></li>
+    </ul>
+  </li>
+  <li><a href="#INSTALLATION">INSTALLATION</a></li>
+  <li><a href="#SUPPORT-AND-DOCUMENTATION">SUPPORT AND DOCUMENTATION</a></li>
+  <li><a href="#AVAILABLE-METHODS">AVAILABLE METHODS</a>
+    <ul>
+      <li><a href="#NEW">NEW</a></li>
+      <li><a href="#FETCH">FETCH</a></li>
+      <li><a href="#SOURCES">SOURCES</a></li>
+      <li><a href="#CURRENCY_LOOKUP">CURRENCY_LOOKUP</a></li>
+      <li><a href="#CURRENCY">CURRENCY</a></li>
+      <li><a href="#SET_CURRENCY">SET_CURRENCY</a></li>
+      <li><a href="#FAILOVER">FAILOVER</a></li>
+      <li><a href="#USER_AGENT">USER_AGENT</a></li>
+      <li><a href="#SCALE_FIELD">SCALE_FIELD</a></li>
+      <li><a href="#ISOTIME">ISOTIME</a></li>
+    </ul>
+  </li>
+  <li><a href="#ENVIRONMENT">ENVIRONMENT</a></li>
+  <li><a href="#BUGS">BUGS</a></li>
+  <li><a href="#COPYRIGHT-LICENSE">COPYRIGHT &amp; LICENSE</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote - Get stock and mutual fund quotes from various exchanges</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>   <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+   <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+   
+   <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">timeout</span><span class="operator">(</span><span class="number">60</span><span class="operator">);</span>
+   
+   <span class="variable">$conversion_rate</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">currency</span><span class="operator">(</span><span class="string">"AUD"</span><span class="operator">,</span><span class="string">"USD"</span><span class="operator">);</span>
+   <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">set_currency</span><span class="operator">(</span><span class="string">"EUR"</span><span class="operator">);</span>  <span class="comment"># Return all info in Euros.</span>
+   
+   <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">require_labels</span><span class="operator">(</span><span class="string">qw/price date high low volume/</span><span class="operator">);</span>
+   
+   <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">failover</span><span class="operator">(</span><span class="number">1</span><span class="operator">);</span> <span class="comment"># Set failover support (on by default).</span>
+   
+   <span class="variable">%quotes</span>  <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"nasdaq"</span><span class="operator">,</span><span class="variable">@stocks</span><span class="operator">);</span>
+   <span class="variable">$hashref</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"nyse"</span><span class="operator">,</span><span class="variable">@stocks</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module gets stock quotes from various internet sources, including Yahoo! Finance, Fidelity Investments, and the Australian Stock Exchange. There are two methods of using this module -- a functional interface that is deprecated, and an object-orientated method that provides greater flexibility and stability.</p>
+
+<p>With the exception of straight currency exchange rates, all information is returned as a two-dimensional hash (or a reference to such a hash, if called in a scalar context). For example:</p>
+
+<pre><code>    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"australia"</span><span class="operator">,</span><span class="string">"CML"</span><span class="operator">);</span>
+    <span class="keyword">print</span> <span class="string">"The price of CML is "</span><span class="operator">.</span><span class="variable">$info</span><span class="operator">{</span><span class="string">"CML"</span><span class="operator">,</span><span class="string">"price"</span><span class="operator">}</span><span class="operator">;</span>
+</code></pre>
+
+<p>The first part of the hash (eg, &quot;CML&quot;) is referred to as the stock. The second part (in this case, &quot;price&quot;) is referred to as the label.</p>
+
+<h2 id="LABELS">LABELS</h2>
+
+<p>When information about a stock is returned, the following standard labels may be used. Some custom-written modules may use labels not mentioned here. If you wish to be certain that you obtain a certain set of labels for a given stock, you can specify that using require_labels().</p>
+
+<pre><code>    name         Company or Mutual Fund Name
+    last         Last Price
+    high         Highest trade today
+    low          Lowest trade today
+    date         Last Trade Date  (MM/DD/YY format)
+    time         Last Trade Time
+    net          Net Change
+    p_change     Percent Change from previous day&#39;s close
+    volume       Volume
+    avg_vol      Average Daily Vol
+    bid          Bid
+    ask          Ask
+    close        Previous Close
+    open         Today&#39;s Open
+    day_range    Day&#39;s Range
+    year_range   52-Week Range
+    eps          Earnings per Share
+    pe           P/E Ratio
+    div_date     Dividend Pay Date
+    div          Dividend per Share
+    div_yield    Dividend Yield
+    cap          Market Capitalization
+    ex_div       Ex-Dividend Date.
+    nav          Net Asset Value
+    yield        Yield (usually 30 day avg)
+    exchange     The exchange the information was obtained from.
+    success      Did the stock successfully return information? (true/false)
+    errormsg     If success is false, this field may contain the reason why.
+    method       The module (as could be passed to fetch) which found this
+                 information.
+    type         The type of equity returned</code></pre>
+
+<p>If all stock lookups fail (possibly because of a failed connection) then the empty list may be returned, or undef in a scalar context.</p>
+
+<h1 id="INSTALLATION">INSTALLATION</h1>
+
+<p>To install this module, run the following commands:</p>
+
+<pre><code>    perl Makefile.PL
+    make
+    make test
+    make install</code></pre>
+
+<p>For more detailed instructions, please see the INSTALL file.</p>
+
+<h1 id="SUPPORT-AND-DOCUMENTATION">SUPPORT AND DOCUMENTATION</h1>
+
+<p>After installing, you can find documentation for this module with the perldoc command.</p>
+
+<pre><code>    perldoc Finance::Quote</code></pre>
+
+<p>You can also look for information at:</p>
+
+<dl>
+
+<dt id="RT-CPANs-request-tracker">RT, CPAN&#39;s request tracker</dt>
+<dd>
+
+<p>http://rt.cpan.org/NoAuth/Bugs.html?Dist=Finance-Quote</p>
+
+</dd>
+<dt id="AnnoCPAN-Annotated-CPAN-documentation">AnnoCPAN, Annotated CPAN documentation</dt>
+<dd>
+
+<p>http://annocpan.org/dist/Finance-Quote</p>
+
+</dd>
+<dt id="CPAN-Ratings">CPAN Ratings</dt>
+<dd>
+
+<p>http://cpanratings.perl.org/d/Finance-Quote</p>
+
+</dd>
+<dt id="Search-CPAN">Search CPAN</dt>
+<dd>
+
+<p>http://search.cpan.org/dist/Finance-Quote</p>
+
+</dd>
+<dt id="The-Finance::Quote-home-page">The Finance::Quote home page</dt>
+<dd>
+
+<p>http://finance-quote.sourceforge.net/</p>
+
+</dd>
+<dt id="The-Finance::YahooQuote-home-page">The Finance::YahooQuote home page</dt>
+<dd>
+
+<p>http://www.padz.net/~djpadz/YahooQuote/</p>
+
+</dd>
+<dt id="The-GnuCash-home-page">The GnuCash home page</dt>
+<dd>
+
+<p>http://www.gnucash.org/</p>
+
+</dd>
+</dl>
+
+<h1 id="AVAILABLE-METHODS">AVAILABLE METHODS</h1>
+
+<h2 id="NEW">NEW</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">"ASX"</span><span class="operator">);</span>
+    <span class="keyword">my</span> <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">"-defaults"</span><span class="operator">,</span> <span class="string">"CustomModule"</span><span class="operator">);</span>
+</code></pre>
+
+<p>With no arguents, this creates a new Finance::Quote object with the default methods. If the environment variable FQ_LOAD_QUOTELET is set, then the contents of FQ_LOAD_QUOTELET (split on whitespace) will be used as the argument list. This allows users to load their own custom modules without having to change existing code. If you do not want users to be able to load their own modules at run-time, pass an explicit argumetn to -&gt;new() (usually &quot;-defaults&quot;).</p>
+
+<p>When new() is passed one or more arguments, an object is created with only the specified modules loaded. If the first argument is &quot;-defaults&quot;, then the default modules will be loaded first, followed by any other specified modules.</p>
+
+<p>Note that the FQ_LOAD_QUOTELET environment variable must begin with &quot;-defaults&quot; if you wish the default modules to be loaded.</p>
+
+<p>Any modules specified will automatically be looked for in the Finance::Quote:: module-space. Hence, Finance::Quote-&gt;new(&quot;ASX&quot;) will load the module Finance::Quote::ASX.</p>
+
+<p>Please read the Finance::Quote hacker&#39;s guide for information on how to create new modules for Finance::Quote.</p>
+
+<h2 id="FETCH">FETCH</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">%stocks</span>  <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"usa"</span><span class="operator">,</span><span class="string">"IBM"</span><span class="operator">,</span><span class="string">"MSFT"</span><span class="operator">,</span><span class="string">"LNUX"</span><span class="operator">);</span>
+    <span class="keyword">my</span> <span class="variable">$hashref</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"usa"</span><span class="operator">,</span><span class="string">"IBM"</span><span class="operator">,</span><span class="string">"MSFT"</span><span class="operator">,</span><span class="string">"LNUX"</span><span class="operator">);</span>
+</code></pre>
+
+<p>Fetch takes an exchange as its first argument. The second and remaining arguments are treated as stock-names. In the standard Finance::Quote distribution, the following exchanges are recognised:</p>
+
+<pre><code>    australia   Australan Stock Exchange
+    dwsfunds    Deutsche Bank Gruppe funds
+    fidelity    Fidelity Investments
+    tiaacref    TIAA-CREF
+    troweprice    T. Rowe Price
+    europe    European Markets
+    canada    Canadian Markets
+    usa     USA Markets
+    nyse    New York Stock Exchange
+    nasdaq    NASDAQ
+    uk_unit_trusts  UK Unit Trusts
+    vanguard    Vanguard Investments
+    vwd     Vereinigte Wirtschaftsdienste GmbH</code></pre>
+
+<p>When called in an array context, a hash is returned. In a scalar context, a reference to a hash will be returned. The structure of this hash is described earlier in this document.</p>
+
+<p>The fetch method automatically arranges for failover support and currency conversion if requested.</p>
+
+<p>If you wish to fetch information from only one particular source, then consult the documentation of that sub-module for further information.</p>
+
+<h2 id="SOURCES">SOURCES</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@sources</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">sources</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">$listref</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">sources</span><span class="operator">;</span>
+</code></pre>
+
+<p>The sources method returns a list of sources that have currently been loaded and can be passed to the fetch method. If you&#39;re providing a user with a list of sources to choose from, then it is recommended that you use this method.</p>
+
+<h2 id="CURRENCY_LOOKUP">CURRENCY_LOOKUP</h2>
+
+<pre><code>    <span class="variable">$currencies_by_name</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">currency_lookup</span><span class="operator">(</span> <span class="string">name</span> <span class="operator">=&gt;</span> <span class="string">'Australian'</span> <span class="operator">);</span>
+    <span class="variable">$currencies_by_code</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">currency_lookup</span><span class="operator">(</span> <span class="string">code</span> <span class="operator">=&gt;</span> <span class="string">qr/^b/i</span>      <span class="operator">);</span>
+    <span class="variable">$currencies_by_both</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">currency_lookup</span><span class="operator">(</span> <span class="string">name</span> <span class="operator">=&gt;</span> <span class="string">qr/pound/i</span>
+                                             <span class="operator">,</span> <span class="string">code</span> <span class="operator">=&gt;</span> <span class="string">'GB'</span>         <span class="operator">);</span>
+</code></pre>
+
+<p>The currency_lookup method provides a search against the known currencies. The list of currencies is based on the available currencies in the Yahoo Currency Converter (the list is stored within the module as the list should be fairly static).</p>
+
+<p>The lookup can be done by currency name (ie &quot;Australian Dollar&quot;), by code (ie &quot;AUD&quot;) or both. You can pass either a scalar or regular expression as a search value - scalar values are matched by substring while regular expressions are matched as-is (no changes are made to the expression).</p>
+
+<p>See <a>Finance::Quote::Currencies::fetch_live_currencies</a> (and the <code>t/currencies.t</code> test file) for a way to make sure that the stored currency list is up to date.</p>
+
+<h2 id="CURRENCY">CURRENCY</h2>
+
+<pre><code>    <span class="variable">$conversion_rate</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">currency</span><span class="operator">(</span><span class="string">"USD"</span><span class="operator">,</span><span class="string">"AUD"</span><span class="operator">);</span>
+</code></pre>
+
+<p>The currency method takes two arguments, and returns a conversion rate that can be used to convert from the first currency into the second. In the example above, we&#39;ve requested the factor that would convert US dollars into Australian dollars.</p>
+
+<p>The currency method will return a false value if a given currency conversion cannot be fetched.</p>
+
+<p>At the moment, currency rates are fetched from Yahoo!, and the information returned is governed by Yahoo!&#39;s terms and conditions. See Finance::Quote::Yahoo for more information.</p>
+
+<h2 id="SET_CURRENCY">SET_CURRENCY</h2>
+
+<pre><code>    <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">set_currency</span><span class="operator">(</span><span class="string">"FRF"</span><span class="operator">);</span>  <span class="comment"># Get results in French Francs.</span>
+</code></pre>
+
+<p>The set_currency method can be used to request that all information be returned in the specified currency. Note that this increases the chance stock-lookup failure, as remote requests must be made to fetch both the stock information and the currency rates. In order to improve reliability and speed performance, currency conversion rates are cached and are assumed not to change for the duration of the Finance::Quote object.</p>
+
+<p>At this time, currency conversions are only looked up using Yahoo!&#39;s services, and hence information obtained with automatic currency conversion is bound by Yahoo!&#39;s terms and conditions.</p>
+
+<h2 id="FAILOVER">FAILOVER</h2>
+
+<pre><code>    <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">failover</span><span class="operator">(</span><span class="number">1</span><span class="operator">);</span>  <span class="comment"># Set automatic failover support.</span>
+    <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">failover</span><span class="operator">(</span><span class="number">0</span><span class="operator">);</span>  <span class="comment"># Disable failover support.</span>
+</code></pre>
+
+<p>The failover method takes a single argument which either sets (if true) or unsets (if false) automatic failover support. If automatic failover support is enabled (default) then multiple information sources will be tried if one or more sources fail to return the requested information. Failover support will significantly increase the time spent looking for a non-existant stock.</p>
+
+<p>If the failover method is called with no arguments, or with an undefined argument, it will return the current failover state (true/false).</p>
+
+<h2 id="USER_AGENT">USER_AGENT</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$ua</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">user_agent</span><span class="operator">;</span>
+</code></pre>
+
+<p>The user_agent method returns the LWP::UserAgent object that Finance::Quote and its helpers use. Normally this would not be useful to an application, however it is possible to modify the user-agent directly using this method:</p>
+
+<pre><code>    <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">user_agent</span><span class="operator">-&gt;</span><span class="variable">timeout</span><span class="operator">(</span><span class="number">10</span><span class="operator">);</span>  <span class="comment"># Set the timeout directly.</span>
+</code></pre>
+
+<h2 id="SCALE_FIELD">SCALE_FIELD</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$pounds</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">scale_field</span><span class="operator">(</span><span class="variable">$item_in_pence</span><span class="operator">,</span><span class="number">0</span><span class="operator">.</span><span class="number">01</span><span class="operator">);</span>
+</code></pre>
+
+<p>The scale_field() function is a helper that can scale complex fields such as ranges (eg, &quot;102.5 - 103.8&quot;) and other fields where the numbers should be scaled but any surrounding text preserved. It&#39;s most useful in writing new Finance::Quote modules where you may retrieve information in a non-ISO4217 unit (such as cents) and would like to scale it to a more useful unit (like dollars).</p>
+
+<h2 id="ISOTIME">ISOTIME</h2>
+
+<pre><code>    <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">isoTime</span><span class="operator">(</span><span class="string">"11:39PM"</span><span class="operator">);</span>    <span class="comment"># returns "23:39"</span>
+    <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">isoTime</span><span class="operator">(</span><span class="string">"9:10 AM"</span><span class="operator">);</span>    <span class="comment"># returns "09:10"</span>
+</code></pre>
+
+<p>This function will return a isoformatted time</p>
+
+<h1 id="ENVIRONMENT">ENVIRONMENT</h1>
+
+<p>Finance::Quote respects all environment that your installed version of LWP::UserAgent respects. Most importantly, it respects the http_proxy environment variable.</p>
+
+<h1 id="BUGS">BUGS</h1>
+
+<p>There are no ways for a user to define a failover list.</p>
+
+<p>The two-dimensional hash is a somewhat unwieldly method of passing around information when compared to references. A future release is planned that will allow for information to be returned in a more flexible $hash{$stock}{$label} style format.</p>
+
+<p>There is no way to override the default behaviour to cache currency conversion rates.</p>
+
+<h1 id="COPYRIGHT-LICENSE">COPYRIGHT &amp; LICENSE</h1>
+
+<pre><code> Copyright 1998, Dj Padzensky
+ Copyright 1998, 1999 Linas Vepstas
+ Copyright 2000, Yannick LE NY (update for Yahoo Europe and YahooQuote)
+ Copyright 2000-2001, Paul Fenwick (updates for ASX, maintainence and release)
+ Copyright 2000-2001, Brent Neal (update for TIAA-CREF)
+ Copyright 2000 Volker Stuerzl (DWS and VWD support)
+ Copyright 2000 Keith Refson (Trustnet support)
+ Copyright 2001 Rob Sessink (AEX support)
+ Copyright 2001 Leigh Wedding (ASX updates)
+ Copyright 2001 Tobias Vancura (Fool support)
+ Copyright 2001 James Treacy (TD Waterhouse support)
+ Copyright 2008 Erik Colson (isoTime)</code></pre>
+
+<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>Currency information fetched through this module is bound by Yahoo!&#39;s terms and conditons.</p>
+
+<p>Other copyrights and conditions may apply to data fetched through this module. Please refer to the sub-modules for further information.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<pre><code>  Dj Padzensky &lt;djpadz@padz.net&gt;, PadzNet, Inc.
+  Linas Vepstas &lt;linas@linas.org&gt;
+  Yannick LE NY &lt;y-le-ny@ifrance.com&gt;
+  Paul Fenwick &lt;pjf@cpan.org&gt;
+  Brent Neal &lt;brentn@users.sourceforge.net&gt;
+  Volker Stuerzl &lt;volker.stuerzl@gmx.de&gt;
+  Keith Refson &lt;Keith.Refson#earth.ox.ac.uk&gt;
+  Rob Sessink &lt;rob_ses@users.sourceforge.net&gt;
+  Leigh Wedding &lt;leigh.wedding@telstra.com&gt;
+  Tobias Vancura &lt;tvancura@altavista.net&gt;
+  James Treacy &lt;treacy@debian.org&gt;
+  Bradley Dean &lt;bjdean@bjdean.id.au&gt;
+  Erik Colson &lt;eco@ecocode.net&gt;</code></pre>
+
+<p>The Finance::Quote home page can be found at http://finance-quote.sourceforge.net/</p>
+
+<p>The Finance::YahooQuote home page can be found at http://www.padz.net/~djpadz/YahooQuote/</p>
+
+<p>The GnuCash home page can be found at http://www.gnucash.org/</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Finance::Quote::AEX, Finance::Quote::ASX, Finance::Quote::Cdnfundlibrary, Finance::Quote::DWS, Finance::Quote::Fidelity, Finance::Quote::FinanceCanada, Finance::Quote::Fool, Finance::Quote::FTPortfolios, Finance::Quote::Tdefunds, Finance::Quote::Tdwaterhouse, Finance::Quote::Tiaacref, Finance::Quote::Troweprice, Finance::Quote::Trustnet, Finance::Quote::VWD, Finance::Quote::Yahoo::Australia, Finance::Quote::Yahoo::Europe, Finance::Quote::Yahoo::USA, LWP::UserAgent</p>
+
+<p>You should have also received the Finance::Quote hacker&#39;s guide with this package. Please read it if you are interested in adding extra methods to this package. The hacker&#39;s guide can also be found on the Finance::Quote website, http://finance-quote.sourceforge.net/</p>
+
+
+</body>
+
+</html>
+
+

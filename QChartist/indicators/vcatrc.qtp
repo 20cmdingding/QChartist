@@ -1,0 +1,32 @@
+declare sub hidevcatrcform 
+
+CREATE vcatrcform as qform
+
+    Center
+    Caption = "Settings for: Value Chart of ATR Channels"
+    visible=0
+         
+    create vcatrcbarsbacklab as qlabel
+        top=0
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create vcatrcbarsbackedit as qedit
+        left=vcatrcbarsbacklab.left+100
+        top=vcatrcbarsbacklab.top
+        text="200"
+    end create
+    
+    create vcatrcbtnok as qbutton
+        left=0
+        top=vcatrcbarsbacklab.top+vcatrcbarsbacklab.height+15
+        caption="OK"
+        onclick=hidevcatrcform
+    end create
+          
+END CREATE            
+
+sub hidevcatrcform
+vcatrcform.visible=0
+end sub

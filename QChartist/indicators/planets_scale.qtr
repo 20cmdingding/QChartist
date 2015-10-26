@@ -1,0 +1,30 @@
+'------------------------- planets_scale -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+planets_scale
+end if
+
+barsback=300 '<--- can also be something like VAL(planets_scalebarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+
+defint incrplanet
+for incrplanet=0 to 10
+    sepindicolor(drawid)=olive '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(planets_scalebuffer(incrplanet,offset))
+    drawid=drawid+2
+next incrplanet
+
+sepindicolor(drawid)=red '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(price_scalebuffer(offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=blue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(price_scalebuffer2(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End planets_scale -------------------------------------------------

@@ -1,0 +1,47 @@
+declare sub hideADR112cppform
+
+CREATE ADR112cppform as qform
+
+    Center
+    Caption = "Settings for: ADR112 cpp"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create ADR112cppperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create ADR112cppperiodedit as qedit
+        left=ADR112cppperiodlab.width+100
+        top=0
+        text="14"
+    end create
+    
+    create ADR112cpptfbaselab as qlabel
+        left=0
+        top=20
+        caption="Timeframe basement:"
+    end create
+
+    create ADR112cpptfbasecombo as qcombobox
+        left=ADR112cpptfbaselab.width+10
+        top=20
+        additems "Daily","Weekly","Monthly"
+        itemindex=2
+    end create
+
+    create ADR112cppbtnok as qbutton
+        left=0
+        top=40
+        caption="OK"
+        onclick=hideADR112cppform
+    end create
+
+END CREATE
+
+sub hideADR112cppform
+    ADR112cppform.visible=0
+end sub

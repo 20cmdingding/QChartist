@@ -1,0 +1,52 @@
+dim sma49ptbuffer(0 to 1000) as double
+
+declare sub sma49pt()
+
+sub sma49pt()
+    dim maperiod as integer
+    maperiod=49
+    dim sum as double
+    sum=0
+    dim i as integer,p as integer
+    p=bars-1
+    p=1000
+    if p<maperiod then
+        p=maperiod
+    end if
+    for i=1 to maperiod-1
+        sum=sum+(high(p)+low(p)+close(p))/3
+        p--
+    next i
+    while p>=0
+        sum=sum+(high(p)+low(p)+close(p))/3
+        sma49ptbuffer(p)=sum/maperiod
+        sum=sum-(high(p+maperiod-1)+low(p+maperiod-1)+close(p+maperiod-1))/3
+        p--
+    wend
+
+end sub  
+
+declare sub atrchannels()
+
+dim ma_buffer0(1 to 1000) as double,ch3up_buffer5(1 to 1000) as double,ch3dn_buffer6(1 to 1000) as double
+    
+dim periodsatr as integer,ma_periods as integer,mult_factor1 as double,mult_factor2 as double,mult_factor3 as double
+periodsatr=val(atrchannelperiodedit.text)
+ma_periods=49
+mult_factor1=1.6
+mult_factor2=3.2
+mult_factor3=4.8
+    
+sub atrchannels()
+    periodsatr=val(atrchannelperiodedit.text)
+    dim limit as integer
+    limit=val(atrchannelbarsbackedit.text)
+    atr(periodsatr)    
+    sma49pt
+    dim i as integer
+    for i=0 to limit-1
+        ch3up_buffer5(i)=sma49ptbuffer(i)+atrbuffer(i)*mult_factor3
+        ch3dn_buffer6(i)=sma49ptbuffer(i)-atrbuffer(i)*mult_factor3
+    next i
+   
+end sub

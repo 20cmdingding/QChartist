@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHOR-Stephen-Langenhoven-langenhoven-users.sourceforge.net-see-module-ZA-for-further-acknowledgements">AUTHOR Stephen Langenhoven (langenhoven@users.sourceforge.net), see module ZA for further acknowledgements.</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::USFedBonds Get US Federal Bond redemption values directly from the treasury at www.publicdebt.treas.gov/sav/savvalue.htm</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="comment"># Don't know anything about failover yet...</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Access redemption values for US Federal Bonds from the treasury.</p>
+
+<p>Bonds should be identified in the following manner (as per www.piblicdebt.treas.gov/sav/savfrmat.htm):</p>
+
+<p>SERIES(1) : I/E/N/S</p>
+
+<p>ISSUEDATE(6) : YYYYMM</p>
+
+<p>SEPERATOR(1) : &quot;.&quot;</p>
+
+<p>REDEMPTIONDATE(6) : YYYYMM</p>
+
+<p>e.g. E200101.200501</p>
+
+<p>Would have liked to get data from this source (http://wwws.publicdebt.treas.gov/BC/SBCPrice), but I couldn&#39;t work out how to get the POST to pass the IssueDate, for some reason the &lt;input&gt; tags are messed on that page???</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>...</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Treasury website - http://www.publicdebt.treas.gov/</p>
+
+<p>Finance::Quote</p>
+
+<h1 id="AUTHOR-Stephen-Langenhoven-langenhoven-users.sourceforge.net-see-module-ZA-for-further-acknowledgements">AUTHOR Stephen Langenhoven (langenhoven@users.sourceforge.net), see module ZA for further acknowledgements.</h1>
+
+
+</body>
+
+</html>
+
+

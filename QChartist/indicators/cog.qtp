@@ -1,0 +1,44 @@
+declare sub hidecogform 
+
+CREATE cogform as qform
+
+    Center
+    Caption = "Settings for: Center of Gravity"
+    visible=0
+         
+'    create cogperiodlab as qlabel
+'        left=0
+'        top=0
+'        caption="Period:"
+'    end create
+    
+'    create cogperiodedit as qedit
+'        left=cogperiodlab.width+100
+'        top=0
+'        text="20"
+'    end create
+    
+    create cogbarsbacklab as qlabel
+        top=0
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create cogbarsbackedit as qedit
+        left=cogbarsbacklab.width+10
+        top=cogbarsbacklab.top
+        text="225"
+    end create
+                    
+    create cogbtnok as qbutton
+        left=0
+        top=cogbarsbacklab.top+cogbarsbacklab.height+15
+        caption="OK"
+        onclick=hidecogform
+    end create
+          
+END CREATE 
+
+sub hidecogform
+cogform.visible=0
+end sub

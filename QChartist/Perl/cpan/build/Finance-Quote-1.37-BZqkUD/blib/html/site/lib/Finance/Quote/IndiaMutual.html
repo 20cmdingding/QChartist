@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#AMFIINDIA-CODE-ISIN">AMFIINDIA-CODE/ISIN</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#NOTES">NOTES</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::IndiaMutual - Obtain Indian mutual fund prices from amfiindia.com</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"indiamutual"</span><span class="operator">,</span> <span class="string">"amfiindia-code"</span><span class="operator">);</span> <span class="comment"># Can</span>
+    <span class="variable">failover</span> <span class="variable">to</span> <span class="variable">other</span> <span class="variable">methods</span>
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"amfiindia"</span><span class="operator">,</span> <span class="string">"amfiindia-code"</span><span class="operator">);</span> <span class="comment"># Use this</span>
+    <span class="variable">module</span> <span class="variable">only</span><span class="operator">.</span>
+    
+    <span class="comment"># NOTE: currently no failover methods exist for indiamutual</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information about Indian Mutual Fund prices from the Association of Mutual Funds India website amfiindia.com. The information source &quot;indiamutual&quot; can be used if the source of prices is irrelevant, and &quot;amfiindia&quot; if you specifically want to use information downloaded from amfiindia.com.</p>
+
+<h1 id="AMFIINDIA-CODE-ISIN">AMFIINDIA-CODE/ISIN</h1>
+
+<p>In India, not all funds have an ISIN. However, they do have a scheme code. You can use those if you can&#39;t find the ISIN. See AMFI site for details. http://www.amfiindia.com/nav-history-download</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>Information available from amfiindia may include the following labels:</p>
+
+<p>method link source name currency nav rprice sprice. The link label will be a url location for the NAV list table for all funds.</p>
+
+<h1 id="NOTES">NOTES</h1>
+
+<p>AMFI provides a link to download a text file containing all the NAVs. This file is mirrored in a local file /tmp/amfinavlist.txt. The local mirror serves only as a cache and can be safely removed.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>AMFI india website - http://www.amfiindia.com/</p>
+
+<p>Finance::Quote</p>
+
+
+</body>
+
+</html>
+
+

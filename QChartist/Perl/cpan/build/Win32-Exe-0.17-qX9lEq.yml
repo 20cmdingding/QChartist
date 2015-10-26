@@ -1,0 +1,61 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: M/MD/MDOOTSON/Win32-Exe-0.17.tar.gz
+  CHECKSUM_STATUS: OK
+  ID: M/MD/MDOOTSON/Win32-Exe-0.17.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: MDOOTSON
+  archived: tar
+  build_dir: C:\Perl\cpan\build\Win32-Exe-0.17-qX9lEq
+  incommandcolor: 2
+  install: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423647
+  localfile: C:\Perl\cpan\sources\authors\id\M\MD\MDOOTSON\Win32-Exe-0.17.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423625
+  make_test: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423632
+  mandatory: 1
+  negative_prefs_cache: 1
+  prefs:
+    install: {}
+  prereq_pm:
+    build_requires:
+      File::Copy: '0'
+      Test::More: '0'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      Parse::Binary: '0.11'
+      XML::Parser: '2.36'
+      XML::Simple: '2.18'
+      perl: '5.006000'
+  reqtype: r
+  sponsored_mods:
+    Parse::Binary: 1
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423564
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423565
+perl:
+  $^X: c:\perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426423647

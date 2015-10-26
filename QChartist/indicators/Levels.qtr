@@ -1,0 +1,56 @@
+'------------------------- Levels -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=Levelsperiodedit.text
+cpptmpfuncreturn=varptr$(Levels(varptr(periodstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(Levelsbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="sopr1"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="sopr2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="sopr3"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="sopr4"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="sopr5"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="pod1"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="pod2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="pod3"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="pod4"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="pod5"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Levels -------------------------------------------------

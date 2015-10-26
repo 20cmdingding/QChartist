@@ -1,0 +1,80 @@
+'------------------------- Murrey_Math -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+barsbackstr=Murrey_Mathbarsbackedit.text
+cpptmpfuncreturn=varptr$(Murrey_Math(varptr(barsbackstr)))
+end if
+
+barsback=val(barsbackstr) '<--- can also be something like VAL(Murrey_Mathbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer1"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=lightblue '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer3"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer4"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=pink '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer5"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer6"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=lightblue '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer7"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer8"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=pink '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer9"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer10"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=lightblue '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer11"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer12"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="Murrey_Mathbuffer13"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Murrey_Math -------------------------------------------------

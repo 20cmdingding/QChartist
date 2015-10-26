@@ -1,0 +1,22 @@
+declare sub hideenvelopform
+
+CREATE envelopform as qform
+
+    Center
+    Caption = "Settings for: Enveloppes"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create envelopbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideenvelopform
+    end create
+
+END CREATE
+
+sub hideenvelopform
+    envelopform.visible=0
+end sub

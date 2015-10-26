@@ -1,0 +1,20 @@
+'------------------------- RSTL -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=RSTLperiodedit.text
+cpptmpfuncreturn=varptr$(RSTL(varptr(periodstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(RSTLbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=purple '<--- replace with your color
+    bufnamestr="RSTLbuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End RSTL -------------------------------------------------

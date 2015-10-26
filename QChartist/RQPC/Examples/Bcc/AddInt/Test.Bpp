@@ -1,0 +1,24 @@
+//
+// ----------------------------------------------------------------------
+// RQPC BCC EXAMPLE           BCC AddInt             Jan 2007,   Jacques
+// ----------------------------------------------------------------------
+//
+// ---- Start RQPC Generated code ---------------------------------------
+// ''RQEXPORT function TestAddInt (i1, i2)
+int __stdcall TestAddInt ( int i1, int i2, int i3, int i4) {
+      return (i1 + i2);
+	}
+// ''RQEXPORT function TestSubInt (i1, i2)
+int __stdcall TestSubInt ( int i1, int i2, int i3, int i4) {
+      return (i1 - i2);
+	}
+// Datas RTL with RapidQ here
+// --------------------------
+// ''RQEXPORT data MyString
+char *MyString   = "My Exported String";
+// ''RQEXPORT data MyBuffer_1
+char *MyBuffer_1 = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";  // in DS
+// ''RQEXPORT data MyBuffer_2
+char  MyBuffer_2 [32768];                                         // in BSS
+// ----------------------------------------------------------------------
+//

@@ -1,0 +1,44 @@
+declare sub hideaveragerangeform 
+
+CREATE averagerangeform as qform
+
+    Center
+    Caption = "Settings for: Average Range"
+    visible=0
+         
+    create averagerangeperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create averagerangeperiodedit as qedit
+        left=averagerangeperiodlab.width+100
+        top=0
+        text="14"
+    end create
+    
+    create averagerangebarsbacklab as qlabel
+        top=averagerangeperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create averagerangebarsbackedit as qedit
+        left=averagerangeperiodedit.left
+        top=averagerangebarsbacklab.top
+        text="200"
+    end create
+                    
+    create averagerangebtnok as qbutton
+        left=0
+        top=averagerangebarsbacklab.top+averagerangebarsbacklab.height+15
+        caption="OK"
+        onclick=hideaveragerangeform 
+    end create
+          
+END CREATE
+
+sub hideaveragerangeform
+averagerangeform.visible=0
+end sub

@@ -1,0 +1,46 @@
+declare sub hideDin_fibo_highform
+
+CREATE Din_fibo_highform as qform
+
+    Center
+    Caption = "Settings for: Din fibo high cpp"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Din_fibo_highperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create Din_fibo_highperiodedit as qedit
+        left=Din_fibo_highperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+create Din_fibo_highcurtflab as qlabel
+        left=0
+        top=20
+        caption="Current timeframe:"
+    end create
+
+    create Din_fibo_highcurtfedit as qedit
+        left=Din_fibo_highcurtflab.width+10
+        top=20
+        text="60"
+    end create
+
+    create Din_fibo_highbtnok as qbutton
+        left=0
+        top=40
+        caption="OK"
+        onclick=hideDin_fibo_highform
+    end create
+
+END CREATE
+
+sub hideDin_fibo_highform
+    Din_fibo_highform.visible=0
+end sub

@@ -1,0 +1,44 @@
+declare sub hidemfiform 
+
+CREATE mfiform as qform
+
+    Center
+    Caption = "Settings for: Money Flow Index"
+    visible=0
+    
+    create mfiperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create mfiperiodedit as qedit
+        left=mfiperiodlab.width+100
+        top=0
+        text="14"
+    end create
+    
+    create mfibarsbacklab as qlabel
+        top=mfiperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create mfibarsbackedit as qedit
+        left=mfiperiodedit.left
+        top=mfibarsbacklab.top
+        text="200"
+    end create
+    
+    create mfibtnok as qbutton
+        left=0
+        top=mfibarsbacklab.top+mfibarsbacklab.height+15
+        caption="OK"
+        onclick=hidemfiform
+    end create
+          
+END CREATE    
+
+sub hidemfiform
+mfiform.visible=0
+end sub

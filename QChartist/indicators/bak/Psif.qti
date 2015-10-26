@@ -1,0 +1,10 @@
+declare sub Psif ' This line of code must stay here
+dim Psifbuffer(0 to 1000) as double ' This line of code must stay here.
+
+sub Psif
+' Put your indicator code here
+dim i as integer
+for i=200 to 0 step -1
+Psifbuffer(i)=Psi(close(i))
+next i
+end sub

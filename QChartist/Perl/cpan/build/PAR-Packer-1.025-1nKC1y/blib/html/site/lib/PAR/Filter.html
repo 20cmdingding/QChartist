@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>PAR::Filter - Input filter for PAR</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="variable">$code</span> <span class="operator">=</span> <span class="string">'use strict; print "Hello, World!\n";'</span><span class="operator">;</span>
+    <span class="variable">$ref</span> <span class="operator">=</span> <span class="variable">PAR::Filter</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">'PodStrip'</span><span class="operator">,</span> <span class="string">'Bleach'</span><span class="operator">)-&gt;</span><span class="variable">apply</span><span class="operator">(\</span><span class="variable">$code</span><span class="operator">);</span>
+    <span class="keyword">print</span> <span class="variable">$code</span><span class="operator">;</span>    <span class="comment"># pod-stripped and obfuscated code</span>
+    <span class="keyword">print</span> <span class="variable">$$ref</span><span class="operator">;</span>    <span class="comment"># same thing</span>
+    
+    <span class="variable">$ref</span> <span class="operator">=</span> <span class="variable">PAR::Filter</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">'PodStrip'</span><span class="operator">,</span> <span class="string">'Bleach'</span><span class="operator">)-&gt;</span><span class="variable">apply</span><span class="operator">(</span><span class="string">'file.pl'</span><span class="operator">);</span>
+    <span class="keyword">print</span> <span class="variable">$$ref</span><span class="operator">;</span>    <span class="comment"># same thing, applied to file.pl</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Starting with PAR 0.76, <code>pp -f</code> takes a filter name, like <code>Bleach</code>, and invokes this module to transform the programs with <a href="../../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter/Bleach.html">PAR::Filter::Bleach</a>. Similarily, <code>pp -F Bleach</code> applies the <b>Bleach</b> filter to all included modules.</p>
+
+<p>It is possible to pass in multiple such filters, which are applied in turn.</p>
+
+<p>The output of each such filter is expected be semantically equivalent to the input, although possibly obfuscated.</p>
+
+<p>The default list of filters include:</p>
+
+<ul>
+
+<li><p><a href="../../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter/Bleach.html">PAR::Filter::Bleach</a></p>
+
+<p>The archetypical obfuscating filter.</p>
+
+</li>
+<li><p><a href="../../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter/Obfuscate.html">PAR::Filter::Obfuscate</a></p>
+
+<p>Use <a>B::Deobfuscate</a> to strip away indents and comments, as well as mangling variable names.</p>
+
+</li>
+<li><p><a href="../../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter/PatchContent.html">PAR::Filter::PatchContent</a></p>
+
+<p>Fix PAR-incompatible modules, applied to modules by default.</p>
+
+</li>
+<li><p><a href="../../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter/PodStrip.html">PAR::Filter::PodStrip</a></p>
+
+<p>Strip away POD sections, applied to modules by default.</p>
+
+</li>
+<li><p><a href="../../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter/Bytecode.html">PAR::Filter::Bytecode</a></p>
+
+<p>Use <a>B::Bytecode</a> to strip away indents and comments. <b>This filter is deprecated!</b> For source hiding, have a look at <a>PAR::Filter::Crypto</a> instead and make sure to read about its caveats.</p>
+
+</li>
+</ul>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2003-2009 by Audrey Tang &lt;cpan@audreyt.org&gt;.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

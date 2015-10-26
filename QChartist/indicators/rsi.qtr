@@ -1,0 +1,31 @@
+'------------------------- Relative Strength Index -------------------------------------------------
+indiid++
+         
+                     if indicatorslistsel.item(indiid)="x" then 
+            
+                        if lbar=1 then           
+                            rsi
+                        end if
+
+                         barsback=VAL(rsibarsbackedit.text)                        
+
+                        if ibar>=lastbar-barsback then
+                            sepindicolor(drawid)=lightblue
+				canvas.separateindicator1.Cell(drawid,lbar)= STR$(rsibuffer(offset))
+				drawid=drawid+2
+                            sepindicolor(drawid)=gray
+				canvas.separateindicator1.Cell(drawid,lbar)= STR$(rsilevelup(offset))
+				drawid=drawid+2
+                            sepindicolor(drawid)=gray                                                        
+                            canvas.separateindicator1.Cell(drawid,lbar)= STR$(rsileveldn(offset))
+				drawid=drawid+2
+                
+                        end if  
+                        if autoadjustsepindi.checked=1 then 
+                            sepindivalminedit.text="-20"             
+                            sepindivalmaxedit.text="20"        
+                        end if           
+                     
+                    end if                                  
+
+        '------------------------- End Relative Strength Index -------------------------------------------------

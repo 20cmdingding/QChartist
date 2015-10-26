@@ -1,0 +1,142 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#Steps-Used-on-Win32-DOS-OS2-and-VMS">Steps Used on Win32, DOS, OS2 and VMS</a>
+    <ul>
+      <li><a href="#Windows-NT">Windows NT</a></li>
+      <li><a href="#Windows-9x-and-other-ancient-Win-DOS-OS2">Windows 9x and other ancient Win/DOS/OS2</a></li>
+      <li><a href="#VMS">VMS</a></li>
+    </ul>
+  </li>
+  <li><a href="#Functions">Functions</a>
+    <ul>
+      <li><a href="#which-short_exe_name">which($short_exe_name)</a></li>
+      <li><a href="#where-short_exe_name">where($short_exe_name)</a></li>
+    </ul>
+  </li>
+  <li><a href="#BUGS-AND-CAVEATS">BUGS AND CAVEATS</a></li>
+  <li><a href="#SUPPORT">SUPPORT</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>File::Which - Portable implementation of the `which&#39; utility</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">File::Which</span><span class="operator">;</span>                  <span class="comment"># exports which()</span>
+  <span class="keyword">use</span> <span class="variable">File::Which</span> <span class="string">qw(which where)</span><span class="operator">;</span>  <span class="comment"># exports which() and where()</span>
+  
+  <span class="keyword">my</span> <span class="variable">$exe_path</span> <span class="operator">=</span> <span class="variable">which</span><span class="operator">(</span><span class="string">'perldoc'</span><span class="operator">);</span>
+  
+  <span class="keyword">my</span> <span class="variable">@paths</span> <span class="operator">=</span> <span class="variable">where</span><span class="operator">(</span><span class="string">'perl'</span><span class="operator">);</span>
+  <span class="operator">-</span> <span class="variable">Or</span> <span class="operator">-</span>
+  <span class="keyword">my</span> <span class="variable">@paths</span> <span class="operator">=</span> <span class="variable">which</span><span class="operator">(</span><span class="string">'perl'</span><span class="operator">);</span> <span class="comment"># an array forces search for all of them</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><code>File::Which</code> was created to be able to get the paths to executable programs on systems under which the `which&#39; program wasn&#39;t implemented in the shell.</p>
+
+<p><code>File::Which</code> searches the directories of the user&#39;s <code>PATH</code> (as returned by <code>File::Spec-&gt;path()</code>), looking for executable files having the name specified as a parameter to <code>which()</code>. Under Win32 systems, which do not have a notion of directly executable files, but uses special extensions such as <code>.exe</code> and <code>.bat</code> to identify them, <code>File::Which</code> takes extra steps to assure that you will find the correct file (so for example, you might be searching for <code>perl</code>, it&#39;ll try <i>perl.exe</i>, <i>perl.bat</i>, etc.)</p>
+
+<h1 id="Steps-Used-on-Win32-DOS-OS2-and-VMS">Steps Used on Win32, DOS, OS2 and VMS</h1>
+
+<h2 id="Windows-NT">Windows NT</h2>
+
+<p>Windows NT has a special environment variable called <code>PATHEXT</code>, which is used by the shell to look for executable files. Usually, it will contain a list in the form <code><span class="operator">.</span><span class="variable">EXE</span><span class="operator">;.</span><span class="variable">BAT</span><span class="operator">;.</span><span class="variable">COM</span><span class="operator">;.</span><span class="variable">JS</span><span class="operator">;.</span><span class="variable">VBS</span>
+</code> etc. If <code>File::Which</code> finds such an environment variable, it parses the list and uses it as the different extensions.</p>
+
+<h2 id="Windows-9x-and-other-ancient-Win-DOS-OS2">Windows 9x and other ancient Win/DOS/OS2</h2>
+
+<p>This set of operating systems don&#39;t have the <code>PATHEXT</code> variable, and usually you will find executable files there with the extensions <code>.exe</code>, <code>.bat</code> and (less likely) <code>.com</code>. <code>File::Which</code> uses this hardcoded list if it&#39;s running under Win32 but does not find a <code>PATHEXT</code> variable.</p>
+
+<h2 id="VMS">VMS</h2>
+
+<p>Same case as Windows 9x: uses <code>.exe</code> and <code>.com</code> (in that order).</p>
+
+<h1 id="Functions">Functions</h1>
+
+<h2 id="which-short_exe_name">which($short_exe_name)</h2>
+
+<p>Exported by default.</p>
+
+<p><code>$short_exe_name</code> is the name used in the shell to call the program (for example, <code>perl</code>).</p>
+
+<p>If it finds an executable with the name you specified, <code>which()</code> will return the absolute path leading to this executable (for example, <i>/usr/bin/perl</i> or <i>C:\Perl\Bin\perl.exe</i>).</p>
+
+<p>If it does <i>not</i> find the executable, it returns <code>undef</code>.</p>
+
+<p>If <code>which()</code> is called in list context, it will return <i>all</i> the matches.</p>
+
+<h2 id="where-short_exe_name">where($short_exe_name)</h2>
+
+<p>Not exported by default.</p>
+
+<p>Same as <code>which($short_exe_name)</code> in array context. Same as the <code>`where&#39;</code> utility, will return an array containing all the path names matching <code>$short_exe_name</code>.</p>
+
+<h1 id="BUGS-AND-CAVEATS">BUGS AND CAVEATS</h1>
+
+<p>Not tested on VMS or MacOS, although there is platform specific code for those. Anyone who haves a second would be very kind to send me a report of how it went.</p>
+
+<p>File::Spec adds the current directory to the front of PATH if on Win32, VMS or MacOS. I have no knowledge of those so don&#39;t know if the current directory is searced first or not. Could someone please tell me?</p>
+
+<h1 id="SUPPORT">SUPPORT</h1>
+
+<p>Bugs should be reported via the CPAN bug tracker at</p>
+
+<p><a href="http://rt.cpan.org/NoAuth/ReportBug.html?Queue=File-Which">http://rt.cpan.org/NoAuth/ReportBug.html?Queue=File-Which</a></p>
+
+<p>For other issues, contact the maintainer.</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Adam Kennedy &lt;adamk@cpan.org&gt;</p>
+
+<p>Per Einar Ellefsen &lt;pereinar@cpan.org&gt;</p>
+
+<p>Originated in <i>modperl-2.0/lib/Apache/Build.pm</i>. Changed for use in DocSet (for the mod_perl site) and Win32-awareness by me, with slight modifications by Stas Bekman, then extracted to create <code>File::Which</code>.</p>
+
+<p>Version 0.04 had some significant platform-related changes, taken from the Perl Power Tools <code>`which&#39;</code> implementation by Abigail with enhancements from Peter Prymmer. See <a href="http://www.perl.com/language/ppt/src/which/index.html">http://www.perl.com/language/ppt/src/which/index.html</a> for more information.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2002 Per Einar Ellefsen.</p>
+
+<p>Some parts copyright 2009 Adam Kennedy.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../../lib/File/Spec.html">File::Spec</a>, <a href="http://man.he.net/man1/which">which(1)</a>, Perl Power Tools: <a href="http://www.perl.com/language/ppt/index.html">http://www.perl.com/language/ppt/index.html</a>.</p>
+
+
+</body>
+
+</html>
+
+

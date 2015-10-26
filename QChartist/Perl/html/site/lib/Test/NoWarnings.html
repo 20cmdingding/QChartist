@@ -1,0 +1,222 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#USAGE">USAGE</a>
+    <ul>
+      <li><a href="#use-vs-require">use vs require</a></li>
+      <li><a href="#Output">Output</a></li>
+      <li><a href="#The-:early-pragma">The :early pragma</a></li>
+    </ul>
+  </li>
+  <li><a href="#FUNCTIONS">FUNCTIONS</a>
+    <ul>
+      <li><a href="#had_no_warnings">had_no_warnings</a></li>
+      <li><a href="#clear_warnings">clear_warnings</a></li>
+      <li><a href="#warnings">warnings</a></li>
+    </ul>
+  </li>
+  <li><a href="#PITFALLS">PITFALLS</a></li>
+  <li><a href="#SUPPORT">SUPPORT</a></li>
+  <li><a href="#HISTORY">HISTORY</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Test::NoWarnings - Make sure you didn&#39;t emit any warnings while testing</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>For scripts that have no plan</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">Test::NoWarnings</span><span class="operator">;</span>
+</code></pre>
+
+<p>that&#39;s it, you don&#39;t need to do anything else</p>
+
+<p>For scripts that look like</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">Test::More</span> <span class="string">tests</span> <span class="operator">=&gt;</span> <span class="operator">x;</span>
+</code></pre>
+
+<p>change to</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">Test::More</span> <span class="string">tests</span> <span class="operator">=&gt;</span> <span class="operator">x</span> <span class="operator">+</span> <span class="number">1</span><span class="operator">;</span>
+  <span class="keyword">use</span> <span class="variable">Test::NoWarnings</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>In general, your tests shouldn&#39;t produce warnings. This modules causes any warnings to be captured and stored. It automatically adds an extra test that will run when your script ends to check that there were no warnings. If there were any warings, the test will give a &quot;not ok&quot; and diagnostics of where, when and what the warning was, including a stack trace of what was going on when the it occurred.</p>
+
+<p>If some of your tests <b>are supposed to</b> produce warnings then you should be capturing and checking them with <a href="../../../site/lib/Test/Warn.html">Test::Warn</a>, that way <a href="../../../cpan/build/Test-NoWarnings-1.04-TAL3Tw/blib/lib/Test/NoWarnings.html">Test::NoWarnings</a> will not see them and so not complain.</p>
+
+<p>The test is run by an <code>END</code> block in Test::NoWarnings. It will not be run when any forked children exit.</p>
+
+<h1 id="USAGE">USAGE</h1>
+
+<p>Simply by using the module, you automatically get an extra test at the end of your script that checks that no warnings were emitted. So just stick</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">Test::NoWarnings</span><span class="operator">;</span>
+</code></pre>
+
+<p>at the top of your script and continue as normal.</p>
+
+<p>If you want more control you can invoke the test manually at any time with <code>had_no_warnings</code>.</p>
+
+<p>The warnings your test has generated so far are stored in an array. You can look inside and clear this whenever you want with <code>warnings()</code> and <code>clear_warnings</code>, however, if you are doing this sort of thing then you probably want to use <a href="../../../site/lib/Test/Warn.html">Test::Warn</a> in combination with <a href="../../../cpan/build/Test-NoWarnings-1.04-TAL3Tw/blib/lib/Test/NoWarnings.html">Test::NoWarnings</a>.</p>
+
+<h2 id="use-vs-require">use vs require</h2>
+
+<p>You will almost always want to do</p>
+
+<pre><code>  use Test::NoWarnings</code></pre>
+
+<p>If you do a <code>require</code> rather than a <code>use</code>, then there will be no automatic test at the end of your script.</p>
+
+<h2 id="Output">Output</h2>
+
+<p>If warning is captured during your test then the details will output as part of the diagnostics. You will get:</p>
+
+<dl>
+
+<dt id="o">o</dt>
+<dd>
+
+<p>the number and name of the test that was executed just before the warning (if no test had been executed these will be 0 and &#39;&#39;)</p>
+
+</dd>
+<dt id="o1">o</dt>
+<dd>
+
+<p>the message passed to <code>warn</code>,</p>
+
+</dd>
+<dt id="o2">o</dt>
+<dd>
+
+<p>a full dump of the stack when warn was called, courtesy of the <code>Carp</code> module</p>
+
+</dd>
+</dl>
+
+<p>By default, all warning messages will be emitted in one block at the end of your test script.</p>
+
+<h2 id="The-:early-pragma">The :early pragma</h2>
+
+<p>One common complaint from people using Test::NoWarnings is that all of the warnings are emitted in one go at the end. While this is the safest and most correct time to emit these diagnostics, it can make debugging these warnings difficult.</p>
+
+<p>As of Test::NoWarnings 1.04 you can provide an experimental <code>:early</code> pragma when loading the module to force warnings to be thrown via diag at the time that they actually occur.</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">Test::NoWarnings</span> <span class="string">':early'</span><span class="operator">;</span>
+</code></pre>
+
+<p>As this will cause the diag to be emitted against the previous test and not the one in which the warning actually occurred it is recommended that the pragma be turned on only for debugging and left off when not needed.</p>
+
+<h1 id="FUNCTIONS">FUNCTIONS</h1>
+
+<h2 id="had_no_warnings">had_no_warnings</h2>
+
+<p>This checks that there have been warnings emitted by your test scripts. Usually you will not call this explicitly as it is called automatically when your script finishes.</p>
+
+<h2 id="clear_warnings">clear_warnings</h2>
+
+<p>This will clear the array of warnings that have been captured. If the array is empty then a call to <code>had_no_warnings()</code> will produce a pass result.</p>
+
+<h2 id="warnings">warnings</h2>
+
+<p>This will return the array of warnings captured so far. Each element of this array is an object containing information about the warning. The following methods are available on these object.</p>
+
+<ul>
+
+<li><p>$warn-&gt;getMessage</p>
+
+<p>Get the message that would been printed by the warning.</p>
+
+</li>
+<li><p>$warn-&gt;getCarp</p>
+
+<p>Get a stack trace of what was going on when the warning happened, this stack trace is just a string generated by the <a href="../../../lib/Carp.html">Carp</a> module.</p>
+
+</li>
+<li><p>$warn-&gt;getTrace</p>
+
+<p>Get a stack trace object generated by the <a href="../../../lib/Devel/StackTrace.html">Devel::StackTrace</a> module. This will return undef if <a href="../../../lib/Devel/StackTrace.html">Devel::StackTrace</a> is not installed.</p>
+
+</li>
+<li><p>$warn-&gt;getTest</p>
+
+<p>Get the number of the test that executed before the warning was emitted.</p>
+
+</li>
+<li><p>$warn-&gt;getTestName</p>
+
+<p>Get the name of the test that executed before the warning was emitted.</p>
+
+</li>
+</ul>
+
+<h1 id="PITFALLS">PITFALLS</h1>
+
+<p>When counting your tests for the plan, don&#39;t forget to include the test that runs automatically when your script ends.</p>
+
+<h1 id="SUPPORT">SUPPORT</h1>
+
+<p>Bugs should be reported via the CPAN bug tracker at</p>
+
+<p><a href="http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-NoWarnings">http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-NoWarnings</a></p>
+
+<p>For other issues, contact the author.</p>
+
+<h1 id="HISTORY">HISTORY</h1>
+
+<p>This was previously known as <a>Test::Warn::None</a></p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../../../lib/Test/Builder.html">Test::Builder</a>, <a href="../../../site/lib/Test/Warn.html">Test::Warn</a></p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Fergal Daly &lt;fergal@esatclear.ie&gt;</p>
+
+<p>Adam Kennedy &lt;adamk@cpan.org&gt;</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2003 - 2007 Fergal Daly.</p>
+
+<p>Some parts copyright 2010 - 2011 Adam Kennedy.</p>
+
+<p>This program is free software and comes with no warranty. It is distributed under the LGPL license</p>
+
+<p>See the file <i>LGPL</i> included in this distribution or <i>http://www.fsf.org/licenses/licenses.html</i>.</p>
+
+
+</body>
+
+</html>
+
+

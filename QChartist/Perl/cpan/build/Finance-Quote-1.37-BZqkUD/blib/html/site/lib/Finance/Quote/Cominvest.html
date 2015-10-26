@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::Cominvest - Obtain information from cominvest, formerly known as Adig Investment.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">'cominvest'</span><span class="operator">,</span> <span class="string">'637256'</span><span class="operator">);</span>
+    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">'adig'</span><span class="operator">,</span> <span class="string">'DE0006372568'</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information from cominvest Asset Management http://www.cominvest-am.de/ - a german mutual fund company. It was formerly known as Adig Investments and thus an alias &#39;adig&#39; is also provided.</p>
+
+<p>The name with which this module is called does not change its behavior. It may be asked for german WKNs or international ISINs.</p>
+
+<p>Information returned by this module is governed by the terms and conditions of cominvest Asset Management GmbH.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>The following labels may be returned by Finance::Quote::Cominvest: exchange, name, bid, ask, date, yield, price, p_change.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>cominvest Asset Management, http://www.cominvest-am.de/</p>
+
+
+</body>
+
+</html>
+
+

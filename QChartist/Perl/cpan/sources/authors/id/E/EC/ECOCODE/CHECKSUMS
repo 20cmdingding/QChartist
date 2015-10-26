@@ -1,0 +1,79 @@
+0&&<<''; # this PGP-signed message is also valid perl
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+# CHECKSUMS file written on Fri Mar 13 14:56:53 2015 GMT by CPAN::Checksums (v2.08)
+$cksum = {
+  'Finance-GeniusTrader-0.00_50.tar.gz' => {
+    'md5' => '27f2c5d028fc10289b375ecea3df0a64',
+    'md5-ungz' => '78e0d5645e94710afe0a1a3f7ff61a2f',
+    'mtime' => '2009-08-07',
+    'sha256' => 'c352a52e58d31bcb7bdee2bb98c43dc9640bb56ed83f487b19914210641ed56f',
+    'sha256-ungz' => 'ac04b7a140823d30ebd57dc989b030d6291923856ff5b90ae50e1a1699089f0d',
+    'size' => 6129051
+  },
+  'Finance-Quote-1.35.meta' => {
+    'md5' => '706056c0689142db95a4a5e05e405746',
+    'mtime' => '2014-06-17',
+    'sha256' => 'cdd2cd90965cbc7c83e58991bab14f52c8966d071e2db5bf2fededa0f89dbc08',
+    'size' => 2892
+  },
+  'Finance-Quote-1.35.tar.gz' => {
+    'md5' => 'c81980d5266d94e51ce83f94a3315261',
+    'md5-ungz' => '6ff7d30526a33aaa3e75226351340516',
+    'mtime' => '2014-06-17',
+    'sha256' => '3c0d22f18a65da2536b03d5dcbac178faaea8de71908ee0e2772b2664384ae57',
+    'sha256-ungz' => '31bdce4b76977e5d8404ff29ebe21ba8edab123a0efd7bae95e9c3f8a8178538',
+    'size' => 254658
+  },
+  'Finance-Quote-1.36.meta' => {
+    'md5' => 'de320132b40882ad57001a1e1c5f111e',
+    'mtime' => '2015-01-31',
+    'sha256' => '71f10aaa0ecc3f74694852beaf0c8ae03f2eee62609f023a9232eb1c88837eb0',
+    'size' => 2885
+  },
+  'Finance-Quote-1.36.tar.gz' => {
+    'md5' => 'cb422a4bb0cfd4dc1c98bc51a05bc556',
+    'md5-ungz' => 'a788fc1af2aa6d5d0bf78fadd5ee3d7d',
+    'mtime' => '2015-01-31',
+    'sha256' => 'a57d888feff2e7fd60be370ab58ed0e114c84eac0248728a92113324829d0f8b',
+    'sha256-ungz' => '017c3372ae202886b6dcad20f180391572a6f472b1e184b036e091f225a4e9fd',
+    'size' => 267142
+  },
+  'Finance-Quote-1.37.meta' => {
+    'md5' => '1cd09c7acf74289f12fcba092ebe8efd',
+    'mtime' => '2015-02-01',
+    'sha256' => '9d7717c4d9974e57ce9101b176480ce22f5d98b3f39c06802cbd61892317124d',
+    'size' => 2836
+  },
+  'Finance-Quote-1.37.tar.gz' => {
+    'md5' => '24a0c2c9aea98127c6e3742fc80218f1',
+    'md5-ungz' => '4fca18d183628a01d42ed2941c664b3d',
+    'mtime' => '2015-02-01',
+    'sha256' => '6e1147e2e13ee27b223dffecf2f3bda5f85e10e8900247942ecb99e30e5cd7ac',
+    'sha256-ungz' => 'f82c07a4d4d22aa468de09ecca4eac502935aa3e87acce104a671df5d3c4ed46',
+    'size' => 251374
+  },
+  'Finance-QuoteDB-0.15.meta' => {
+    'md5' => 'c30f05399e6a250d1def58e2542cf666',
+    'mtime' => '2011-02-23',
+    'sha256' => '9a72bb3a3553e474660cd8561da1872d9e528c56fdde2da319f0e8c1991c8e9e',
+    'size' => 789
+  },
+  'Finance-QuoteDB-0.15.tar.gz' => {
+    'md5' => '6f52e967306f97732d087c466b6d4117',
+    'md5-ungz' => 'fb99f5a464ecba401c52285f180832e2',
+    'mtime' => '2011-02-23',
+    'sha256' => 'ddc72cc78d87210156b9f9bffd24169c645ae35d66f0812dd8f0298c9741dd3d',
+    'sha256-ungz' => '04bd158b755dd2af1b0d442cf1818fdc22ee6a0ffeb422f9e5d218d9e454337b',
+    'size' => 46037
+  }
+};
+__END__
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.14 (GNU/Linux)
+
+iEYEARECAAYFAlUC+rUACgkQMo2oZ0UPiexM9gCfYQKBoJiNQcQPrv+Ieoqov4bm
+s7QAniYripOz+fTx9sWCTzzXhVb5QGIv
+=tp+i
+-----END PGP SIGNATURE-----

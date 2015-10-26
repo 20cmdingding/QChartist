@@ -1,0 +1,10 @@
+declare sub DawsonIntegralf ' This line of code must stay here
+dim DawsonIntegralfbuffer(0 to 1000) as double ' This line of code must stay here.
+
+sub DawsonIntegralf
+' Put your indicator code here
+dim i as integer
+for i=200 to 0 step -1
+DawsonIntegralfbuffer(i)=DawsonIntegral(close(i))
+next i
+end sub

@@ -1,0 +1,64 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: Module::ScanDeps
+  CHECKSUM_STATUS: OK
+  ID: R/RS/RSCHUPP/Module-ScanDeps-1.18.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: RSCHUPP
+  archived: tar
+  build_dir: C:\Perl\cpan\build\Module-ScanDeps-1.18-OYwQZl
+  incommandcolor: 2
+  install: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423562
+  localfile: C:\Perl\cpan\sources\authors\id\R\RS\RSCHUPP\Module-ScanDeps-1.18.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423530
+  make_test: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423548
+  mandatory: 1
+  negative_prefs_cache: 1
+  prefs:
+    install: {}
+  prereq_pm:
+    build_requires:
+      ExtUtils::MakeMaker: '6.59'
+      Test::More: '0'
+      Test::Requires: '0'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      File::Spec: '0'
+      File::Temp: '0'
+      Getopt::Long: '0'
+      Module::Metadata: '0'
+      Text::ParseWords: '0'
+      perl: '5.008001'
+      version: '0'
+  reqtype: r
+  sponsored_mods: {}
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423512
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423513
+perl:
+  $^X: c:\perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426423562

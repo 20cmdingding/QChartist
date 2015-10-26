@@ -1,0 +1,44 @@
+declare sub hidemaform 
+
+CREATE maform as qform
+
+    Center
+    Caption = "Settings for: Moving Average"
+    visible=0
+    
+    create maperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create maperiodedit as qedit
+        left=maperiodlab.width+100
+        top=0
+        text="14"
+    end create
+    
+    create mabarsbacklab as qlabel
+        top=maperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create mabarsbackedit as qedit
+        left=maperiodedit.left
+        top=mabarsbacklab.top
+        text="200"
+    end create
+    
+    create mabtnok as qbutton
+        left=0
+        top=mabarsbacklab.top+mabarsbacklab.height+15
+        caption="OK"
+        onclick=hidemaform
+    end create
+          
+END CREATE
+
+sub hidemaform
+maform.visible=0
+end sub

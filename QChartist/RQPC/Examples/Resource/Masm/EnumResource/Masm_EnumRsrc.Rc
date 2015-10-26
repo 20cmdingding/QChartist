@@ -1,0 +1,5 @@
+
+BAS_CODE RCDATA "EnumResourceDemo.Bas"
+UMBRELLA ICON "Umbrella.Ico"
+BADGERS BITMAP "Badgers.Bmp"
+TestTube ICON "Testtube.Ico"

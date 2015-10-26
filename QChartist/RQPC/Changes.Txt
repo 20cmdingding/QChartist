@@ -1,0 +1,109 @@
+
+versions Changes        (read from bottom to top :)
+----------------
+v 2772    - when a file was ''include, scanning started at
+            line index inherited from the line containing 
+            ''include in the mother file. Could Bug, it skipped
+            few lines in the 'included file.
+          - With FB, when a   ''RQEXPORT data:string dataname 
+            was used, the pointer to all ''RQEXPORT functions
+            after that was wrong, called with StrPtr(functionName)
+            and not @FunctionName as it should. (sDataType was
+            not reset)
+v 0.2740    Solved bug in case RC.EXE path, Libs path or Include
+            path is an empty string.
+v 0.2705    Added FB_VERSION and FB_LANG in RQPC.INI
+            to allow use of FreeBasic version 017 and later
+            In ''pre cmd these 2 parameters can be modified with
+            FBVERSION=<016|017|...> and FBLANG=<""|QB|deprecated|...>
+v 0.2700    (better works with RapidQ32.Dll   V109)
+          - add flag ''pre cmd printf . In gcc, the stdin/out/err
+            did not work. With "printf" it will. It helps to
+            debug gcc code. (same problem, not yet solved, with bcc)
+            No need of "printf" to have the rapidq "Print" work.
+            with "printf" exe size is much larger 250k vs 10k
+          - if NoDone is set, TinyDone is disabled if present
+            (= set false)
+          - files passed in ''pre cmd options can now contain space
+            providing they are passed between double quotes
+            (as in Command line)
+          - now BCC icon accepts path with space (it was a rqpc bug)
+          - windres, the MinGw resource compiler does not work
+            with path including space ... maybe a new version ???.
+            Google: [ mingw-Bugs-1640385 ] windres.and spaces in path
+          - add possibility to modify maximum Run Time Link
+            buffer size. With RTLBUFF=666666
+            This can be done in RQPC.INI with RTL_BUFFER=
+            in command line with RTLBUFF=123456 and in a
+            ''pre cmd line with RTLBUFF=9999
+            Default is 32708. Will accept something like 1000
+            resolved names. Warning on Overflow in launcher codes.
+            With FreeBasic: no limit, no warning.
+          - solved masm pb called from another drive
+            Environ ("PATH=" & sPath & ";" & Left$(MASM32_ROOT_DIR, _
+                                     Len(MASM32_ROOT_DIR) - 1) &";")
+            Environ ("INCLUDE=" & MASM32_ROOT_DIR & "include")
+            Environ ("LIB=" & MASM32_ROOT_DIR & "lib")
+          - if upx is set, no TinyDone ... may bug with resource
+            hacker if TinyDone is set on an already upxed file
+          - RQ32DLL=ANYTHING.DLL is the DLL called to execute
+            the bytecode if no ADDDLL is used. When a ADDDLL is
+            set as option, RQ32.DLL in RQPC directory is always
+            used and extracted at Runtime as RQ32.DLL
+          - Exe Command Line bugs solved: double space accepted,
+            Tab accepted, ...  for all Compiler
+          - Exe Can now be run without its .exe extension
+            for all supported compilers
+          - to be used, ResHacker.Exe and Upx.Exe must be present
+            in the same directory as RQPC
+          - added new command line or ''pre cmd options:
+            "ADDDLL"   = "ADDRQ32DLL"   for flagAddDll = True
+            "NODLL"    = "NOADDRQ32DLL" for flagAddDll = False (default)
+            "UPX"   for flagUpx = True
+            "NOUPX" for flagUpx = False     (default)
+            added in  "RQPC.INI FLAG_ADDDLL=0"  "FLAG_UPX=0"
+          - if FLAG_UPX=1 then the code is upxed (full exe ~450K)
+             default=0
+          - ResHacker addoverwrite resource:
+             - bytecode     name: NBYTECODE, type: TBYTECODE
+             - icon         name: MAINICON,  type: ICONGROUP
+             if FLAG_ADDDLL=1   default=0
+               - RQ32.Dll   name: NRQ32DLL,  type: TRQ32DLL
+                 dll will be load as resource in the exe and
+                 extracted to app directory at start.
+                 RapidQ32.Dll must be copied to RQPC directory
+                 and renamed "RQ32.DLL". RQ32.DLL can be UPXED (340K)
+            Resource language is always 0
+          - uses ResHacker to build tiny exe, bytecode is a
+            true resource, not appended anymore (Paul's idea)
+            (Exe is now a full plain PE. Can now be upxed ie)
+
+v 0.2133  (better work RapidQ32.Dll 109)
+          - Known bug:
+            - error at MASM compile when source code is not on the
+              same drive as MASM (will be solved later)
+          - Limitations for RQPC and all .Exe build with RQPC:
+            - must be run RQPC.EXE the .exe is mandatory
+            - multiple space in command line is considered
+              as end of command line
+            - TAB in commandline are not recognized
+          - add .RC merge, all the .RC passed will be merged and
+            appended to the RQPC MAINICON and ??? setting
+          - to force launcher recompile without writing an external
+            code add null.asm, null.cpp, null.fbb or null.bpp in a
+            ''pre cmd line or in the command line. only work when
+            one single external code file is added
+          - Set Resource Icon to MAINICON in all external compiler
+            launcher. With version, 109 of RapidQ32.Dll, Form and
+            application icon will automatically be inherited
+            Thank you Paul
+          - suppressed CreateWindowEx in External Compiler Launcher
+            Thank you Paul.
+          - add "AddDone" = "Done" which reset the flagNoDone. When
+            flag_NO_DONE was set in the INI, it was then impossible
+            to reset it in the code.
+          - accept more than one module .Asm, .Fbb, .Cpp, Bcc, with
+            Masm main. Some limitations, see examples
+v 0.1920   Gcc error outpout captured correctly.
+v 0.1912   20 minutes later, RQPC no more open a console
+v 0.1911   first upload

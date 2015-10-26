@@ -1,0 +1,143 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#METHODS">METHODS</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>LWP::RobotUA - a class for well-behaved Web robots</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">LWP::RobotUA</span><span class="operator">;</span>
+  <span class="keyword">my</span> <span class="variable">$ua</span> <span class="operator">=</span> <span class="variable">LWP::RobotUA</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">'my-robot/0.1'</span><span class="operator">,</span> <span class="string">'me@foo.com'</span><span class="operator">);</span>
+  <span class="variable">$ua</span><span class="operator">-&gt;</span><span class="variable">delay</span><span class="operator">(</span><span class="number">10</span><span class="operator">);</span>  <span class="comment"># be very nice -- max one hit every ten minutes!</span>
+  <span class="operator">...</span>
+  
+  <span class="comment"># Then just use it just like a normal LWP::UserAgent:</span>
+  <span class="keyword">my</span> <span class="variable">$response</span> <span class="operator">=</span> <span class="variable">$ua</span><span class="operator">-&gt;</span><span class="variable">get</span><span class="operator">(</span><span class="string">'http://whatever.int/...'</span><span class="operator">);</span>
+  <span class="operator">...</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This class implements a user agent that is suitable for robot applications. Robots should be nice to the servers they visit. They should consult the <i>/robots.txt</i> file to ensure that they are welcomed and they should not make requests too frequently.</p>
+
+<p>But before you consider writing a robot, take a look at &lt;URL:http://www.robotstxt.org/&gt;.</p>
+
+<p>When you use an <i>LWP::RobotUA</i> object as your user agent, then you do not really have to think about these things yourself; <code>robots.txt</code> files are automatically consulted and obeyed, the server isn&#39;t queried too rapidly, and so on. Just send requests as you do when you are using a normal <i>LWP::UserAgent</i> object (using <code>$ua-&gt;get(...)</code>, <code>$ua-&gt;head(...)</code>, <code>$ua-&gt;request(...)</code>, etc.), and this special agent will make sure you are nice.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<p>The LWP::RobotUA is a sub-class of LWP::UserAgent and implements the same methods. In addition the following methods are provided:</p>
+
+<dl>
+
+<dt id="ua-LWP::RobotUA-new-options">$ua = LWP::RobotUA-&gt;new( %options )</dt>
+<dd>
+
+</dd>
+<dt id="ua-LWP::RobotUA-new-agent-from">$ua = LWP::RobotUA-&gt;new( $agent, $from )</dt>
+<dd>
+
+</dd>
+<dt id="ua-LWP::RobotUA-new-agent-from-rules">$ua = LWP::RobotUA-&gt;new( $agent, $from, $rules )</dt>
+<dd>
+
+<p>The LWP::UserAgent options <code>agent</code> and <code>from</code> are mandatory. The options <code>delay</code>, <code>use_sleep</code> and <code>rules</code> initialize attributes private to the RobotUA. If <code>rules</code> are not provided, then <code>WWW::RobotRules</code> is instantiated providing an internal database of <i>robots.txt</i>.</p>
+
+<p>It is also possible to just pass the value of <code>agent</code>, <code>from</code> and optionally <code>rules</code> as plain positional arguments.</p>
+
+</dd>
+<dt id="ua-delay">$ua-&gt;delay</dt>
+<dd>
+
+</dd>
+<dt id="ua-delay-minutes">$ua-&gt;delay( $minutes )</dt>
+<dd>
+
+<p>Get/set the minimum delay between requests to the same server, in <i>minutes</i>. The default is 1 minute. Note that this number doesn&#39;t have to be an integer; for example, this sets the delay to 10 seconds:</p>
+
+<pre><code>    <span class="variable">$ua</span><span class="operator">-&gt;</span><span class="variable">delay</span><span class="operator">(</span><span class="number">10</span><span class="operator">/</span><span class="number">60</span><span class="operator">);</span>
+</code></pre>
+
+</dd>
+<dt id="ua-use_sleep">$ua-&gt;use_sleep</dt>
+<dd>
+
+</dd>
+<dt id="ua-use_sleep-boolean">$ua-&gt;use_sleep( $boolean )</dt>
+<dd>
+
+<p>Get/set a value indicating whether the UA should sleep() if requests arrive too fast, defined as $ua-&gt;delay minutes not passed since last request to the given server. The default is TRUE. If this value is FALSE then an internal SERVICE_UNAVAILABLE response will be generated. It will have a Retry-After header that indicates when it is OK to send another request to this server.</p>
+
+</dd>
+<dt id="ua-rules">$ua-&gt;rules</dt>
+<dd>
+
+</dd>
+<dt id="ua-rules-rules">$ua-&gt;rules( $rules )</dt>
+<dd>
+
+<p>Set/get which <i>WWW::RobotRules</i> object to use.</p>
+
+</dd>
+<dt id="ua-no_visits-netloc">$ua-&gt;no_visits( $netloc )</dt>
+<dd>
+
+<p>Returns the number of documents fetched from this server host. Yeah I know, this method should probably have been named num_visits() or something like that. :-(</p>
+
+</dd>
+<dt id="ua-host_wait-netloc">$ua-&gt;host_wait( $netloc )</dt>
+<dd>
+
+<p>Returns the number of <i>seconds</i> (from now) you must wait before you can make a new request to this host.</p>
+
+</dd>
+<dt id="ua-as_string">$ua-&gt;as_string</dt>
+<dd>
+
+<p>Returns a string that describes the state of the UA. Mainly useful for debugging.</p>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../../lib/LWP/UserAgent.html">LWP::UserAgent</a>, <a href="../../lib/WWW/RobotRules.html">WWW::RobotRules</a></p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 1996-2004 Gisle Aas.</p>
+
+<p>This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+
+</body>
+
+</html>
+
+

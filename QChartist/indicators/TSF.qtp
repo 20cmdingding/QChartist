@@ -1,0 +1,46 @@
+declare sub hideTSFform
+
+CREATE TSFform as qform
+
+    Center
+    Caption = "Settings for: Time Series Forecast"
+    visible=0
+
+    ' Put your indicator settings code here
+
+	create TSFperiodlab as qlabel
+        left=0
+        top=50
+        caption="Period"        
+    	end create
+
+create TSFperiod as qedit
+        left=0
+        top=70    
+	text="225"            
+    	end create
+
+create TSFbarsbacklab as qlabel
+        left=0
+        top=90
+        caption="Bars back"        
+    	end create
+
+create TSFbarsback as qedit
+        left=0
+        top=110
+	text="400"                
+    	end create
+
+    create TSFbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideTSFform
+    end create
+
+END CREATE
+
+sub hideTSFform
+    TSFform.visible=0
+end sub

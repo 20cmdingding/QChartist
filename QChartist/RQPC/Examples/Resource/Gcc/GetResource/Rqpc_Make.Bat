@@ -1,0 +1,1 @@
+..\..\..\..\RQPC.Exe GetResource.Bas

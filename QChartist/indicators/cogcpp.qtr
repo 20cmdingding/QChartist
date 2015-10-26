@@ -1,0 +1,36 @@
+'------------------------- Center Of Gravity cpp -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+barsbackstr=cogcppbarsbackedit.text
+cpptmpfuncreturn=varptr$(cogcpp(varptr(barsbackstr)))
+end if
+
+barsback=300 '<--- can also be something like VAL(cogcppbarsbackedit.text)
+
+if ibar>=lastbar-barsback then    
+    indicolor(drawid)=lightblue
+    bufnamestr="fx"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+                            indicolor(drawid)=red
+                            bufnamestr="sqh"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+                            indicolor(drawid)=red
+                            bufnamestr="sql"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+                            indicolor(drawid)=crimson
+                            bufnamestr="stdh"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+                            indicolor(drawid)=crimson
+                            bufnamestr="stdl"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+end if
+
+end if
+'------------------------- End Center Of Gravity cpp -------------------------------------------------

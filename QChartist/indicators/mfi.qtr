@@ -1,0 +1,31 @@
+'------------------------- Money Flow Index -------------------------------------------------
+indiid++
+         
+                     if indicatorslistsel.item(indiid)="x" then 
+            
+                        if lbar=1 then           
+                            mfi
+                        end if
+
+                         barsback=VAL(mfibarsbackedit.text)                        
+
+                        if ibar>=lastbar-barsback then
+                            sepindicolor(drawid)=lightblue
+				canvas.separateindicator1.Cell(drawid,lbar)= STR$(extmfibuffer(offset))
+				drawid=drawid+2
+                            sepindicolor(drawid)=gray
+				canvas.separateindicator1.Cell(drawid,lbar)= STR$(mfilevelup(offset))
+				drawid=drawid+2
+                            sepindicolor(drawid)=gray                                                        
+                            canvas.separateindicator1.Cell(drawid,lbar)= STR$(mfileveldn(offset))
+				drawid=drawid+2
+                
+                        end if  
+                        if autoadjustsepindi.checked=1 then 
+                            sepindivalminedit.text="-20"             
+                            sepindivalmaxedit.text="20"        
+                        end if           
+                     
+                    end if                                  
+
+        '------------------------- End Money Flow Index -------------------------------------------------

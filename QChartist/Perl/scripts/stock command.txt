@@ -1,0 +1,13 @@
+australia           Australan Stock Exchange
+    dwsfunds            Deutsche Bank Gruppe funds
+    fidelity            Fidelity Investments
+    tiaacref            TIAA-CREF
+    troweprice          T. Rowe Price
+    europe              European Markets
+    canada              Canadian Markets
+    usa                 USA Markets
+    nyse                New York Stock Exchange
+    nasdaq              NASDAQ
+    uk_unit_trusts      UK Unit Trusts
+    vanguard            Vanguard Investments
+    vwd                 Vereinigte Wirtschaftsdienste GmbH

@@ -1,0 +1,34 @@
+
+#include "dialog.bi"
+
+declare function DlgProc (byval hwnd as HWND, byval umsg as UINT, byval wparam as WPARAM, byval lparam as LPARAM) as BOOL
+
+' ''RQEXPORT function ShowDialog ()
+Function ShowDialog (a1, a2, a3, a4) As Integer
+    DialogBoxParam( GetModuleHandle( NULL ), cast( LPCSTR, IDD_DLG1 ), NULL, @DlgProc, NULL ) 
+End Function
+                                  
+function DlgProc (byval hwnd as HWND, byval umsg as UINT, byval wparam as WPARAM, byval lparam as LPARAM) as BOOL
+    dim as long id, event
+    select case uMsg
+    case WM_INITDIALOG
+ 
+    case WM_CLOSE
+        EndDialog( hwnd, 0 ) 
+
+    case WM_COMMAND
+        id    = loword( wParam )
+        event = hiword( wParam )
+
+        select case id
+        case IDC_BTN1
+            EndDialog( hwnd, 0 )
+        end select
+        
+    case else
+        return FALSE
+    
+    end select
+    
+   return TRUE
+end function 

@@ -1,0 +1,346 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#new">new</a></li>
+      <li><a href="#update">update</a></li>
+      <li><a href="#create_resource_section">create_resource_section</a></li>
+      <li><a href="#can_create_resource_section">can_create_resource_section</a></li>
+      <li><a href="#get_manifest">get_manifest</a></li>
+      <li><a href="#set_manifest">set_manifest</a></li>
+      <li><a href="#set_manifest_args">set_manifest_args</a></li>
+      <li><a href="#get_version_info">get_version_info</a></li>
+      <li><a href="#set_version_info">set_version_info</a></li>
+      <li><a href="#set_subsystem_windows">set_subsystem_windows</a></li>
+      <li><a href="#set_subsystem_console">set_subsystem_console</a></li>
+      <li><a href="#get_subsystem">get_subsystem</a></li>
+      <li><a href="#set_single_group_icon">set_single_group_icon</a></li>
+      <li><a href="#get_group_icon_names">get_group_icon_names</a></li>
+      <li><a href="#get_group_icon">get_group_icon</a></li>
+      <li><a href="#add_group_icon">add_group_icon</a></li>
+      <li><a href="#replace_group_icon">replace_group_icon</a></li>
+      <li><a href="#remove_group_icon">remove_group_icon</a></li>
+      <li><a href="#export_group_icon">export_group_icon</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Win32::Exe - Manipulate Win32 executable files</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>This document describes version 0.17 of Win32::Exe, released July 19, 2011.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Win32::Exe</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">$exe</span> <span class="operator">=</span> <span class="variable">Win32::Exe</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">'c:/windows/notepad.exe'</span><span class="operator">);</span>
+    
+    <span class="comment"># add a default resource structure if none exists</span>
+    <span class="comment"># create_resource_section only works on MSWin and</span>
+    <span class="comment"># does not work on Windows XP - requires Vista or</span>
+    <span class="comment"># above</span>
+    
+    <span class="variable">$exe</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">create_resource_section</span> <span class="keyword">if</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">can_create_resource_section</span><span class="operator">;</span>
+    
+    <span class="comment"># Get version information</span>
+    <span class="keyword">my</span> <span class="variable">$info</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_version_info</span><span class="operator">;</span>
+    <span class="keyword">print</span> <span class="string">qq(</span><span class="variable">$_</span><span class="string"> = </span><span class="variable">$info</span><span class="string">-&gt;{</span><span class="variable">$_</span><span class="string">}\n)</span> <span class="keyword">for</span> <span class="operator">(</span><span class="keyword">sort</span> <span class="keyword">keys</span><span class="operator">(</span><span class="variable">%$info</span><span class="operator">));</span>
+    
+    <span class="comment"># Extract icons from an executable</span>
+    <span class="keyword">my</span> <span class="variable">@iconnames</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_group_icon_names</span><span class="operator">;</span>
+    <span class="keyword">for</span> <span class="operator">(</span> <span class="keyword">my</span> <span class="variable">$i</span> <span class="operator">=</span> <span class="number">0</span><span class="operator">;</span> <span class="variable">$i</span> <span class="operator">&lt;</span> <span class="variable">@iconnames</span><span class="operator">;</span> <span class="variable">$i</span><span class="operator">++</span> <span class="operator">)</span> <span class="operator">{</span>
+        <span class="keyword">my</span> <span class="variable">$filename</span> <span class="operator">=</span> <span class="string">'icon'</span> <span class="operator">.</span> <span class="variable">$i</span> <span class="operator">.</span> <span class="string">'.ico'</span><span class="operator">;</span>
+        <span class="keyword">my</span> <span class="variable">$iconname</span> <span class="operator">=</span> <span class="variable">$iconnames</span><span class="operator">[</span><span class="variable">$i</span><span class="operator">]</span><span class="operator">;</span>
+        <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">extract_group_icon</span><span class="operator">(</span><span class="variable">$iconname</span><span class="operator">,</span><span class="variable">$filename</span><span class="operator">);</span>
+    <span class="operator">}</span>
+    
+    <span class="comment"># Import icons from a .exe or .ico file and write back the file</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">update</span><span class="operator">(</span> <span class="string">icon</span> <span class="operator">=&gt;</span> <span class="string">'/c/windows/taskman.exe'</span> <span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">update</span><span class="operator">(</span> <span class="string">icon</span> <span class="operator">=&gt;</span> <span class="string">'myicon.ico'</span> <span class="operator">);</span>
+    
+    <span class="comment"># Change it to a console application, then save to another .exe</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_subsystem_console</span><span class="operator">;</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">(</span><span class="string">'c:/windows/another.exe'</span><span class="operator">);</span>
+    
+    <span class="comment"># Add a manifest section</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">update</span><span class="operator">(</span> <span class="string">manifest</span> <span class="operator">=&gt;</span> <span class="variable">$mymanifestxml</span> <span class="operator">);</span>
+    <span class="comment"># or a default</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">update</span><span class="operator">(</span> <span class="string">defaultmanifest</span> <span class="operator">=&gt;</span> <span class="number">1</span> <span class="operator">);</span>
+    
+    <span class="comment"># or specify manifest args</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">update</span><span class="operator">(</span> <span class="string">manifestargs</span> <span class="operator">=&gt;</span> <span class="operator">{</span> <span class="string">ExecLevel</span> <span class="operator">=&gt;</span> <span class="string">'requireAdministrator'</span> <span class="operator">}</span> <span class="operator">);</span>
+    
+    <span class="comment"># Get manifest object</span>
+    <span class="variable">$manifest</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_manifest</span> <span class="keyword">if</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">has_manifest</span><span class="operator">;</span>
+    
+    <span class="comment"># change execution level</span>
+    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_execution_level</span><span class="operator">(</span><span class="string">'requireAdministrator'</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_manifest</span><span class="operator">(</span><span class="variable">$manifest</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module parses and manipulating Win32 PE/COFF executable headers, including version information, icons, manifest and other resources. The module Win32::Exe::Manifest can be used for manifest handling.</p>
+
+<p>A script exe_update.pl is provided for simple file updates.</p>
+
+<p>Also, please see the test files in the source distributions <i>t/</i> directory for examples of using this module.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="new">new</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$exe</span> <span class="operator">=</span> <span class="variable">Win32::Exe</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="variable">$filename</span><span class="operator">);</span>
+</code></pre>
+
+<p>Create a Win32::Exe object from $filename. Filename can be an executable or a DLL.</p>
+
+<h2 id="update">update</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">update</span><span class="operator">(</span> <span class="string">icon</span>         <span class="operator">=&gt;</span> <span class="string">'c:/my/icon.ico'</span><span class="operator">,</span>
+                  <span class="string">gui</span>          <span class="operator">=&gt;</span> <span class="number">1</span><span class="operator">,</span>
+                  <span class="string">info</span>         <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="string">'FileDescription=My File'</span><span class="operator">,</span> <span class="string">'FileVersion=1.4.3.3567'</span> <span class="operator">]</span><span class="operator">,</span>
+                  <span class="string">manifest</span>     <span class="operator">=&gt;</span> <span class="string">'c:/my/manifest.xml'</span><span class="operator">,</span>
+                  <span class="string">manifestargs</span> <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="string">'ExecLevel=asInvoker'</span><span class="operator">,</span> <span class="string">'CommonControls=1'</span> <span class="operator">]</span><span class="operator">,</span>
+                  <span class="operator">);</span>
+</code></pre>
+
+<p>The <b>update</b> method provides a convenience method for the most common actions. It writes the information you provide to the file opened by Win32::Exe-&gt;new($filename). You do not have to call $exe-&gt;write - the method automatically updates the opened file.</p>
+
+<p>Param detail:</p>
+
+<p><b>icon</b> Pass the name of an executable, dll or ico file to extract the icon and make it the main icon for the Win32 executable.</p>
+
+<p><b>info</b> Pass a reference to an array of strings containing key - value pairs separated by &#39;=&#39;.</p>
+
+<p>e.g. info =&gt; [ &#39;FileDescription=My File&#39;, &#39;FileVersion=1.4.3.3567&#39; ]</p>
+
+<p>Recognised keys are</p>
+
+<pre><code>    Comments        CompanyName     FileDescription FileVersion
+    InternalName    LegalCopyright  LegalTrademarks OriginalFilename
+    ProductName     ProductVersion</code></pre>
+
+<p><b>gui or console</b> Use parameter &#39;gui&#39; or &#39;console&#39; to set the executable subsystem to Windows or Console. You can, of course, only use one or the other of gui / console, not both.</p>
+
+<p><b>manifest</b> Specify a manifest file to add to the executable resources.</p>
+
+<p><b>manifestargs</b> As an alternative to specifying a manifest file, pass a reference to an array of strings containing key - value pairs separated by &#39;=&#39;.</p>
+
+<p>e.g. manifestargs =&gt; [ &#39;ExecLevel=asInvoker&#39;, &#39;CommonControls=1&#39; ]</p>
+
+<p>Recognised keys are</p>
+
+<pre><code>    ExecutionLevel  UIAccess     ExecName   Description
+    CommonControls  Version</code></pre>
+
+<h2 id="create_resource_section">create_resource_section</h2>
+
+<pre><code>    <span class="variable">$exe</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">create_resource_section</span> <span class="keyword">if</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">can_create_resource_section</span><span class="operator">;</span>
+</code></pre>
+
+<p>If an executable file does not have an existing resource section, you must create one before attempting to add version, icon or manifest resources. The method create_resource_section is only available on MSWin platforms. Also, the method will fail if your windows version is Windows XP or below. You can check if it is possible to call create_resource_section by calling $exe-&gt;can_create_resource_section. After calling create_resource_section, the original Win32::Exe object does not reference the updated data. The method therefore returns a reference to a new Win32::Exe object that references the updated data.</p>
+
+<p>Always call as :</p>
+
+<p>$exe = $exe-&gt;create_resource_section if $exe-&gt;can_create_resource_section;</p>
+
+<p>if the $exe already has a resource section, this call will safely return a reference to the original object without updating the original exe.</p>
+
+<h2 id="can_create_resource_section">can_create_resource_section</h2>
+
+<pre><code>    <span class="variable">$exe</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">create_resource_section</span> <span class="keyword">if</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">can_create_resource_section</span><span class="operator">;</span>
+</code></pre>
+
+<p>Check if the operating system and version allow addition of a resource section when none exists in the target executable.</p>
+
+<h2 id="get_manifest">get_manifest</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$manifest</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_manifest</span><span class="operator">;</span>
+</code></pre>
+
+<p>Retrieves a Win32::Exe::Manifest object. (See docs for Win32::Exe::Manifest)</p>
+
+<h2 id="set_manifest">set_manifest</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_manifest</span><span class="operator">(</span><span class="variable">$manifest</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Takes a Win32::Exe::Manifest object. You must explicitly call &#39;write&#39; to commit changes to file. Also takes a filepath to an xml file containing raw manifest information.</p>
+
+<h2 id="set_manifest_args">set_manifest_args</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_manifest_args</span><span class="operator">(</span><span class="variable">$argref</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Accepts a reference to a hash with one or more of the the keys</p>
+
+<pre><code>    ExecutionLevel  UIAccess     ExecName   Description
+    CommonControls  Version</code></pre>
+
+<p>Also accepts a reference to an array of strings of the format: [ &#39;key1=value1&#39;, &#39;key2=value2&#39; ]</p>
+
+<p>Example Values:</p>
+
+<pre><code>    ExecutionLevel=asInvoker
+    UIAccess=false
+    CommonControls=1
+    Version=6.8.67.334534
+    ExecName=My.Application
+    Description=My Application</code></pre>
+
+<p>The CommonControls argument can be specified to add a dependency on Common Controls Library version 6.0.0.0</p>
+
+<h2 id="get_version_info">get_version_info</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$inforef</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_version_info</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns a reference to a hash with the keys:</p>
+
+<pre><code>    Comments        CompanyName     FileDescription FileVersion
+    InternalName    LegalCopyright  LegalTrademarks OriginalFilename
+    ProductName     ProductVersion</code></pre>
+
+<h2 id="set_version_info">set_version_info</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_version_info</span><span class="operator">(</span><span class="variable">$inforef</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Accepts a reference to a hash with one or more of the the keys</p>
+
+<pre><code>    Comments        CompanyName     FileDescription FileVersion
+    InternalName    LegalCopyright  LegalTrademarks OriginalFilename
+    ProductName     ProductVersion</code></pre>
+
+<p>Also accepts a reference to an array of strings of the format: [ &#39;key1=value1&#39;, &#39;key2=value2&#39; ]</p>
+
+<h2 id="set_subsystem_windows">set_subsystem_windows</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_subsystem_windows</span><span class="operator">;</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Sets the executable system as &#39;windows&#39;. (GUI). You may also call $exe-&gt;SetSubsystem(&#39;windows); This is the equivalent of $exe-&gt;update( gui =&gt; 1);</p>
+
+<h2 id="set_subsystem_console">set_subsystem_console</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_subsystem_console</span><span class="operator">;</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Sets the executable system as &#39;console&#39;. You may also call $exe-&gt;SetSubsystem(&#39;console); This is the equivalent of $exe-&gt;update( console =&gt; 1);</p>
+
+<h2 id="get_subsystem">get_subsystem</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$subsys</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_subsystem</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns a descriptive string for the subsystem. Possible values: windows | console | posix | windowsce | native You can usefully update executables with the windows or console subsystem</p>
+
+<h2 id="set_single_group_icon">set_single_group_icon</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_single_group_icon</span><span class="operator">(</span><span class="variable">$iconfile</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Accepts the path to an icon file. Replaces all the icons in the exec with the icons from the file.</p>
+
+<h2 id="get_group_icon_names">get_group_icon_names</h2>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@iconnames</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_group_icon_names</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns a list of the names of all the group icons in the executable or dll. If there are no group icons, returns an empty list. The names returned can be used as parameters to other icon handling methods.</p>
+
+<h2 id="get_group_icon">get_group_icon</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_group_icon</span><span class="operator">(</span><span class="variable">$groupiconname</span><span class="operator">);</span>
+</code></pre>
+
+<p>Accepts a group icon name as returned by get_group_icon_names. Returns the Wx::Exe::Resource::GroupIcon object for the named GroupIcon</p>
+
+<h2 id="add_group_icon">add_group_icon</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">add_group_icon</span><span class="operator">(</span><span class="variable">$groupiconname</span><span class="operator">,</span> <span class="variable">$iconfilepath</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Accepts a group icon name and a path to an icon file. Adds the icon to the exec without affecting existing icons. The group icon name must not already exist.</p>
+
+<h2 id="replace_group_icon">replace_group_icon</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">replace_group_icon</span><span class="operator">(</span><span class="variable">$groupiconname</span><span class="operator">,</span> <span class="variable">$iconfilepath</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Accepts a group icon name and a path to an icon file. Replaces the groupicon named with the contents of the icon file.</p>
+
+<h2 id="remove_group_icon">remove_group_icon</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">remove_group_icon</span><span class="operator">(</span><span class="variable">$groupiconname</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<p>Accepts a group icon name. Removes the group icon with that name from the exec or dll.</p>
+
+<h2 id="export_group_icon">export_group_icon</h2>
+
+<pre><code>    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">export_group_icon</span><span class="operator">(</span><span class="variable">$groupiconname</span><span class="operator">,</span> <span class="variable">$iconfilepath</span><span class="operator">);</span>
+</code></pre>
+
+<p>Accepts a group icon name and a .ico filepath. Writes the named icon group to the file in filepath.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;</p>
+
+<p>Mark Dootson &lt;mdootson@cpan.org&gt;</p>
+
+<p>Steffen Mueller &lt;smueller@cpan.org&gt;</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2004-2007, 2010 by Audrey Tang &lt;cpan@audreyt.org&gt;.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

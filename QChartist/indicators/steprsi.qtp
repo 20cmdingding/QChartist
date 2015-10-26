@@ -1,0 +1,22 @@
+declare sub hidesteprsiform
+
+CREATE steprsiform as qform
+
+    Center
+    Caption = "Settings for: StepRSI"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create steprsibtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hidesteprsiform
+    end create
+
+END CREATE
+
+sub hidesteprsiform
+    steprsiform.visible=0
+end sub

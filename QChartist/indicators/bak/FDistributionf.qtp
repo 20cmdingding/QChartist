@@ -1,0 +1,22 @@
+declare sub hideFDistributionfform
+
+CREATE FDistributionfform as qform
+
+    Center
+    Caption = "Settings for: FDistributionf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create FDistributionfbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideFDistributionfform
+    end create
+
+END CREATE
+
+sub hideFDistributionfform
+    FDistributionfform.visible=0
+end sub

@@ -1,0 +1,34 @@
+declare sub hidebandscppform
+
+CREATE bandscppform as qform
+
+    Center
+    Caption = "Settings for: bandscpp"
+    visible=0
+
+    ' Put your indicator settings code here
+
+	create bandscppperiodlab as qlabel
+        	left=0
+        	top=0
+        	caption="Period:"
+    	end create
+    
+    create bandscppperiodedit as qedit
+        left=bandscppperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create bandscppbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hidebandscppform
+    end create
+
+END CREATE
+
+sub hidebandscppform
+    bandscppform.visible=0
+end sub

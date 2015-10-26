@@ -1,0 +1,18 @@
+'------------------------- Volatility Pivot -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+VolatilityPivot
+end if
+
+barsback=val(VolatilityPivotbarsbackedit.text) '<--- can also be something like VAL(myindibarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=lightblue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(volatilitypivottrstop(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Volatility Pivot -------------------------------------------------

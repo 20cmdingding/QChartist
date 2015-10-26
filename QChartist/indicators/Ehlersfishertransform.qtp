@@ -1,0 +1,46 @@
+declare sub hideEhlersfishertransformform
+
+CREATE Ehlersfishertransformform as qform
+
+    Center
+    Caption = "Settings for: Ehlers fisher transform"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Ehlersfishertransformperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create Ehlersfishertransformperiodedit as qedit
+        left=Ehlersfishertransformperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create Ehlersfishertransformcurtflab as qlabel
+        left=0
+        top=20
+        caption="Current timeframe:"
+    end create
+
+    create Ehlersfishertransformcurtfedit as qedit
+        left=Ehlersfishertransformcurtflab.width+100
+        top=20
+        text="60"
+    end create
+
+    create Ehlersfishertransformbtnok as qbutton
+        left=0
+        top=40
+        caption="OK"
+        onclick=hideEhlersfishertransformform
+    end create
+
+END CREATE
+
+sub hideEhlersfishertransformform
+    Ehlersfishertransformform.visible=0
+end sub

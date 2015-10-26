@@ -1,0 +1,18 @@
+'------------------------- PoissonDistributionf -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+PoissonDistributionf
+end if
+
+barsback=200 '<--- can also be something like VAL(PoissonDistributionfbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(PoissonDistributionfbuffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End PoissonDistributionf -------------------------------------------------

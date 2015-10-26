@@ -1,0 +1,45 @@
+declare sub hideatrform
+
+CREATE atrform as qform
+
+    Center
+    Caption = "Settings for: ATR"
+    visible=0
+
+    
+    create atrperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create atrperiodedit as qedit
+        left=atrperiodlab.width+100
+        top=0
+        text="14"
+    end create
+    
+    create atrbarsbacklab as qlabel
+        top=atrperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create atrbarsbackedit as qedit
+        left=atrperiodedit.left
+        top=atrbarsbacklab.top
+        text="200"
+    end create
+    
+    create atrbtnok as qbutton
+        left=0
+        top=atrbarsbacklab.top+atrbarsbacklab.height+15
+        caption="OK"
+        onclick=hideatrform
+    end create
+     
+END CREATE
+
+sub hideatrform
+atrform.visible=0
+end sub

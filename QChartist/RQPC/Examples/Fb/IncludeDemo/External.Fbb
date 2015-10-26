@@ -1,0 +1,35 @@
+' ''INCLUDE TestIncl.Fbb
+' -------------------------------------------------------------------
+' ''RQEXPORT function TestAddInt (iNumber1, iNumber2)
+Function  TestAddInt (i1 As Long, i2 As Long, i3 As Long, i4 As Long) As Integer
+	Function = i1 + i2
+End Function
+' -------------------------------------------------------------------
+' ''RQEXPORT function TestSubInt (iNumber1, iNumber2)
+Function  TestSubInt (i1 As Long, i2 As Long, i3 As Long, i4 As Long) As Integer
+	Function = i1 - i2
+End Function
+' -------------------------------------------------------------------
+' ''RQEXPORT data:string MyString
+Dim As String MyString  = "FB String exported in RQ"
+' ''RQEXPORT data:array MyBuffer_1
+Dim As Byte MyBuffer_1(1024) = {65, 65, 66, 66, 67, 67, 68, 68, 69, 69, 46, 46, 46}
+' ''RQEXPORT data:array MyBuffer_2
+Dim as Byte MyBuffer_2(32768)
+' -------------------------------------------------------------------
+
+Function GetValue(i As Integer) As Byte
+	Function = 48 + (i Mod 64)
+End Function
+
+Dim As Integer N
+Dim M As Byte	
+For N = 0 To 1023
+	M = GetValue (N)
+	MyBuffer_1(N) = M
+	MyBuffer_2(N) = M
+	xMyBuffer_1(N) = M
+	xMyBuffer_2(N) = M	
+Next N
+'
+

@@ -1,0 +1,76 @@
+' BB-HL indicator source code
+
+dim ExtMapBuffer2(0 to 1000) as double
+
+declare sub fsma()
+
+sub fsma()
+
+    dim sum as double
+    sum=0
+    dim i as integer,p as integer
+    p=bars-1
+    p=1000
+    if p<val(bbhlperiodedit.text) then
+        p=val(bbhlperiodedit.text)
+    end if
+    for i=1 to val(bbhlperiodedit.text)-1
+        sum=sum+(high(p)+low(p))/2
+        p--
+    next i
+    while p>=0
+        sum=sum+(high(p)+low(p))/2
+        extmapbuffer2(p)=sum/val(bbhlperiodedit.text)
+        sum=sum-(high(p+val(bbhlperiodedit.text)-1)+low(p+val(bbhlperiodedit.text)-1))/2
+        p--
+    wend
+
+end sub
+
+dim mabuffer(0 to 1000) as double,upperbandbuffer(0 to 1000) as double,lowerbandbuffer(0 to 1000) as double,devsbuffer(0 to 1000) as double
+
+sub bbhl()
+
+    dim per as integer
+    per=val(bbhlperiodedit.text)
+    dim limit as integer
+    dim d1 as double,d2 as double, ma as double
+    limit=bars
+    limit=val(bbhlbarsbackedit.text)
+    fsma
+    dim i as integer
+    for i=limit to 0 step -1
+        ma=extmapbuffer2(i)
+        d1=high(i)-ma
+        d1=d1*d1
+        d2=low(i)-ma
+        d2=d2*d2
+        mabuffer(i)=ma    
+        if d1>d2 then
+            devsbuffer(i)=d1
+        end if
+        if d1<d2 then
+            devsbuffer(i)=d2
+        end if
+        if d1=d2 then
+            devsbuffer(i)=d1
+        end if
+    next i
+
+    upperbandbuffer(limit)=0
+    lowerbandbuffer(limit)=0
+
+    dim j as integer
+
+    for i=limit to 0 step -1
+        d1=0
+        for j=i to i+per-1
+            d1=d1+devsbuffer(j)
+        next j
+        d1=d1/per
+        d2=2*sqr(d1)
+        ma=mabuffer(i)
+        upperbandbuffer(i)=ma+d2
+        lowerbandbuffer(i)=ma-d2
+    next i
+end sub

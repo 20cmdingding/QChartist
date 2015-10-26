@@ -1,0 +1,22 @@
+declare sub hideLegendreCalculatefform
+
+CREATE LegendreCalculatefform as qform
+
+    Center
+    Caption = "Settings for: LegendreCalculatef"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create LegendreCalculatefbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideLegendreCalculatefform
+    end create
+
+END CREATE
+
+sub hideLegendreCalculatefform
+    LegendreCalculatefform.visible=0
+end sub

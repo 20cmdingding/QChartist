@@ -1,0 +1,87 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: D/DR/DROLSKY/DateTime-1.18.tar.gz
+  CHECKSUM_STATUS: OK
+  ID: D/DR/DROLSKY/DateTime-1.18.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: DROLSKY
+  archived: tar
+  build_dir: C:\Perl\cpan\build\DateTime-1.18-Q2iZbd
+  incommandcolor: 2
+  install: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426413861
+  localfile: C:\Perl\cpan\sources\authors\id\D\DR\DROLSKY\DateTime-1.18.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426413805
+  make_test: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426413859
+  mandatory: 1
+  modulebuild: 1
+  negative_prefs_cache: 1
+  prefs:
+    install: {}
+  prereq_pm:
+    build_requires:
+      ExtUtils::CBuilder: '0'
+      ExtUtils::MakeMaker: '0'
+      File::Spec: '0'
+      Module::Build: '0.28'
+      Storable: '0'
+      Test::Fatal: '0'
+      Test::More: '0.88'
+      Test::Warnings: '0.005'
+      utf8: '0'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      Carp: '0'
+      DateTime::Locale: '0.41'
+      DateTime::TimeZone: '1.74'
+      POSIX: '0'
+      Params::Validate: '0.76'
+      Scalar::Util: '0'
+      Try::Tiny: '0'
+      XSLoader: '0'
+      base: '0'
+      constant: '0'
+      integer: '0'
+      overload: '0'
+      perl: '5.008001'
+      strict: '0'
+      vars: '0'
+      warnings: '0'
+      warnings::register: '0'
+  reqtype: r
+  sponsored_mods:
+    DateTime::Locale: 1
+    DateTime::TimeZone: 1
+    Module::Build: 1
+    Params::Validate: 1
+    Test::Fatal: 1
+    Test::Warnings: 1
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426412817
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426413366
+perl:
+  $^X: C:\Perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426413861

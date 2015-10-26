@@ -1,0 +1,33 @@
+'------------------------- Ehlers fisher transform -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=Ehlersfishertransformperiodedit.text
+curtfstr=Ehlersfishertransformcurtfedit.text
+cpptmpfuncreturn=varptr$(Ehlersfishertransform(varptr(periodstr),varptr(curtfstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(Ehlersfishertransformbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="Ehlersfishertransformbuffer1"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=mediumseagreen '<--- replace with your color
+    bufnamestr="eftbandsmovingbuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=mediumseagreen '<--- replace with your color
+    bufnamestr="eftbandsupperbuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=mediumseagreen '<--- replace with your color
+    bufnamestr="eftbandslowerbuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Ehlers fisher transform -------------------------------------------------

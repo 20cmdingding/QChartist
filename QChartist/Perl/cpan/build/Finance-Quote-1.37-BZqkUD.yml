@@ -1,0 +1,89 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: E/EC/ECOCODE/Finance-Quote-1.37.tar.gz
+  CHECKSUM_STATUS: OK
+  ID: E/EC/ECOCODE/Finance-Quote-1.37.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: ECOCODE
+  archived: tar
+  build_dir: C:\Perl\cpan\build\Finance-Quote-1.37-BZqkUD
+  incommandcolor: 1
+  install: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414524
+  localfile: C:\Perl\cpan\sources\authors\id\E\EC\ECOCODE\Finance-Quote-1.37.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414483
+  make_test: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414510
+  mandatory: 1
+  negative_prefs_cache: 1
+  prefs:
+    install: {}
+  prereq_pm:
+    build_requires:
+      Data::Dumper: '0'
+      ExtUtils::MakeMaker: '0'
+      File::Spec: '0'
+      Test::More: '0'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      CGI: '0'
+      Carp: '0'
+      DateTime: '0'
+      Encode: '0'
+      Exporter: '0'
+      HTML::Parser: '0'
+      HTML::TableExtract: '0'
+      HTML::TokeParser: '0'
+      HTML::TreeBuilder: '0'
+      HTTP::Cookies: '0'
+      HTTP::Headers: '0'
+      HTTP::Request::Common: '0'
+      HTTP::Status: '0'
+      JSON: '0'
+      LWP::Protocol::https: '0'
+      LWP::Simple: '0'
+      LWP::UserAgent: '0'
+      Mozilla::CA: '0'
+      POSIX: '0'
+      Time::Piece: '0'
+      URI: '0'
+      URI::Escape: '0'
+      URI::QueryParam: '0'
+      base: '0'
+      constant: '0'
+      perl: '5.010'
+      strict: '0'
+      utf8: '0'
+      vars: '0'
+      warnings: '0'
+  reqtype: c
+  sponsored_mods:
+    CGI: 1
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414276
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414277
+perl:
+  $^X: c:\perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426414524

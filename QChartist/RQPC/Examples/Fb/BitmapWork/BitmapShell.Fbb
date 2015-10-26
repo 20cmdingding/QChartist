@@ -1,0 +1,160 @@
+'
+' -----------------------------------------------------------------------------
+' RQPC FreeBasic DEMO     Bitmap Info + Stats        Jan 15th,  2007   Jacques
+' -----------------------------------------------------------------------------
+'
+' Based on BMP file format description at:
+' http://www.fortunecity.com/skyscraper/windows/364/bmpffrmt.html
+'
+' Type INKBMP           ' Structure on Caller side 13 integers
+'     fileSize as Long
+'     dataSize As Long
+'     Width As Long
+'     Height As Long
+'     PixelCount As Long
+'     BitPerPixel As Long
+'     totRed As Long
+'     totBlue As Long
+'     totGreen As Long
+'     avgRed As Long
+'     avgBlue As Long
+'     avgGreen As Long
+'     workTime As Long
+' END TYPE
+'
+' ''RQEXPORT function BitmapWork (fileBMP:String, ptrResult, Method)
+Function BitmapWork (fileBMP As String, ptrResult As Integer Ptr, Method as Integer, a4) As Long
+    Dim As Short bmpTag, bmpBitPerPixel
+    Dim As Integer i, hBmpFile, bmpFileSize, bmpWidth, bmpHeight, bmpSize, bmpPtr, bmpPixelCount
+    Dim As UInteger iTotRed, iTotGreen, iTotBlue, iTimer
+    Dim As UByte iRed, iBlue, iGreen
+    Dim ptrBuffer As Integer
+    ' 
+    hBmpFile = FreeFile
+    Open fileBMP For Binary As hBmpFile
+    ' Get Bimap informations
+    ' ----------------------
+    Get #hBmpFile, 1, bmpTag
+    If bmpTag <> 19778 Then     ' 19778 = "BM"  is a bmp file signature
+        Close #hBmpFile
+        MessageBox (0, fileBMP & "  is not a BMP file, I will close", "BMP WORK FB FUNCTION", 0)
+        ExitProcess (4)
+    End If
+    Get #hBmpFile,  3, bmpFileSize
+    Get #hBmpFile, 11, bmpPtr
+    Get #hBmpFile, 19, bmpWidth
+    Get #hBmpFile, 23, bmpHeight
+    Get #hBmpFile, 29, bmpBitPerPixel
+    If bmpBitPerPixel <> 24 Then
+        Close #hBmpFile
+        MessageBox (0, fileBMP & "  is not a 24 bit per pixel BMP file, I will close", "BMP WORK FB FUNCTION", 0)
+        ExitProcess (5)
+    End If
+    Get #hBmpFile, 35, bmpSize
+    '
+    bmpPixelCount = bmpWidth * bmpHeight
+    '
+    ' Set BMP File Info in Result structure
+    ' -------------------------------------
+    ptrResult[0] = bmpFileSize
+    ptrResult[1] = bmpSize
+    ptrResult[2] = bmpWidth
+    ptrResult[3] = bmpHeight
+    ptrResult[4] = bmpPixelCount
+    ptrResult[5] = bmpBitPerPixel
+    '
+    ' load bitmap data  in a buffer
+    ' -----------------------------
+    Dim fileBuffer  (0 To bmpSize - 1) As UByte
+    get #1, bmpPtr, fileBuffer(0), bmpSize
+    ptrBuffer = @fileBuffer(0)
+    ' 
+    ' Sum RGB value (4 different Methods)
+    ' -------------
+    iTotRed   = 0
+    iTotGreen = 0
+    iTotBlue  = 0
+    iTimer = GetTickCount ()
+    Select Case Method
+       ' Get Pixels RBG colors in file 1 by 1
+        Case 1
+            For i = bmpPtr To bmpPtr + bmpSize - 1 Step 3
+                Get #hBmpFile,  i    , iRed
+                Get #hBmpFile,  i + 1, iBlue
+                Get #hBmpFile,  i + 2, iGreen
+                iTotRed   += iRed
+                iTotGreen += iGreen
+                iTotBlue  += iBlue
+            Next i
+        ' Get Pixels in File Buffer using Freebasic code  1000 Times faster than 1
+        Case 2
+            For i = 0 To bmpSize - 1 Step 3     
+                iTotRed   += fileBuffer(i)
+                iTotBlue  += fileBuffer(i + 1)
+                iTotGreen += fileBuffer(i + 2)
+            Next i
+        ' Assembler Code not optimized    5000 times faster than 1
+        Case 3
+            Dim ptrBuffer = @fileBuffer(0)
+            asm
+                pusha
+                mov ecx, [bmpSize]
+                sub ecx, 3
+                mov esi, [ptrBuffer]        
+                xxLoopBitmap:
+                    xor eax, eax
+                    mov al, [esi]
+                    add [iTotRed], eax
+                    xor eax, eax
+                    mov al, [esi + 1]
+                    add [iTotBlue], eax
+                    xor eax, eax
+                    mov al, [esi + 2]
+                    add [iTotGreen], eax
+                    add esi, 3
+                    sub ecx, 3
+                jnc xxLoopBitmap
+                popa
+            end asm
+        ' Assembler Code ???Optimized    not very different from Method 3
+        Case 4
+            asm
+                pusha
+                mov ecx, [bmpSize]
+                sub ecx, 3
+                mov esi, [ptrBuffer]        
+                xxxLoopBitmap:
+                    xor eax, eax
+                    mov eax, [esi]
+                    xor ebx, ebx
+                    mov bl, al
+                    add dword ptr [iTotRed], ebx
+                    mov bl, ah
+                    add dword ptr [iTotBlue], ebx
+                    shr eax, 16
+                    mov bl, al
+                    add dword ptr [iTotGreen], ebx
+                    add esi, 3
+                    sub ecx, 3
+                jnc xxxLoopBitmap
+                popa
+            end asm
+        Case Else
+            Close #hBmpFile
+            MessageBox (0, "METHOD: " & Str$(Method) _
+                       & " not implemented (1 to 4 allowed)", "BMP WORK FB FUNCTION", 0)
+            ExitProcess (6)
+    End Select
+    Close #hBmpFile
+    iTimer = GetTickCount - iTimer
+    ptrResult[6]  = iTotRed
+    ptrResult[7]  = iTotBlue
+    ptrResult[8]  = iTotGreen
+    ptrResult[9]  = iTotRed/bmpPixelCount
+    ptrResult[10] = iTotBlue/bmpPixelCount
+    ptrResult[11] = iTotGreen/bmpPixelCount
+    ptrResult[12] = iTimer
+    Function = IIf (bmpPixelCount > 7812000, 0, 1)
+End Function
+' -----------------------------------------------------------------------------
+'

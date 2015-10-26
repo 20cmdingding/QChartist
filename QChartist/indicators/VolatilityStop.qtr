@@ -1,0 +1,24 @@
+'------------------------- Volatility Stop -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=VolatilityStopperiodedit.text
+cpptmpfuncreturn=varptr$(VolatilityStop(varptr(periodstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(VolatilityStopbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    'indicolor(drawid)=red '<--- replace with your color
+    'bufnamestr="volatilitystopBuffer1"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    'drawid=drawid+2
+    indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="volatilitystopBuffer2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Volatility Stop -------------------------------------------------

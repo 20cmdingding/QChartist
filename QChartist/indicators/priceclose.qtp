@@ -1,0 +1,32 @@
+declare sub hidepricecloseform 
+
+CREATE pricecloseform as qform
+
+    Center
+    Caption = "Settings for: Price Close"
+    visible=0
+      
+    create priceclosebarsbacklab as qlabel
+        top=0
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create priceclosebarsbackedit as qedit
+        left=priceclosebarsbacklab.left+100
+        top=priceclosebarsbacklab.top
+        text="200"
+    end create
+    
+    create priceclosebtnok as qbutton
+        left=0
+        top=priceclosebarsbacklab.top+priceclosebarsbacklab.height+15
+        caption="OK"
+        onclick=hidepricecloseform
+    end create
+          
+END CREATE           
+
+sub hidepricecloseform
+pricecloseform.visible=0
+end sub

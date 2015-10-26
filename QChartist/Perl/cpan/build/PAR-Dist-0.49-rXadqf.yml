@@ -1,0 +1,59 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: PAR::Dist
+  CHECKSUM_STATUS: OK
+  ID: R/RS/RSCHUPP/PAR-Dist-0.49.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: RSCHUPP
+  archived: tar
+  build_dir: C:\Perl\cpan\build\PAR-Dist-0.49-rXadqf
+  incommandcolor: 2
+  install: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423684
+  localfile: C:\Perl\cpan\sources\authors\id\R\RS\RSCHUPP\PAR-Dist-0.49.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423668
+  make_test: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423670
+  mandatory: 1
+  negative_prefs_cache: 1
+  prefs:
+    install: {}
+  prereq_pm:
+    build_requires:
+      ExtUtils::MakeMaker: '0'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      File::Find: '0'
+      File::Path: '0'
+      File::Spec: '0'
+      File::Temp: '0'
+  reqtype: r
+  sponsored_mods: {}
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423651
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423652
+perl:
+  $^X: c:\perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426423684

@@ -1,0 +1,33 @@
+declare sub LSS ' This line of code must stay here
+dim LSSbuffer(0 to 1000) as double ' This line of code must stay here.
+dim LSSbufferlevel1(0 to 1000) as integer
+dim LSSbufferlevel2(0 to 1000) as integer
+dim LSSbufferlevel3(0 to 1000) as integer
+
+sub LSS
+' Put your indicator code here
+dim h as double,l as double,x as double,y as double
+
+dim i as integer, j as integer
+for j=0 to 200 
+h=high(j)
+for i=j to j+4
+	if high(i)>h then
+		h=high(i)
+	end if
+next i
+l=low(j)
+for i=j to j+4	
+	if low(i)<l then
+		l=low(i)
+	end if
+next i
+x=h-open(j+5)
+y=close(j)-l
+LSSbuffer(j)=((x+y)*100)/((h-l)*2)
+LSSbufferlevel1(j)=50
+LSSbufferlevel2(j)=0
+LSSbufferlevel3(j)=-50
+
+next j
+end sub

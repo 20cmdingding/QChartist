@@ -1,0 +1,249 @@
+declare sub planets_scale ' This line of code must stay here
+dim planets_scalebuffer(0 to 100,0 to 1000) as double ' This line of code must stay here.
+dim price_scalebuffer(0 to 1000) as double
+dim price_scalebuffer2(0 to 1000) as double
+
+sub planets_scale
+' Put your indicator RapidQ code here
+
+defstr year,month,day,hours,minutes
+defstr coordinates
+defstr longitude
+defdbl longitudedbl
+defdbl degrees
+defint limit=val(planets_scale_limit.text)
+dim i as integer
+
+' Sweph
+Dim x(6) As Double
+    Dim x2(6) As Double
+    Dim cusp(13) As Double
+    Dim ascmc(10) As Double
+    Dim attr(20) As Double
+    Dim tret(20) As Double
+    Dim geopos(10) As Double
+    Dim geoposx(10) As Double
+    Dim xnasc(6) As Double
+    Dim xndsc(6) As Double
+    Dim xperi(6) As Double
+    Dim xaphe(6) As Double
+    Dim cal As Byte
+    Dim o As orient
+    Dim ss As String * 16
+    cal = 103  ' g for gregorian calendar
+    'defdbl h = phour + pmin / 60
+    'olen = LenB(ss)
+    defdbl plon=8
+    defdbl plat=47
+    geopos(0) = plon
+    geopos(1) = plat
+    geopos(2) = 0
+
+for i=limit to 0 step -1
+
+defint j=0
+
+price_scalebuffer(i)=val(planets_scale_ratio.text)*close(i)
+
+select case planets_scale_planet.item(planets_scale_planet.itemindex)
+
+case "Earth":
+price_scalebuffer(i)=price_scalebuffer(i)/earth_period_of_revolution
+case "Mars":
+price_scalebuffer(i)=price_scalebuffer(i)/mars_period_of_revolution
+case "Venus":
+price_scalebuffer(i)=price_scalebuffer(i)/venus_period_of_revolution
+case "Saturn":
+price_scalebuffer(i)=price_scalebuffer(i)/saturn_period_of_revolution
+case "Neptune":
+price_scalebuffer(i)=price_scalebuffer(i)/neptune_period_of_revolution
+case "Pluto":
+price_scalebuffer(i)=price_scalebuffer(i)/pluto_period_of_revolution
+case "Jupiter":
+price_scalebuffer(i)=price_scalebuffer(i)/jupiter_period_of_revolution
+case "Uranus":
+price_scalebuffer(i)=price_scalebuffer(i)/uranus_period_of_revolution
+case "Mercury":
+price_scalebuffer(i)=price_scalebuffer(i)/mercury_period_of_revolution
+
+end select
+
+if price_scalebuffer(i)/360>1 then
+	price_scalebuffer(i)=frac(price_scalebuffer(i)/360)
+	price_scalebuffer(i)=360*price_scalebuffer(i)
+end if
+
+price_scalebuffer2(i)=val(planets_scale_ratio.text)*open(i)
+
+select case planets_scale_planet.item(planets_scale_planet.itemindex)
+
+case "Earth":
+price_scalebuffer2(i)=price_scalebuffer2(i)/earth_period_of_revolution
+case "Mars":
+price_scalebuffer2(i)=price_scalebuffer2(i)/mars_period_of_revolution
+case "Venus":
+price_scalebuffer2(i)=price_scalebuffer2(i)/venus_period_of_revolution
+case "Saturn":
+price_scalebuffer2(i)=price_scalebuffer2(i)/saturn_period_of_revolution
+case "Neptune":
+price_scalebuffer2(i)=price_scalebuffer2(i)/neptune_period_of_revolution
+case "Pluto":
+price_scalebuffer2(i)=price_scalebuffer2(i)/pluto_period_of_revolution
+case "Jupiter":
+price_scalebuffer2(i)=price_scalebuffer2(i)/jupiter_period_of_revolution
+case "Uranus":
+price_scalebuffer2(i)=price_scalebuffer2(i)/uranus_period_of_revolution
+case "Mercury":
+price_scalebuffer2(i)=price_scalebuffer2(i)/mercury_period_of_revolution
+
+end select
+
+if price_scalebuffer2(i)/360>1 then
+	price_scalebuffer2(i)=frac(price_scalebuffer2(i)/360)
+	price_scalebuffer2(i)=360*price_scalebuffer2(i)
+end if
+
+
+year=mid$(date2(i),1,4)
+month=mid$(date2(i),6,2)
+day=mid$(date2(i),9,2)
+hours=mid$(time(i),1,2)
+minutes=mid$(time(i),4,2)
+
+defint pday=val(day)
+defint pmonth=val(month)
+defint pyear=val(year)
+defint phour=val(hours)
+defint pmin=val(minutes)
+defdbl h = phour + pmin / 60
+defdbl ptjd_ut
+defdbl ptdj_et
+defstr pparameters
+
+defstr iyearstr,imonthstr,idaystr,hstr
+    iyearstr=str$(pyear)
+    imonthstr=str$(pmonth)
+    idaystr=str$(pday)
+    hstr=str$(h)
+    pparameters=iyearstr+";"+imonthstr+";"+idaystr+";"+hstr+";1"
+    defstr tjd_utstr=varptr$(swe_julday(varptr(pparameters)))
+    ptjd_ut=val(tjd_utstr)
+
+    pparameters=iyearstr+";"+imonthstr+";"+idaystr+";"+hstr+";g;"+tjd_utstr
+    defstr retvalstr=varptr$(swe_date_conversion(varptr(pparameters)))
+    deflng retval = val(retvalstr)
+
+If retval <> 0 Then
+        showmessage "Illegal Date"
+        Exit Sub
+    End If 
+
+'If ephemeris_time.checked=1 Then
+     defdbl tjd_et = ptjd_ut
+     defstr tjd_etstr=str$(tjd_et)
+     ptjd_ut = tjd_et - val(varptr$(swe_deltat(varptr(tjd_etstr))))
+'    Else    
+'     tjd_et = ptjd_ut + val(varptr$(swe_deltat(varptr(tjd_utstr))))
+'    End If    
+    
+    defdbl t2 = ptjd_ut - 2415018.5
+    If t2 < 0 Then
+      t2 = t2
+    End If
+    
+    defstr tjd_ut_formated=Format$("%.8f", ptjd_ut)
+    defstr tjd_et_formated=Format$("%.8f", tjd_et)   
+    
+    defstr ut$
+    
+    If ptjd_ut=tjd_et Then
+      ut$ = ""
+      
+    Else
+      ut$ = "  UT=" + tjd_ut_formated
+    End If    
+ 
+    'swephout.text=swephout.text+"ET="+tjd_et_formated+" "+ ut$ + chr$(10) 
+
+deflng iflag = SEFLG_SPEED + SEFLG_SWIEPH
+
+'        If barycentric.checked = 1 Then
+'            iflag = iflag + SEFLG_BARYCTR
+'        End If
+        If planets_scale_helio_geo.itemindex=0 Then
+            iflag = iflag + SEFLG_HELCTR
+        End If
+'        If equinox_j2000.checked = 1 Then
+'            iflag = iflag + SEFLG_J2000
+'        End If
+'        If Not apparent_pos.checked = 1 Then
+'           iflag = iflag + SEFLG_TRUEPOS
+'        End If
+'        If sidereal.checked = 1 Then
+'           iflag = iflag + SEFLG_SIDEREAL
+'           'a = swe_set_sid_mode(SEFLG_SIDM_FAGAN_BRADLEY, 0, 0)
+'        End If
+
+defint planet 
+defstr serr$ 
+defstr plnam$ 
+defstr planetstr
+defstr iflagstr
+defstr x0str
+defdbl ret_flag
+
+select case planets_scale_planet.item(planets_scale_planet.itemindex)
+
+case "Earth":
+planet=SE_EARTH
+case "Mars":
+planet=SE_MARS
+case "Venus":
+planet=SE_VENUS
+case "Saturn":
+planet=SE_SATURN
+case "Neptune":
+planet=SE_NEPTUNE
+case "Pluto":
+planet=SE_PLUTO
+case "Jupiter":
+planet=SE_JUPITER
+case "Uranus":
+planet=SE_URANUS
+case "Mercury":
+planet=SE_MERCURY
+
+end select
+
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)	
+
+defint incrplanet
+    for incrplanet=0 to 10
+
+planets_scalebuffer(j,i)=x(0)*planets_scale_inv+360*incrplanet
+
+j++
+
+next incrplanet
+
+next i
+
+end sub

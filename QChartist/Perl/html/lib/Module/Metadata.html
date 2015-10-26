@@ -1,0 +1,253 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#USAGE">USAGE</a>
+    <ul>
+      <li><a href="#Class-methods">Class methods</a></li>
+      <li><a href="#Object-methods">Object methods</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#COPYRIGHT-LICENSE">COPYRIGHT &amp; LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Module::Metadata - Gather package and POD information from perl module files</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">Module::Metadata</span><span class="operator">;</span>
+  
+  <span class="comment"># information about a .pm file</span>
+  <span class="keyword">my</span> <span class="variable">$info</span> <span class="operator">=</span> <span class="variable">Module::Metadata</span><span class="operator">-&gt;</span><span class="variable">new_from_file</span><span class="operator">(</span> <span class="variable">$file</span> <span class="operator">);</span>
+  <span class="keyword">my</span> <span class="variable">$version</span> <span class="operator">=</span> <span class="variable">$info</span><span class="operator">-&gt;</span><span class="variable">version</span><span class="operator">;</span>
+  
+  <span class="comment"># CPAN META 'provides' field for .pm files in a directory</span>
+  <span class="keyword">my</span> <span class="variable">$provides</span> <span class="operator">=</span> <span class="variable">Module::Metadata</span><span class="operator">-&gt;</span><span class="variable">provides</span><span class="operator">(</span>
+    <span class="string">dir</span> <span class="operator">=&gt;</span> <span class="string">'lib'</span><span class="operator">,</span> <span class="string">version</span> <span class="operator">=&gt;</span> <span class="number">2</span>
+  <span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module provides a standard way to gather metadata about a .pm file through (mostly) static analysis and (some) code execution. When determining the version of a module, the <code>$VERSION</code> assignment is <code>eval</code>ed, as is traditional in the CPAN toolchain.</p>
+
+<h1 id="USAGE">USAGE</h1>
+
+<h2 id="Class-methods">Class methods</h2>
+
+<dl>
+
+<dt id="new_from_file-filename-collect_pod-1"><code>new_from_file($filename, collect_pod =&gt; 1)</code></dt>
+<dd>
+
+<p>Constructs a <code>Module::Metadata</code> object given the path to a file. Returns undef if the filename does not exist.</p>
+
+<p><code>collect_pod</code> is a optional boolean argument that determines whether POD data is collected and stored for reference. POD data is not collected by default. POD headings are always collected.</p>
+
+<p>If the file begins by an UTF-8, UTF-16BE or UTF-16LE byte-order mark, then it is skipped before processing, and the content of the file is also decoded appropriately starting from perl 5.8.</p>
+
+</dd>
+<dt id="new_from_handle-handle-filename-collect_pod-1"><code>new_from_handle($handle, $filename, collect_pod =&gt; 1)</code></dt>
+<dd>
+
+<p>This works just like <code>new_from_file</code>, except that a handle can be provided as the first argument.</p>
+
+<p>Note that there is no validation to confirm that the handle is a handle or something that can act like one. Passing something that isn&#39;t a handle will cause a exception when trying to read from it. The <code>filename</code> argument is mandatory or undef will be returned.</p>
+
+<p>You are responsible for setting the decoding layers on <code>$handle</code> if required.</p>
+
+</dd>
+<dt id="new_from_module-module-collect_pod-1-inc-dirs"><code>new_from_module($module, collect_pod =&gt; 1, inc =&gt; \@dirs)</code></dt>
+<dd>
+
+<p>Constructs a <code>Module::Metadata</code> object given a module or package name. Returns undef if the module cannot be found.</p>
+
+<p>In addition to accepting the <code>collect_pod</code> argument as described above, this method accepts a <code>inc</code> argument which is a reference to an array of directories to search for the module. If none are given, the default is @INC.</p>
+
+<p>If the file that contains the module begins by an UTF-8, UTF-16BE or UTF-16LE byte-order mark, then it is skipped before processing, and the content of the file is also decoded appropriately starting from perl 5.8.</p>
+
+</dd>
+<dt id="find_module_by_name-module-dirs"><code>find_module_by_name($module, \@dirs)</code></dt>
+<dd>
+
+<p>Returns the path to a module given the module or package name. A list of directories can be passed in as an optional parameter, otherwise @INC is searched.</p>
+
+<p>Can be called as either an object or a class method.</p>
+
+</dd>
+<dt id="find_module_dir_by_name-module-dirs"><code>find_module_dir_by_name($module, \@dirs)</code></dt>
+<dd>
+
+<p>Returns the entry in <code>@dirs</code> (or <code>@INC</code> by default) that contains the module <code>$module</code>. A list of directories can be passed in as an optional parameter, otherwise @INC is searched.</p>
+
+<p>Can be called as either an object or a class method.</p>
+
+</dd>
+<dt id="provides-options"><code>provides( %options )</code></dt>
+<dd>
+
+<p>This is a convenience wrapper around <code>package_versions_from_directory</code> to generate a CPAN META <code>provides</code> data structure. It takes key/value pairs. Valid option keys include:</p>
+
+<dl>
+
+<dt id="version-required">version <b>(required)</b></dt>
+<dd>
+
+<p>Specifies which version of the <a href="../../lib/CPAN/Meta/Spec.html">CPAN::Meta::Spec</a> should be used as the format of the <code>provides</code> output. Currently only &#39;1.4&#39; and &#39;2&#39; are supported (and their format is identical). This may change in the future as the definition of <code>provides</code> changes.</p>
+
+<p>The <code>version</code> option is required. If it is omitted or if an unsupported version is given, then <code>provides</code> will throw an error.</p>
+
+</dd>
+<dt id="dir">dir</dt>
+<dd>
+
+<p>Directory to search recursively for <i>.pm</i> files. May not be specified with <code>files</code>.</p>
+
+</dd>
+<dt id="files">files</dt>
+<dd>
+
+<p>Array reference of files to examine. May not be specified with <code>dir</code>.</p>
+
+</dd>
+<dt id="prefix">prefix</dt>
+<dd>
+
+<p>String to prepend to the <code>file</code> field of the resulting output. This defaults to <i>lib</i>, which is the common case for most CPAN distributions with their <i>.pm</i> files in <i>lib</i>. This option ensures the META information has the correct relative path even when the <code>dir</code> or <code>files</code> arguments are absolute or have relative paths from a location other than the distribution root.</p>
+
+</dd>
+</dl>
+
+<p>For example, given <code>dir</code> of &#39;lib&#39; and <code>prefix</code> of &#39;lib&#39;, the return value is a hashref of the form:</p>
+
+<pre><code>  <span class="operator">{</span>
+    <span class="string">'Package::Name'</span> <span class="operator">=&gt;</span> <span class="operator">{</span>
+      <span class="string">version</span> <span class="operator">=&gt;</span> <span class="string">'0.123'</span><span class="operator">,</span>
+      <span class="string">file</span> <span class="operator">=&gt;</span> <span class="string">'lib/Package/Name.pm'</span>
+    <span class="operator">}</span><span class="operator">,</span>
+    <span class="string">'OtherPackage::Name'</span> <span class="operator">=&gt;</span> <span class="operator">...</span>
+  <span class="operator">}</span>
+</code></pre>
+
+</dd>
+<dt id="package_versions_from_directory-dir-files"><code>package_versions_from_directory($dir, \@files?)</code></dt>
+<dd>
+
+<p>Scans <code>$dir</code> for .pm files (unless <code>@files</code> is given, in which case looks for those files in <code>$dir</code> - and reads each file for packages and versions, returning a hashref of the form:</p>
+
+<pre><code>  <span class="operator">{</span>
+    <span class="string">'Package::Name'</span> <span class="operator">=&gt;</span> <span class="operator">{</span>
+      <span class="string">version</span> <span class="operator">=&gt;</span> <span class="string">'0.123'</span><span class="operator">,</span>
+      <span class="string">file</span> <span class="operator">=&gt;</span> <span class="string">'Package/Name.pm'</span>
+    <span class="operator">}</span><span class="operator">,</span>
+    <span class="string">'OtherPackage::Name'</span> <span class="operator">=&gt;</span> <span class="operator">...</span>
+  <span class="operator">}</span>
+</code></pre>
+
+<p>The <code>DB</code> and <code>main</code> packages are always omitted, as are any &quot;private&quot; packages that have leading underscores in the namespace (e.g. <code>Foo::_private</code>)</p>
+
+<p>Note that the file path is relative to <code>$dir</code> if that is specified. This <b>must not</b> be used directly for CPAN META <code>provides</code>. See the <code>provides</code> method instead.</p>
+
+</dd>
+<dt id="log_info-internal"><code>log_info (internal)</code></dt>
+<dd>
+
+<p>Used internally to perform logging; imported from Log::Contextual if Log::Contextual has already been loaded, otherwise simply calls warn.</p>
+
+</dd>
+</dl>
+
+<h2 id="Object-methods">Object methods</h2>
+
+<dl>
+
+<dt id="name"><code>name()</code></dt>
+<dd>
+
+<p>Returns the name of the package represented by this module. If there is more than one package, it makes a best guess based on the filename. If it&#39;s a script (i.e. not a *.pm) the package name is &#39;main&#39;.</p>
+
+</dd>
+<dt id="version-package"><code>version($package)</code></dt>
+<dd>
+
+<p>Returns the version as defined by the $VERSION variable for the package as returned by the <code>name</code> method if no arguments are given. If given the name of a package it will attempt to return the version of that package if it is specified in the file.</p>
+
+</dd>
+<dt id="filename"><code>filename()</code></dt>
+<dd>
+
+<p>Returns the absolute path to the file.</p>
+
+</dd>
+<dt id="packages_inside"><code>packages_inside()</code></dt>
+<dd>
+
+<p>Returns a list of packages. Note: this is a raw list of packages discovered (or assumed, in the case of <code>main</code>). It is not filtered for <code>DB</code>, <code>main</code> or private packages the way the <code>provides</code> method does. Invalid package names are not returned, for example &quot;Foo:Bar&quot;. Strange but valid package names are returned, for example &quot;Foo::Bar::&quot;, and are left up to the caller on how to handle.</p>
+
+</dd>
+<dt id="pod_inside"><code>pod_inside()</code></dt>
+<dd>
+
+<p>Returns a list of POD sections.</p>
+
+</dd>
+<dt id="contains_pod"><code>contains_pod()</code></dt>
+<dd>
+
+<p>Returns true if there is any POD in the file.</p>
+
+</dd>
+<dt id="pod-section"><code>pod($section)</code></dt>
+<dd>
+
+<p>Returns the POD data in the given section.</p>
+
+</dd>
+<dt id="is_indexable-package-or-is_indexable"><code>is_indexable($package)</code> or <code>is_indexable()</code></dt>
+<dd>
+
+<p>Returns a boolean indicating whether the package (if provided) or any package (otherwise) is eligible for indexing by PAUSE, the Perl Authors Upload Server. Note This only checks for valid <code>package</code> declarations, and does not take any ownership information into account.</p>
+
+</dd>
+</dl>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Original code from Module::Build::ModuleInfo by Ken Williams &lt;kwilliams@cpan.org&gt;, Randy W. Sims &lt;RandyS@ThePierianSpring.org&gt;</p>
+
+<p>Released as Module::Metadata by Matt S Trout (mst) &lt;mst@shadowcat.co.uk&gt; with assistance from David Golden (xdg) &lt;dagolden@cpan.org&gt;.</p>
+
+<h1 id="COPYRIGHT-LICENSE">COPYRIGHT &amp; LICENSE</h1>
+
+<p>Original code Copyright (c) 2001-2011 Ken Williams. Additional code Copyright (c) 2010-2011 Matt Trout and David Golden. All rights reserved.</p>
+
+<p>This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+
+</body>
+
+</html>
+
+

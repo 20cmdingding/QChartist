@@ -1,0 +1,18 @@
+' -------------------------------------------------------------------
+' ''RQEXPORT function AddInt (iNumber1, iNumber2)
+Function AddInt (i1 As Long, i2 As Long, i3 As Long, i4 As Long) As Integer
+	Function = i1 + i2
+End Function
+' -------------------------------------------------------------------
+' ''RQEXPORT function SubInt (iNumber1, iNumber2)
+Function SubInt (i1 As Long, i2 As Long, i3 As Long, i4 As Long) As Integer
+	Function = i1 - i2
+End Function
+' -------------------------------------------------------------------
+' ''RQEXPORT data:string xMyString
+Dim As String xMyString  = "FB String exported in RQ"
+' ''RQEXPORT data:array xMyBuffer_1
+Dim As Byte xMyBuffer_1(1024) = {70,70,71,71,72,72,73,73,74,74,46,46,46}
+' ''RQEXPORT data:array xMyBuffer_2
+Dim as Byte xMyBuffer_2(32768)
+' -------------------------------------------------------------------

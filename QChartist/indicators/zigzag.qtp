@@ -1,0 +1,40 @@
+declare sub hidezigzagform
+
+CREATE zigzagform as qform
+
+    Center
+    Caption = "Settings for: ZigZag"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create zigzagbarsbacklab as qlabel
+caption="barsback:"
+end create
+create zigzagbarsbackedit as qedit
+left=100
+text="300"
+end create
+
+create zzextdepthlab as qlabel
+caption="extdepth:"
+top=30
+end create
+create zzextdepthedit as qedit
+left=100
+text="12"
+top=30
+end create
+
+    create zigzagbtnok as qbutton
+        left=0
+        top=60
+        caption="OK"
+        onclick=hidezigzagform
+    end create
+
+END CREATE
+
+sub hidezigzagform
+    zigzagform.visible=0
+end sub

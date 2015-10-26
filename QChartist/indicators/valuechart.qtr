@@ -1,0 +1,46 @@
+'------------------------- Value Chart -------------------------------------------------
+indiid++
+         
+                    if indicatorslistsel.item(indiid)="x" then 
+            
+                        if lbar=1 then           
+                            valuechart
+                        end if
+
+                         barsback=VAL(valuechartbarsbackedit.text)
+                        
+                    if ibar>=lastbar-barsback then
+                        sepindicolor(drawid)=green
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(vo(offset))
+			drawid=drawid+2
+			sepindicolor(drawid)=red
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(vh(offset))
+			drawid=drawid+2
+			sepindicolor(drawid)=red
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(vb(offset))
+			drawid=drawid+2
+			sepindicolor(drawid)=purple
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(vc(offset))
+			drawid=drawid+2
+			sepindicolor(drawid)=gray
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(valuechartlevelup1(offset))
+			drawid=drawid+2
+			sepindicolor(drawid)=gray
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(valuechartlevelup2(offset))
+			drawid=drawid+2
+			sepindicolor(drawid)=gray
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(valuechartleveldn1(offset))
+			drawid=drawid+2
+			sepindicolor(drawid)=gray
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(valuechartleveldn2(offset))
+			drawid=drawid+2
+                                                                                                                                                                                  
+                    end if
+                    if autoadjustsepindi.checked=1 then     
+                        sepindivalminedit.text="-4"             
+                        sepindivalmaxedit.text="4"                             
+                    end if
+         
+                end if                                  
+
+        '------------------------- End Value Chart -------------------------------------------------

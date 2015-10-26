@@ -1,0 +1,44 @@
+'------------------------- Weekly Pivot cpp -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+barsbackstr=weeklypivotcppbarsbackedit.text
+cpptmpfuncreturn=varptr$(weeklypivotcpp(varptr(barsbackstr)))
+end if
+
+barsback=val(barsbackstr) '<--- can also be something like VAL(weeklypivotcppbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=purple '<--- replace with your color
+    bufnamestr="PBuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="S1Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="R1Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="S2Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="R2Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="S3Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="R3Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Weekly Pivot cpp -------------------------------------------------

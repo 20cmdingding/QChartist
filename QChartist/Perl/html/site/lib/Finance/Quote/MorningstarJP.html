@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#FUND-SYMBOLS">FUND SYMBOLS</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#REQUIREMENTS">REQUIREMENTS</a></li>
+  <li><a href="#ACKNOWLEDGEMENTS">ACKNOWLEDGEMENTS</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</a></li>
+  <li><a href="#DISCLAIMER">DISCLAIMER</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::MorningstarJP - Obtain price data from Morningstar (Japan).</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>This documentation describes version 1.00 of MorningstarJP.pm, October 13, 2012.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"morningstarjp"</span><span class="operator">,</span> <span class="string">"2009100101"</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information from Morningstar (Japan), <a href="http://www.morningstar.co.jp/">http://www.morningstar.co.jp/</a>.</p>
+
+<p>Information returned by this module is governed by Morningstar (Japan)&#39;s terms and conditions.</p>
+
+<h1 id="FUND-SYMBOLS">FUND SYMBOLS</h1>
+
+<p>Use the numeric symbol shown in the URL on the &quot;SnapShot&quot; page of the security of interest.</p>
+
+<p>e.g. For <a href="http://www.morningstar.co.jp/FundData/SnapShot.do?fnc=2009100101">http://www.morningstar.co.jp/FundData/SnapShot.do?fnc=2009100101</a>, one would supply 2009100101 as the symbol argument on the fetch API call.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>The following labels may be returned by Finance::Quote::MorningstarJP: symbol, date, nav.</p>
+
+<h1 id="REQUIREMENTS">REQUIREMENTS</h1>
+
+<pre><code> Perl 5.006
+ Date/Calc.pm
+ Exporter.pm (included with Perl)</code></pre>
+
+<h1 id="ACKNOWLEDGEMENTS">ACKNOWLEDGEMENTS</h1>
+
+<p>Inspired by other modules already present with Finance::Quote</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Christopher Hill</p>
+
+<h1 id="LICENSE-AND-COPYRIGHT">LICENSE AND COPYRIGHT</h1>
+
+<p>Copyright (C) 2012, Christopher Hill.</p>
+
+<p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+
+<h1 id="DISCLAIMER">DISCLAIMER</h1>
+
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Morningstar (Japan), <a href="http://www.morningstar.co.jp/">http://www.morningstar.co.jp/</a></p>
+
+
+</body>
+
+</html>
+
+

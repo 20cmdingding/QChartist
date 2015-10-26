@@ -1,0 +1,639 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SOURCE">SOURCE</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#NEW-FEATURES">NEW FEATURES</a></li>
+  <li><a href="#BUGS-LIMITATIONS">BUGS/LIMITATIONS</a></li>
+  <li><a href="#OTHER-PBP-POLICIES-THAT-SEEM-FEASIBLE-TO-IMPLEMENT">OTHER PBP POLICIES THAT SEEM FEASIBLE TO IMPLEMENT</a></li>
+  <li><a href="#NON-PBP-POLICIES-WANTED">NON-PBP POLICIES WANTED</a></li>
+  <li><a href="#REFACTORINGS-and-ENHANCEMENTS">REFACTORINGS and ENHANCEMENTS</a></li>
+  <li><a href="#PPI-BUGS">PPI BUGS</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Perl::Critic::TODO - Things for Perl::Critic developers to do</p>
+
+<h1 id="SOURCE">SOURCE</h1>
+
+<pre><code>         $URL$
+        $Date$
+      $Author$
+    $Revision$</code></pre>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Perl-Critic-More is a separate distribution for less-widely-accepted policies. It contains its own TODO.pod.</p>
+
+<h1 id="NEW-FEATURES">NEW FEATURES</h1>
+
+<ul>
+
+<li><p>Report PBP and Safari sections in addition to PBP page numbers.</p>
+
+<p>Something like</p>
+
+<pre><code>    <span class="variable">Readonly::Scalar</span> <span class="keyword">my</span> <span class="variable">$EXPL</span> <span class="operator">=&gt;</span> <span class="operator">{</span>
+        <span class="string">pbp_pages</span>       <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="number">57</span> <span class="operator">]</span><span class="operator">,</span>
+        <span class="string">pbp_section</span>     <span class="operator">=&gt;</span> <span class="string">'5.2'</span><span class="operator">,</span>
+        <span class="string">safari_section</span>  <span class="operator">=&gt;</span> <span class="variable">something</span><span class="operator">,</span>
+    <span class="operator">}</span><span class="operator">;</span>
+</code></pre>
+
+</li>
+<li><p>Include PBP references and Safari sections in the documentation.</p>
+
+<p>Perhaps these could be injected into the POD at build time, based on the data in the code. But that data is not entirely static, so I&#39;m not sure how it would work for Policies that dynamically determine the PBP references.</p>
+
+<p>Perhaps it would be good enough to just create a one-off tool that would inject the PBP and/or Safari references into the POD one time, and we could manually deal with Policies that behave oddly.</p>
+
+<p>Much better would be to put the information in the POD in a structured manner and parse it out in the code, something along the lines of</p>
+
+<pre><code>    =head1 METADATA
+
+    =over
+
+    =item Default Themes
+
+    core bugs pbp
+
+    =item Default Severity
+
+    3
+
+    =item Perl Best Practices Page Numbers
+
+    193, 195
+
+    =back</code></pre>
+
+<p>and so on.</p>
+
+</li>
+<li><p>Add a file Parameter::Behavior.</p>
+
+</li>
+<li><p>Allow values of (at least) string-list Parameters to be specified in a file.</p>
+
+<p>For the benefit of PodSpelling, etc.</p>
+
+</li>
+<li><p>Enhance string-list Behavior to allow specification of delimiters.</p>
+
+<p>For things like RequirePodSections.</p>
+
+</li>
+<li><p>Add queries to --list option to <i>perlcritic</i>.</p>
+
+<p>List Policies based upon severity, theme, and (what I want this second) applies_to.</p>
+
+</li>
+<li><p>Add formatting of --list output.</p>
+
+<p>Support Jeff Bisbee&#39;s use case (he dumps all the policies in severity order with full descriptions and other metadata).</p>
+
+</li>
+<li><p>Support for <code><span class="comment">#line 123 "filename"</span>
+</code> directives.</p>
+
+<p>For code generators and template languages that allow inline Perl code.</p>
+
+<p>Yes, somebody has an in-house templating system where they&#39;ve written a custom test module that extracts the perl code from a template and critiques it.</p>
+
+<p>Actually, this would be useful for programs: Module::Build &quot;fixes&quot; shebang lines so that there&#39;s the bit about invoking perl if the program is attempted to be run by a Bourne shell, which throws the line numbers off when using Test::P::C on the contents of a <code>blib</code> directory.</p>
+
+<p>This has been implemented in PPI, but hasn&#39;t been released yet. When it does come out, we need to change the line and file reported by Violations.</p>
+
+</li>
+<li><p>Enhance statistics.</p>
+
+<p>- Blank line count</p>
+
+<p>- POD line count</p>
+
+<p>- Comment line count</p>
+
+<p>- Data section count</p>
+
+<p>Proposed implementation committed 15-Mar-2007 by wyant, about revision 3240.</p>
+
+</li>
+<li><p>Detect 5.10 source and enable stuff for that.</p>
+
+<p>For example, treat <code>say</code> as equivalent to <code>print</code>.</p>
+
+</li>
+<li><p>Detect 5.12 source and enable stuff for that.</p>
+
+<p>Yes, this is long-term, and is really a list of stuff from 5.011 to enable if it makes it into 5.12, gleaned from the perl511xdelta files:</p>
+
+<p>&#39;use 5.011;&#39; implies &#39;use strict;&#39; and &#39;use feature qw{ :5.11 };&#39; per perl5110delta.</p>
+
+<p>&#39;sub foo { ... }&#39; (yes, with the subroutine body being an elipsis a.k.a. the &#39;yada yada&#39; operator) compiles but fails at runtime per perl5110delta. PPI seems to parse this sanely as of 1.206.</p>
+
+<p>&#39;package Foo 1.23;&#39; is equivalent to &#39;package Foo; our $VERSION = 1.23;&#39; per perl5111delta. PPI seems to parse this sanely as of 1.206.</p>
+
+<p>Nothing additional found in perl5112delta, which is the most recent as of the addition of this item.</p>
+
+</li>
+<li><p>Detect 5.14 source and enable stuff for that.</p>
+
+<p>5.13.7 allows references in many places where arrays or hashes used to be required (e.g. <code>push $stack, &#39;foo&#39;</code> where <code>$stack</code> is an array ref). Not sure what policies are affected.</p>
+
+<p>Lexical regular expression modifier defaults via (e.g.) <code>use re &#39;/smx&#39;</code>). This also interacts with <code>use feature &#39;unicode_strings&#39;</code>. 5.13.7.</p>
+
+</li>
+<li><p>Support a means of failing if a Policy isn&#39;t installed.</p>
+
+<p>For example, the self compliance test now depends upon a Policy in the More distribution.</p>
+
+<p>Something like using a &quot;+&quot; sign in front of the Policy name in its configuration block, analogous to the &quot;-&quot; sign used for disabling a policy, e.g. &quot;<code>[+Example::Policy]</code>&quot;.</p>
+
+</li>
+<li><p>Threading</p>
+
+<p>Pretty obviously, Perl::Critic is readily parallelizable, just do a document per thread. (&quot;readily&quot; being conceptual, not necessarily practical) Although there&#39;s now <code>Policy::prepare_to_scan_document()</code>, given perl&#39;s thread data sharing model, this shouldn&#39;t be an issue.</p>
+
+</li>
+<li><p>Add support in .run files for regexes for violation descriptions.</p>
+
+</li>
+<li><p>Add support for &quot;## use critic (blah)&quot;.</p>
+
+<p>If I&#39;ve got:</p>
+
+<pre><code>    ## no critic (SomePolicy)
+
+    ...
+
+    ## no critic (ADifferentPolicy)
+
+    ...
+
+    ## no critic (YetAnotherPolicy)</code></pre>
+
+<p>If I want to turn <code>YetAnotherPolicy</code> back on but neither <code>SomePolicy</code> nor <code>ADifferentPolicy</code>, I&#39;ve got to do this:</p>
+
+<pre><code>    <span class="comment">## use critic</span>
+    <span class="comment">## no critic (SomePolicy, ADifferentPolicy)</span>
+</code></pre>
+
+<p>Why can&#39;t I do this:</p>
+
+<pre><code>    <span class="comment">## use critic (SomeOtherPolicy)</span>
+</code></pre>
+
+</li>
+<li><p>Make color work on Windows.</p>
+
+<p>Use <a href="../../lib/Win32/Console/ANSI.html">Win32::Console::ANSI</a> like <a>App::Ack</a>.</p>
+
+</li>
+<li><p>Create P::C::Node and make P::C::Document a subclass and make use of PPIx::Utilities::Node::split_ppi_node_by_namespace() to provide per-namespace caching of lookups that are now on P::C::Document.</p>
+
+<p>This is necessary to get P::C::Moose Policies correct.</p>
+
+</li>
+<li><p>Use <a href="../../lib/version.html">version</a> to declare <code>$VERSION</code> numbers throughout P::C</p>
+
+<p>PBP recommends using the <a href="../../lib/version.html">version</a> module. I chose not to follow that recommendation because <a href="../../lib/version.html">version</a> didn&#39;t work with the Perl v5.6.1 that I had at $work at that time (and I really wanted to use Perl::Critic at work). But now the <a href="../../lib/version.html">version</a> has been updated and those bugs may have been fixed, or perhaps we just don&#39;t care about running on Perl v5.6.1 any more. So maybe now we can go ahead and use <a href="../../lib/version.html">version</a>.</p>
+
+</li>
+</ul>
+
+<h1 id="BUGS-LIMITATIONS">BUGS/LIMITATIONS</h1>
+
+<p>Document bugs for individual Policies in the Policies themselves. Users should be aware of limitations. (And, hey, we might get patches that way.)</p>
+
+<h1 id="OTHER-PBP-POLICIES-THAT-SEEM-FEASIBLE-TO-IMPLEMENT">OTHER PBP POLICIES THAT SEEM FEASIBLE TO IMPLEMENT</h1>
+
+<ul>
+
+<li><p>Modules::RequireUseVersion [405-406]</p>
+
+</li>
+<li><p>Modules::RequireThreePartVersion [405-406]</p>
+
+</li>
+<li><p>NamingConventions::RequireArrayAndHashReferenceVariablesEndWith_Ref [41-42]</p>
+
+<p>Check for <code>$variable = [...]</code>, <code><span class="variable">$variable</span> <span class="operator">=</span> <span class="operator">{</span><span class="operator">...</span><span class="operator">}</span>
+</code>, <code>$variable-&gt;[...]</code>, and <code><span class="variable">$variable</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="operator">...</span><span class="operator">}</span>
+</code>.</p>
+
+</li>
+<li><p>Objects::ProhibitRestrictedHashes [322-323]</p>
+
+<p>Look for use of the bad methods in Hash::Util.</p>
+
+</li>
+<li><p>Objects::ProhibitLValueAccessors [346-349]</p>
+
+<p>Look for the <code>:lvalue</code> subroutine attribute.</p>
+
+</li>
+</ul>
+
+<h1 id="NON-PBP-POLICIES-WANTED">NON-PBP POLICIES WANTED</h1>
+
+<ul>
+
+<li><p>Subroutines::RequireArgumentValidation</p>
+
+<p>Enforce the use of Params::Validate or Params::Util or some other argument validation mechanism. This could be one Policy that can be configured for different validation mechanisms, or we could have a separate Policy for each mechanism, and let the user choose which one they want to use (I think I prefer the later).</p>
+
+</li>
+<li><p>NamingConventions::ProhibitMisspelledSymbolNames</p>
+
+<p>The idea behind this policy is to encourage better names for variables and subroutines by enforcing correct spelling and prohibiting the use of home-grown abbreviations. Assuming that the author uses underscores or camel-case, it should be possible to split symbols into words, and then look them up in a dictionary (see PodSpelling). This policy should probably have a similar stopwords feature as well.</p>
+
+</li>
+<li><p>Documentation::RequireModuleAbstract</p>
+
+<p>Require a <code>=head1 NAME</code> POD section with content that matches <code>\A \s* [\w:]+ \s+ - \s+ \S</code>. The single hyphen is the important bit. Also, must be a single line.</p>
+
+</li>
+<li><p>Expressions::RequireFatCommasInHashConstructors</p>
+
+</li>
+<li><p>ErrorHandling::RequireLocalizingGlobalErrorVariablesInDESTROY</p>
+
+<p>Prevent <code>$.</code>, <code>$@</code>, <code>$!</code>, <code>$^E</code>, and <code>$?</code> from being cleared unexpectedly by DESTROY methods.</p>
+
+<pre><code>    <span class="keyword">package</span> <span class="variable">Foo</span><span class="operator">;</span>
+    
+    <span class="keyword">sub</span><span class="variable"> DESTROY </span><span class="operator">{</span>
+        <span class="keyword">die</span> <span class="string">"Died in Foo::DESTROY()"</span><span class="operator">;</span>
+    <span class="operator">}</span>
+    
+    <span class="keyword">package</span> <span class="variable">main</span><span class="operator">;</span>
+    
+    <span class="keyword">eval</span> <span class="operator">{</span>
+        <span class="keyword">my</span> <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">Foo</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">();</span>
+    
+        <span class="keyword">die</span> <span class="string">"Died in eval."</span>
+    <span class="operator">}</span>
+    <span class="keyword">print</span> <span class="variable">$@</span><span class="operator">;</span>   <span class="comment"># "Died in Foo::DESTROY()", not "Died in eval.".</span>
+</code></pre>
+
+<p>See <a href="http://use.perl.org/~Ovid/journal/36767">http://use.perl.org/~Ovid/journal/36767</a> and <a href="http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/2008-06/msg00542.html">http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/2008-06/msg00542.html</a>.</p>
+
+</li>
+<li><p>Expressions::ProhibitDecimalWithBitwiseOperator</p>
+
+</li>
+<li><p>Expressions::ProhibitStringsWithBitwiseOperator</p>
+
+</li>
+<li><p>InputOutput::ProhibitMagicDiamond</p>
+
+<p>Steal the idea from <a>B::Lint</a>.</p>
+
+</li>
+<li><p>NamingConventions::RequireArrayAndHashReferenceVariablesEndWith_Ref</p>
+
+</li>
+<li><p>Programs::RequireShebang</p>
+
+<p>Anything that is a program should have a shebang line. This includes .t files.</p>
+
+</li>
+<li><p>Modules::RequirePackageDeclarationAsFirstStatementInModule</p>
+
+<p>See <a href="http://blog.woobling.org/2009/11/scoping-of-current-package.html">http://blog.woobling.org/2009/11/scoping-of-current-package.html</a>. Ouch.</p>
+
+</li>
+<li><p>BuiltInFunctions::RequireConstantSprintfFormat</p>
+
+</li>
+<li><p>BuiltInFunctions::RequireConstantUnpackFormat</p>
+
+<p><a href="http://diotalevi.isa-geek.net/~josh/yapc-lint/slides/slide5.html">http://diotalevi.isa-geek.net/~josh/yapc-lint/slides/slide5.html</a></p>
+
+</li>
+<li><p>Miscellanea::ProhibitObnoxiousComments</p>
+
+<p>Forbid excessive hash marks e.g. &quot;#### This is a loud comment ####&quot;. Make the obnoxious pattern configurable</p>
+
+</li>
+<li><p>ValuesAndExpressions::RequireNotOperator</p>
+
+<p>Require the use of &quot;not&quot; instead of &quot;!&quot;, except when this would contradict ProhibitMixedBooleanOperators. This may be better suited for Perl::Critic::More.</p>
+
+</li>
+<li><p>ValuesAndExpressions::ProhibitUnusedReadonlyConstants</p>
+
+<p>We&#39;ll only be able to look at lexicals. For similar reasons, we can&#39;t do anything about <a href="../../lib/constant.html">constant</a>.</p>
+
+</li>
+<li><p>Modules::RequireExplicitImporting</p>
+
+<p>Require every <code>use</code> statement to have an explicit import list. You could still get around this by calling <code>import</code> directly.</p>
+
+</li>
+<li><p>Modules::ForbidImporting</p>
+
+<p>Require every <code>use</code> to have an explicitly empty import list. This is for folks who like to see fully-qualified function names. Should probably provide a list of exempt modules (like FindBin);</p>
+
+</li>
+<li><p>ControlStructures::ProhibitIncludeViaDo</p>
+
+<p>Forbid <code>do &quot;foo.pl&quot;</code>. Not sure about this policy name.</p>
+
+</li>
+<li><p>Variables::ProhibitUseVars</p>
+
+<p>Disallow <code>use vars qw(...)</code> and require <code>our $foo</code> instead. This contradicts Miscellanea::Prohibit5006isms. Maybe verify <code>use 5.6</code> before applying this policy. Low severity.</p>
+
+</li>
+<li><p>VariablesAndExpressions::ProhibitQuotedHashKeys</p>
+
+<p>Forbid quotes around hash keys, unless they are really needed. This is against what Damian says. Suggested by Adam Kennedy. Low severity.</p>
+
+</li>
+<li><p>CodeLayout::ProhibitFunctionalNew</p>
+
+<p>Good: <code>Foo::Bar-&gt;new</code>, Bad: <code>new Foo::Bar</code></p>
+
+</li>
+<li><p>RegularExpressions::ProhibitSWSWSW</p>
+
+<p>Require <code>split</code> instead of <code>m/\s*\w*\s*\w*\s*/</code>. From MJD&#39;s Red Flags.</p>
+
+</li>
+<li><p>Documentation::RequireSynopsis</p>
+
+</li>
+<li><p>Documentation::RequireLicense</p>
+
+<p>These are simplified versions of Documentation::RequirePodSections.</p>
+
+</li>
+<li><p>Documentation::RequireValidSynopsis</p>
+
+<p>The Synopsis section must be all indented and must be syntactically valid Perl (as validated by PPI).</p>
+
+</li>
+<li><p>Documentation::ProhibitEmptySections</p>
+
+<p>Any <code>=headN</code> and <code>=over</code> sections must not be empty. This helps catch boilerplate (although Test::Pod should catch empty <code>=over</code> blocks).</p>
+
+<p>On the other hand, <code>=item ...</code> sections can be empty, since the item label is content.</p>
+
+</li>
+<li><p>Miscellaneous::ProhibitBoilerplate</p>
+
+<p>Complain about copy-and-paste code or docs from h2xs, Module::Starter::*, etc.</p>
+
+<p>Here&#39;s a non-PPI implementation: <a href="http://search.cpan.org/src/JJORE/Carp-Clan-5.8/t/04boilerplate.t">http://search.cpan.org/src/JJORE/Carp-Clan-5.8/t/04boilerplate.t</a></p>
+
+</li>
+<li><p>NamingConventions::ProhibitPackagesSubroutinesAndBarewordFileHandlesWithTheSameNames</p>
+
+<p>See <a href="http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/2009-01/msg00685.html">http://www.xray.mpe.mpg.de/mailing-lists/perl5-porters/2009-01/msg00685.html</a>.</p>
+
+</li>
+<li><p>BuiltinFunctions::ProhibitExtraneousScalarCall</p>
+
+<p>Recommend that <code>if (scalar @array)</code> be rewritten as <code>if (@array)</code>.</p>
+
+</li>
+<li><p>RegularExpressions::ProhibitMixedDelimiters</p>
+
+<p>Ban s{foo}(bar)</p>
+
+</li>
+<li><p>RegularExpressions::ProhibitScalarAsRegexp</p>
+
+<p>Ban naked strings as regexps, like:</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="number">1</span> <span class="keyword">if</span> <span class="variable">$str</span> <span class="operator">=~</span> <span class="variable">$regexp</span><span class="operator">;</span>
+</code></pre>
+
+<p>Instead, it should be:</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="number">1</span> <span class="keyword">if</span> <span class="variable">$str</span> <span class="operator">=~</span> <span class="regex">m/</span><span class="variable">$regexp</span><span class="regex">/</span><span class="operator">;</span>
+</code></pre>
+
+<p>or</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="number">1</span> <span class="keyword">if</span> <span class="variable">$str</span> <span class="operator">=~</span> <span class="regex">m/</span><span class="variable">$regexp</span><span class="regex">/xms</span><span class="operator">;</span>
+</code></pre>
+
+</li>
+<li><p>ValuesAndExpressions::RequireInterpolatedStringyEval</p>
+
+<p>Ensure that the argument to a stringy eval is not a constant string. That&#39;s just wasteful. Real world examples include:</p>
+
+<pre><code>  <span class="keyword">eval</span> <span class="string">'use Optional::Module'</span><span class="operator">;</span>
+</code></pre>
+
+<p>which is better written as</p>
+
+<pre><code>  <span class="keyword">eval</span> <span class="operator">{</span> <span class="keyword">require</span> <span class="variable">Optional::Module</span><span class="operator">;</span> <span class="variable">Optional::Module</span><span class="operator">-&gt;</span><span class="variable">import</span> <span class="operator">};</span>
+</code></pre>
+
+<p>for performance gains and compile-time syntax checking.</p>
+
+<p>Question: This is very similar to BuiltInFunctions::ProhibitStringyEval. What does the new policy buy us? Could we get the same thing with an option on the latter to forbid un-interpolated includes even if <code>allow_includes</code> is turned on?</p>
+
+</li>
+<li><p>RegularExpressions::ProhibitUnnecessaryEscapes</p>
+
+<p>Complain if user puts a backslash escape in front of non-special characters. For example:</p>
+
+<pre><code>   <span class="regex">m/\!/</span><span class="operator">;</span>
+</code></pre>
+
+<p>Make exceptions for <code>\&quot;</code>, <code>\&#39;</code> and <code>\`</code> since those are often inserted to workaround bugs in syntax highlighting.</p>
+
+<p>Note that this is different inside character classes, where only <code>^</code>, <code>]</code> and <code>-</code> need to be escaped, I think. Caret only needs to be escaped at the beginning, and dash does NOT need to be escaped at the beginning and end. See <a href="../../lib/pods/perlreref.html">perlreref</a>.</p>
+
+</li>
+<li><p>Steal ideas from <a>Dunce::Files</a>.</p>
+
+<p>Can someone expand this entry, please?</p>
+
+</li>
+<li><p>ControlStructures::ProhibitAssigmentInConditional</p>
+
+</li>
+<li><p>ValuesAndExpressions::RequireConstantBeforeEquals</p>
+
+</li>
+<li><p>ValuesAndExpressions::RequireConstantBeforeOperator</p>
+
+<p><a href="http://use.perl.org/~stu42j/journal/36412">http://use.perl.org/~stu42j/journal/36412</a></p>
+
+<p>Just about everyone has been bitten by <code><span class="keyword">if</span> <span class="operator">(</span><span class="variable">$x</span> <span class="operator">=</span> <span class="number">10</span><span class="operator">)</span> <span class="operator">{</span> <span class="operator">...</span> <span class="operator">}</span>
+</code> when they meant to use <code>==</code>. A safer style is <code>10 == $x</code> because omitting the second <code>=</code> yields a noisy compile-time failure instead of silent runtime error.</p>
+
+<p>ProhibitAssigmentInConditional complains if the condition of a while, until, if or unless is solely an assignment. If it&#39;s anything more complex (like <code><span class="keyword">if</span> <span class="operator">((</span><span class="variable">$x</span><span class="operator">=</span><span class="number">10</span><span class="operator">)){}</span>
+</code> or <code><span class="keyword">while</span> <span class="operator">(</span><span class="variable">$x</span><span class="operator">=</span><span class="variable">$y</span><span class="operator">=</span><span class="variable">$z</span><span class="operator">){}</span>
+</code>), there is no warning.</p>
+
+<p>RequireConstantBeforeEquals complains if the left side of an <code>==</code> is a variable while the right side is a constant.</p>
+
+<p>RequireConstantBeforeOperator complains if the left side of any comparison operator (<code>==</code>, <code>eq</code>, <code><span class="operator">&amp;</span><span class="keyword">lt</span><span class="operator">;</span>
+</code>, etc) is a variable while the right side is a constant.</p>
+
+</li>
+<li><p>InputOutput::ProhibitUTF8IOLayer</p>
+
+<p>http://www.perlfoundation.org/perl5/index.cgi?the_utf8_perlio_layer</p>
+
+</li>
+<li><p>BuiltinFunctions::ProhibitExit(?:InModules)?</p>
+
+<p>Forbid <code>exit()</code> in files that lack a shebang. Inspired by <a href="http://use.perl.org/~Ovid/journal/36746">http://use.perl.org/~Ovid/journal/36746</a> and an analogous checker in FindBugs.</p>
+
+</li>
+<li><p>Modules::ProhibitRedundantLoading</p>
+
+<p>Don&#39;t allow a package to &quot;use&quot; the same module more than once, unless there is a &quot;no &lt;module&gt;&quot; between them.</p>
+
+<p>See https://rt.cpan.org/Ticket/Display.html?id=38074.</p>
+
+</li>
+<li><p>ErrorHandling::RequireLocalizingEVAL_ERRORInDESTROY</p>
+
+<p>The opposite side of ErrorHandling::RequireCheckingReturnValueOfEval.</p>
+
+</li>
+</ul>
+
+<h1 id="REFACTORINGS-and-ENHANCEMENTS">REFACTORINGS and ENHANCEMENTS</h1>
+
+<ul>
+
+<li><p>Reformat all the POD to use 78 columns instead of 70.</p>
+
+<p>This thing of having different widths for the documentation and the code is rediculous. Don&#39;t do this until after the next non-dev release. Elliot is considering doing a special release only including this change so that the search.cpan.org diff tool doesn&#39;t entirely break.</p>
+
+</li>
+<li><p>Eliminate use of IO::String</p>
+
+<p>I&#39;m pretty sure that opening references to scalars is in 5.6, so IO::String isn&#39;t necessary.</p>
+
+</li>
+<li><p>Give <a href="../../lib/Perl/Critic/Command.html">Perl::Critic::Command</a> a proper API.</p>
+
+<p>Now that we&#39;ve got the guts of <a href="../../bin/perlcritic.html">perlcritic</a> in there, we should make the it available to users.</p>
+
+</li>
+<li><p>Create constants for the PPI location array elements.</p>
+
+</li>
+<li><p>Some means of detecting &quot;runaway&quot; <code><span class="comment">##no critic</span>
+</code></p>
+
+<p>Elliot was talking to a couple of users at ETech and one of their major concerns was that they were using <code><span class="comment">##no critic</span>
+</code> and forgetting to do a <code><span class="comment">##use critic</span>
+</code> after the problematic section. Perhaps an option to <i>perlcritic</i> to scan for such things is in order.</p>
+
+</li>
+<li><p>Change API to use named parameters</p>
+
+<p>Most of the methods on the public classes use named parameters for passing arguments. I&#39;d like to extend that pattern to include all object-methods. Static methods can still use positional parameters.</p>
+
+</li>
+<li><p>Enhance P::C::critique() to accept files, directories, or code strings</p>
+
+<p>Just like <i>bin/perlcritic</i> does now.</p>
+
+</li>
+<li><p>Add <code>-cache</code> flag to <i>bin/perlcritic</i></p>
+
+<p>If enabled, this turns on <a href="../../lib/PPI/Cache.html">PPI::Cache</a>:</p>
+
+<pre><code>    <span class="keyword">require</span> <span class="variable">PPI::Cache</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">$cache_path</span> <span class="operator">=</span> <span class="string">"/tmp/test-perl-critic-cache-</span><span class="variable">$ENV</span><span class="string">{USER}"</span><span class="operator">;</span>
+    <span class="keyword">mkdir</span> <span class="variable">$cache_path</span><span class="operator">,</span> <span class="keyword">oct</span> <span class="number">700</span> <span class="keyword">if</span> <span class="operator">(!</span> <span class="keyword">-d</span> <span class="variable">$cache_path</span><span class="operator">);</span>
+    <span class="variable">PPI::Cache</span><span class="operator">-&gt;</span><span class="variable">import</span><span class="operator">(</span><span class="string">path</span> <span class="operator">=&gt;</span> <span class="variable">$cache_path</span><span class="operator">);</span>
+</code></pre>
+
+<p>This cache directory should perhaps include the PPI version number! At least until PPI incorporates its own version number in the cache.</p>
+
+<p>(see <i>t/40_criticize.t</i> for a more robust implementation)</p>
+
+</li>
+<li><p>Use hash-lookup instead of <code>List::MoreUtils::any</code> function.</p>
+
+<p>In several places, Perl::Critic uses <code>List::MoreUtils::any</code> to see if a string is a member of a list. Instead, I suggest using a named subroutine that does a hash-lookup like this:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">%logical_ops</span> <span class="operator">=</span> <span class="variable">hashify</span><span class="operator">(</span> <span class="string">qw( ! || &amp;&amp; ||= &amp;&amp;= and or not )</span> <span class="operator">);</span>
+    <span class="keyword">sub</span><span class="variable"> is_logical_op </span><span class="operator">{</span> <span class="keyword">return</span> <span class="keyword">exists</span> <span class="variable">$logical_ops</span><span class="operator">{</span> <span class="variable">$_</span><span class="operator">[</span><span class="number">0</span><span class="operator">]</span> <span class="operator">}</span><span class="operator">;</span> <span class="operator">}</span>
+</code></pre>
+
+<p>Question: Why?</p>
+
+<p>Answer: Readability, mostly. Performance, maybe.</p>
+
+</li>
+</ul>
+
+<h1 id="PPI-BUGS">PPI BUGS</h1>
+
+<p>We&#39;re waiting on the following bugs to get fixed in a CPAN release of PPI:</p>
+
+<dl>
+
+<dt id="PPI::Token::descendant_of">PPI::Token::descendant_of()</dt>
+<dd>
+
+<p>Exists in svn. Replace _descendant_of() in RequireCheckingReturnValueOfEval with that, once it is released, because it&#39;s faster and native.</p>
+
+</dd>
+<dt id="Newlines">Newlines</dt>
+<dd>
+
+<p>PPI does not preserve newlines. That makes CodeLayout::RequireConsistentNewlines impossible to implement under PPI. For now, it&#39;s implemented by pulling the source out of the file and skipping PPI.</p>
+
+<p>It&#39;s unlikely that PPI will support mixed newlines anytime soon.</p>
+
+</dd>
+<dt id="Operators">Operators</dt>
+<dd>
+
+<p>ValuesAndExpressions::ProhibitMismatchedOperators has two workarounds for PPI bugs with parsing operators. Many of these bugs have been fixed in PPI, so it would be good to check if those workarounds are still needed.</p>
+
+</dd>
+<dt id="Regexp-methods">Regexp methods</dt>
+<dd>
+
+<p>Not strictly a bug -- the PPI Regexp classes have a dearth of accessor methods as of v1.118, meaning that we have to do messy digging into internals. I wrote Perl::Critic:Utils::PPIRegexp to encapsulate this messiness, but it would be nicer to have an official interface in PPI.</p>
+
+</dd>
+<dt id="QuoteLike::Words-in-the-place-of-a-ForLoop">QuoteLike::Words in the place of a ForLoop</dt>
+<dd>
+
+<p>PPI incorrectly parses <code>&lt;for qw&lt;blah</code> {}&gt;&gt;.</p>
+
+</dd>
+</dl>
+
+
+</body>
+
+</html>
+
+

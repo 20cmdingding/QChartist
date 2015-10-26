@@ -1,0 +1,244 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#scan_deps">scan_deps</a></li>
+      <li><a href="#scan_deps_runtime">scan_deps_runtime</a></li>
+      <li><a href="#scan_line">scan_line</a></li>
+      <li><a href="#scan_chunk">scan_chunk</a></li>
+      <li><a href="#add_deps">add_deps</a></li>
+      <li><a href="#path_to_inc_name">path_to_inc_name</a></li>
+    </ul>
+  </li>
+  <li><a href="#NOTES">NOTES</a>
+    <ul>
+      <li><a href="#Module::ScanDeps::IncludeLibs">@Module::ScanDeps::IncludeLibs</a></li>
+      <li><a href="#Module::ScanDeps::ScanFileRE">$Module::ScanDeps::ScanFileRE</a></li>
+    </ul>
+  </li>
+  <li><a href="#CAVEATS">CAVEATS</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Module::ScanDeps - Recursively scan Perl code for dependencies</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>Via the command-line program <a>scandeps.pl</a>:</p>
+
+<pre><code>    % scandeps.pl *.pm          # Print PREREQ_PM section for *.pm
+    % scandeps.pl -e &quot;use utf8&quot; # Read script from command line
+    % scandeps.pl -B *.pm       # Include core modules
+    % scandeps.pl -V *.pm       # Show autoload/shared/data files</code></pre>
+
+<p>Used in a program;</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Module::ScanDeps</span><span class="operator">;</span>
+    
+    <span class="comment"># standard usage</span>
+    <span class="keyword">my</span> <span class="variable">$hash_ref</span> <span class="operator">=</span> <span class="variable">scan_deps</span><span class="operator">(</span>
+        <span class="string">files</span>   <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="string">'a.pl'</span><span class="operator">,</span> <span class="string">'b.pl'</span> <span class="operator">]</span><span class="operator">,</span>
+        <span class="string">recurse</span> <span class="operator">=&gt;</span> <span class="number">1</span><span class="operator">,</span>
+    <span class="operator">);</span>
+    
+    <span class="comment"># shorthand; assume recurse == 1</span>
+    <span class="keyword">my</span> <span class="variable">$hash_ref</span> <span class="operator">=</span> <span class="variable">scan_deps</span><span class="operator">(</span> <span class="string">'a.pl'</span><span class="operator">,</span> <span class="string">'b.pl'</span> <span class="operator">);</span>
+    
+    <span class="comment"># App::Packer::Frontend compatible interface</span>
+    <span class="comment"># see App::Packer::Frontend for the structure returned by get_files</span>
+    <span class="keyword">my</span> <span class="variable">$scan</span> <span class="operator">=</span> <span class="variable">Module::ScanDeps</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    <span class="variable">$scan</span><span class="operator">-&gt;</span><span class="variable">set_file</span><span class="operator">(</span> <span class="string">'a.pl'</span> <span class="operator">);</span>
+    <span class="variable">$scan</span><span class="operator">-&gt;</span><span class="variable">set_options</span><span class="operator">(</span> <span class="string">add_modules</span> <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="string">'Test::More'</span> <span class="operator">]</span> <span class="operator">);</span>
+    <span class="variable">$scan</span><span class="operator">-&gt;</span><span class="variable">calculate_info</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">$files</span> <span class="operator">=</span> <span class="variable">$scan</span><span class="operator">-&gt;</span><span class="variable">get_files</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module scans potential modules used by perl programs, and returns a hash reference; its keys are the module names as appears in <code>%INC</code> (e.g. <code>Test/More.pm</code>); the values are hash references with this structure:</p>
+
+<pre><code>    <span class="operator">{</span>
+        <span class="string">file</span>    <span class="operator">=&gt;</span> <span class="string">'/usr/local/lib/perl5/5.8.0/Test/More.pm'</span><span class="operator">,</span>
+        <span class="string">key</span>     <span class="operator">=&gt;</span> <span class="string">'Test/More.pm'</span><span class="operator">,</span>
+        <span class="string">type</span>    <span class="operator">=&gt;</span> <span class="string">'module'</span><span class="operator">,</span>    <span class="comment"># or 'autoload', 'data', 'shared'</span>
+        <span class="string">used_by</span> <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="string">'Test/Simple.pm'</span><span class="operator">,</span> <span class="operator">...</span> <span class="operator">]</span><span class="operator">,</span>
+        <span class="string">uses</span>    <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="string">'Test/Other.pm'</span><span class="operator">,</span> <span class="operator">...</span> <span class="operator">]</span><span class="operator">,</span>
+    <span class="operator">}</span>
+</code></pre>
+
+<p>One function, <code>scan_deps</code>, is exported by default. Other functions such as (<code>scan_line</code>, <code>scan_chunk</code>, <code>add_deps</code>, <code>path_to_inc_name</code>) are exported upon request.</p>
+
+<p>Users of <b>App::Packer</b> may also use this module as the dependency-checking frontend, by tweaking their <i>p2e.pl</i> like below:</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Module::ScanDeps</span><span class="operator">;</span>
+    <span class="operator">...</span>
+    <span class="keyword">my</span> <span class="variable">$packer</span> <span class="operator">=</span> <span class="variable">App::Packer</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span> <span class="string">frontend</span> <span class="operator">=&gt;</span> <span class="string">'Module::ScanDeps'</span> <span class="operator">);</span>
+    <span class="operator">...</span>
+</code></pre>
+
+<p>Please see <a>App::Packer::Frontend</a> for detailed explanation on the structure returned by <code>get_files</code>.</p>
+
+<h2 id="scan_deps"><b>scan_deps</b></h2>
+
+<pre><code>    <span class="variable">$rv_ref</span> <span class="operator">=</span> <span class="variable">scan_deps</span><span class="operator">(</span>
+        <span class="string">files</span>      <span class="operator">=&gt;</span> <span class="operator">\</span><span class="variable">@files</span><span class="operator">,</span>     <span class="string">recurse</span> <span class="operator">=&gt;</span> <span class="variable">$recurse</span><span class="operator">,</span>
+        <span class="string">rv</span>         <span class="operator">=&gt;</span> <span class="operator">\</span><span class="variable">%rv</span><span class="operator">,</span>        <span class="string">skip</span>    <span class="operator">=&gt;</span> <span class="operator">\</span><span class="variable">%skip</span><span class="operator">,</span>
+        <span class="string">compile</span>    <span class="operator">=&gt;</span> <span class="variable">$compile</span><span class="operator">,</span>    <span class="string">execute</span> <span class="operator">=&gt;</span> <span class="variable">$execute</span><span class="operator">,</span>
+    <span class="operator">);</span>
+    <span class="variable">$rv_ref</span> <span class="operator">=</span> <span class="variable">scan_deps</span><span class="operator">(</span><span class="variable">@files</span><span class="operator">);</span> <span class="comment"># shorthand, with recurse =&gt; 1</span>
+</code></pre>
+
+<p>This function scans each file in <code>@files</code>, registering their dependencies into <code>%rv</code>, and returns a reference to the updated <code>%rv</code>. The meaning of keys and values are explained above.</p>
+
+<p>If <code>$recurse</code> is true, <code>scan_deps</code> will call itself recursively, to perform a breadth-first search on text files (as defined by the -T operator) found in <code>%rv</code>.</p>
+
+<p>If the <code>\%skip</code> is specified, files that exists as its keys are skipped. This is used internally to avoid infinite recursion.</p>
+
+<p>If <code>$compile</code> or <code>$execute</code> is true, runs <code>files</code> in either compile-only or normal mode, then inspects their <code>%INC</code> after termination to determine additional runtime dependencies.</p>
+
+<p>If <code>$execute</code> is an array reference, passes <code>@$execute</code> as arguments to each file in <code>@files</code> when it is run.</p>
+
+<p>If performance of the scanning process is a concern, <code>cache_file</code> can be set to a filename. The scanning results will be cached and written to the file. This will speed up the scanning process on subsequent runs.</p>
+
+<p>Additionally, an option <code>warn_missing</code> is recognized. If set to true, <code>scan_deps</code> issues a warning to STDERR for every module file that the scanned code depends but that wasn&#39;t found. Please note that this may also report numerous false positives. That is why by default, the heuristic silently drops all dependencies it cannot find.</p>
+
+<h2 id="scan_deps_runtime"><b>scan_deps_runtime</b></h2>
+
+<p>Like <b>scan_deps</b>, but skips the static scanning part.</p>
+
+<h2 id="scan_line"><b>scan_line</b></h2>
+
+<pre><code>    <span class="variable">@modules</span> <span class="operator">=</span> <span class="variable">scan_line</span><span class="operator">(</span><span class="variable">$line</span><span class="operator">);</span>
+</code></pre>
+
+<p>Splits a line into chunks (currently with the semicolon characters), and return the union of <code>scan_chunk</code> calls of them.</p>
+
+<p>If the line is <code>__END__</code> or <code>__DATA__</code>, a single <code>__END__</code> element is returned to signify the end of the program.</p>
+
+<p>Similarly, it returns a single <code>__POD__</code> if the line matches <code>/^=\w/</code>; the caller is responsible for skipping appropriate number of lines until <code>=cut</code>, before calling <code>scan_line</code> again.</p>
+
+<h2 id="scan_chunk"><b>scan_chunk</b></h2>
+
+<pre><code>    <span class="variable">$module</span> <span class="operator">=</span> <span class="variable">scan_chunk</span><span class="operator">(</span><span class="variable">$chunk</span><span class="operator">);</span>
+    <span class="variable">@modules</span> <span class="operator">=</span> <span class="variable">scan_chunk</span><span class="operator">(</span><span class="variable">$chunk</span><span class="operator">);</span>
+</code></pre>
+
+<p>Apply various heuristics to <code>$chunk</code> to find and return the module name(s) it contains. In scalar context, returns only the first module or <code>undef</code>.</p>
+
+<h2 id="add_deps"><b>add_deps</b></h2>
+
+<pre><code>    <span class="variable">$rv_ref</span> <span class="operator">=</span> <span class="variable">add_deps</span><span class="operator">(</span> <span class="string">rv</span> <span class="operator">=&gt;</span> <span class="operator">\</span><span class="variable">%rv</span><span class="operator">,</span> <span class="string">modules</span> <span class="operator">=&gt;</span> <span class="operator">\</span><span class="variable">@modules</span> <span class="operator">);</span>
+    <span class="variable">$rv_ref</span> <span class="operator">=</span> <span class="variable">add_deps</span><span class="operator">(</span> <span class="variable">@modules</span> <span class="operator">);</span> <span class="comment"># shorthand, without rv</span>
+</code></pre>
+
+<p>Resolves a list of module names to its actual on-disk location, by finding in <code>@INC</code> and <code>@Module::ScanDeps::IncludeLibs</code>; modules that cannot be found are skipped.</p>
+
+<p>This function populates the <code>%rv</code> hash with module/filename pairs, and returns a reference to it.</p>
+
+<h2 id="path_to_inc_name"><b>path_to_inc_name</b></h2>
+
+<pre><code>    $perl_name = path_to_inc_name($path, $warn)</code></pre>
+
+<p>Assumes <code>$path</code> refers to a perl file and does it&#39;s best to return the name as it would appear in %INC. Returns undef if no match was found and a prints a warning to STDERR if <code>$warn</code> is true.</p>
+
+<p>E.g. if <code>$path</code> = perl/site/lib/Module/ScanDeps.pm then <code>$perl_name</code> will be Module/ScanDeps.pm.</p>
+
+<h1 id="NOTES">NOTES</h1>
+
+<h2 id="Module::ScanDeps::IncludeLibs"><b>@Module::ScanDeps::IncludeLibs</b></h2>
+
+<p>You can set this global variable to specify additional directories in which to search modules without modifying <code>@INC</code> itself.</p>
+
+<h2 id="Module::ScanDeps::ScanFileRE"><b>$Module::ScanDeps::ScanFileRE</b></h2>
+
+<p>You can set this global variable to specify a regular expression to identify what files to scan. By default it includes all files of the following types: .pm, .pl, .t and .al. Additionally, all files without a suffix are considered.</p>
+
+<p>For instance, if you want to scan all files then use the following:</p>
+
+<p><code>$Module::ScanDeps::ScanFileRE = qr/./</code></p>
+
+<h1 id="CAVEATS">CAVEATS</h1>
+
+<p>This module intentionally ignores the <b>BSDPAN</b> hack on FreeBSD -- the additional directory is removed from <code>@INC</code> altogether.</p>
+
+<p>The static-scanning heuristic is not likely to be 100% accurate, especially on modules that dynamically load other modules.</p>
+
+<p>Chunks that span multiple lines are not handled correctly. For example, this one works:</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">base</span> <span class="string">'Foo::Bar'</span><span class="operator">;</span>
+</code></pre>
+
+<p>But this one does not:</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">base</span>
+        <span class="string">'Foo::Bar'</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a>scandeps.pl</a> is a bundled utility that writes <code>PREREQ_PM</code> section for a number of files.</p>
+
+<p>An application of <b>Module::ScanDeps</b> is to generate executables from scripts that contains prerequisite modules; this module supports two such projects, <a>PAR</a> and <a>App::Packer</a>. Please see their respective documentations on CPAN for further information.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;</p>
+
+<p>To a lesser degree: Steffen Mueller &lt;smueller@cpan.org&gt;</p>
+
+<p>Parts of heuristics were deduced from:</p>
+
+<ul>
+
+<li><p><b>PerlApp</b> by ActiveState Tools Corp <a href="http://www.activestate.com/">http://www.activestate.com/</a></p>
+
+</li>
+<li><p><b>Perl2Exe</b> by IndigoStar, Inc <a href="http://www.indigostar.com/">http://www.indigostar.com/</a></p>
+
+</li>
+</ul>
+
+<p>The <b>scan_deps_runtime</b> function is contributed by Edward S. Peschko.</p>
+
+<p><a href="http://par.perl.org/">http://par.perl.org/</a> is the official website for this module. You can write to the mailing list at &lt;par@perl.org&gt;, or send an empty mail to &lt;par-subscribe@perl.org&gt; to participate in the discussion.</p>
+
+<p>Please submit bug reports to &lt;bug-Module-ScanDeps@rt.cpan.org&gt;.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2002-2008 by Audrey Tang &lt;cpan@audreyt.org&gt;; 2005-2010 by Steffen Mueller &lt;smueller@cpan.org&gt;.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

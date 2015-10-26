@@ -1,0 +1,126 @@
+'------------------------- Gauquelin_sector -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+Gauquelin_sector
+end if
+
+barsback=200 '<--- can also be something like VAL(Gauquelin_sectorbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+
+defint histocolor
+
+drawhisto(drawid)=1
+if Gauquelin_sector_mercurybuffer(offset)-1>=0 and Gauquelin_sector_mercurybuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_mercurybuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_mercurybuffer(offset)-1>=18 and Gauquelin_sector_mercurybuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_mercurybuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "0"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+drawhisto(drawid)=1
+if Gauquelin_sector_venusbuffer(offset)-1>=0 and Gauquelin_sector_venusbuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_venusbuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_venusbuffer(offset)-1>=18 and Gauquelin_sector_venusbuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_venusbuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "10"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+drawhisto(drawid)=1
+if Gauquelin_sector_earthbuffer(offset)-1>=0 and Gauquelin_sector_earthbuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_earthbuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_earthbuffer(offset)-1>=18 and Gauquelin_sector_earthbuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_earthbuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "20"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+drawhisto(drawid)=1
+if Gauquelin_sector_marsbuffer(offset)-1>=0 and Gauquelin_sector_marsbuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_marsbuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_marsbuffer(offset)-1>=18 and Gauquelin_sector_marsbuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_marsbuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "30"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+drawhisto(drawid)=1
+if Gauquelin_sector_jupiterbuffer(offset)-1>=0 and Gauquelin_sector_jupiterbuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_jupiterbuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_jupiterbuffer(offset)-1>=18 and Gauquelin_sector_jupiterbuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_jupiterbuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "40"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+drawhisto(drawid)=1
+if Gauquelin_sector_saturnbuffer(offset)-1>=0 and Gauquelin_sector_saturnbuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_saturnbuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_saturnbuffer(offset)-1>=18 and Gauquelin_sector_saturnbuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_saturnbuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "50"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+drawhisto(drawid)=1
+if Gauquelin_sector_uranusbuffer(offset)-1>=0 and Gauquelin_sector_uranusbuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_uranusbuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_uranusbuffer(offset)-1>=18 and Gauquelin_sector_uranusbuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_uranusbuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "60"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+drawhisto(drawid)=1
+if Gauquelin_sector_neptunebuffer(offset)-1>=0 and Gauquelin_sector_neptunebuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_neptunebuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_neptunebuffer(offset)-1>=18 and Gauquelin_sector_neptunebuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_neptunebuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "70"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+drawhisto(drawid)=1
+if Gauquelin_sector_plutobuffer(offset)-1>=0 and Gauquelin_sector_plutobuffer(offset)-1<18 then
+histocolor=round(255*(Gauquelin_sector_plutobuffer(offset)-1)/18)
+end if
+if Gauquelin_sector_plutobuffer(offset)-1>=18 and Gauquelin_sector_plutobuffer(offset)-1<36 then
+histocolor=255-round(255*(Gauquelin_sector_plutobuffer(offset)-1-18)/18)
+end if
+sepindicolorhisto(drawid,lbar)=rgb(histocolor,histocolor,histocolor)
+canvas.separateindicator1.Cell(drawid,lbar)= "80"
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+end if
+
+end if
+'------------------------- End Gauquelin_sector -------------------------------------------------

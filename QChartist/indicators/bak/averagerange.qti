@@ -1,0 +1,32 @@
+dim adrperiod as integer,limit as integer
+adrperiod=14:limit=1000
+dim buffer1(1 to 1000) as double
+dim buffer2(1 to 1000) as double
+dim buffer3(1 to 1000) as double
+dim buffer4(1 to 1000) as double
+dim buffer5(1 to 1000) as double
+
+declare sub averagerange()
+
+sub averagerange()
+    adrperiod=val(averagerangeperiodedit.text)
+    limit=val(averagerangebarsbackedit.text)
+    dim i as integer,k as integer
+    i=0:k=0
+    dim adr as double,openp as double
+    adr=0:openp=0
+    for i=0 to limit-1
+        for k=1 to adrperiod
+            adr=adr+high(k+i)-low(k+i)
+        next k
+        adr=adr/adrperiod
+        openp=open(i)
+        buffer1(i)=openp+adr
+        buffer2(i)=openp+adr/2
+        buffer3(i)=openp
+        buffer4(i)=openp-adr/2
+        buffer5(i)=openp-adr
+        adr=0
+    next i
+
+end sub

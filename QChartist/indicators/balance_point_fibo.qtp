@@ -1,0 +1,34 @@
+declare sub hidebalance_point_fiboform
+
+CREATE balance_point_fiboform as qform
+
+    Center
+    Caption = "Settings for: balance_point_fibo"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create balance_point_fibocurtflab as qlabel
+        left=0
+        top=0
+        caption="Current timeframe:"
+    end create
+
+    create balance_point_fibocurtfedit as qedit
+        left=balance_point_fibocurtflab.width+100
+        top=0
+        text="240"
+    end create
+
+    create balance_point_fibobtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hidebalance_point_fiboform
+    end create
+
+END CREATE
+
+sub hidebalance_point_fiboform
+    balance_point_fiboform.visible=0
+end sub

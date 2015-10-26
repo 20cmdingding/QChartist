@@ -1,0 +1,22 @@
+declare sub hideForceIndexform
+
+CREATE ForceIndexform as qform
+
+    Center
+    Caption = "Settings for: Force Index"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create ForceIndexbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideForceIndexform
+    end create
+
+END CREATE
+
+sub hideForceIndexform
+    ForceIndexform.visible=0
+end sub

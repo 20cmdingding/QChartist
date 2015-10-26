@@ -1,0 +1,22 @@
+declare sub hideNormalDistributionfform
+
+CREATE NormalDistributionfform as qform
+
+    Center
+    Caption = "Settings for: NormalDistributionf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create NormalDistributionfbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideNormalDistributionfform
+    end create
+
+END CREATE
+
+sub hideNormalDistributionfform
+    NormalDistributionfform.visible=0
+end sub

@@ -1,0 +1,14 @@
+dim closepricebuffer(0 to 1000) as double
+
+declare sub closepriceindi()
+
+sub closepriceindi()
+
+    dim i as integer,p as integer
+    p=val(priceclosebarsbackedit.text)
+    while p>=0
+        closepricebuffer(p)=close(p)
+        p--
+    wend
+
+end sub   

@@ -1,0 +1,22 @@
+declare sub hideExponentialIntegralEIfform
+
+CREATE ExponentialIntegralEIfform as qform
+
+    Center
+    Caption = "Settings for: ExponentialIntegralEIf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create ExponentialIntegralEIfbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideExponentialIntegralEIfform
+    end create
+
+END CREATE
+
+sub hideExponentialIntegralEIfform
+    ExponentialIntegralEIfform.visible=0
+end sub

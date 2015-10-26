@@ -1,0 +1,109 @@
+{
+   "abstract" : "PAR Packager",
+   "author" : [
+      "Audrey Tang <cpan@audreyt.org>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Module::Install version 1.14, CPAN::Meta::Converter version 2.150001",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "PAR-Packer",
+   "no_index" : {
+      "directory" : [
+         "contrib",
+         "inc",
+         "t"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::Embed" : "0",
+            "ExtUtils::MakeMaker" : "6.59"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "recommends" : {
+            "Digest" : "0",
+            "Digest::SHA" : "0",
+            "Module::Signature" : "0",
+            "Tk" : "0",
+            "Tk::ColoredButton" : "0",
+            "Tk::EntryCheck" : "0",
+            "Tk::Getopt" : "0"
+         },
+         "requires" : {
+            "Archive::Zip" : "1.00",
+            "Compress::Zlib" : "1.16",
+            "File::Temp" : "0.05",
+            "Getopt::ArgvFile" : "1.07",
+            "IO::Compress::Gzip" : "0",
+            "Module::ScanDeps" : "1.17",
+            "PAR" : "1.005",
+            "PAR::Dist" : "0.22",
+            "Parse::Binary" : "0.04",
+            "Text::ParseWords" : "0",
+            "Win32::Exe" : "0.17",
+            "Win32::Process" : "0",
+            "perl" : "5.008001"
+         }
+      }
+   },
+   "provides" : {
+      "App::Packer::PAR" : {
+         "file" : "lib/App/Packer/PAR.pm",
+         "version" : "0.91"
+      },
+      "PAR::Filter" : {
+         "file" : "lib/PAR/Filter.pm",
+         "version" : "0.03"
+      },
+      "PAR::Filter::Bleach" : {
+         "file" : "lib/PAR/Filter/Bleach.pm"
+      },
+      "PAR::Filter::Bytecode" : {
+         "file" : "lib/PAR/Filter/Bytecode.pm"
+      },
+      "PAR::Filter::Obfuscate" : {
+         "file" : "lib/PAR/Filter/Obfuscate.pm"
+      },
+      "PAR::Filter::PatchContent" : {
+         "file" : "lib/PAR/Filter/PatchContent.pm"
+      },
+      "PAR::Filter::PodStrip" : {
+         "file" : "lib/PAR/Filter/PodStrip.pm"
+      },
+      "PAR::Packer" : {
+         "file" : "lib/PAR/Packer.pm",
+         "version" : "1.025"
+      },
+      "PAR::StrippedPARL::Base" : {
+         "file" : "lib/PAR/StrippedPARL/Base.pm",
+         "version" : "0.975"
+      },
+      "pp" : {
+         "file" : "lib/pp.pm",
+         "version" : "0.992"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ],
+      "repository" : {
+         "url" : "http://svn.openfoundry.org/par/PAR-Packer/trunk"
+      }
+   },
+   "version" : "1.025"
+}

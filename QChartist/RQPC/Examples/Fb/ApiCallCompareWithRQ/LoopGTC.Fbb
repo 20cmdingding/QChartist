@@ -1,0 +1,30 @@
+' -------------------------------------
+' ''RQEXPORT function CWP_Test ()
+Function CWP_Test (i1, i2, i3, i4)
+    ' do nothing
+End Function
+' -------------------------------------
+' ''RQEXPORT function LoopGTC (LoopCount)
+Function LoopGTC (LoopCount, i2, i3, i4)
+    Dim As Integer i1
+    While (LoopCount > 0)
+        i1 = GetTickCount ()
+        LoopCount -= 1
+    Wend
+End Function
+' -------------------------------------
+' ''RQEXPORT function LoopNull (LoopCount)
+Function LoopNull (LoopCount, i2, i3, i4)
+    While (LoopCount > 0)
+        LoopCount -= 1
+    Wend
+End Function
+' -------------------------------------
+' ''RQEXPORT function LoopCWP (LoopCount)
+Function LoopCWP (LoopCount, i2, i3, i4)
+    While (LoopCount > 0)
+        CallWindowProc (@CWP_Test, 0, 0, 0, 0)
+        LoopCount -= 1
+    Wend
+End Function
+' -------------------------------------

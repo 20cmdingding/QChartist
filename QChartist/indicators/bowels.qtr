@@ -1,0 +1,45 @@
+'------------------------- bowels -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=bowelsperiodedit.text
+tfbasestr=str$(bowelstfbasecombo.itemindex)
+cpptmpfuncreturn=varptr$(bowels(varptr(periodstr),varptr(tfbasestr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(bowelsbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=purple '<--- replace with your color
+    bufnamestr="pivot"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="r1"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="r2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="r3"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="s1"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="s2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="s3"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End bowels -------------------------------------------------

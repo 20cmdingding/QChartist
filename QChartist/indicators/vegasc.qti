@@ -1,0 +1,50 @@
+dim extmapbuffer3(0 to 1000) as double
+
+sub ema(period as integer,pricehlc as integer)
+    dim per as integer
+    per=169
+
+    if period>0 then
+        per=period
+    end if
+
+    dim pr as double
+    pr=2/(per+1)
+    dim i as integer,p as integer
+    p=bars-2
+    p=1000
+    while p>=0
+        if p=1000 then
+            extmapbuffer3(p+1)=close(p+1)
+        end if
+select case pricehlc
+case 0:
+        extmapbuffer3(p)=close(p)*pr+extmapbuffer3(p+1)*(1-pr)
+case 1:
+        extmapbuffer3(p)=high(p)*pr+extmapbuffer3(p+1)*(1-pr)
+case 2:
+        extmapbuffer3(p)=low(p)*pr+extmapbuffer3(p+1)*(1-pr)
+end select
+        p--
+    wend
+
+end sub
+
+
+dim vegasup(0 to 1000) as double,vegasdn(0 to 1000) as double
+
+sub vegas()
+
+    ema(val(vegasperiodedit.text),0)
+
+    dim limit as integer
+    limit=bars
+    limit=1000
+    
+    dim i as integer
+    for i=0 to limit-1
+        vegasup(i)=extmapbuffer3(i)+144*0.0001
+        vegasdn(i)=extmapbuffer3(i)-144*0.0001
+    next i
+
+end sub

@@ -1,0 +1,22 @@
+declare sub hideastro_retrogradeform
+
+CREATE astro_retrogradeform as qform
+
+    Center
+    Caption = "Settings for: astro_retrograde"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create astro_retrogradebtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideastro_retrogradeform
+    end create
+
+END CREATE
+
+sub hideastro_retrogradeform
+    astro_retrogradeform.visible=0
+end sub

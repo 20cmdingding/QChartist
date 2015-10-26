@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::ASX - Obtain quotes from the Australian Stock Exchange.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"asx"</span><span class="operator">,</span><span class="string">"BHP"</span><span class="operator">);</span>           <span class="comment"># Only query ASX.</span>
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"australia"</span><span class="operator">,</span><span class="string">"BHP"</span><span class="operator">);</span> <span class="comment"># Failover to other sources OK.</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information from the Australian Stock Exchange http://www.asx.com.au/. All Australian stocks and indicies are available. Indexes start with the letter &#39;X&#39;. For example, the All Ordinaries is &quot;XAO&quot;.</p>
+
+<p>This module is loaded by default on a Finance::Quote object. It&#39;s also possible to load it explicity by placing &quot;ASX&quot; in the argument list to Finance::Quote-&gt;new().</p>
+
+<p>This module provides both the &quot;asx&quot; and &quot;australia&quot; fetch methods. Please use the &quot;australia&quot; fetch method if you wish to have failover with other sources for Australian stocks (such as Yahoo). Using the &quot;asx&quot; method will guarantee that your information only comes from the Australian Stock Exchange.</p>
+
+<p>Information returned by this module is governed by the Australian Stock Exchange&#39;s terms and conditions.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>The following labels may be returned by Finance::Quote::ASX: date, bid, ask, open, high, low, last, close, p_change, volume, and price.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Australian Stock Exchange, http://www.asx.com.au/</p>
+
+<p>Finance::Quote::Yahoo::Australia.</p>
+
+
+</body>
+
+</html>
+
+

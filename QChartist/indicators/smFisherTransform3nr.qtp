@@ -1,0 +1,46 @@
+declare sub hidesmFisherTransform3nrform
+
+CREATE smFisherTransform3nrform as qform
+
+    Center
+    Caption = "Settings for: smFisherTransform3nr"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create smFisherTransform3nrperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create smFisherTransform3nrperiodedit as qedit
+        left=smFisherTransform3nrperiodlab.width+100
+        top=0
+        text="21"
+    end create
+
+create smFisherTransform3nrcurtflab as qlabel
+        left=0
+        top=20
+        caption="Current timeframe:"
+    end create
+
+    create smFisherTransform3nrcurtfedit as qedit
+        left=smFisherTransform3nrcurtflab.width+10
+        top=20
+        text="60"
+    end create
+
+    create smFisherTransform3nrbtnok as qbutton
+        left=0
+        top=40
+        caption="OK"
+        onclick=hidesmFisherTransform3nrform
+    end create
+
+END CREATE
+
+sub hidesmFisherTransform3nrform
+    smFisherTransform3nrform.visible=0
+end sub

@@ -1,0 +1,95 @@
+declare sub VolatilityPivot ' This line of code must stay here
+dim volatilitypivottrstop(0 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+dim volatilitypivotema(0 to 1000) as double
+declare sub volatilitypivotemasub(period as integer)',pricehlc as integer)
+
+sub VolatilityPivot
+' Put your indicator code here
+dim atr_range as double
+dim ima_range as double
+dim atr_factor as double
+dim mode as integer
+dim deltaprice as double
+dim vppoint as double
+vppoint=val(VolatilityPivotpointedit.text)
+atr_range=100
+ima_range=10
+atr_factor=3
+mode=0
+deltaprice=30
+dim limit as integer
+limit=val(VolatilityPivotbarsbackedit.text)
+dim deltastop as double
+dim i as integer
+
+atr(atr_range)
+
+
+
+for i=limit-1 to 0 step -1
+
+	if mode=0 then
+		volatilitypivotemasub(ima_range)
+		deltastop=volatilitypivotema(i)*atr_factor
+	else
+		deltastop=deltaprice*vppoint
+	end if
+
+	if close(i)=volatilitypivottrstop(i+1) then
+		volatilitypivottrstop(i)=volatilitypivottrstop(i+1)
+	else
+		if (close(i+1)<volatilitypivottrstop(i+1)) and (close(i)<volatilitypivottrstop(i+1)) then
+			if volatilitypivottrstop(i+1)<=close(i)+deltastop then
+				volatilitypivottrstop(i)=volatilitypivottrstop(i+1)
+			end if
+			if volatilitypivottrstop(i+1)>close(i)+deltastop then
+				volatilitypivottrstop(i)=close(i)+deltastop
+			end if
+		else
+			if (close(i+1)>volatilitypivottrstop(i+1)) and (close(i)>volatilitypivottrstop(i+1)) then
+				if volatilitypivottrstop(i+1)>=close(i)-deltastop then
+					volatilitypivottrstop(i)=volatilitypivottrstop(i+1)
+				end if
+				if volatilitypivottrstop(i+1)<close(i)-deltastop then
+					volatilitypivottrstop(i)=close(i)-deltastop
+				end if
+			else
+				if close(i)>volatilitypivottrstop(i+1) then
+					volatilitypivottrstop(i)=close(i)-deltastop
+				else
+					volatilitypivottrstop(i)=close(i)+deltastop
+				end if
+			end if
+		end if
+	end if
+
+next i
+
+end sub
+
+
+sub volatilitypivotemasub(period as integer)',pricehlc as integer)
+    
+    dim pr as double
+    pr=2/(period+1)
+    dim i as integer,p as integer
+    p=bars-2
+    p=val(VolatilityPivotbarsbackedit.text)
+    while p>=0
+        if p=val(VolatilityPivotbarsbackedit.text) then
+            volatilitypivotema(p+1)=atrbuffer(p+1)
+        end if
+'select case pricehlc
+'case 0:
+'        volatilitypivotema(p)=close(p)*pr+volatilitypivotema(p+1)*(1-pr)
+'case 1:
+'        volatilitypivotema(p)=high(p)*pr+volatilitypivotema(p+1)*(1-pr)
+'case 2:
+'        volatilitypivotema(p)=low(p)*pr+volatilitypivotema(p+1)*(1-pr)
+'end select
+volatilitypivotema(p)=atrbuffer(p)*pr+volatilitypivotema(p+1)*(1-pr)
+
+        p--
+    wend
+
+end sub

@@ -1,0 +1,46 @@
+        '------------------------- Value Chart of ATR Channels -------------------------------------------------
+indiid++
+         
+                    if indicatorslistsel.item(indiid)="x" then 
+            
+                        if lbar=1 then           
+                            valuechartofatrchannels
+                        end if
+
+                         barsback=VAL(vcatrcbarsbackedit.text)                       
+
+                    if ibar>=lastbar-barsback then
+                        sepindicolor(drawid)=green
+			canvas.separateindicator1.Cell(drawid,lbar)= STR$(vo3(offset))
+			drawid=drawid+2
+                        sepindicolor(drawid)=red
+			canvas.separateindicator1.Cell(drawid,lbar)= STR$(vh3(offset))
+			drawid=drawid+2
+                        sepindicolor(drawid)=red
+			canvas.separateindicator1.Cell(drawid,lbar)= STR$(vb3(offset))
+			drawid=drawid+2
+                        sepindicolor(drawid)=purple
+			canvas.separateindicator1.Cell(drawid,lbar)= STR$(vc3(offset))
+			drawid=drawid+2
+                        sepindicolor(drawid)=gray
+			canvas.separateindicator1.Cell(drawid,lbar)= STR$(valuechart3levelup1(offset))
+			drawid=drawid+2
+                        sepindicolor(drawid)=gray
+			canvas.separateindicator1.Cell(drawid,lbar)= STR$(valuechart3levelup2(offset))
+			drawid=drawid+2
+                        sepindicolor(drawid)=gray
+			canvas.separateindicator1.Cell(drawid,lbar)= STR$(valuechart3leveldn1(offset))
+			drawid=drawid+2
+                        sepindicolor(drawid)=gray
+			canvas.separateindicator1.Cell(drawid,lbar)= STR$(valuechart3leveldn2(offset))
+			drawid=drawid+2
+                                                                                                                                                                                                            
+                    end if
+                    if autoadjustsepindi.checked=1 then        
+                        sepindivalminedit.text="-4"             
+                        sepindivalmaxedit.text="4"              
+                    end if
+                     
+                end if                                  
+
+        '------------------------- End Value Chart of ATR Channels  ------------------------------------------------- 

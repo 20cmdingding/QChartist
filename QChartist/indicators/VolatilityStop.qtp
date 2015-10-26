@@ -1,0 +1,34 @@
+declare sub hideVolatilityStopform
+
+CREATE VolatilityStopform as qform
+
+    Center
+    Caption = "Settings for: Volatility Stop"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create VolatilityStopperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create VolatilityStopperiodedit as qedit
+        left=VolatilityStopperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create VolatilityStopbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideVolatilityStopform
+    end create
+
+END CREATE
+
+sub hideVolatilityStopform
+    VolatilityStopform.visible=0
+end sub

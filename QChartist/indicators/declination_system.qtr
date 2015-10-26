@@ -1,0 +1,18 @@
+'------------------------- declination_system -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+declination_system
+end if
+
+barsback=300 '<--- can also be something like VAL(declination_systembarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=blue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(declination_systembuffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End declination_system -------------------------------------------------

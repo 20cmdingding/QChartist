@@ -1,0 +1,616 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#THE-Math::BigInt-API">THE Math::BigInt API</a>
+    <ul>
+      <li><a href="#General-Notes">General Notes</a></li>
+      <li><a href="#API-version-1">API version 1</a>
+        <ul>
+          <li><a href="#API-version">API version</a></li>
+          <li><a href="#Constructors">Constructors</a></li>
+          <li><a href="#Mathematical-functions">Mathematical functions</a></li>
+          <li><a href="#Bitwise-operators">Bitwise operators</a></li>
+          <li><a href="#Boolean-operators">Boolean operators</a></li>
+          <li><a href="#String-conversion">String conversion</a></li>
+          <li><a href="#Numeric-conversion">Numeric conversion</a></li>
+          <li><a href="#Miscellaneous">Miscellaneous</a></li>
+        </ul>
+      </li>
+      <li><a href="#API-version-2">API version 2</a>
+        <ul>
+          <li><a href="#Constructors1">Constructors</a></li>
+          <li><a href="#Mathematical-functions1">Mathematical functions</a></li>
+          <li><a href="#Miscellaneous1">Miscellaneous</a></li>
+        </ul>
+      </li>
+      <li><a href="#API-optional-methods">API optional methods</a>
+        <ul>
+          <li><a href="#Signed-bitwise-operators">Signed bitwise operators.</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#WRAP-YOUR-OWN">WRAP YOUR OWN</a></li>
+  <li><a href="#BUGS">BUGS</a></li>
+  <li><a href="#SUPPORT">SUPPORT</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Math::BigInt::Calc - Pure Perl module to support Math::BigInt</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>This library provides support for big integer calculations. It is not intended to be used by other modules. Other modules which support the same API (see below) can also be used to support Math::BigInt, like Math::BigInt::GMP and Math::BigInt::Pari.</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>In this library, the numbers are represented in base B = 10**N, where N is the largest possible value that does not cause overflow in the intermediate computations. The base B elements are stored in an array, with the least significant element stored in array element zero. There are no leading zero elements, except a single zero element when the number is zero.</p>
+
+<p>For instance, if B = 10000, the number 1234567890 is represented internally as [3456, 7890, 12].</p>
+
+<h1 id="THE-Math::BigInt-API">THE Math::BigInt API</h1>
+
+<p>In order to allow for multiple big integer libraries, Math::BigInt was rewritten to use a plug-in library for core math routines. Any module which conforms to the API can be used by Math::BigInt by using this in your program:</p>
+
+<pre><code>        <span class="keyword">use</span> <span class="variable">Math::BigInt</span> <span class="string">lib</span> <span class="operator">=&gt;</span> <span class="string">'libname'</span><span class="operator">;</span>
+</code></pre>
+
+<p>&#39;libname&#39; is either the long name, like &#39;Math::BigInt::Pari&#39;, or only the short version, like &#39;Pari&#39;.</p>
+
+<h2 id="General-Notes">General Notes</h2>
+
+<p>A library only needs to deal with unsigned big integers. Testing of input parameter validity is done by the caller, so there is no need to worry about underflow (e.g., in <code>_sub()</code> and <code>_dec()</code>) nor about division by zero (e.g., in <code>_div()</code>) or similar cases.</p>
+
+<p>For some methods, the first parameter can be modified. That includes the possibility that you return a reference to a completely different object instead. Although keeping the reference and just changing its contents is preferred over creating and returning a different reference.</p>
+
+<p>Return values are always objects, strings, Perl scalars, or true/false for comparison routines.</p>
+
+<h2 id="API-version-1">API version 1</h2>
+
+<p>The following methods must be defined in order to support the use by Math::BigInt v1.70 or later.</p>
+
+<h3 id="API-version">API version</h3>
+
+<dl>
+
+<dt id="api_version"><i>api_version()</i></dt>
+<dd>
+
+<p>Return API version as a Perl scalar, 1 for Math::BigInt v1.70, 2 for Math::BigInt v1.83.</p>
+
+</dd>
+</dl>
+
+<h3 id="Constructors">Constructors</h3>
+
+<dl>
+
+<dt id="new-STR"><i>_new(STR)</i></dt>
+<dd>
+
+<p>Convert a string representing an unsigned decimal number to an object representing the same number. The input is normalize, i.e., it matches <code>^(0|[1-9]\d*)$</code>.</p>
+
+</dd>
+<dt id="zero"><i>_zero()</i></dt>
+<dd>
+
+<p>Return an object representing the number zero.</p>
+
+</dd>
+<dt id="one"><i>_one()</i></dt>
+<dd>
+
+<p>Return an object representing the number one.</p>
+
+</dd>
+<dt id="two"><i>_two()</i></dt>
+<dd>
+
+<p>Return an object representing the number two.</p>
+
+</dd>
+<dt id="ten"><i>_ten()</i></dt>
+<dd>
+
+<p>Return an object representing the number ten.</p>
+
+</dd>
+<dt id="from_bin-STR"><i>_from_bin(STR)</i></dt>
+<dd>
+
+<p>Return an object given a string representing a binary number. The input has a &#39;0b&#39; prefix and matches the regular expression <code>^0[bB](0|1[01]*)$</code>.</p>
+
+</dd>
+<dt id="from_oct-STR"><i>_from_oct(STR)</i></dt>
+<dd>
+
+<p>Return an object given a string representing an octal number. The input has a &#39;0&#39; prefix and matches the regular expression <code>^0[1-7]*$</code>.</p>
+
+</dd>
+<dt id="from_hex-STR"><i>_from_hex(STR)</i></dt>
+<dd>
+
+<p>Return an object given a string representing a hexadecimal number. The input has a &#39;0x&#39; prefix and matches the regular expression <code>^0x(0|[1-9a-fA-F][\da-fA-F]*)$</code>.</p>
+
+</dd>
+</dl>
+
+<h3 id="Mathematical-functions">Mathematical functions</h3>
+
+<p>Each of these methods may modify the first input argument, except <i>_bgcd()</i>, which shall not modify any input argument, and <i>_sub()</i> which may modify the second input argument.</p>
+
+<dl>
+
+<dt id="add-OBJ1-OBJ2"><i>_add(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Returns the result of adding OBJ2 to OBJ1.</p>
+
+</dd>
+<dt id="mul-OBJ1-OBJ2"><i>_mul(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Returns the result of multiplying OBJ2 and OBJ1.</p>
+
+</dd>
+<dt id="div-OBJ1-OBJ2"><i>_div(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Returns the result of dividing OBJ1 by OBJ2 and truncating the result to an integer.</p>
+
+</dd>
+<dt id="sub-OBJ1-OBJ2-FLAG"><i>_sub(OBJ1, OBJ2, FLAG)</i></dt>
+<dd>
+
+</dd>
+<dt id="sub-OBJ1-OBJ2"><i>_sub(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Returns the result of subtracting OBJ2 by OBJ1. If <code>flag</code> is false or omitted, OBJ1 might be modified. If <code>flag</code> is true, OBJ2 might be modified.</p>
+
+</dd>
+<dt id="dec-OBJ"><i>_dec(OBJ)</i></dt>
+<dd>
+
+<p>Decrement OBJ by one.</p>
+
+</dd>
+<dt id="inc-OBJ"><i>_inc(OBJ)</i></dt>
+<dd>
+
+<p>Increment OBJ by one.</p>
+
+</dd>
+<dt id="mod-OBJ1-OBJ2"><i>_mod(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Return OBJ1 modulo OBJ2, i.e., the remainder after dividing OBJ1 by OBJ2.</p>
+
+</dd>
+<dt id="sqrt-OBJ"><i>_sqrt(OBJ)</i></dt>
+<dd>
+
+<p>Return the square root of the object, truncated to integer.</p>
+
+</dd>
+<dt id="root-OBJ-N"><i>_root(OBJ, N)</i></dt>
+<dd>
+
+<p>Return Nth root of the object, truncated to int. N is &gt;= 3.</p>
+
+</dd>
+<dt id="fac-OBJ"><i>_fac(OBJ)</i></dt>
+<dd>
+
+<p>Return factorial of object (1*2*3*4*...).</p>
+
+</dd>
+<dt id="pow-OBJ1-OBJ2"><i>_pow(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Return OBJ1 to the power of OBJ2. By convention, 0**0 = 1.</p>
+
+</dd>
+<dt id="modinv-OBJ1-OBJ2"><i>_modinv(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Return modular multiplicative inverse, i.e., return OBJ3 so that</p>
+
+<pre><code>    (OBJ3 * OBJ1) % OBJ2 = 1 % OBJ2</code></pre>
+
+<p>The result is returned as two arguments. If the modular multiplicative inverse does not exist, both arguments are undefined. Otherwise, the arguments are a number (object) and its sign (&quot;+&quot; or &quot;-&quot;).</p>
+
+<p>The output value, with its sign, must either be a positive value in the range 1,2,...,OBJ2-1 or the same value subtracted OBJ2. For instance, if the input arguments are objects representing the numbers 7 and 5, the method must either return an object representing the number 3 and a &quot;+&quot; sign, since (3*7) % 5 = 1 % 5, or an object representing the number 2 and &quot;-&quot; sign, since (-2*7) % 5 = 1 % 5.</p>
+
+</dd>
+<dt id="modpow-OBJ1-OBJ2-OBJ3"><i>_modpow(OBJ1, OBJ2, OBJ3)</i></dt>
+<dd>
+
+<p>Return modular exponentiation, (OBJ1 ** OBJ2) % OBJ3.</p>
+
+</dd>
+<dt id="rsft-OBJ-N-B"><i>_rsft(OBJ, N, B)</i></dt>
+<dd>
+
+<p>Shift object N digits right in base B and return the resulting object. This is equivalent to performing integer division by B**N and discarding the remainder, except that it might be much faster, depending on how the number is represented internally.</p>
+
+<p>For instance, if the object $obj represents the hexadecimal number 0xabcde, then <code>_rsft($obj, 2, 16)</code> returns an object representing the number 0xabc. The &quot;remainer&quot;, 0xde, is discarded and not returned.</p>
+
+</dd>
+<dt id="lsft-OBJ-N-B"><i>_lsft(OBJ, N, B)</i></dt>
+<dd>
+
+<p>Shift the object N digits left in base B. This is equivalent to multiplying by B**N, except that it might be much faster, depending on how the number is represented internally.</p>
+
+</dd>
+<dt id="log_int-OBJ-B"><i>_log_int(OBJ, B)</i></dt>
+<dd>
+
+<p>Return integer log of OBJ to base BASE. This method has two output arguments, the OBJECT and a STATUS. The STATUS is Perl scalar; it is 1 if OBJ is the exact result, 0 if the result was truncted to give OBJ, and undef if it is unknown whether OBJ is the exact result.</p>
+
+</dd>
+<dt id="gcd-OBJ1-OBJ2"><i>_gcd(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Return the greatest common divisor of OBJ1 and OBJ2.</p>
+
+</dd>
+</dl>
+
+<h3 id="Bitwise-operators">Bitwise operators</h3>
+
+<p>Each of these methods may modify the first input argument.</p>
+
+<dl>
+
+<dt id="and-OBJ1-OBJ2"><i>_and(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Return bitwise and. If necessary, the smallest number is padded with leading zeros.</p>
+
+</dd>
+<dt id="or-OBJ1-OBJ2"><i>_or(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Return bitwise or. If necessary, the smallest number is padded with leading zeros.</p>
+
+</dd>
+<dt id="xor-OBJ1-OBJ2"><i>_xor(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Return bitwise exclusive or. If necessary, the smallest number is padded with leading zeros.</p>
+
+</dd>
+</dl>
+
+<h3 id="Boolean-operators">Boolean operators</h3>
+
+<dl>
+
+<dt id="is_zero-OBJ"><i>_is_zero(OBJ)</i></dt>
+<dd>
+
+<p>Returns a true value if OBJ is zero, and false value otherwise.</p>
+
+</dd>
+<dt id="is_one-OBJ"><i>_is_one(OBJ)</i></dt>
+<dd>
+
+<p>Returns a true value if OBJ is one, and false value otherwise.</p>
+
+</dd>
+<dt id="is_two-OBJ"><i>_is_two(OBJ)</i></dt>
+<dd>
+
+<p>Returns a true value if OBJ is two, and false value otherwise.</p>
+
+</dd>
+<dt id="is_ten-OBJ"><i>_is_ten(OBJ)</i></dt>
+<dd>
+
+<p>Returns a true value if OBJ is ten, and false value otherwise.</p>
+
+</dd>
+<dt id="is_even-OBJ"><i>_is_even(OBJ)</i></dt>
+<dd>
+
+<p>Return a true value if OBJ is an even integer, and a false value otherwise.</p>
+
+</dd>
+<dt id="is_odd-OBJ"><i>_is_odd(OBJ)</i></dt>
+<dd>
+
+<p>Return a true value if OBJ is an even integer, and a false value otherwise.</p>
+
+</dd>
+<dt id="acmp-OBJ1-OBJ2"><i>_acmp(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Compare OBJ1 and OBJ2 and return -1, 0, or 1, if OBJ1 is less than, equal to, or larger than OBJ2, respectively.</p>
+
+</dd>
+</dl>
+
+<h3 id="String-conversion">String conversion</h3>
+
+<dl>
+
+<dt id="str-OBJ"><i>_str(OBJ)</i></dt>
+<dd>
+
+<p>Return a string representing the object. The returned string should have no leading zeros, i.e., it should match <code>^(0|[1-9]\d*)$</code>.</p>
+
+</dd>
+<dt id="as_bin-OBJ"><i>_as_bin(OBJ)</i></dt>
+<dd>
+
+<p>Return the binary string representation of the number. The string must have a &#39;0b&#39; prefix.</p>
+
+</dd>
+<dt id="as_oct-OBJ"><i>_as_oct(OBJ)</i></dt>
+<dd>
+
+<p>Return the octal string representation of the number. The string must have a &#39;0x&#39; prefix.</p>
+
+<p>Note: This method was required from Math::BigInt version 1.78, but the required API version number was not incremented, so there are older libraries that support API version 1, but do not support <code>_as_oct()</code>.</p>
+
+</dd>
+<dt id="as_hex-OBJ"><i>_as_hex(OBJ)</i></dt>
+<dd>
+
+<p>Return the hexadecimal string representation of the number. The string must have a &#39;0x&#39; prefix.</p>
+
+</dd>
+</dl>
+
+<h3 id="Numeric-conversion">Numeric conversion</h3>
+
+<dl>
+
+<dt id="num-OBJ"><i>_num(OBJ)</i></dt>
+<dd>
+
+<p>Given an object, return a Perl scalar number (int/float) representing this number.</p>
+
+</dd>
+</dl>
+
+<h3 id="Miscellaneous">Miscellaneous</h3>
+
+<dl>
+
+<dt id="copy-OBJ"><i>_copy(OBJ)</i></dt>
+<dd>
+
+<p>Return a true copy of the object.</p>
+
+</dd>
+<dt id="len-OBJ"><i>_len(OBJ)</i></dt>
+<dd>
+
+<p>Returns the number of the decimal digits in the number. The output is a Perl scalar.</p>
+
+</dd>
+<dt id="zeros-OBJ"><i>_zeros(OBJ)</i></dt>
+<dd>
+
+<p>Return the number of trailing decimal zeros. The output is a Perl scalar.</p>
+
+</dd>
+<dt id="digit-OBJ-N"><i>_digit(OBJ, N)</i></dt>
+<dd>
+
+<p>Return the Nth digit as a Perl scalar. N is a Perl scalar, where zero refers to the rightmost (least significant) digit, and negative values count from the left (most significant digit). If $obj represents the number 123, then <i>_digit($obj, 0)</i> is 3 and <i>_digit(123, -1)</i> is 1.</p>
+
+</dd>
+<dt id="check-OBJ"><i>_check(OBJ)</i></dt>
+<dd>
+
+<p>Return a true value if the object is OK, and a false value otherwise. This is a check routine to test the internal state of the object for corruption.</p>
+
+</dd>
+</dl>
+
+<h2 id="API-version-2">API version 2</h2>
+
+<p>The following methods are required for an API version of 2 or greater.</p>
+
+<h3 id="Constructors1">Constructors</h3>
+
+<dl>
+
+<dt id="ex-N"><i>_1ex(N)</i></dt>
+<dd>
+
+<p>Return an object representing the number 10**N where N &gt;= 0 is a Perl scalar.</p>
+
+</dd>
+</dl>
+
+<h3 id="Mathematical-functions1">Mathematical functions</h3>
+
+<dl>
+
+<dt id="nok-OBJ1-OBJ2"><i>_nok(OBJ1, OBJ2)</i></dt>
+<dd>
+
+<p>Return the binomial coefficient OBJ1 over OBJ1.</p>
+
+</dd>
+</dl>
+
+<h3 id="Miscellaneous1">Miscellaneous</h3>
+
+<dl>
+
+<dt id="alen-OBJ"><i>_alen(OBJ)</i></dt>
+<dd>
+
+<p>Return the approximate number of decimal digits of the object. The output is one Perl scalar. This estimate must be greater than or equal to what <code>_len()</code> returns.</p>
+
+</dd>
+</dl>
+
+<h2 id="API-optional-methods">API optional methods</h2>
+
+<p>The following methods are optional, and can be defined if the underlying lib has a fast way to do them. If undefined, Math::BigInt will use pure Perl (hence slow) fallback routines to emulate these:</p>
+
+<h3 id="Signed-bitwise-operators">Signed bitwise operators.</h3>
+
+<p>Each of these methods may modify the first input argument.</p>
+
+<dl>
+
+<dt id="signed_or-OBJ1-OBJ2-SIGN1-SIGN2"><i>_signed_or(OBJ1, OBJ2, SIGN1, SIGN2)</i></dt>
+<dd>
+
+<p>Return the signed bitwise or.</p>
+
+</dd>
+<dt id="signed_and-OBJ1-OBJ2-SIGN1-SIGN2"><i>_signed_and(OBJ1, OBJ2, SIGN1, SIGN2)</i></dt>
+<dd>
+
+<p>Return the signed bitwise and.</p>
+
+</dd>
+<dt id="signed_xor-OBJ1-OBJ2-SIGN1-SIGN2"><i>_signed_xor(OBJ1, OBJ2, SIGN1, SIGN2)</i></dt>
+<dd>
+
+<p>Return the signed bitwise exclusive or.</p>
+
+</dd>
+</dl>
+
+<h1 id="WRAP-YOUR-OWN">WRAP YOUR OWN</h1>
+
+<p>If you want to port your own favourite c-lib for big numbers to the Math::BigInt interface, you can take any of the already existing modules as a rough guideline. You should really wrap up the latest BigInt and BigFloat testsuites with your module, and replace in them any of the following:</p>
+
+<pre><code>        <span class="keyword">use</span> <span class="variable">Math::BigInt</span><span class="operator">;</span>
+</code></pre>
+
+<p>by this:</p>
+
+<pre><code>        <span class="keyword">use</span> <span class="variable">Math::BigInt</span> <span class="string">lib</span> <span class="operator">=&gt;</span> <span class="string">'yourlib'</span><span class="operator">;</span>
+</code></pre>
+
+<p>This way you ensure that your library really works 100% within Math::BigInt.</p>
+
+<h1 id="BUGS">BUGS</h1>
+
+<p>Please report any bugs or feature requests to <code>bug-math-bigint at rt.cpan.org</code>, or through the web interface at <a href="https://rt.cpan.org/Ticket/Create.html?Queue=Math-BigInt">https://rt.cpan.org/Ticket/Create.html?Queue=Math-BigInt</a> (requires login). We will be notified, and then you&#39;ll automatically be notified of progress on your bug as I make changes.</p>
+
+<h1 id="SUPPORT">SUPPORT</h1>
+
+<p>You can find documentation for this module with the perldoc command.</p>
+
+<pre><code>    perldoc Math::BigInt::Calc</code></pre>
+
+<p>You can also look for information at:</p>
+
+<ul>
+
+<li><p>RT: CPAN&#39;s request tracker</p>
+
+<p><a href="https://rt.cpan.org/Public/Dist/Display.html?Name=Math-BigInt">https://rt.cpan.org/Public/Dist/Display.html?Name=Math-BigInt</a></p>
+
+</li>
+<li><p>AnnoCPAN: Annotated CPAN documentation</p>
+
+<p><a href="http://annocpan.org/dist/Math-BigInt">http://annocpan.org/dist/Math-BigInt</a></p>
+
+</li>
+<li><p>CPAN Ratings</p>
+
+<p><a href="http://cpanratings.perl.org/dist/Math-BigInt">http://cpanratings.perl.org/dist/Math-BigInt</a></p>
+
+</li>
+<li><p>Search CPAN</p>
+
+<p><a href="http://search.cpan.org/dist/Math-BigInt/">http://search.cpan.org/dist/Math-BigInt/</a></p>
+
+</li>
+<li><p>CPAN Testers Matrix</p>
+
+<p><a href="http://matrix.cpantesters.org/?dist=Math-BigInt">http://matrix.cpantesters.org/?dist=Math-BigInt</a></p>
+
+</li>
+<li><p>The Bignum mailing list</p>
+
+<ul>
+
+<li><p>Post to mailing list</p>
+
+<p><code>bignum at lists.scsys.co.uk</code></p>
+
+</li>
+<li><p>View mailing list</p>
+
+<p><a href="http://lists.scsys.co.uk/pipermail/bignum/">http://lists.scsys.co.uk/pipermail/bignum/</a></p>
+
+</li>
+<li><p>Subscribe/Unsubscribe</p>
+
+<p><a href="http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/bignum">http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/bignum</a></p>
+
+</li>
+</ul>
+
+</li>
+</ul>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>This program is free software; you may redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<ul>
+
+<li><p>Original math code by Mark Biggar, rewritten by Tels <a href="http://bloodgate.com/">http://bloodgate.com/</a> in late 2000.</p>
+
+</li>
+<li><p>Separated from BigInt and shaped API with the help of John Peacock.</p>
+
+</li>
+<li><p>Fixed, speed-up, streamlined and enhanced by Tels 2001 - 2007.</p>
+
+</li>
+<li><p>API documentation corrected and extended by Peter John Acklam, &lt;pjacklam@online.no&gt;</p>
+
+</li>
+</ul>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../../../lib/Math/BigInt.html">Math::BigInt</a>, <a href="../../../lib/Math/BigFloat.html">Math::BigFloat</a>, <a>Math::BigInt::GMP</a>, <a href="../../../lib/Math/BigInt/FastCalc.html">Math::BigInt::FastCalc</a> and <a>Math::BigInt::Pari</a>.</p>
+
+
+</body>
+
+</html>
+
+

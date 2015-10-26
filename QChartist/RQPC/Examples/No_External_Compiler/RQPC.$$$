@@ -1,0 +1,21 @@
+Rapid-Q Compiler Beta by William Yu Copyright 1999-2000
+Compiling C:\RQPC\Examples\No_External_Compiler\PreCompilerDemo.Bas to C:\RQPC\Examples\No_External_Compiler\PreCompilerDemo.bc
+
+Number of statements: 438        Compile time: 0.024000
+Numeric Variables:    392
+String Variables:     7
+Resource data:        0
+Bytes global data:    12651
+Bytes sub data:       77
+
+___RQPC__ INFO: Type: INTERNAL RESOURCES    ''Pre line found=1
+ sCodePathFile: C:\RQPC\Examples\No_External_Compiler\PreCompilerDemo.Bas
+  sIcoPathFile: C:\RQPC\Examples\No_External_Compiler\Globe.ico
+  Tiny Build with  INTERNAL RESOURCE
+        sRcExe: C:\RQPC\RC.EXE
+       sLibDir: C:\RQPC\
+      sRq32Dll: Rq32.Dll                    Exe Size: 1223680
+FLAGS: Console=1 Encrypt=1 Tiny=1 MakeExe=1 Run=1 Output=1 Optim=0
+       Dll32inExe=1 Upx=0
+TIMES: (in ms): CmdLine: 0  PreComp: 32  Valid: 0  RQCmpl: 296
+       CmplTny: 0  Exe_Bld: 31  ResHack: 1264  Tot: 1623  Run: 0

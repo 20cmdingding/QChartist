@@ -1,0 +1,18 @@
+'------------------------- priceclose1440 -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+priceclose1440
+end if
+
+barsback=200 '<--- can also be something like VAL(priceclose1440barsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(priceclose1440buffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End priceclose1440 -------------------------------------------------

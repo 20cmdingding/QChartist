@@ -1,0 +1,18 @@
+'------------------------- ZigZag -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+zigzag
+end if
+
+barsback=VAL(zigzagbarsbackedit.text) '<--- can also be something like VAL(myindibarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=purple '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(zigzagbuffer(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End ZigZag -------------------------------------------------

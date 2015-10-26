@@ -1,0 +1,26 @@
+'--------ATR Channels-------------------------------------------------------------
+indiid++
+        
+                    if indicatorslistsel.item(indiid)="x" then 
+
+                        if lbar=1 then     
+                            atrchannels
+                        end if
+
+                         barsback=200 
+                    
+
+                        if ibar>=lastbar-barsback then
+            
+                            indicolor(drawid)=olive
+				.Data_Indi.Cell(drawid,lbar)= STR$(ch3up_buffer5(offset))
+				drawid=drawid+2
+                            indicolor(drawid)=olive
+				.Data_Indi.Cell(drawid,lbar)= STR$(ch3dn_buffer6(offset))
+				drawid=drawid+2
+                                                                                
+                        end if                      
+                                             
+                    end if
+        
+        '--------End ATR Channels----------------------------------------------------------        		

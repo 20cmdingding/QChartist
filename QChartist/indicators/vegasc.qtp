@@ -1,0 +1,44 @@
+declare sub hidevegascform 
+
+CREATE vegascform as qform
+
+    Center
+    Caption = "Settings for: Vegas Currency Daily 1 Hour"
+    visible=0
+    
+    create vegasperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create vegasperiodedit as qedit
+        left=vegasperiodlab.width+100
+        top=0
+        text="169"
+    end create
+    
+    create vegasbarsbacklab as qlabel
+        top=vegasperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create vegasbarsbackedit as qedit
+        left=vegasperiodedit.left
+        top=vegasbarsbacklab.top
+        text="200"
+    end create
+    
+    create vegasbtnok as qbutton
+        left=0
+        top=vegasbarsbacklab.top+vegasbarsbacklab.height+15
+        caption="OK"
+        onclick=hidevegascform
+    end create
+          
+END CREATE 
+
+sub hidevegascform
+vegascform.visible=0
+end sub

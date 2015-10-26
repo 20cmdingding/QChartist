@@ -1,0 +1,22 @@
+declare sub hideCandleAvgform
+
+CREATE CandleAvgform as qform
+
+    Center
+    Caption = "Settings for: Candle Average"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create CandleAvgbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideCandleAvgform
+    end create
+
+END CREATE
+
+sub hideCandleAvgform
+    CandleAvgform.visible=0
+end sub

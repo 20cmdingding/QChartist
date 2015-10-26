@@ -1,0 +1,10 @@
+declare sub FDistributionf ' This line of code must stay here
+dim FDistributionfbuffer(0 to 1000) as double ' This line of code must stay here.
+
+sub FDistributionf
+' Put your indicator code here
+dim i as integer
+for i=200 to 0 step -1
+FDistributionfbuffer(i)=FDistribution(high(i),low(i),close(i))
+next i
+end sub

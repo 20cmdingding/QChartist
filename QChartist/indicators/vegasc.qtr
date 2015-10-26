@@ -1,0 +1,25 @@
+'--------Vegas-------------------------------------------------------------
+indiid++
+        
+                    if indicatorslistsel.item(indiid)="x" then 
+
+                        if lbar=1 then     
+                            vegas
+                        end if
+
+                         barsback=VAL(vegasbarsbackedit.text)
+                    
+                        if ibar>=lastbar-barsback then
+            
+                            indicolor(drawid)=red
+                            .Data_Indi.Cell(drawid,lbar)= STR$(vegasup(offset))
+				drawid=drawid+2            
+                            indicolor(drawid)=red
+                            .Data_Indi.Cell(drawid,lbar)= STR$(vegasdn(offset))
+				drawid=drawid+2
+            
+                        end if                                                          
+         
+                    end if
+        
+        '--------End Vegas----------------------------------------------------------        

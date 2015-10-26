@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#UNIT-TRUST-NAMES">UNIT TRUST NAMES</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::Trustnet - Obtain unit trust prices from trustnet.co.uk</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"uk_unit_trusts"</span><span class="operator">,</span><span class="string">"trust-name"</span><span class="operator">);</span> <span class="comment"># Can failover to other methods</span>
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"trustnet"</span><span class="operator">,</span><span class="string">"trust-name"</span><span class="operator">);</span> <span class="comment"># Use this module only.</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information about UK unit trust prices from www.trustnet.co.uk. The information source &quot;uk_unit_trusts&quot; can be used if the source of prices is irrelevant, and &quot;trustnet&quot; if you specifically want to use trustnet.co.uk.</p>
+
+<h1 id="UNIT-TRUST-NAMES">UNIT TRUST NAMES</h1>
+
+<p>Unfortunately there is no unique identifier for unit trust names. Therefore enough of the name should be given including spaces to yield a unique match. Trustnet sometimes uses abbreviated names, and the string given should match the abbreviation.</p>
+
+<p>Consult http://www.trustnet.co.uk/ut/funds/perf.asp?sort=0 to find a match for your unit trusts.</p>
+
+<p>Example &quot;jupiter income&quot;</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>Information available from Trustnet may include the following labels: exchange method source name currency bid ask yield price. In case of a unit trust, &quot;price&quot; returns the offer (ask) price. In case of an OIEC, the unique price is returned in &quot;bid&quot;, &quot;ask&quot; and &quot;price&quot;.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Trustnet website - http://www.trustnet.co.uk/</p>
+
+<p>Finance::Quote::Yahoo::USA</p>
+
+
+</body>
+
+</html>
+
+

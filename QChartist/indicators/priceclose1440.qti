@@ -1,0 +1,12 @@
+declare sub priceclose1440 ' This line of code must stay here
+dim priceclose1440buffer(0 to 1000) as double ' This line of code must stay here.
+
+sub priceclose1440
+' Put your indicator code here
+dim i as integer,p as integer
+    p=val(priceclosebarsbackedit.text)
+    while p>=0
+        priceclose1440buffer(p)=close1440(p)
+        p--
+    wend
+end sub

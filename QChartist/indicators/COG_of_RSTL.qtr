@@ -1,0 +1,37 @@
+'------------------------- COG of RSTL -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+barsbackstr=rstlcogcppbarsbackedit.text
+defstr kstdstr=kstdedit.text
+cpptmpfuncreturn=varptr$(rstlcogcpp(varptr(barsbackstr),varptr(kstdstr)))
+end if
+
+barsback=300 '<--- can also be something like VAL(RSTLCOGbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+indicolor(drawid)=lightblue
+    bufnamestr="fx2"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+                            indicolor(drawid)=yellow
+                            bufnamestr="sqh2"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+                            indicolor(drawid)=yellow
+                            bufnamestr="sql2"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+                            indicolor(drawid)=yellow
+                            bufnamestr="stdh2"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+                            indicolor(drawid)=yellow
+                            bufnamestr="stdl2"
+                .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+                drawid=drawid+2
+end if
+
+end if
+'------------------------- End COG of RSTL -------------------------------------------------

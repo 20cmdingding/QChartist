@@ -1,0 +1,763 @@
+FAQ
+
+----------------------------------------------------------------------------
+
+>From           excel@xs4all.nl.REMOVE-THIS (Marc van den Dikkenberg)
+Organization   XS4ALL, networking for the masses
+Date           Mon, 30 Nov 1998 08:02:01 GMT
+Newsgroups     comp.lang.basic.misc,alt.lang.basic
+Message-ID     <366550c9.14936146@news.xs4all.nl>
+
+----------------------------------------------------------------------------
+
+---[ BASIC Frequently Asked Questions ]------------------------------
+
+Last Revision - July 1998
+
+This file attempts to answer some of the more frequent questions that
+appear in the USENET newsgroup comp.lang.basic.misc
+
+It doesn't contain any platform specific code or discussions.
+
+CONTENTS:
+
+  1. What is the purpose of comp.lang.basic.misc?
+  2. What other USENET newsgroups exist for BASIC programmers?
+  3. What sort of stuff should I post to this newsgroup?
+  4. What sort of stuff should I NOT post to this newsgroup?
+  5. How do I turn my program into a stand-alone EXE file?
+  6. How can I de-compile my program from an EXE to BAS format?
+  7. Basic implementations.
+  8. What ON-LINE URLs for BASIC are there?
+  9. Mixed language programming Q's?
+ 10. What is so BAD about GOTO?
+ 11. What about some GOOD books?
+ 12. How can I define PI?
+ 13. Where can I get a Basic grammar?
+ 14. Where can I get info on the ANSI/ISO standards for Basic?
+ 15. What is OOP and is there an OO Basic?
+ 16. Why does .321 come out as .3210999?
+ 17. What is MBF?
+ 18. What is the difference between STATIC and DYNAMIC memory?
+ 19. Are MS-Basic Compilers for DOS freeware now?
+ 20. Why doesn't Basic have any Logic specific operators?
+ 21. What type of math do need to program in BASIC?
+ 22. What is P-CODE?
+ 23. Why is Basic so slow?
+ 24. Why is my simple "Hello World!" program so BIG?
+ 25. How do I read in a whole line when comma's are involved?
+ 26. How do I stop than rasafrackin' question mark using INPUT?
+ 27. Why should I use comments?
+ 28. Where can I show off my stuff since you said not to post it here?
+ 29. What kind of optimizations are commonly use to speed up programs?
+ 30. What are the other FAQ's you mentioned?
+ 31. Credits
+
+------------------------------
+
+1. What is the purpose of comp.lang.basic.misc?
+
+ANSWER
+~~~~~
+This group exists for the exchange of help and information for various
+BASIC implementations on various platforms. The only BASIC which is
+OFF-TOPIC for this group is Visual Basic, which has it's own
+newsgroup hierarchy :-
+
+comp.lang.basic.visual.misc
+comp.lang.basic.visual.announce
+comp.lang.basic.visual.database
+comp.lang.basic.visual.3rdparty
+microsoft.public.vb.*
+
+To further clarify this, VB-DOS question that do NOT involve the
+forms part of VB-DOS are appropriate. However, form questions
+belong in the VB hierarchy along with ALL VB-WIN questions.
+
+**************************************************************************
+
+2. What USENET newsgroups exist for BASIC programmers?
+
+ANSWER
+~~~~~
+
+comp.lang.basic.misc       - duh?
+alt.lang.basic             - Similar to c.l.b.m.
+alt.lang.powerbasic        - DOS/Windows Basics by Powerbasic Inc.
+comp.lang.basic.powerbasic - DOS/Windows Basics by Powerbasic Inc.
+alt.lang.ca-realizer       - ca-realizer Basic only
+alt.lang.gfa-basic         - GFA-basic only
+relcom.comp.lang.basic     - FidoNet-UseNet bridge?
+microsoft.public.vb.*      - Microsoft hierarchy for VB
+comp.lang.basic.visual.*   - VB newsgroup hierarchy.
+
+********************************************************************
+
+3. What sort of stuff should I post to this newsgroup?
+
+ANSWER
+~~~~~
+Almost anything about any BASIC dialect apart from VB windows
+or VB-DOS using forms.. When posting code, attempts should
+be made to keep it as general as possible.
+
+Don't post your whole program when you only have problems with one
+subroutine.
+
+Don't post your whole program just because you think it's good
+If you think you have written something other people might find
+useful, say so in a post to the newsgroup, and offer to send it by
+email to those who ask for it, or make it available by ftp or www.
+
+********************************************************************
+
+4. What sort of stuff should I NOT post to this newsgroup?
+
+ANSWER
+~~~~~
+Anything that violates the guidelines in #2, as well as:
+
+Adverts, spams, trolls, flames, Binaries, copyrighted material,
+If you need or want to quote someone or something, identify
+your source. If in doubt, paraphrase. :)
+
+Binaries of any type in any form. No pictures, no .EXE files, no .UUE
+files, no .ZIP, ARC, LHA etc. EXE files can be anything, it's easy
+enough to write a disk wiper in a few lines of code, or embed a virus
+into a useful-looking utility.
+
+So, NO BINARIES!
+
+Some general tips.
+Note these are not my rules, they are suggestions for USENET behavior
+arrived at over the years, and accepted by general convention as being
+the USENET equivalent of rules. Break them at your peril.
+
+Oversized sigs. It is a well established USENET convention that sigs
+should be no more than 4 lines long.
+
+Quoting. It is hardly ever needed to quote the whole of someone else's
+post when replying to a article. Always trim their sig.
+
+*Don't quote the whole article just to add one line!*
+
+Always try to keep quotes to a minimum. Always identify the source of
+the quote, ie 'In article <blah,blah> joe bloggs (joe@some.where.com)
+said - 'or something similar.
+
+It's considered rude to post a question and ask for a reply by email.
+
+Don't forget USENET is a public medium, what you write will be read by
+hundreds, if not thousands of people, so think before you post.
+
+Also, it is suggested that you limit your line length to 72 characters
+per line to accommodate non-PC systems and prevent the jigsaw puzzle
+your source code will inevitable end up as.
+
+********************************************************************
+
+5. How do I turn my program into a stand-alone EXE file?
+
+ANSWER
+~~~~~
+
+You need a Basic Compiler.
+
+Most modern Basic's, like PowerBasic, QuickBasic 4.5, PDS, VB-DOS,
+etc. have an integrated compiler. These are all commercial software.
+
+You can compile QBasic code and GW-Basic code (saved as ASCII!)
+without modifications by using Quickbasic 4.5. A cheap alternative
+is the $25 Shareware FirstBasic, by PowerBasic Inc. You may need
+to modify parts of your program, though.
+
+QuickBasic 4.5 is no longer supported by Microsoft, but is still for
+saleon several sites on the internet. for instance:
+
+http://www.provantage.com - New, shrink-wrapped copies, incl. manuals
+http://www.wdn.com/ems    - Both new, and used copies, incl. manuals
+
+A Fully functional copy of FirstBasic (shareware) can be downloaded
+from the website of its creators, at http://www.powerbasic.com
+
+********************************************************************
+
+6. How can I de-compile my program from an EXE to BAS format?
+
+ANSWER
+~~~~~
+It's impossible. During the conversion from BAS to EXE, a lot of
+instructions are translated into direct memory addresses. Labels
+and variable names disappear, the order may change, additional
+information is added... There is NO WAY you can get back to your
+original sourcecode. You can make a hamburger out of a cow, but
+it's impossible to make a cow out of a hamburger. Too much
+information has been lost in the process.
+
+There are a few exceptions, like the old versions pf Visual Basic
+for Windows. The reason for this is that it doesn't acutally compile
+your code, but adds it to a run-time engine.
+But for QuickBasic, PowerBasic, FirstBasic, Qbasic, PDS, VB-DOS:
+If you lost your original sourcecode, you're out of luck. Period.
+
+********************************************************************
+
+7. What Basic implementations are we talking about?
+
+ANSWER
+~~~~~
+
+There have been countless of Basic implementations since the
+creation of Darthmouth Basic in 1963.
+
+QBASIC, BASICA, and GW-BASIC are Interpreted versions of MS-BASIC.
+MS-BASIC is a language that was implemented in the early 70's by
+none other than Bill Gates and Paul Allen on the first Personal
+Computer, PC, known as the Altair. Gates went on to implement
+his creation which was somewhat based on Dartmouth BASIC on more
+systems than we could count. It was used as an OS, a command
+interpreter, a scripting language, and a programming language.
+No System was without it, TRS-80, VIC-20, C-64, Apple II, At, XT,
+Amiga, Atari, you name it.
+
+QuickBasic 4.5, PDS/QBX 7.1 (Professional Development System,
+AKA QuickBasic Extended) and Visual Basic for DOS 1.0 are all
+part of the same family. They are all capable of compiling your
+programs to .EXE's, and mostly compatible with their predecessors.
+PDS comes with some build-in database management routines (ISAM)
+and VB/DOS adds some visual aspects (forms) to the language.
+
+PowerBasic is a reincarnation of TurboBasic -- mostly compatible
+with the MS-Basic's, but adding many new features, like inline
+ASM, C-style pointers, TSR-capabilities, way more datatypes,
+the ability to link in borland C++ .OBJ files (provided it
+was compiled using certain settings) and more.
+Opposed to the DOS-based MS-Basics, it's still actively
+supported and continuously under development.
+
+An older version (PB 2.1) has been re-released as shareware,
+Originally called PBasic, the name got changed to FirstBasic after
+a minor trademark-conflict.
+
+But what was Dartmouth BASIC? In the 60's you used Fortran
+Assembly language, or Machine code. While Fortran was by far
+the easiest of the three to use, it was virtually impossible to
+teach in a descent time period. So Kemmy and Kurtz developed a
+compiled language for the local system called BASIC which stood
+for Beginner's All-purpose Symbolic Instruction Code in 1963. This
+name has cursed the language ever since and it is often viewed as
+some 2nd rate toy by the ignorant because of this name.
+
+Today, as with all languages, BASIC has been revamped by
+both ANSI/ISO and Kemmy and Kurtz, as well as Gates' contribution.
+BASIC is now strongly oriented to structured programming and supports
+constructs which make following this school of thought that much
+easier. Some common misconceptions about BASIC follow
+
+1. It is only for beginners and not really capable of real tasks.
+   Millions of lines of code say otherwise, and that is NOT
+   counting Visual Basic. Business Basic is very popular as are
+   the Microsoft DOS Basics.
+
+2. BASIC is an interpreted language.
+   The first implementation of Basic was a compiler, not to mention
+   QuickBasic, PowerBasic, VB-DOS, TrueBasic, etc..
+
+3. BASIC requires line numbers.
+   Basic dropped its mandatory line number days in the 70's.
+   That Basic, like disco, is dead people, get over it.
+
+4. BASIC makes it impossible to learn other languages.
+   Only if BASIC refers to your incompetence, lack of
+   motivation, or a teacher that couldn't teach a pill bug
+   to roll.
+
+Some other flavours of Basic:
+
+Liberty Basic is a shareware windows-Based Basic created
+by Carl E. Gundel. It has a growing userbase, and has some
+devoted followers. http://www.liberty-basic.com
+
+SBasic is a ANSI minimal Basic interpreter that is
+freeeware and runs on a variety of platforms. a bit
+outdated, but still fun.
+
+ByWater Basic is another free ANSI minimal basic interpreter,
+but this one comes with ANSI C src code which means ANSI
+Minimal Basic is now as portable as ANSI C.
+
+UBasic is a really cool implementation of Basic for you math freaks.
+It has extremely high precision numbers. I saw a program that
+calculates pi for like 30 minutes resulting in some 10000
+screens full of numbers or something. Anyway, you might want
+to check it out when you are bored.
+
+TSR-BASIC is a semi-compiler. It binds a tokenized source code to a
+resident interpreter making a terminate and stay resident program.
+It is slow and bulky, but it gets the job done.
+
+Visual Basic 5.0, by Microsoft. To most people 'the' Windows
+programming language. Very widespread - it has over 40 usenet
+newsgroups that are aimed solely at VB/WIN programming. It's main
+disadvantage is the 400 KB runtime DLL required by every program
+created with it. More information: http://www.microsoft.com
+
+PB/CC 1.0, the latest addition to the PowerBasic family. It's a 32-bit
+Win95/98/NT console compiler, so text-only. Gives full access to the
+Win32 API, though. It has a subset of the PB/DOS commandset, but
+adds some powerfull new commands as well. http://www.powerbasic.com
+
+PB/DLL 5.0, a 32-bit DLL-compiler for Windows. Uses the Basic-language
+to create DLL's, which you can call from other windows-based languages
+like Visual Basic, Visual C++, etc. It is capable of creating stand
+along executables as well, but that's just an added bonus.
+http://www.powerbasic.com
+
+**************************************************************************
+
+8. What ON-LINE URL's for BASIC are there?
+
+ANSWER
+~~~~~
+
+Using search engines is the best way to find what you are
+looking for, of course. Nevertheless, here are some URL's
+you might be interested in:
+
+QB/VB/PDS      - http://www.microsoft.com
+PowerBasic     - http://www.powerbasic.com
+Liberty Basic  - http://www.liberty-basic.com
+GFA-Basic      - http://www.dortmund.netsurf.de/~erenner/
+YABasic        - http://www.uni-mainz.de/~ihm/basic.html
+Chipmunk (MAC) - http://www.nicholson.com/rhn/basic/
+FutureB. (Mac) - http://www.stazsoftware.com/fbinfo.html
+OpenBasic (BB) - http://www.maisystems.com/obasic.html
+ACE    (Amiga) - http://www.vision.net.au/~ace/
+
+The ABC Packets -- Currently nearly 2.000 assorted QB4.5/PB/PDS sources.
+
+Canadian ABC Archives - http://www.freenet.edmonton.ab.ca/~voxel
+European ABC Archives - http://www.xs4all.nl/~excel/pbabc.html
+European ABC Archives - http://come.to/abcpackets
+The Official ABC Page - http://charlie.simplenet.com/abc/abchome.html
+
+The Canadian site only has the latest packet online, the other links
+feature all issues since the first one, September 1995.
+
+The Basix Fanzines       - http://come.to/basixfanzine
+The Beginners Basic Page - http://www.users.globalnet.co.uk/~basic
+Programmers Heaven       - http://www.programmersheaven.com
+
+http://www.altavista.digital.com
+http://www.yahoo.com
+http://www.hotbot.com
+
+Ralf Brown's Interrupt List (A must-have for any serious programmer!)
+- http://www.cs.cmu.edu/afs/cs/user/ralf/pub/WWW/files.html
+
+Fileformat Descriptions:
+- http://www.wotsit.org
+- ftp://x2ftp.oulu.fi/pub/msdos/programming/formats/
+
+**************************************************************************
+
+9. any tips on mixed language programming?
+
+ANSWER
+~~~~~
+
+This is a real common subject. the solutions is not quite
+that simple however. The solution depends entirely on the specific
+implementations of the languages you are using, but here are some
+general guidelines.
+
+1. Try to match up system specific options such as memory models,
+   floating point formats, etc..
+2. Try to account for the language specific features such as
+   BASIC's pass by reference parameters versus C's pass by value.
+   As well as C's underscore prefixing of public labels and C++'s
+   name mangling.
+3. Remember to 'Declare' the external procedures as required.
+4. For PowerBasic, a sheet with the required settings for Borland C
+   can be obtained from their ftp server: ftp.powerbasic.com
+
+********************************************************************
+
+10. What is so BAD about GOTO?
+
+ANSWER
+~~~~~
+
+Nothing. However, people who use GOTO often have some screws
+loose and use it to make the most hideous looking spaghetti code.
+therefore, it is common practise to frown upon the use of GOTO.
+GOTO is an acceptable construct of the BASIC language, and when used
+properly, it poses no problems. It does not magically make code
+unreadable, unmaintainable, or unprofessional contrary to popular
+belief.
+
+However, you should be careful in certain occasions. You shouldn't
+use it simply to exit a DO-LOOP loop or something.
+Use EXIT DO/LOOP/FUNCTION/SUB/FOR whenever possible in these
+situations. If not, the 'stack' may fill up, until finally it's full,
+and your program may end unexpectedly.
+
+********************************************************************
+
+11. What about some GOOD books?
+
+ANSWER
+~~~~~
+
+To my knowledge there are no real good books about the BASIC
+language. I have heard rumors of one called structured BASIC authored
+by Kemmy and Kurtz though. Other than that, there are many good books
+on specific BASIC implementations of BASIC.
+
+ **************************************************************************
+
+12. How can I define/calculate PI?
+
+ANSWER
+~~~~~
+
+PI can be approximated at 3.141592653589793 as a
+DOUBLE PRECISION FLOAT constant for most implementations, which is
+accurate enough. However, those using more precise Basic's will like
+to keep this little FACT handy.
+
+PI is equivalent to the ArcTangent of 1 multiplied by 4
+PI = ATN(1) * 4.
+
+Other than that, mathematical questions might better be answered
+in sci.math.
+
+**************************************************************************
+
+13. Where can I get a Basic parser?
+
+ANSWER
+~~~~~
+
+According to the comp.compilers FAQ,
+ftp.uu.net/usenet/comp.sources.unix/volume2/basic has a basic
+interpreter with yacc parser.
+
+**************************************************************************
+
+14. Where can I get info on the ANSI/ISO standards for Basic?
+
+ANSWER
+~~~~~
+
+>From ANSI or your local division of ISO. Seriously, that is
+where you get them, you can however look up some info on-line
+by searching for ANSI or ISO.
+
+**************************************************************************
+
+15. What is OOP and is there an OO Basic?
+
+ANSWER
+~~~~~
+
+OOP refers to Object Oriented Programming, and to my knowledge
+there is no Object Oriented Basic. However, you may wish to
+join the mailing list for info about proposed OOBasics.
+
+This is an open, unmoderated list to discuss the BASIC
+programming language and extending it to be Object-Oriented.
+
+List name:            OOBASIC-L Discussion List
+List address:         OOBASIC-L@NETSPOT.CITY.UNISA.EDU.AU
+Listproc address:     LISTPROC@NETSPOT.CITY.UNISA.EDU.AU
+List owner:           David.Gardiner@UniSA.edu.au
+
+You can subscribe to this list by sending a
+"SUBSCRIBE OOBASIC-L <your name>" command to the listproc address.
+
+**************************************************************************
+
+16. Why does .321 come out as .3219994?
+
+ANSWER
+~~~~~
+
+The IEEE floating point format is flawed in that it can not
+represent all fractional values perfectly, thus sometimes it
+must represent a number close to the value. Sometimes this shows
+up in your program, often more than not, the implementation performs
+special rounding with floating point numbers so you never see it.
+For display purposes using a formatted print and limiting it to
+7 decimal places for SINGLE or 15 for DOUBLE will usually handle
+this for you. For a better understanding, the fractional part is
+calculated using 2 raised to a negative exponent [2 ^ -1 = .5],
+so try it yourself with a few numbers and see what you come up with.
+
+**************************************************************************
+
+17. What is MBF?
+
+ANSWER
+~~~~~
+
+Microsoft Binary Format is an alternate Floating Point Format
+to the IEEE 747 standard formats. It was commonly used in the
+70's and may be run across in old software/data files. More
+information on the format can be retrieves from www.borland.com
+or ftp.borland.com along with C source code to convert between the
+two. Perhaps Peter will translate in the Code FAQ for uses of
+other Basics. The Microsoft Binary Format was given up for the IEEE
+formats because its accuracy was not as good and to comply with
+the Intel 80x87 FPU for faster calculations using the FPU.
+
+**************************************************************************
+
+18. What is the difference between STATIC and DYNAMIC memory?
+
+ANSWER
+~~~~~
+
+For some unknown reason this seems to be a popular concept that
+eludes programmers. STATIC memory is memory allocated to the application
+at execution time. It is generally a section of data stored in the EXE
+that is loaded into memory. DYNAMIC memory is memory allocated by the
+executable during execution and the memory must be initialized by the
+program. Some systems also require that the program handle freeing
+the memory or they will not return it to the system until a re-boot.
+Freeing the memory relieves its usage from your program and allows the
+system to use it for something else, either by another program or yours.
+Basic's variable length strings are dynamic, but freeing and allocating
+is done without your help. You can in many implementations, allocate
+arrays dynamically and then free them or resize them with ready.
+Basically it allows you to manage memory a little better with your
+program.
+
+**************************************************************************
+
+19. Are MS-Basic Compilers for DOS freeware now?
+
+ANSWER
+~~~~~
+
+No. MS still holds the copyright and a copyright is good up
+until 50 YEARS after the death of its holder, not after it goes out
+of production. MS does distribute QBASIC from their site for free,
+so you can get it that way, but copying of it from your system
+or any other MS product is piracy and punishable by LAW with
+a maximum penalty of $300000/copy and 3 years in jail.
+
+**************************************************************************
+
+20. Why doesn't Basic have any Logic specific operators?
+
+ANSWER
+~~~~~
+
+Well obviously I don't know the answer to this, but its probably
+because they felt it would be confusing to have seperate AND, OR,
+NOT, XOR, etc.. operators. However, notice that if you use proper
+logical problem construction with the bitwise operators, you emulate
+the Logical operators flawlessly. By proper construct I mean
+
+IF (A > 0) AND (B = 20) THEN
+
+and not
+
+IF A AND B THEN
+
+unless A and B were assigned the result from a proper logical
+evaluation thus A = NOT (10 > 20) and B = Z <> X.
+
+**************************************************************************
+
+21. What type of math do need to program in BASIC?
+
+ANSWER
+~~~~~
+
+That depends entirely on what you are programming. Geometry
+is good to know if your doing graphics but pointless in a statistics
+package. The more math you have, the better off you will be, but you
+can certainly write useful programs knowing just basic arithmetic.
+
+**************************************************************************
+
+22. What is P-CODE?
+
+ANSWER
+~~~~~
+
+P-code is an intermediate stage between Textual source code
+and binary executable machine code. Generally it is a tokenized form
+of the source code with an interpreter bound to in inside 1 executable
+file. It is slower than compiled native binary code but faster than
+a full textual interpreter.
+This method is used by the older versions of Visual Basic.
+
+**************************************************************************
+
+23. Why is Basic so slow?
+
+ANSWER
+~~~~~
+
+It isn't. Your implementation is slow. Possibly because its
+old and not up-to-date with today's compiler technologies. Possibly
+because it is an interpreter or P-code system. The reasons vary.
+One common reason is your algorithm is slow. See the optimizing
+section for more info.
+
+**************************************************************************
+
+24. Why is my simple "Hello World!" program so BIG?
+
+ANSWER
+~~~~~
+
+Again, this relates to your specific implementation mostly.
+However, the BASIC language does require special behind the seens
+memory management which accounts for some of the bloat. Without the
+special memory management, dynamic string allocation, etc. may not
+be possible. Also take into account that most BASIC's use a
+floating point emulator system which takes up a considerable amount
+of space.
+
+With most common Basic Compilers these days, the final programs
+are still very small. But there certain compilers do not just only
+add the commands you're used to your the final program, but a copy
+of the entire commandset. Think of the VBRUN???.DLL that is necesary
+for any Visual Basic program to work. Basics that make use of
+runtime-engines are more likely to create large applications then the
+ones that do not.
+
+Just keep in mind: it's not BASIC that creates large executables,
+it may be your IMPLEMENTATION of Basic that does so.
+
+Here are a few typical "Hello World!" .exe sizes:
+
+PB/CC      :  9.7 KB
+QuickBasic : 12.3 KB
+PB/DOS     : 14.7 KB
+VB/DOS     : 17.3 KB
+FirstBasic : 18.6 KB
+VB/WIN     : ~300 KB
+
+**************************************************************************
+
+25. How do I read in a whole line when comma's are involved?
+
+ANSWER
+~~~~~~
+
+LINE INPUT will take in a whole line of TEXT up until a
+Return sequence. It works for files also using LINE INPUT #1,.
+
+**************************************************************************
+
+26. How do I stop than rasafrackin' question mark using INPUT?
+
+ANSWER
+~~~~~
+
+After the prompt use a comma instead of a semi-colon to
+denote the variable(s) that will be assigned data. Like so:
+
+INPUT "Your Name: ", N$
+
+**************************************************************************
+
+27. Why should I use comments?
+
+ANSWER
+~~~~~
+
+So you know what the hell you were thinking when you look at
+the code later. Many times you will get lost in thought even if you
+use really descriptive variable, procedure, and label names.
+On the other hand, you shouldn't comment too much.
+Examples of weak commenting and over commenting are below.
+
+X = d * PI/180        ' Radians
+
+This is weak commenting, I'll have no idea what radians has
+to do with this equation in two weeks from now. What it does
+and should say is convert from degrees to radians. Yes, I could
+make it a function, except that well it is so small it hardly
+seems worth it.
+
+X = d * PI/180 ' X is assigned the value of d after being multiplied
+               ' by PI divided by 180 which is the formula to convert
+               ' from degrees to radians.
+
+That i' a prime example of overkill. I really didn't care about the
+multiplication and division, or assignment. I did have basic
+arithmatic in 2nd grade after all.
+
+I also suggest documenting operations that rely on specific rules
+of the language or implementation such as the evaluation operators
+returning 0 or -1 otherwise you'll have problems when translating
+to one that uses 1 and 0 instead.
+
+IE
+
+X = X + (Z <= 10) ' X is decreased by 1 if true or by 0 if false.
+
+Personally, I would just labor through writing this like
+IF (Z <= 10) X = X - 1 which is probably slightly less efficient,
+but a helluva lot easier to read and understand.
+
+**************************************************************************
+
+28. Where can I show off my stuff since you said not to post it here?
+
+ANSWER
+~~~~~
+Well, you could submit it to the ABC package (voxel@freenet.edmonton.ab.ca)
+The Fanzine (basix@dewarr.globalnet.co.uk) SimTel, Coast-to-Coast, post it
+on your own Web Page, submit it for the Code FAQ if it answers a common
+algorithmic problem or use a binary newsgroup if it is a binary.
+
+**************************************************************************
+
+29. What kind of optimizations are commonly used to speed up programs?
+
+ANSWER
+~~~~~
+
+Wow. Well first do any mathematical optimizations possible.
+Second use Integers and Longs where possible, Floating point
+operations are slow, very slow.  Umm, try to see how different
+loops work. Don't be afraid to use a GOTO or two if you can use it
+responsibility and gain performance. Hmm, can't think of anything else
+other than know your compiler switches.
+
+The fastest settings may vary on the implementation of Basic which
+you are using. For most DOS-based basics, "integers" are the fastest
+variables, since they take up 16 bits of memory, and the entire
+program is 16-bits as well. For a 32-bit language like PB/CC, the
+most efficient datatype is the 32-bit "long".
+
+**************************************************************************
+
+30. What are the other FAQ's you mentioned?
+
+The Visual Basic FAQs [there are several] can be retrieved from
+ftp://rtfm.mit.edu/pub/usenet/comp.lang.basic.visual.
+
+The Business Basic FAQ can be retrieved from
+ftp://rtfm.mit.edu/pub/usenet/comp.lang.basic.misc.
+
+**************************************************************************
+
+31. Credits
+
+The original FAQ was written and maintained by Douggie Green.
+This updated version has been revised & posted by Marc van den Dikkenberg
+
+--
+Marc van den Dikkenberg
+--
+The PowerBasic Archives -- http://www.xs4all.nl/~excel/pb.html
+All Basic Code Archives -- http://come.to/abcpackets
+

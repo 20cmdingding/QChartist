@@ -1,0 +1,33 @@
+'--------Center Of Gravity-------------------------------------------------------------
+indiid++
+        
+                    if indicatorslistsel.item(indiid)="x" then 
+
+                        if lbar=1 then     
+                            cog
+                        end if
+
+                         barsback=300 
+                    
+                        if ibar>=lastbar-barsback then
+                            indicolor(drawid)=lightblue
+				.Data_Indi.Cell(drawid,lbar)= STR$(fx(offset))
+				drawid=drawid+2
+                            indicolor(drawid)=red
+				.Data_Indi.Cell(drawid,lbar)= STR$(sqh(offset))
+				drawid=drawid+2
+                            indicolor(drawid)=red
+				.Data_Indi.Cell(drawid,lbar)= STR$(sql(offset))
+				drawid=drawid+2
+                            indicolor(drawid)=crimson
+				.Data_Indi.Cell(drawid,lbar)= STR$(stdh(offset))
+				drawid=drawid+2
+                            indicolor(drawid)=crimson
+				.Data_Indi.Cell(drawid,lbar)= STR$(stdl(offset))
+				drawid=drawid+2
+                                                                                                                                                                    
+                        end if                                                          
+         
+                    end if
+        
+        '--------End Center Of Gravity----------------------------------------------------------   

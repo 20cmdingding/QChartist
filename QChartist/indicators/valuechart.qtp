@@ -1,0 +1,32 @@
+declare sub hidevaluechartform 
+
+CREATE valuechartform as qform
+
+    Center
+    Caption = "Settings for: Value Chart"
+    visible=0
+         
+    create valuechartbarsbacklab as qlabel
+        top=0
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create valuechartbarsbackedit as qedit
+        left=valuechartbarsbacklab.left+100
+        top=valuechartbarsbacklab.top
+        text="200"
+    end create
+    
+    create valuechartbtnok as qbutton
+        left=0
+        top=valuechartbarsbacklab.top+valuechartbarsbacklab.height+15
+        caption="OK"
+        onclick=hidevaluechartform
+    end create
+          
+END CREATE
+
+sub hidevaluechartform
+valuechartform.visible=0
+end sub

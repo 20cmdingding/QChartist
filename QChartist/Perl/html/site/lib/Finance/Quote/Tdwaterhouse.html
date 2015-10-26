@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::Tdwaterhouse - Obtain quotes from TD Waterhouse Canada</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%quotes</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">tdwaterhouse</span> <span class="operator">(</span><span class="string">"TD AmeriGrowth RSP"</span><span class="operator">);</span>
+    <span class="variable">$date</span> <span class="operator">=</span> <span class="variable">$quotes</span> <span class="operator">{</span><span class="string">"TD AmeriGrowth RSP"</span><span class="operator">,</span> <span class="string">"date"</span><span class="operator">}</span><span class="operator">;</span>
+    <span class="variable">$nav</span> <span class="operator">=</span> <span class="variable">$quotes</span> <span class="operator">{</span><span class="string">"TD AmeriGrowth RSP"</span><span class="operator">,</span> <span class="string">"nav"</span><span class="operator">}</span><span class="operator">;</span>
+    <span class="keyword">print</span> <span class="string">"TD AmeriGrowth RSP for </span><span class="variable">$date</span><span class="string">: NAV = </span><span class="variable">$nav</span><span class="string">\n"</span><span class="operator">;</span>
+    <span class="variable">$nav</span> <span class="operator">=</span> <span class="variable">$quotes</span> <span class="operator">{</span><span class="string">"TD AmeriGrowth RSP"</span><span class="operator">,</span> <span class="string">"nav"</span><span class="operator">}</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information about managed funds from TD Waterhouse Canada. All TD Waterhouse funds are downloaded at once.</p>
+
+<p>The symbols for each mutual fund are the names of the fund with any unusal characters (not a letter, space or period) removed. For example; a fund called &quot;TD Health Sciences ($US)&quot; would have the symbol &quot;TD Health Sciences US&quot;.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>Information available from TD Waterhouse may include the following labels: exchange, name, nav, date, price, currency.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>TD Waterhouse website - http://www.tdwaterhouse.ca/</p>
+
+
+</body>
+
+</html>
+
+

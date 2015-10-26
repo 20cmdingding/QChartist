@@ -1,0 +1,22 @@
+declare sub hideGauquelin_sectorform
+
+CREATE Gauquelin_sectorform as qform
+
+    Center
+    Caption = "Settings for: Gauquelin_sector"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Gauquelin_sectorbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideGauquelin_sectorform
+    end create
+
+END CREATE
+
+sub hideGauquelin_sectorform
+    Gauquelin_sectorform.visible=0
+end sub

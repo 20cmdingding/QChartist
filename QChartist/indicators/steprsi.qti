@@ -1,0 +1,44 @@
+declare sub steprsi ' This line of code must stay here
+dim line1buffer(0 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+dim line2buffer(0 to 1000) as double
+dim line3buffer(0 to 1000) as double
+dim steprsilevelup(0 to 1000) as integer
+dim steprsileveldn(0 to 1000) as integer
+
+sub steprsi
+' Put your indicator code here
+defint StepSizeFast=5
+defint StepSizeSlow=15
+defint shift,ftrend,strend
+defdbl fmin0,fmax0,fmin1,fmax1,smin0,smax0,smin1,smax1,RSI0
+defint barsback=200
+
+for shift=barsback-1 to 0 step -1
+	rsi
+	rsi0=rsibuffer(shift)
+	fmax0=RSI0+2*StepSizeFast
+	fmin0=RSI0-2*StepSizeFast
+	if RSI0>fmax1 then ftrend=1 
+	if RSI0<fmin1 then ftrend=-1
+	if (ftrend>0 and fmin0<fmin1) then fmin0=fmin1
+	if(ftrend<0 and fmax0>fmax1) then fmax0=fmax1	  
+	smax0=RSI0+2*StepSizeSlow
+	smin0=RSI0-2*StepSizeSlow		
+	if RSI0>smax1 then strend=1 
+	if RSI0<smin1 then strend=-1
+	if (strend>0 and smin0<smin1) then smin0=smin1
+	if (strend<0 and smax0>smax1) then smax0=smax1
+	Line1Buffer(shift)=RSI0  
+	if ftrend>0 then Line2Buffer(shift)=fmin0+StepSizeFast
+	if ftrend<0 then Line2Buffer(shift)=fmax0-StepSizeFast 
+	if strend>0 then Line3Buffer(shift)=smin0+StepSizeSlow
+	if strend<0 then Line3Buffer(shift)=smax0-StepSizeSlow	  
+	fmin1=fmin0
+	fmax1=fmax0
+	smin1=smin0
+	smax1=smax0
+	steprsilevelup(shift)=80
+	steprsileveldn(shift)=20
+next shift
+
+end sub

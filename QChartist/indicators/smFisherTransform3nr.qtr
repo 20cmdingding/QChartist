@@ -1,0 +1,21 @@
+'------------------------- smFisherTransform3nr -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=smFisherTransform3nrperiodedit.text
+curtfstr=smFisherTransform3nrcurtfedit.text
+cpptmpfuncreturn=varptr$(smFisherTransform3nr(varptr(periodstr),varptr(curtfstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(smFisherTransform3nrbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    bufnamestr="ExtBuffer0"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2    
+end if
+
+end if
+'------------------------- End smFisherTransform3nr -------------------------------------------------

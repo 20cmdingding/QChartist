@@ -1,0 +1,10 @@
+declare sub IncompleteBetaf ' This line of code must stay here
+dim IncompleteBetafbuffer(0 to 1000) as double ' This line of code must stay here.
+
+sub IncompleteBetaf
+' Put your indicator code here
+dim i as integer
+for i=200 to 0 step -1
+IncompleteBetafbuffer(i)=IncompleteBeta(high(i),low(i),close(i))
+next i
+end sub

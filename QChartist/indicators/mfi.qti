@@ -1,0 +1,49 @@
+dim extmfibuffer(0 to 1000) as double
+dim mfilevelup(0 to 1000) as integer
+dim mfileveldn(0 to 1000) as integer
+
+declare sub mfi()
+
+sub mfi()
+
+    dim i as integer,j as integer,ncountedbars as integer
+    dim dpositivemf as double,dnegativemf as double,dcurrenttp as double,dprevioustp as double
+    dim extmfiperiod as integer, barsback as integer
+    extmfiperiod=val(mfiperiodedit.text)
+    barsback=val(mfibarsbackedit.text)
+    if bars<=extmfiperiod then
+        exit sub
+    end if
+
+    i=barsback
+
+    while i>=0
+
+        dpositivemf=0
+        dnegativemf=0
+        dcurrenttp=(high(i)+low(i)+close(i))/3
+
+        for j=0 to extmfiperiod-1
+            dprevioustp=(high(i+j+1)+low(i+j+1)+close(i+j+1))/3
+            if dcurrenttp>dprevioustp then
+                dpositivemf=dpositivemf+volume(i+j)*dcurrenttp
+            elseif dcurrenttp<dprevioustp then
+                dnegativemf=dnegativemf+volume(i+j)*dcurrenttp
+            end if
+            dcurrenttp=dprevioustp
+        next j
+
+        if dnegativemf<>0 then
+            extmfibuffer(i)=100-100/(1+dpositivemf/dnegativemf)
+        else
+            extmfibuffer(i)=100
+        end if
+
+        mfilevelup(i)=80
+        mfileveldn(i)=20
+
+        i--    
+
+    wend
+
+end sub

@@ -1,0 +1,10 @@
+' Articles written here
+
+dim article_topics$
+article_topics$="Click on the topic of your choice in the list box."
+
+dim article_Introducing_Forex$
+article_Introducing_Forex$="Foreign Exchange is a market place for trading currencies. It is the most liquid market. More than 3 trillion dollars are exchanged each day. Participants are: banks, firms, hedge funds and individuals."
+
+
+' End Articles written here

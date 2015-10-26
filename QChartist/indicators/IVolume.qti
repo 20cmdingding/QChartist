@@ -1,0 +1,12 @@
+declare sub IVolume ' This line of code must stay here
+dim volumebuffer(1 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+
+sub IVolume
+' Put your indicator code here
+dim i as integer,p as integer
+    p=200'val(priceclosebarsbackedit.text)
+    while p>=0
+        volumebuffer(p)=volume(p)
+        p--
+    wend
+end sub

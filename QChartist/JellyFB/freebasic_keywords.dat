@@ -1,0 +1,80 @@
+; Keyword file for FreeBASIC
+; You may freely modify this file to add, delete or modify keywords. Always enter the
+; keywords using Mixed Case and separate each keyword by a space.
+;
+[KEYWORDS]
+#Define #Else #ElseIf #EndMacro #Error #If #IfDef 
+#IfnDef #IncLib #Include #libpath #Line #Macro #Pragma #Print #UnDef 
+$Begin $Debug $Dynamic $Finish $Ignore $Inc $Include $LineSize $List $Module 
+$Name $OCode $Option $Page $PageI $PageSize $Process $Skip $Start $Static 
+$StringPool $SubTitle $Title Abs Abs Accelerators Access Access ACos Alias 
+Alias Allocate ALT And Any Append Append As Asc 
+ASin Asm Assert ATan2 Atn AutoCheckbox AutoRadioButton Base 
+Basic Beep  Begin Bin Bin$ Bin$ Binary Binary 
+Bit BITMAP BitReset BitSet BLoad Block BSave ByRef 
+ByRef Byte ByVal Call CAllocate Calls Caption Case 
+Cast CByt CByte CCur CDbl CDecl Chain 
+ChDir ChDrive Chr Chr$ CInt Circle Class 
+Clear CLng CLngInt Close Cls Color 
+Color Com ComboBox Command Command$ Common CompileLine CompileLine$ 
+Condbroadcast Condcreate Conddestroy Condsignal Condwait Const Constructor Continue Control Cos 
+Cos CShort CSign CSng CSng CSrlin CsrLin CUByte CUInt CULngnt 
+Cunsg Curdir CurDir$ Cursor Cushort Cvb Cvc Cvd 
+Cvi Cvl Cvs Data Date$ 
+Deallocate Declare Def Defbyte DefCur DefDbl Defined DefInt DefLng Defshort 
+DefSng DefStr Defubyte Defuint Defushort Destructor DialogEx Dim Dir Dir$ 
+Dir$ DisableBOPT DisableFold DisableIncDec DisablePeriodMsg DisableShifts DisableTest DisableTrim Discardable 
+Do Double Draw Dylibfree Dylibload Dylibsymbol Dynamic EditText Else ElseIf 
+End EndIf Enum Environ Environ$ Eof 
+Eqv Erase ErDev ErDev$ Erl Err Error 
+Error$ Escape Event Exec Exepath Exit Exp 
+Explicit Export ExStyle Extern False Field FileAttr FileOS 
+Files FileType FileVersion Fix Flip Font For Fortran 
+Fre Freefile Function Get Getkey Getmouse Go 
+Gosub Goto GroupBox Hex Hex$ Hibyte Hiword 
+ICON If Iif Imp Inkey$ Inp Input 
+Input$ Instr Int Integer IoCtl IoCtl$ 
+Is Key Kill LBound LCase LCase$ 
+Left Left$ Len Let Lib Line 
+LineNumber List ListBox Lobyte Loc Local 
+Locate Lock Lof Log Long LongInt Loop 
+Loword LPos LPrint Lset LText LTrim LTrim$ 
+Menu MenuItem Mid Mid$ Mkb$ Mkc$ Mkd Mkd$   
+MkDir Mki Mki$ Mkl Mkl$ Mklongint Mks Mks$ 
+Mks$ Mkshort Mod Multikey Mutexcreate Mutexdestroy Mutexlock Mutexunlock Name 
+Name Namespace Next NoInvert Not Null Oct Oct$ 
+Oct$ Off Offset On On Once Open Open Operator Option 
+Option Or Out Out Output Output Overload Paint Palette Pascal 
+Pascal Pcopy Peek Peek PeekByte PeekCurr Peeki PeekLong Peeks PeekWord 
+Pen Play Pmap Point Pointer Poke PokeByte PokeCurr Pokei 
+PokeLong Pokes PokeWord PopUp Pos Preserve Preserve Preset Print 
+Private Procptr ProductVersion Property Pset Ptr Public PushButton Put 
+Random Random Randomize Randomize Read Read Reallocate ReDim Rem Reset 
+Reset Restore Restore Resume Resume Resume Return Return Rgb Right 
+Right$ RmDir Rnd Rol Ror RSet 
+Rtrim RTrim$ Rtrim$ Run Sadd Scope Screen 
+Screencopy Screeninfo Screenlock Screenptr Screenres Screenset Screenunlock Seek Seg 
+Seg$ Select Separator Setenviron SetMem Sgn Shared Shell 
+Shift Shl Short Shr Signal Sin Single Sizeof 
+Sleep Sound Space Space$ Spc Sqr 
+Sseg Ssegadd Stack Static Stdcall Step Stick 
+Stop Str Str$ Strcat Strchr Strcmp Strcpy Strig 
+String String$ StringTable Strlen Strncat Strncmp Strncpy Strptr Strrchr 
+Strstr Style Sub Swap Syscall System Tab Tan 
+Test TestNot Then Threadcreate Threadwait Time Time$ Timer 
+To Trim Trim$ True Type Ubound 
+UByte Ucase UCase$ UInteger Union Unlock Until UShort 
+Using Val Val64 Valint Value Var Varptr 
+VarPtr$ VarSeg Va_arg Va_first Va_next VersionInfo View VirtKey Wait WBin 
+WChr Wend WHex While Width WinCon Window Windowtitle WinGui With 
+WOct Write WSpace WString Xor ZString __DATE__ __FB_BIGENDIAN__ __FB_DEBUG__ __FB_DOS__ 
+__FB_ERR__ __FB_LANG__ __FB_LINUX__ __FB_MAIN__ __FB_MIN_VERSION__ __FB_MT__ __FB_OPTION_BYVAL__ __FB_OPTION_DYNAMIC__ __FB_OPTION_ESCAPE__ __FB_OPTION_EXPLICIT__ 
+__FB_OPTION_PRIVATE__ __FB_OUT_DLL__ __FB_OUT_EXE__ __FB_OUT_LIB__ __FB_OUT_OBJ__ __FB_SIGNATURE__ __FB_VERSION__ __FB_VER_MAJOR__ __FB_VER_MINOR__ __FB_VER_PATCH__ 
+__FB_WIN32__ __File_Nq__ __FILE__ __Function_Nq__ __FUNCTION__ __LINE__ __PATH__ __TIME__ 
+     
+  
+    
+      
+         
+
+

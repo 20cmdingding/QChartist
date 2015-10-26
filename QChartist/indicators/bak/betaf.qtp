@@ -1,0 +1,22 @@
+declare sub hidebetafform
+
+CREATE betafform as qform
+
+    Center
+    Caption = "Settings for: betaf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create betafbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hidebetafform
+    end create
+
+END CREATE
+
+sub hidebetafform
+    betafform.visible=0
+end sub

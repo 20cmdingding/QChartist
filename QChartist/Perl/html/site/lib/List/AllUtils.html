@@ -1,0 +1,639 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Which-One-Wins">Which One Wins?</a></li>
+    </ul>
+  </li>
+  <li><a href="#LIST-REDUCTION-FUNCTIONS">LIST-REDUCTION FUNCTIONS</a>
+    <ul>
+      <li><a href="#reduce-BLOCK-LIST">reduce BLOCK LIST</a></li>
+      <li><a href="#first-BLOCK-LIST">first BLOCK LIST</a></li>
+      <li><a href="#max-LIST">max LIST</a></li>
+      <li><a href="#maxstr-LIST">maxstr LIST</a></li>
+      <li><a href="#min-LIST">min LIST</a></li>
+      <li><a href="#minstr-LIST">minstr LIST</a></li>
+      <li><a href="#sum-LIST">sum LIST</a></li>
+      <li><a href="#sum0-LIST">sum0 LIST</a></li>
+    </ul>
+  </li>
+  <li><a href="#KEY-VALUE-PAIR-LIST-FUNCTIONS">KEY/VALUE PAIR LIST FUNCTIONS</a>
+    <ul>
+      <li><a href="#pairgrep-BLOCK-KVLIST">pairgrep BLOCK KVLIST</a></li>
+      <li><a href="#pairfirst-BLOCK-KVLIST">pairfirst BLOCK KVLIST</a></li>
+      <li><a href="#pairmap-BLOCK-KVLIST">pairmap BLOCK KVLIST</a></li>
+      <li><a href="#pairs-KVLIST">pairs KVLIST</a></li>
+      <li><a href="#pairkeys-KVLIST">pairkeys KVLIST</a></li>
+      <li><a href="#pairvalues-KVLIST">pairvalues KVLIST</a></li>
+    </ul>
+  </li>
+  <li><a href="#OTHER-FUNCTIONS">OTHER FUNCTIONS</a>
+    <ul>
+      <li><a href="#shuffle-LIST">shuffle LIST</a></li>
+    </ul>
+  </li>
+  <li><a href="#List::MoreUtils-FUNCTIONS">List::MoreUtils FUNCTIONS</a>
+    <ul>
+      <li><a href="#any-BLOCK-LIST">any BLOCK LIST</a></li>
+      <li><a href="#all-BLOCK-LIST">all BLOCK LIST</a></li>
+      <li><a href="#none-BLOCK-LIST">none BLOCK LIST</a></li>
+      <li><a href="#notall-BLOCK-LIST">notall BLOCK LIST</a></li>
+      <li><a href="#true-BLOCK-LIST">true BLOCK LIST</a></li>
+      <li><a href="#false-BLOCK-LIST">false BLOCK LIST</a></li>
+      <li><a href="#firstidx-BLOCK-LIST">firstidx BLOCK LIST</a></li>
+      <li><a href="#first_index-BLOCK-LIST">first_index BLOCK LIST</a></li>
+      <li><a href="#lastidx-BLOCK-LIST">lastidx BLOCK LIST</a></li>
+      <li><a href="#last_index-BLOCK-LIST">last_index BLOCK LIST</a></li>
+      <li><a href="#insert_after-BLOCK-VALUE-LIST">insert_after BLOCK VALUE LIST</a></li>
+      <li><a href="#insert_after_string-STRING-VALUE-LIST">insert_after_string STRING VALUE LIST</a></li>
+      <li><a href="#apply-BLOCK-LIST">apply BLOCK LIST</a></li>
+      <li><a href="#before-BLOCK-LIST">before BLOCK LIST</a></li>
+      <li><a href="#before_incl-BLOCK-LIST">before_incl BLOCK LIST</a></li>
+      <li><a href="#after-BLOCK-LIST">after BLOCK LIST</a></li>
+      <li><a href="#after_incl-BLOCK-LIST">after_incl BLOCK LIST</a></li>
+      <li><a href="#indexes-BLOCK-LIST">indexes BLOCK LIST</a></li>
+      <li><a href="#firstval-BLOCK-LIST">firstval BLOCK LIST</a></li>
+      <li><a href="#first_value-BLOCK-LIST">first_value BLOCK LIST</a></li>
+      <li><a href="#lastval-BLOCK-LIST">lastval BLOCK LIST</a></li>
+      <li><a href="#last_value-BLOCK-LIST">last_value BLOCK LIST</a></li>
+      <li><a href="#pairwise-BLOCK-ARRAY1-ARRAY2">pairwise BLOCK ARRAY1 ARRAY2</a></li>
+      <li><a href="#each_array-ARRAY1-ARRAY2">each_array ARRAY1 ARRAY2 ...</a></li>
+      <li><a href="#each_arrayref-LIST">each_arrayref LIST</a></li>
+      <li><a href="#natatime-EXPR-LIST">natatime EXPR, LIST</a></li>
+      <li><a href="#mesh-ARRAY1-ARRAY2-ARRAY3">mesh ARRAY1 ARRAY2 [ ARRAY3 ... ]</a></li>
+      <li><a href="#zip-ARRAY1-ARRAY2-ARRAY3">zip ARRAY1 ARRAY2 [ ARRAY3 ... ]</a></li>
+      <li><a href="#uniq-LIST">uniq LIST</a></li>
+      <li><a href="#distinct-LIST">distinct LIST</a></li>
+      <li><a href="#minmax-LIST">minmax LIST</a></li>
+      <li><a href="#part-BLOCK-LIST">part BLOCK LIST</a></li>
+    </ul>
+  </li>
+  <li><a href="#EXPORTS">EXPORTS</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#BUGS">BUGS</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>List::AllUtils - Combines List::Util and List::MoreUtils in one bite-sized package</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>version 0.09</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">List::AllUtils</span> <span class="string">qw( first any )</span><span class="operator">;</span>
+    
+    <span class="comment"># _Everything_ from List::Util and List::MoreUtils</span>
+    <span class="keyword">use</span> <span class="variable">List::AllUtils</span> <span class="string">qw( :all )</span><span class="operator">;</span>
+    
+    <span class="keyword">my</span> <span class="variable">@numbers</span> <span class="operator">=</span> <span class="operator">(</span> <span class="number">1</span><span class="operator">,</span> <span class="number">2</span><span class="operator">,</span> <span class="number">3</span><span class="operator">,</span> <span class="number">5</span><span class="operator">,</span> <span class="number">7</span> <span class="operator">);</span>
+    <span class="comment"># or don't import anything</span>
+    <span class="keyword">return</span> <span class="variable">List::AllUtils::first</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="operator">&gt;</span> <span class="number">5</span> <span class="operator">}</span> <span class="variable">@numbers</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Are you sick of trying to remember whether a particular helper is defined in <a href="../../../lib/List/Util.html">List::Util</a> or <a href="../../../lib/List/MoreUtils.html">List::MoreUtils</a>? I sure am. Now you don&#39;t have to remember. This module will export all of the functions that either of those two modules defines.</p>
+
+<p>Note that all function documentation has been shamelessly copied from <a href="../../../lib/List/Util.html">List::Util</a> and <a href="../../../lib/List/MoreUtils.html">List::MoreUtils</a>.</p>
+
+<h2 id="Which-One-Wins">Which One Wins?</h2>
+
+<p>Recently, <a href="../../../lib/List/Util.html">List::Util</a> has started including some of the subs that used to only be in <a href="../../../lib/List/MoreUtils.html">List::MoreUtils</a>. This module always exports the version provided by <a href="../../../lib/List/Util.html">List::Util</a>.</p>
+
+<p>The docs below come from <a href="../../../lib/List/Util.html">List::Util</a> 1.31 and <a href="../../../lib/List/MoreUtils.html">List::MoreUtils</a> 0.28.</p>
+
+<h1 id="LIST-REDUCTION-FUNCTIONS">LIST-REDUCTION FUNCTIONS</h1>
+
+<p>The following set of functions all reduce a list down to a single value.</p>
+
+<h2 id="reduce-BLOCK-LIST">reduce BLOCK LIST</h2>
+
+<p>Reduces LIST by calling BLOCK, in a scalar context, multiple times, setting <code>$a</code> and <code>$b</code> each time. The first call will be with <code>$a</code> and <code>$b</code> set to the first two elements of the list, subsequent calls will be done by setting <code>$a</code> to the result of the previous call and <code>$b</code> to the next element in the list.</p>
+
+<p>Returns the result of the last call to BLOCK. If LIST is empty then <code>undef</code> is returned. If LIST only contains one element then that element is returned and BLOCK is not executed.</p>
+
+<pre><code>    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">&lt;</span> <span class="variable">$b</span> <span class="operator">?</span> <span class="variable">$a</span> <span class="operator">:</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="number">1</span><span class="operator">..</span><span class="number">10</span>       <span class="comment"># min</span>
+    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="keyword">lt</span> <span class="variable">$b</span> <span class="operator">?</span> <span class="variable">$a</span> <span class="operator">:</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="string">'aa'</span><span class="operator">..</span><span class="string">'zz'</span> <span class="comment"># minstr</span>
+    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">+</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="number">1</span> <span class="operator">..</span> <span class="number">10</span>               <span class="comment"># sum</span>
+    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">.</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="variable">@bar</span>                  <span class="comment"># concat</span>
+</code></pre>
+
+<p>If your algorithm requires that <code>reduce</code> produce an identity value, then make sure that you always pass that identity value as the first argument to prevent <code>undef</code> being returned</p>
+
+<pre><code>  <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">+</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="number">0</span><span class="operator">,</span> <span class="variable">@values</span><span class="operator">;</span>             <span class="comment"># sum with 0 identity value</span>
+</code></pre>
+
+<p>The remaining list-reduction functions are all specialisations of this generic idea.</p>
+
+<h2 id="first-BLOCK-LIST">first BLOCK LIST</h2>
+
+<p>Similar to <code>grep</code> in that it evaluates BLOCK setting <code>$_</code> to each element of LIST in turn. <code>first</code> returns the first element where the result from BLOCK is a true value. If BLOCK never returns true or LIST was empty then <code>undef</code> is returned.</p>
+
+<pre><code>    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">first</span> <span class="operator">{</span> <span class="keyword">defined</span><span class="operator">(</span><span class="variable">$_</span><span class="operator">)</span> <span class="operator">}</span> <span class="variable">@list</span>    <span class="comment"># first defined value in @list</span>
+    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">first</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="operator">&gt;</span> <span class="variable">$value</span> <span class="operator">}</span> <span class="variable">@list</span>    <span class="comment"># first value in @list which</span>
+                                          <span class="comment"># is greater than $value</span>
+</code></pre>
+
+<p>This function could be implemented using <code>reduce</code> like this</p>
+
+<pre><code>    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="keyword">defined</span><span class="operator">(</span><span class="variable">$a</span><span class="operator">)</span> <span class="operator">?</span> <span class="variable">$a</span> <span class="operator">:</span> <span class="variable">wanted</span><span class="operator">(</span><span class="variable">$b</span><span class="operator">)</span> <span class="operator">?</span> <span class="variable">$b</span> <span class="operator">:</span> <span class="keyword">undef</span> <span class="operator">}</span> <span class="keyword">undef</span><span class="operator">,</span> <span class="variable">@list</span>
+</code></pre>
+
+<p>for example wanted() could be defined() which would return the first defined value in @list</p>
+
+<h2 id="max-LIST">max LIST</h2>
+
+<p>Returns the entry in the list with the highest numerical value. If the list is empty then <code>undef</code> is returned.</p>
+
+<pre><code>    $foo = max 1..10                # 10
+    $foo = max 3,9,12               # 12
+    $foo = max @bar, @baz           # whatever</code></pre>
+
+<p>This function could be implemented using <code>reduce</code> like this</p>
+
+<pre><code>    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">&gt;</span> <span class="variable">$b</span> <span class="operator">?</span> <span class="variable">$a</span> <span class="operator">:</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="number">1</span><span class="operator">..</span><span class="number">10</span>
+</code></pre>
+
+<h2 id="maxstr-LIST">maxstr LIST</h2>
+
+<p>Similar to <code>max</code>, but treats all the entries in the list as strings and returns the highest string as defined by the <code>gt</code> operator. If the list is empty then <code>undef</code> is returned.</p>
+
+<pre><code>    $foo = maxstr &#39;A&#39;..&#39;Z&#39;          # &#39;Z&#39;
+    $foo = maxstr &quot;hello&quot;,&quot;world&quot;   # &quot;world&quot;
+    $foo = maxstr @bar, @baz        # whatever</code></pre>
+
+<p>This function could be implemented using <code>reduce</code> like this</p>
+
+<pre><code>    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="keyword">gt</span> <span class="variable">$b</span> <span class="operator">?</span> <span class="variable">$a</span> <span class="operator">:</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="string">'A'</span><span class="operator">..</span><span class="string">'Z'</span>
+</code></pre>
+
+<h2 id="min-LIST">min LIST</h2>
+
+<p>Similar to <code>max</code> but returns the entry in the list with the lowest numerical value. If the list is empty then <code>undef</code> is returned.</p>
+
+<pre><code>    $foo = min 1..10                # 1
+    $foo = min 3,9,12               # 3
+    $foo = min @bar, @baz           # whatever</code></pre>
+
+<p>This function could be implemented using <code>reduce</code> like this</p>
+
+<pre><code>    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">&lt;</span> <span class="variable">$b</span> <span class="operator">?</span> <span class="variable">$a</span> <span class="operator">:</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="number">1</span><span class="operator">..</span><span class="number">10</span>
+</code></pre>
+
+<h2 id="minstr-LIST">minstr LIST</h2>
+
+<p>Similar to <code>min</code>, but treats all the entries in the list as strings and returns the lowest string as defined by the <code>lt</code> operator. If the list is empty then <code>undef</code> is returned.</p>
+
+<pre><code>    $foo = minstr &#39;A&#39;..&#39;Z&#39;          # &#39;A&#39;
+    $foo = minstr &quot;hello&quot;,&quot;world&quot;   # &quot;hello&quot;
+    $foo = minstr @bar, @baz        # whatever</code></pre>
+
+<p>This function could be implemented using <code>reduce</code> like this</p>
+
+<pre><code>    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="keyword">lt</span> <span class="variable">$b</span> <span class="operator">?</span> <span class="variable">$a</span> <span class="operator">:</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="string">'A'</span><span class="operator">..</span><span class="string">'Z'</span>
+</code></pre>
+
+<h2 id="sum-LIST">sum LIST</h2>
+
+<p>Returns the sum of all the elements in LIST. If LIST is empty then <code>undef</code> is returned.</p>
+
+<pre><code>    $foo = sum 1..10                # 55
+    $foo = sum 3,9,12               # 24
+    $foo = sum @bar, @baz           # whatever</code></pre>
+
+<p>This function could be implemented using <code>reduce</code> like this</p>
+
+<pre><code>    <span class="variable">$foo</span> <span class="operator">=</span> <span class="variable">reduce</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">+</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="number">1</span><span class="operator">..</span><span class="number">10</span>
+</code></pre>
+
+<h2 id="sum0-LIST">sum0 LIST</h2>
+
+<p>Similar to <code>sum</code>, except this returns 0 when given an empty list, rather than <code>undef</code>.</p>
+
+<h1 id="KEY-VALUE-PAIR-LIST-FUNCTIONS">KEY/VALUE PAIR LIST FUNCTIONS</h1>
+
+<p>The following set of functions, all inspired by <a>List::Pairwise</a>, consume an even-sized list of pairs. The pairs may be key/value associations from a hash, or just a list of values. The functions will all preserve the original ordering of the pairs, and will not be confused by multiple pairs having the same &quot;key&quot; value - nor even do they require that the first of each pair be a plain string.</p>
+
+<h2 id="pairgrep-BLOCK-KVLIST">pairgrep BLOCK KVLIST</h2>
+
+<p>Similar to perl&#39;s <code>grep</code> keyword, but interprets the given list as an even-sized list of pairs. It invokes the BLOCK multiple times, in scalar context, with <code>$a</code> and <code>$b</code> set to successive pairs of values from the KVLIST.</p>
+
+<p>Returns an even-sized list of those pairs for which the BLOCK returned true in list context, or the count of the <b>number of pairs</b> in scalar context. (Note, therefore, in scalar context that it returns a number half the size of the count of items it would have returned in list context).</p>
+
+<pre><code>    <span class="variable">@subset</span> <span class="operator">=</span> <span class="variable">pairgrep</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">=~</span> <span class="regex">m/^[[:upper:]]+$/</span> <span class="operator">}</span> <span class="variable">@kvlist</span>
+</code></pre>
+
+<p>Similar to <code>grep</code>, <code>pairgrep</code> aliases <code>$a</code> and <code>$b</code> to elements of the given list. Any modifications of it by the code block will be visible to the caller.</p>
+
+<h2 id="pairfirst-BLOCK-KVLIST">pairfirst BLOCK KVLIST</h2>
+
+<p>Similar to the <code>first</code> function, but interprets the given list as an even-sized list of pairs. It invokes the BLOCK multiple times, in scalar context, with <code>$a</code> and <code>$b</code> set to successive pairs of values from the KVLIST.</p>
+
+<p>Returns the first pair of values from the list for which the BLOCK returned true in list context, or an empty list of no such pair was found. In scalar context it returns a simple boolean value, rather than either the key or the value found.</p>
+
+<pre><code>    <span class="operator">(</span> <span class="variable">$key</span><span class="operator">,</span> <span class="variable">$value</span> <span class="operator">)</span> <span class="operator">=</span> <span class="variable">pairfirst</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">=~</span> <span class="regex">m/^[[:upper:]]+$/</span> <span class="operator">}</span> <span class="variable">@kvlist</span>
+</code></pre>
+
+<p>Similar to <code>grep</code>, <code>pairfirst</code> aliases <code>$a</code> and <code>$b</code> to elements of the given list. Any modifications of it by the code block will be visible to the caller.</p>
+
+<h2 id="pairmap-BLOCK-KVLIST">pairmap BLOCK KVLIST</h2>
+
+<p>Similar to perl&#39;s <code>map</code> keyword, but interprets the given list as an even-sized list of pairs. It invokes the BLOCK multiple times, in list context, with <code>$a</code> and <code>$b</code> set to successive pairs of values from the KVLIST.</p>
+
+<p>Returns the concatenation of all the values returned by the BLOCK in list context, or the count of the number of items that would have been returned in scalar context.</p>
+
+<pre><code>    <span class="variable">@result</span> <span class="operator">=</span> <span class="variable">pairmap</span> <span class="operator">{</span> <span class="string">"The key </span><span class="variable">$a</span><span class="string"> has value </span><span class="variable">$b</span><span class="string">"</span> <span class="operator">}</span> <span class="variable">@kvlist</span>
+</code></pre>
+
+<p>Similar to <code>map</code>, <code>pairmap</code> aliases <code>$a</code> and <code>$b</code> to elements of the given list. Any modifications of it by the code block will be visible to the caller.</p>
+
+<h2 id="pairs-KVLIST">pairs KVLIST</h2>
+
+<p>A convenient shortcut to operating on even-sized lists of pairs, this function returns a list of ARRAY references, each containing two items from the given list. It is a more efficient version of</p>
+
+<pre><code>    <span class="variable">pairmap</span> <span class="operator">{</span> <span class="operator">[</span> <span class="variable">$a</span><span class="operator">,</span> <span class="variable">$b</span> <span class="operator">]</span> <span class="operator">}</span> <span class="variable">KVLIST</span>
+</code></pre>
+
+<p>It is most convenient to use in a <code>foreach</code> loop, for example:</p>
+
+<pre><code>    <span class="keyword">foreach</span> <span class="operator">(</span> <span class="variable">pairs</span> <span class="variable">@KVLIST</span> <span class="operator">)</span> <span class="operator">{</span>
+       <span class="keyword">my</span> <span class="operator">(</span> <span class="variable">$key</span><span class="operator">,</span> <span class="variable">$value</span> <span class="operator">)</span> <span class="operator">=</span> <span class="variable">@$_</span><span class="operator">;</span>
+       <span class="operator">...</span>
+    <span class="operator">}</span>
+</code></pre>
+
+<h2 id="pairkeys-KVLIST">pairkeys KVLIST</h2>
+
+<p>A convenient shortcut to operating on even-sized lists of pairs, this function returns a list of the the first values of each of the pairs in the given list. It is a more efficient version of</p>
+
+<pre><code>    <span class="variable">pairmap</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">}</span> <span class="variable">KVLIST</span>
+</code></pre>
+
+<h2 id="pairvalues-KVLIST">pairvalues KVLIST</h2>
+
+<p>A convenient shortcut to operating on even-sized lists of pairs, this function returns a list of the the second values of each of the pairs in the given list. It is a more efficient version of</p>
+
+<pre><code>    <span class="variable">pairmap</span> <span class="operator">{</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="variable">KVLIST</span>
+</code></pre>
+
+<h1 id="OTHER-FUNCTIONS">OTHER FUNCTIONS</h1>
+
+<h2 id="shuffle-LIST">shuffle LIST</h2>
+
+<p>Returns the elements of LIST in a random order</p>
+
+<pre><code>    @cards = shuffle 0..51      # 0..51 in a random order</code></pre>
+
+<h1 id="List::MoreUtils-FUNCTIONS">List::MoreUtils FUNCTIONS</h1>
+
+<h2 id="any-BLOCK-LIST">any BLOCK LIST</h2>
+
+<p>Returns a true value if any item in LIST meets the criterion given through BLOCK. Sets <code>$_</code> for each item in LIST in turn:</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="string">"At least one value undefined"</span>
+        <span class="keyword">if</span> <span class="variable">any</span> <span class="operator">{</span> <span class="operator">!</span> <span class="keyword">defined</span><span class="operator">(</span><span class="variable">$_</span><span class="operator">)</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns false otherwise, or if LIST is empty.</p>
+
+<h2 id="all-BLOCK-LIST">all BLOCK LIST</h2>
+
+<p>Returns a true value if all items in LIST meet the criterion given through BLOCK, or if LIST is empty. Sets <code>$_</code> for each item in LIST in turn:</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="string">"All items defined"</span>
+        <span class="keyword">if</span> <span class="variable">all</span> <span class="operator">{</span> <span class="keyword">defined</span><span class="operator">(</span><span class="variable">$_</span><span class="operator">)</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns false otherwise.</p>
+
+<h2 id="none-BLOCK-LIST">none BLOCK LIST</h2>
+
+<p>Logically the negation of <code>any</code>. Returns a true value if no item in LIST meets the criterion given through BLOCK, or if LIST is empty. Sets <code>$_</code> for each item in LIST in turn:</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="string">"No value defined"</span>
+        <span class="keyword">if</span> <span class="variable">none</span> <span class="operator">{</span> <span class="keyword">defined</span><span class="operator">(</span><span class="variable">$_</span><span class="operator">)</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns false otherwise.</p>
+
+<h2 id="notall-BLOCK-LIST">notall BLOCK LIST</h2>
+
+<p>Logically the negation of <code>all</code>. Returns a true value if not all items in LIST meet the criterion given through BLOCK. Sets <code>$_</code> for each item in LIST in turn:</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="string">"Not all values defined"</span>
+        <span class="keyword">if</span> <span class="variable">notall</span> <span class="operator">{</span> <span class="keyword">defined</span><span class="operator">(</span><span class="variable">$_</span><span class="operator">)</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns false otherwise, or if LIST is empty.</p>
+
+<h2 id="true-BLOCK-LIST">true BLOCK LIST</h2>
+
+<p>Counts the number of elements in LIST for which the criterion in BLOCK is true. Sets <code>$_</code> for each item in LIST in turn:</p>
+
+<pre><code>    <span class="keyword">printf</span> <span class="string">"%i item(s) are defined"</span><span class="operator">,</span> <span class="variable">true</span> <span class="operator">{</span> <span class="keyword">defined</span><span class="operator">(</span><span class="variable">$_</span><span class="operator">)</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+</code></pre>
+
+<h2 id="false-BLOCK-LIST">false BLOCK LIST</h2>
+
+<p>Counts the number of elements in LIST for which the criterion in BLOCK is false. Sets <code>$_</code> for each item in LIST in turn:</p>
+
+<pre><code>    <span class="keyword">printf</span> <span class="string">"%i item(s) are not defined"</span><span class="operator">,</span> <span class="variable">false</span> <span class="operator">{</span> <span class="keyword">defined</span><span class="operator">(</span><span class="variable">$_</span><span class="operator">)</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+</code></pre>
+
+<h2 id="firstidx-BLOCK-LIST">firstidx BLOCK LIST</h2>
+
+<h2 id="first_index-BLOCK-LIST">first_index BLOCK LIST</h2>
+
+<p>Returns the index of the first element in LIST for which the criterion in BLOCK is true. Sets <code>$_</code> for each item in LIST in turn:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@list</span> <span class="operator">=</span> <span class="operator">(</span><span class="number">1</span><span class="operator">,</span> <span class="number">4</span><span class="operator">,</span> <span class="number">3</span><span class="operator">,</span> <span class="number">2</span><span class="operator">,</span> <span class="number">4</span><span class="operator">,</span> <span class="number">6</span><span class="operator">);</span>
+    <span class="keyword">printf</span> <span class="string">"item with index %i in list is 4"</span><span class="operator">,</span> <span class="variable">firstidx</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="operator">==</span> <span class="number">4</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+    <span class="comment">__END__
+    item with index 1 in list is 4
+    </span>
+</code></pre>
+
+<p>Returns <code>-1</code> if no such item could be found.</p>
+
+<p><code>first_index</code> is an alias for <code>firstidx</code>.</p>
+
+<h2 id="lastidx-BLOCK-LIST">lastidx BLOCK LIST</h2>
+
+<h2 id="last_index-BLOCK-LIST">last_index BLOCK LIST</h2>
+
+<p>Returns the index of the last element in LIST for which the criterion in BLOCK is true. Sets <code>$_</code> for each item in LIST in turn:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@list</span> <span class="operator">=</span> <span class="operator">(</span><span class="number">1</span><span class="operator">,</span> <span class="number">4</span><span class="operator">,</span> <span class="number">3</span><span class="operator">,</span> <span class="number">2</span><span class="operator">,</span> <span class="number">4</span><span class="operator">,</span> <span class="number">6</span><span class="operator">);</span>
+    <span class="keyword">printf</span> <span class="string">"item with index %i in list is 4"</span><span class="operator">,</span> <span class="variable">lastidx</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="operator">==</span> <span class="number">4</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+    <span class="comment">__END__
+    item with index 4 in list is 4
+    </span>
+</code></pre>
+
+<p>Returns <code>-1</code> if no such item could be found.</p>
+
+<p><code>last_index</code> is an alias for <code>lastidx</code>.</p>
+
+<h2 id="insert_after-BLOCK-VALUE-LIST">insert_after BLOCK VALUE LIST</h2>
+
+<p>Inserts VALUE after the first item in LIST for which the criterion in BLOCK is true. Sets <code>$_</code> for each item in LIST in turn.</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@list</span> <span class="operator">=</span> <span class="string">qw/This is a list/</span><span class="operator">;</span>
+    <span class="variable">insert_after</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="keyword">eq</span> <span class="string">"a"</span> <span class="operator">}</span> <span class="string">"longer"</span> <span class="operator">=&gt;</span> <span class="variable">@list</span><span class="operator">;</span>
+    <span class="keyword">print</span> <span class="string">"</span><span class="variable">@list</span><span class="string">"</span><span class="operator">;</span>
+    <span class="comment">__END__
+    This is a longer list
+    </span>
+</code></pre>
+
+<h2 id="insert_after_string-STRING-VALUE-LIST">insert_after_string STRING VALUE LIST</h2>
+
+<p>Inserts VALUE after the first item in LIST which is equal to STRING.</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@list</span> <span class="operator">=</span> <span class="string">qw/This is a list/</span><span class="operator">;</span>
+    <span class="variable">insert_after_string</span> <span class="string">"a"</span><span class="operator">,</span> <span class="string">"longer"</span> <span class="operator">=&gt;</span> <span class="variable">@list</span><span class="operator">;</span>
+    <span class="keyword">print</span> <span class="string">"</span><span class="variable">@list</span><span class="string">"</span><span class="operator">;</span>
+    <span class="comment">__END__
+    This is a longer list
+    </span>
+</code></pre>
+
+<h2 id="apply-BLOCK-LIST">apply BLOCK LIST</h2>
+
+<p>Applies BLOCK to each item in LIST and returns a list of the values after BLOCK has been applied. In scalar context, the last element is returned. This function is similar to <code>map</code> but will not modify the elements of the input list:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@list</span> <span class="operator">=</span> <span class="operator">(</span><span class="number">1</span> <span class="operator">..</span> <span class="number">4</span><span class="operator">);</span>
+    <span class="keyword">my</span> <span class="variable">@mult</span> <span class="operator">=</span> <span class="variable">apply</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="operator">*=</span> <span class="number">2</span> <span class="operator">}</span> <span class="variable">@list</span><span class="operator">;</span>
+    <span class="keyword">print</span> <span class="string">"\@list = </span><span class="variable">@list</span><span class="string">\n"</span><span class="operator">;</span>
+    <span class="keyword">print</span> <span class="string">"\@mult = </span><span class="variable">@mult</span><span class="string">\n"</span><span class="operator">;</span>
+    <span class="comment">__END__
+    @list = 1 2 3 4
+    @mult = 2 4 6 8
+    </span>
+</code></pre>
+
+<p>Think of it as syntactic sugar for</p>
+
+<pre><code>    <span class="keyword">for</span> <span class="operator">(</span><span class="keyword">my</span> <span class="variable">@mult</span> <span class="operator">=</span> <span class="variable">@list</span><span class="operator">)</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="operator">*=</span> <span class="number">2</span> <span class="operator">}</span>
+</code></pre>
+
+<h2 id="before-BLOCK-LIST">before BLOCK LIST</h2>
+
+<p>Returns a list of values of LIST up to (and not including) the point where BLOCK returns a true value. Sets <code>$_</code> for each element in LIST in turn.</p>
+
+<h2 id="before_incl-BLOCK-LIST">before_incl BLOCK LIST</h2>
+
+<p>Same as <code>before</code> but also includes the element for which BLOCK is true.</p>
+
+<h2 id="after-BLOCK-LIST">after BLOCK LIST</h2>
+
+<p>Returns a list of the values of LIST after (and not including) the point where BLOCK returns a true value. Sets <code>$_</code> for each element in LIST in turn.</p>
+
+<pre><code>    <span class="variable">@x</span> <span class="operator">=</span> <span class="variable">after</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="operator">% </span><span class="number">5</span> <span class="operator">==</span> <span class="number">0</span> <span class="operator">}</span> <span class="operator">(</span><span class="number">1</span><span class="operator">..</span><span class="number">9</span><span class="operator">);</span>    <span class="comment"># returns 6, 7, 8, 9</span>
+</code></pre>
+
+<h2 id="after_incl-BLOCK-LIST">after_incl BLOCK LIST</h2>
+
+<p>Same as <code>after</code> but also includes the element for which BLOCK is true.</p>
+
+<h2 id="indexes-BLOCK-LIST">indexes BLOCK LIST</h2>
+
+<p>Evaluates BLOCK for each element in LIST (assigned to <code>$_</code>) and returns a list of the indices of those elements for which BLOCK returned a true value. This is just like <code>grep</code> only that it returns indices instead of values:</p>
+
+<pre><code>    <span class="variable">@x</span> <span class="operator">=</span> <span class="variable">indexes</span> <span class="operator">{</span> <span class="variable">$_</span> <span class="operator">% </span><span class="number">2</span> <span class="operator">==</span> <span class="number">0</span> <span class="operator">}</span> <span class="operator">(</span><span class="number">1</span><span class="operator">..</span><span class="number">10</span><span class="operator">);</span>   <span class="comment"># returns 1, 3, 5, 7, 9</span>
+</code></pre>
+
+<h2 id="firstval-BLOCK-LIST">firstval BLOCK LIST</h2>
+
+<h2 id="first_value-BLOCK-LIST">first_value BLOCK LIST</h2>
+
+<p>Returns the first element in LIST for which BLOCK evaluates to true. Each element of LIST is set to <code>$_</code> in turn. Returns <code>undef</code> if no such element has been found.</p>
+
+<p><code>first_val</code> is an alias for <code>firstval</code>.</p>
+
+<h2 id="lastval-BLOCK-LIST">lastval BLOCK LIST</h2>
+
+<h2 id="last_value-BLOCK-LIST">last_value BLOCK LIST</h2>
+
+<p>Returns the last value in LIST for which BLOCK evaluates to true. Each element of LIST is set to <code>$_</code> in turn. Returns <code>undef</code> if no such element has been found.</p>
+
+<p><code>last_val</code> is an alias for <code>lastval</code>.</p>
+
+<h2 id="pairwise-BLOCK-ARRAY1-ARRAY2">pairwise BLOCK ARRAY1 ARRAY2</h2>
+
+<p>Evaluates BLOCK for each pair of elements in ARRAY1 and ARRAY2 and returns a new list consisting of BLOCK&#39;s return values. The two elements are set to <code>$a</code> and <code>$b</code>. Note that those two are aliases to the original value so changing them will modify the input arrays.</p>
+
+<pre><code>    <span class="variable">@a</span> <span class="operator">=</span> <span class="operator">(</span><span class="number">1</span> <span class="operator">..</span> <span class="number">5</span><span class="operator">);</span>
+    <span class="variable">@b</span> <span class="operator">=</span> <span class="operator">(</span><span class="number">11</span> <span class="operator">..</span> <span class="number">15</span><span class="operator">);</span>
+    <span class="variable">@x</span> <span class="operator">=</span> <span class="variable">pairwise</span> <span class="operator">{</span> <span class="variable">$a</span> <span class="operator">+</span> <span class="variable">$b</span> <span class="operator">}</span> <span class="variable">@a</span><span class="operator">,</span> <span class="variable">@b</span><span class="operator">;</span>   <span class="comment"># returns 12, 14, 16, 18, 20</span>
+    
+    <span class="comment"># mesh with pairwise</span>
+    <span class="variable">@a</span> <span class="operator">=</span> <span class="string">qw/a b c/</span><span class="operator">;</span>
+    <span class="variable">@b</span> <span class="operator">=</span> <span class="string">qw/1 2 3/</span><span class="operator">;</span>
+    <span class="variable">@x</span> <span class="operator">=</span> <span class="variable">pairwise</span> <span class="operator">{</span> <span class="operator">(</span><span class="variable">$a</span><span class="operator">,</span> <span class="variable">$b</span><span class="operator">)</span> <span class="operator">}</span> <span class="variable">@a</span><span class="operator">,</span> <span class="variable">@b</span><span class="operator">;</span>  <span class="comment"># returns a, 1, b, 2, c, 3</span>
+</code></pre>
+
+<h2 id="each_array-ARRAY1-ARRAY2">each_array ARRAY1 ARRAY2 ...</h2>
+
+<p>Creates an array iterator to return the elements of the list of arrays ARRAY1, ARRAY2 throughout ARRAYn in turn. That is, the first time it is called, it returns the first element of each array. The next time, it returns the second elements. And so on, until all elements are exhausted.</p>
+
+<p>This is useful for looping over more than one array at once:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$ea</span> <span class="operator">=</span> <span class="variable">each_array</span><span class="operator">(</span><span class="variable">@a</span><span class="operator">,</span> <span class="variable">@b</span><span class="operator">,</span> <span class="variable">@c</span><span class="operator">);</span>
+    <span class="keyword">while</span> <span class="operator">(</span> <span class="keyword">my</span> <span class="operator">(</span><span class="variable">$a</span><span class="operator">,</span> <span class="variable">$b</span><span class="operator">,</span> <span class="variable">$c</span><span class="operator">)</span> <span class="operator">=</span> <span class="variable">$ea</span><span class="operator">-&gt;()</span> <span class="operator">)</span>   <span class="operator">{</span> <span class="operator">....</span> <span class="operator">}</span>
+</code></pre>
+
+<p>The iterator returns the empty list when it reached the end of all arrays.</p>
+
+<p>If the iterator is passed an argument of &#39;<code>index</code>&#39;, then it returns the index of the last fetched set of values, as a scalar.</p>
+
+<h2 id="each_arrayref-LIST">each_arrayref LIST</h2>
+
+<p>Like each_array, but the arguments are references to arrays, not the plain arrays.</p>
+
+<h2 id="natatime-EXPR-LIST">natatime EXPR, LIST</h2>
+
+<p>Creates an array iterator, for looping over an array in chunks of <code>$n</code> items at a time. (n at a time, get it?). An example is probably a better explanation than I could give in words.</p>
+
+<p>Example:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@x</span> <span class="operator">=</span> <span class="operator">(</span><span class="string">'a'</span> <span class="operator">..</span> <span class="string">'g'</span><span class="operator">);</span>
+    <span class="keyword">my</span> <span class="variable">$it</span> <span class="operator">=</span> <span class="variable">natatime</span> <span class="number">3</span><span class="operator">,</span> <span class="variable">@x</span><span class="operator">;</span>
+    <span class="keyword">while</span> <span class="operator">(</span><span class="keyword">my</span> <span class="variable">@vals</span> <span class="operator">=</span> <span class="variable">$it</span><span class="operator">-&gt;())</span>
+    <span class="operator">{</span>
+        <span class="keyword">print</span> <span class="string">"</span><span class="variable">@vals</span><span class="string">\n"</span><span class="operator">;</span>
+    <span class="operator">}</span>
+</code></pre>
+
+<p>This prints</p>
+
+<pre><code>    a b c
+    d e f
+    g</code></pre>
+
+<h2 id="mesh-ARRAY1-ARRAY2-ARRAY3">mesh ARRAY1 ARRAY2 [ ARRAY3 ... ]</h2>
+
+<h2 id="zip-ARRAY1-ARRAY2-ARRAY3">zip ARRAY1 ARRAY2 [ ARRAY3 ... ]</h2>
+
+<p>Returns a list consisting of the first elements of each array, then the second, then the third, etc, until all arrays are exhausted.</p>
+
+<p>Examples:</p>
+
+<pre><code>    <span class="variable">@x</span> <span class="operator">=</span> <span class="string">qw/a b c d/</span><span class="operator">;</span>
+    <span class="variable">@y</span> <span class="operator">=</span> <span class="string">qw/1 2 3 4/</span><span class="operator">;</span>
+    <span class="variable">@z</span> <span class="operator">=</span> <span class="variable">mesh</span> <span class="variable">@x</span><span class="operator">,</span> <span class="variable">@y</span><span class="operator">;</span>       <span class="comment"># returns a, 1, b, 2, c, 3, d, 4</span>
+    
+    <span class="variable">@a</span> <span class="operator">=</span> <span class="operator">(</span><span class="string">'x'</span><span class="operator">);</span>
+    <span class="variable">@b</span> <span class="operator">=</span> <span class="operator">(</span><span class="string">'1'</span><span class="operator">,</span> <span class="string">'2'</span><span class="operator">);</span>
+    <span class="variable">@c</span> <span class="operator">=</span> <span class="string">qw/zip zap zot/</span><span class="operator">;</span>
+    <span class="variable">@d</span> <span class="operator">=</span> <span class="variable">mesh</span> <span class="variable">@a</span><span class="operator">,</span> <span class="variable">@b</span><span class="operator">,</span> <span class="variable">@c</span><span class="operator">;</span>   <span class="comment"># x, 1, zip, undef, 2, zap, undef, undef, zot</span>
+</code></pre>
+
+<p><code>zip</code> is an alias for <code>mesh</code>.</p>
+
+<h2 id="uniq-LIST">uniq LIST</h2>
+
+<h2 id="distinct-LIST">distinct LIST</h2>
+
+<p>Returns a new list by stripping duplicate values in LIST. The order of elements in the returned list is the same as in LIST. In scalar context, returns the number of unique elements in LIST.</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@x</span> <span class="operator">=</span> <span class="variable">uniq</span> <span class="number">1</span><span class="operator">,</span> <span class="number">1</span><span class="operator">,</span> <span class="number">2</span><span class="operator">,</span> <span class="number">2</span><span class="operator">,</span> <span class="number">3</span><span class="operator">,</span> <span class="number">5</span><span class="operator">,</span> <span class="number">3</span><span class="operator">,</span> <span class="number">4</span><span class="operator">;</span> <span class="comment"># returns 1 2 3 5 4</span>
+    <span class="keyword">my</span> <span class="variable">$x</span> <span class="operator">=</span> <span class="variable">uniq</span> <span class="number">1</span><span class="operator">,</span> <span class="number">1</span><span class="operator">,</span> <span class="number">2</span><span class="operator">,</span> <span class="number">2</span><span class="operator">,</span> <span class="number">3</span><span class="operator">,</span> <span class="number">5</span><span class="operator">,</span> <span class="number">3</span><span class="operator">,</span> <span class="number">4</span><span class="operator">;</span> <span class="comment"># returns 5</span>
+</code></pre>
+
+<h2 id="minmax-LIST">minmax LIST</h2>
+
+<p>Calculates the minimum and maximum of LIST and returns a two element list with the first element being the minimum and the second the maximum. Returns the empty list if LIST was empty.</p>
+
+<p>The <code>minmax</code> algorithm differs from a naive iteration over the list where each element is compared to two values being the so far calculated min and max value in that it only requires 3n/2 - 2 comparisons. Thus it is the most efficient possible algorithm.</p>
+
+<p>However, the Perl implementation of it has some overhead simply due to the fact that there are more lines of Perl code involved. Therefore, LIST needs to be fairly big in order for <code>minmax</code> to win over a naive implementation. This limitation does not apply to the XS version.</p>
+
+<h2 id="part-BLOCK-LIST">part BLOCK LIST</h2>
+
+<p>Partitions LIST based on the return value of BLOCK which denotes into which partition the current value is put.</p>
+
+<p>Returns a list of the partitions thusly created. Each partition created is a reference to an array.</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$i</span> <span class="operator">=</span> <span class="number">0</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">@part</span> <span class="operator">=</span> <span class="variable">part</span> <span class="operator">{</span> <span class="variable">$i</span><span class="operator">++</span> <span class="operator">% </span><span class="number">2</span> <span class="operator">}</span> <span class="number">1</span> <span class="operator">..</span> <span class="number">8</span><span class="operator">;</span>   <span class="comment"># returns [1, 3, 5, 7], [2, 4, 6, 8]</span>
+</code></pre>
+
+<p>You can have a sparse list of partitions as well where non-set partitions will be undef:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@part</span> <span class="operator">=</span> <span class="variable">part</span> <span class="operator">{</span> <span class="number">2</span> <span class="operator">}</span> <span class="number">1</span> <span class="operator">..</span> <span class="number">10</span><span class="operator">;</span>          <span class="comment"># returns undef, undef, [ 1 .. 10 ]</span>
+</code></pre>
+
+<p>Be careful with negative values, though:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@part</span> <span class="operator">=</span> <span class="variable">part</span> <span class="operator">{</span> <span class="operator">-</span><span class="number">1</span> <span class="operator">}</span> <span class="number">1</span> <span class="operator">..</span> <span class="number">10</span><span class="operator">;</span>
+    <span class="comment">__END__
+    Modification of non-creatable array value attempted, subscript -1 ...
+    </span>
+</code></pre>
+
+<p>Negative values are only okay when they refer to a partition previously created:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@idx</span>  <span class="operator">=</span> <span class="operator">(</span> <span class="number">0</span><span class="operator">,</span> <span class="number">1</span><span class="operator">,</span> <span class="operator">-</span><span class="number">1</span> <span class="operator">);</span>
+    <span class="keyword">my</span> <span class="variable">$i</span>    <span class="operator">=</span> <span class="number">0</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">@part</span> <span class="operator">=</span> <span class="variable">part</span> <span class="operator">{</span> <span class="variable">$idx</span><span class="operator">[</span><span class="variable">$+</span><span class="operator">+</span> <span class="operator">% </span><span class="number">3</span><span class="operator">]</span> <span class="operator">}</span> <span class="number">1</span> <span class="operator">..</span> <span class="number">8</span><span class="operator">;</span> <span class="comment"># [1, 4, 7], [2, 3, 5, 6, 8]</span>
+</code></pre>
+
+<h1 id="EXPORTS">EXPORTS</h1>
+
+<p>This module exports nothing by default. You can import functions by name, or get everything with the <code>:all</code> tag.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><code>List::Util</code> and <code>List::MoreUtils</code>, obviously.</p>
+
+<p>Also see <code>Util::Any</code>, which unifies many more util modules, and also lets you rename functions as part of the import.</p>
+
+<h1 id="BUGS">BUGS</h1>
+
+<p>Please report any bugs or feature requests to <code>bug-list-allutils@rt.cpan.org</code>, or through the web interface at <a href="http://rt.cpan.org">http://rt.cpan.org</a>. I will be notified, and then you&#39;ll automatically be notified of progress on your bug as I make changes.</p>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Dave Rolsky &lt;autarch@urth.org&gt;</p>
+
+<h1 id="COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</h1>
+
+<p>This software is Copyright (c) 2014 by Dave Rolsky.</p>
+
+<p>This is free software, licensed under:</p>
+
+<pre><code>  The Artistic License 2.0 (GPL Compatible)</code></pre>
+
+
+</body>
+
+</html>
+
+

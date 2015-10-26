@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::BMONesbittBurns Obtain quotes from the BMO NesbittBurns site</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"bmonesbittburns"</span><span class="operator">,</span><span class="string">"NT,X"</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module fetches information from the &quot;BMO NesbittBurns Quitre Qote&quot; site. Most Canadiam and US stocks as well as Canadian Mutual Funds are available.</p>
+
+<p>The symbolm representing a stock or mutual fund is composed of the stock symbol, a comma, and then the index or type. The following indexes and types are supported:</p>
+
+<pre><code>  T    Toronto Stock Exchange
+  MF   Canadian Mutaul Fund
+  V    Canadian venture Exchange
+  I    Index
+  X    U.S Stocks (most exchanges)</code></pre>
+
+<p>This module is loaded by default on a Finance::Quote object. It&#39;s also possible to load it explicity by placing &quot;BMONesbittBurns&quot; in the argument list to Finance::Quote-&gt;new().</p>
+
+<p>Information obtained by this module may be covered by BMO Nesbitt Burns terms and conditions. See http://bmonesbittburns.com/ for details.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>The following labels may be returned by Finance::Quote::BMONesbittBurns : name, last, date, p_change, bid, offer, open, high, low, volume, currency, method, exchange, time, date.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>BMO Nesbitt-Burns http://bmonesbittburns.com/QuickQuote/QuickQuote.asp</p>
+
+
+</body>
+
+</html>
+
+

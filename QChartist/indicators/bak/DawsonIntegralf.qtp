@@ -1,0 +1,22 @@
+declare sub hideDawsonIntegralfform
+
+CREATE DawsonIntegralfform as qform
+
+    Center
+    Caption = "Settings for: DawsonIntegralf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create DawsonIntegralfbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideDawsonIntegralfform
+    end create
+
+END CREATE
+
+sub hideDawsonIntegralfform
+    DawsonIntegralfform.visible=0
+end sub

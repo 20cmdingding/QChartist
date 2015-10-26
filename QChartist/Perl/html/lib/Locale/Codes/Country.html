@@ -1,0 +1,263 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#SUPPORTED-CODE-SETS">SUPPORTED CODE SETS</a></li>
+  <li><a href="#ROUTINES">ROUTINES</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Locale::Codes::Country - standard codes for country identification</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>   <span class="keyword">use</span> <span class="variable">Locale::Codes::Country</span><span class="operator">;</span>
+   
+   <span class="variable">$country</span> <span class="operator">=</span> <span class="variable">code2country</span><span class="operator">(</span><span class="string">'jp'</span> <span class="operator">[</span><span class="operator">,</span><span class="variable">CODESET</span><span class="operator">]</span><span class="operator">);</span>        <span class="comment"># $country gets 'Japan'</span>
+   <span class="variable">$code</span>    <span class="operator">=</span> <span class="variable">country2code</span><span class="operator">(</span><span class="string">'Norway'</span> <span class="operator">[</span><span class="operator">,</span><span class="variable">CODESET</span><span class="operator">]</span><span class="operator">);</span>    <span class="comment"># $code gets 'no'</span>
+   
+   <span class="variable">@codes</span>   <span class="operator">=</span> <span class="variable">all_country_codes</span><span class="operator">(</span> <span class="operator">[</span><span class="variable">CODESET</span><span class="operator">]</span><span class="operator">);</span>
+   <span class="variable">@names</span>   <span class="operator">=</span> <span class="variable">all_country_names</span><span class="operator">();</span>
+   
+   <span class="comment"># semi-private routines</span>
+   <span class="variable">Locale::Codes::Country::alias_code</span><span class="operator">(</span><span class="string">'uk'</span> <span class="operator">=&gt;</span> <span class="string">'gb'</span><span class="operator">);</span>
+   <span class="variable">Locale::Codes::Country::rename_country</span><span class="operator">(</span><span class="string">'gb'</span> <span class="operator">=&gt;</span> <span class="string">'Great Britain'</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>The <code>Locale::Codes::Country</code> module provides access to several code sets that can be used for identifying countries, such as those defined in ISO 3166-1.</p>
+
+<p>Most of the routines take an optional additional argument which specifies the code set to use. If not specified, the default ISO 3166-1 two-letter codes will be used.</p>
+
+<h1 id="SUPPORTED-CODE-SETS">SUPPORTED CODE SETS</h1>
+
+<p>There are several different code sets you can use for identifying countries. A code set may be specified using either a name, or a constant that is automatically exported by this module.</p>
+
+<p>For example, the two are equivalent:</p>
+
+<pre><code>   <span class="variable">$country</span> <span class="operator">=</span> <span class="variable">code2country</span><span class="operator">(</span><span class="string">'jp'</span><span class="operator">,</span><span class="string">'alpha-2'</span><span class="operator">);</span>
+   <span class="variable">$country</span> <span class="operator">=</span> <span class="variable">code2country</span><span class="operator">(</span><span class="string">'jp'</span><span class="operator">,</span><span class="variable">LOCALE_CODE_ALPHA_2</span><span class="operator">);</span>
+</code></pre>
+
+<p>The codesets currently supported are:</p>
+
+<dl>
+
+<dt id="alpha-2-LOCALE_CODE_ALPHA_2"><b>alpha-2, LOCALE_CODE_ALPHA_2</b></dt>
+<dd>
+
+<p>This is the set of two-letter (lowercase) codes from ISO 3166-1, such as &#39;tv&#39; for Tuvalu.</p>
+
+<p>This is the default code set.</p>
+
+</dd>
+<dt id="alpha-3-LOCALE_CODE_ALPHA_3"><b>alpha-3, LOCALE_CODE_ALPHA_3</b></dt>
+<dd>
+
+<p>This is the set of three-letter (lowercase) codes from ISO 3166-1, such as &#39;brb&#39; for Barbados. These codes are actually defined and maintained by the U.N. Statistics division.</p>
+
+</dd>
+<dt id="numeric-LOCALE_CODE_NUMERIC"><b>numeric, LOCALE_CODE_NUMERIC</b></dt>
+<dd>
+
+<p>This is the set of three-digit numeric codes from ISO 3166-1, such as 064 for Bhutan. These codes are actually defined and maintained by the U.N. Statistics division.</p>
+
+<p>If a 2-digit code is entered, it is converted to 3 digits by prepending a 0.</p>
+
+</dd>
+<dt id="dom-LOCALE_CODE_DOM"><b>dom, LOCALE_CODE_DOM</b></dt>
+<dd>
+
+<p>The IANA is responsible for delegating management of the top level country domains. The country domains are the two-letter (lowercase) codes from ISO 3166 with a few other additions.</p>
+
+</dd>
+</dl>
+
+<p>NOTE: As of version 3.27, the FIPS code set is no longer supported. See the Locale::Codes::Changes document for details.</p>
+
+<h1 id="ROUTINES">ROUTINES</h1>
+
+<dl>
+
+<dt id="code2country-CODE-CODESET-retired"><b>code2country ( CODE [,CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="country2code-NAME-CODESET-retired"><b>country2code ( NAME [,CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="country_code2code-CODE-CODESET-CODESET2"><b>country_code2code ( CODE ,CODESET ,CODESET2 )</b></dt>
+<dd>
+
+</dd>
+<dt id="all_country_codes-CODESET-retired"><b>all_country_codes ( [CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="all_country_names-CODESET-retired"><b>all_country_names ( [CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Country::rename_country-CODE-NEW_NAME-CODESET"><b>Locale::Codes::Country::rename_country ( CODE ,NEW_NAME [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Country::add_country-CODE-NAME-CODESET"><b>Locale::Codes::Country::add_country ( CODE ,NAME [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Country::delete_country-CODE-CODESET"><b>Locale::Codes::Country::delete_country ( CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Country::add_country_alias-NAME-NEW_NAME"><b>Locale::Codes::Country::add_country_alias ( NAME ,NEW_NAME )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Country::delete_country_alias-NAME"><b>Locale::Codes::Country::delete_country_alias ( NAME )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Country::rename_country_code-CODE-NEW_CODE-CODESET"><b>Locale::Codes::Country::rename_country_code ( CODE ,NEW_CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Country::add_country_code_alias-CODE-NEW_CODE-CODESET"><b>Locale::Codes::Country::add_country_code_alias ( CODE ,NEW_CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Country::delete_country_code_alias-CODE-CODESET"><b>Locale::Codes::Country::delete_country_code_alias ( CODE [,CODESET] )</b></dt>
+<dd>
+
+<p>These routines are all documented in the Locale::Codes::API man page.</p>
+
+</dd>
+<dt id="alias_code-ALIAS-CODE-CODESET"><b>alias_code ( ALIAS, CODE [,CODESET] )</b></dt>
+<dd>
+
+<p>Version 2.07 included 2 functions for modifying the internal data: rename_country and alias_code. Both of these could be used only to modify the internal data for country codes.</p>
+
+<p>As of 3.10, the internal data for all types of codes can be modified.</p>
+
+<p>The alias_code function is preserved for backwards compatibility, but the following two are identical:</p>
+
+<pre><code>   <span class="variable">alias_code</span><span class="operator">(</span><span class="variable">ALIAS</span><span class="operator">,</span><span class="variable">CODE</span> <span class="operator">[</span><span class="operator">,</span><span class="variable">CODESET</span><span class="operator">]</span><span class="operator">);</span>
+   <span class="variable">rename_country_code</span><span class="operator">(</span><span class="variable">CODE</span><span class="operator">,</span><span class="variable">ALIAS</span> <span class="operator">[</span><span class="operator">,</span><span class="variable">CODESET</span><span class="operator">]</span><span class="operator">);</span>
+</code></pre>
+
+<p>and the latter should be used for consistency.</p>
+
+<p>The alias_code function is deprecated and will be removed in the December 2014 release.</p>
+
+<p><b>Note:</b> this function was previously called _alias_code, but the leading underscore has been dropped. The old name was supported for all 2.X releases, but has been dropped as of 3.00.</p>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<dl>
+
+<dt id="Locale::Codes"><b>Locale::Codes</b></dt>
+<dd>
+
+<p>The Locale-Codes distribution.</p>
+
+</dd>
+<dt id="Locale::Codes::API"><b>Locale::Codes::API</b></dt>
+<dd>
+
+<p>The list of functions supported by this module.</p>
+
+</dd>
+<dt id="Locale::SubCountry"><b>Locale::SubCountry</b></dt>
+<dd>
+
+<p>ISO codes for country sub-divisions (states, counties, provinces, etc), as defined in ISO 3166-2. This module is not part of the Locale-Codes distribution, but is available from CPAN in CPAN/modules/by-module/Locale/</p>
+
+</dd>
+<dt id="http:-www.iso.org-iso-home-standards-country_codes.htm"><b>http://www.iso.org/iso/home/standards/country_codes.htm</b></dt>
+<dd>
+
+<p>Official home page for the ISO 3166 maintenance agency.</p>
+
+</dd>
+<dt id="http:-www.iso.org-iso-home-standards-country_codes-iso-3166-1_decoding_table.htm"><b>http://www.iso.org/iso/home/standards/country_codes/iso-3166-1_decoding_table.htm</b></dt>
+<dd>
+
+<p>The source of ISO 3166-1 two-letter codes used by this module.</p>
+
+</dd>
+<dt id="http:-www.iana.org-domains-root-db"><b>http://www.iana.org/domains/root/db/</b></dt>
+<dd>
+
+<p>Official source of the top-level domain names.</p>
+
+</dd>
+<dt id="http:-unstats.un.org-unsd-methods-m49-m49alpha.htm"><b>http://unstats.un.org/unsd/methods/m49/m49alpha.htm</b></dt>
+<dd>
+
+<p>The source of the official ISO 3166-1 three-letter codes and three-digit codes.</p>
+
+<p>For some reason, this table is incomplete! Several countries are missing from it, and I cannot find them anywhere on the UN site. I no longer use this as a source of data.</p>
+
+</dd>
+<dt id="https:-www.cia.gov-library-publications-the-world-factbook-appendix-print_appendix-d.html"><b>https://www.cia.gov/library/publications/the-world-factbook/appendix/print_appendix-d.html</b></dt>
+<dd>
+
+<p>The World Factbook maintained by the CIA is a potential source of the data. Unfortunately, it adds/preserves non-standard codes, so it is no longer used as a source of data.</p>
+
+</dd>
+<dt id="http:-www.statoids.com-wab.html"><b>http://www.statoids.com/wab.html</b></dt>
+<dd>
+
+<p>Another unofficial source of data. Currently, it is not used to get data, but the notes and explanatory material were very useful for understanding discrepancies between the sources.</p>
+
+</dd>
+</dl>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>See Locale::Codes for full author history.</p>
+
+<p>Currently maintained by Sullivan Beck (sbeck@cpan.org).</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<pre><code>   Copyright (c) 1997-2001 Canon Research Centre Europe (CRE).
+   Copyright (c) 2001-2010 Neil Bowers
+   Copyright (c) 2010-2014 Sullivan Beck</code></pre>
+
+<p>This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,100 @@
+declare sub Accelerator ' This line of code must stay here
+dim acceleratorbuffer0(0 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+dim acceleratorbuffer1(0 to 1000) as double
+dim acceleratorbuffer2(0 to 1000) as double
+dim acceleratorbuffer3(0 to 1000) as double
+dim acceleratorbuffer4(0 to 1000) as double
+dim acceleratorsma(0 to 1000) as double
+dim acceleratorsma2(0 to 1000) as double
+dim acceleratorbuffergrid as qstringgrid
+dim acceleratorsmagrid as qstringgrid
+
+declare sub acceleratorsmasub(period as integer)
+declare sub acceleratorsmasub2(period as integer)
+
+sub Accelerator
+' Put your indicator code here
+dim loop as integer
+loop=200
+dim limit as integer
+dim prev as double,current as double
+limit=loop
+dim i as integer
+for i=0 to limit-1
+acceleratorsmasub(5)
+acceleratorbuffergrid.cell(3,i)=acceleratorsmagrid.cell(1,i)
+acceleratorsmasub(34)
+acceleratorbuffergrid.cell(3,i)=str$(val(acceleratorbuffergrid.cell(3,i))-val(acceleratorsmagrid.cell(1,i)))
+next i
+for i=0 to limit-1
+acceleratorsmasub2(5)
+acceleratorbuffergrid.cell(4,i)=acceleratorsmagrid.cell(2,i)
+next i
+dim up as integer
+up=1
+for i=loop-1 to 0 step -1
+current=val(acceleratorbuffergrid.cell(3,i))-val(acceleratorbuffergrid.cell(4,i))
+prev=val(acceleratorbuffergrid.cell(3,i+1))-val(acceleratorbuffergrid.cell(4,i+1))
+if current>prev then
+up=1
+end if
+if current<prev then
+up=0
+end if
+if up=0 then
+acceleratorbuffergrid.cell(2,i)=str$(current)
+acceleratorbuffergrid.cell(1,i)="0"
+else
+acceleratorbuffergrid.cell(2,i)="0"
+acceleratorbuffergrid.cell(1,i)=str$(current)
+end if
+acceleratorbuffer0(i)=current
+next i
+
+
+end sub
+
+
+sub acceleratorsmasub(period as integer)
+
+    dim sum as double
+
+    sum=0
+    dim i as integer,p as integer
+    p=bars-1
+    p=200
+
+    for i=1 to period-1
+        sum=sum+(high(p)+low(p))/2
+        p--
+    next i
+    while p>=0
+        sum=sum+(high(p)+low(p))/2
+        acceleratorsmagrid.cell(1,p)=str$(sum/period)
+        sum=sum-(high(p+period-1)+low(p+period-1))/2
+        p--
+    wend
+
+end sub   
+
+sub acceleratorsmasub2(period as integer)
+
+    dim sum as double
+
+    sum=0
+    dim i as integer,p as integer
+    p=bars-1
+    p=200
+
+    for i=1 to period-1
+        sum=sum+val(acceleratorbuffergrid.cell(3,p))
+        p--
+    next i
+    while p>=0
+        sum=sum+val(acceleratorbuffergrid.cell(3,p))
+        acceleratorsmagrid.cell(2,p)=str$(sum/period)
+        sum=sum-val(acceleratorbuffergrid.cell(3,p+period-1))
+        p--
+    wend
+
+end sub   

@@ -1,0 +1,588 @@
+declare sub hidePlanetary_linesform
+declare sub position_click (sender as qcheckbox)
+declare sub planetary_lines_inverted_click
+defint planet_lines_inv=1
+
+CREATE Planetary_linesform as qform
+    height=680
+    Center
+    Caption = "Settings for: Planetary lines"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create planetary_linesratiolbl as qlabel
+    top=0
+	left=0
+	caption="Ratio/angle:"
+    end create
+
+	create planetary_linesratioedit as qedit
+	top=0
+	left=50
+	text="1"
+	end create
+
+	create longitudetype as qgroupbox
+	top=20
+	height=70
+	width=100
+	left=100
+		create heliocentric as qradiobutton
+			parent=longitudetype
+			top=10
+			caption="Heliocentric"
+		end create
+		create geocentric as qradiobutton
+			parent=longitudetype
+			top=30
+			caption="Geocentric"
+		end create
+		create barycentric as qradiobutton
+			parent=longitudetype
+			top=50
+			caption="Barycentric"
+		end create
+	end create
+
+	create ephemeris_time as qcheckbox
+	top=90
+	left=100
+	caption="Ephemeris time"
+	checked=1
+	end create
+
+	create apparent_pos as qcheckbox
+	top=110
+	left=100
+	caption="apparent pos."
+	checked=1
+	end create
+
+	create sidereal as qcheckbox
+	top=130
+	left=100
+	caption="sidereal"
+	end create
+
+	create equinox_j2000 as qcheckbox
+	top=150
+	left=100
+	caption="Equinox J2000"
+	end create
+
+	create longitude_checkbox as qcheckbox
+	top=170
+	left=100
+	caption="Ecliptic longitude"
+	checked=1
+	onclick=position_click
+	end create
+
+	create latitude_checkbox as qcheckbox
+	top=190
+	left=100
+	caption="Ecliptic latitude"
+	onclick=position_click
+	end create
+
+	create ecliptic_distance_checkbox as qcheckbox
+	top=210
+	left=100
+	caption="Ecliptic distance"
+	onclick=position_click
+	end create
+
+	create speed_longitude_checkbox as qcheckbox
+	top=230
+	left=100
+	width=200
+	caption="Ecliptic speed in longitude"
+	onclick=position_click
+	enabled=0
+	end create
+
+	create speed_latitude_checkbox as qcheckbox
+	top=250
+	left=100
+	width=200
+	caption="Ecliptic speed in latitude"
+	onclick=position_click
+	enabled=0
+	end create
+
+	create ecliptic_speed_distance_checkbox as qcheckbox
+	top=270
+	left=100
+	width=200
+	caption="Ecliptic speed in distance"
+	onclick=position_click
+	enabled=0
+	end create
+
+	create rectascension_checkbox as qcheckbox
+	top=290
+	left=100
+	width=200
+	caption="Equatorial rectascension"
+	onclick=position_click
+	enabled=0
+	end create
+
+	create declination_checkbox as qcheckbox
+	top=310
+	left=100
+	width=200
+	caption="Equatorial declination"
+	onclick=position_click
+	end create
+
+	create equatorial_distance_checkbox as qcheckbox
+	top=330
+	left=100
+	width=200
+	caption="Equatorial distance"
+	onclick=position_click
+	end create
+
+	create speed_rectascension_checkbox as qcheckbox
+	top=350
+	left=100
+	width=200
+	caption="Equatorial speed in rectascension"
+	onclick=position_click
+	enabled=0
+	end create
+
+	create speed_declination_checkbox as qcheckbox
+	top=370
+	left=100
+	width=200
+	caption="Equatorial speed in declination"
+	onclick=position_click
+	enabled=0
+	end create
+
+	create equatorial_speed_distance_checkbox as qcheckbox
+	top=390
+	left=100
+	width=200
+	caption="Equatorial speed in distance"
+	onclick=position_click
+	enabled=0
+	end create
+
+	create planet as qgroupbox
+	top=20
+	height=570
+	width=100
+	create Earth as qcheckbox
+	parent=planet
+	top=10
+	caption="Earth"
+	end create	
+	create Jupiter as qcheckbox
+	parent=planet
+	top=30
+	caption="Jupiter"
+	end create	
+	create Mars as qcheckbox
+	parent=planet
+	top=50
+	caption="Mars"
+	end create	
+
+create Mercury as qcheckbox
+	parent=planet
+	top=70
+	caption="Mercury"
+	end create	
+
+create Neptune as qcheckbox
+	parent=planet
+	top=90
+	caption="Neptune"
+	end create	
+
+create Saturn as qcheckbox
+	parent=planet
+	top=110
+	caption="Saturn"
+	end create	
+
+create Uranus as qcheckbox
+	parent=planet
+	top=130
+	caption="Uranus"
+	end create	
+
+create Venus as qcheckbox
+	parent=planet
+	top=150
+	caption="Venus"
+	end create
+
+create sun as qcheckbox
+	parent=planet
+	top=170
+	caption="Sun"
+	end create
+
+create Moon as qcheckbox
+	parent=planet
+	top=190
+	caption="Moon"
+	end create	
+
+create pluto as qcheckbox
+	parent=planet
+	top=210
+	caption="Pluto"
+	end create
+
+create mean_node as qcheckbox
+	parent=planet
+	top=230
+	caption="Mean node"
+	end create
+
+create true_node as qcheckbox
+	parent=planet
+	top=250
+	caption="True node"
+	end create
+
+create mean_apog as qcheckbox
+	parent=planet
+	top=270
+	caption="Mean apogee"
+	end create
+
+create oscu_apog as qcheckbox
+	parent=planet
+	top=290
+	caption="Osculted apogee"
+	end create
+
+create chiron as qcheckbox
+	parent=planet
+	top=310
+	caption="Chiron"
+	end create
+
+create pholus as qcheckbox
+	parent=planet
+	top=330
+	caption="Pholus"
+	end create
+
+create ceres as qcheckbox
+	parent=planet
+	top=350
+	caption="Ceres"
+	end create
+
+create pallas as qcheckbox
+	parent=planet
+	top=370
+	caption="Pallas"
+	end create
+
+create juno as qcheckbox
+	parent=planet
+	top=390
+	caption="Juno"
+	end create
+
+create vesta as qcheckbox
+	parent=planet
+	top=410
+	caption="Vesta"
+	end create
+
+create nplanets as qcheckbox
+	parent=planet
+	top=430
+	caption="Nplanets"
+	end create
+
+create ast_offset as qcheckbox
+	parent=planet
+	top=450
+	caption="Ast offset"
+	end create
+
+	end create
+
+	create barslimitlab as qlabel
+	top=410
+left=100
+	caption="Bars limit:"
+	end create
+	
+	create barslimitedit as qedit
+	top=410
+	left=150
+	text="500"
+	end create
+
+create beginfromlabel as qlabel
+left=100
+        top=430
+        caption="Shift:"
+    end create	
+
+create beginfromedit as qedit
+        left=beginfromlabel.left+beginfromlabel.width
+        top=430
+text="0"
+    end create
+
+create avgbeginfromlabel as qlabel
+left=100
+        top=450
+        caption="Avg shift:"
+    end create	
+
+create avgbeginfromedit as qedit
+        left=avgbeginfromlabel.left+avgbeginfromlabel.width
+        top=450
+text="0"
+    end create
+
+create Planetary_method as qcombobox
+left=100
+        top=470
+        additems "Orthogonal"
+        additems "Sinusoidal"
+	itemindex=0
+    end create
+
+create pointsbetweenlineslabel as qlabel
+left=100
+        top=490
+        caption="Space:"
+    end create	
+
+create pointsbetweenlinesedit as qedit
+        left=pointsbetweenlineslabel.left+pointsbetweenlineslabel.width
+        top=490
+text="0.628"
+    end create
+
+create Planetary_average_checkbox as qcheckbox
+ left=100
+        top=510
+        caption="Draw average line"
+    end create
+
+create planetcalcver as qgroupbox
+		top=530
+		left=100
+		height=40
+		create vsop87ver as qradiobutton
+			top=0
+			caption="Jay Tanner's VSOP87"
+			
+		end create
+		create swephver as qradiobutton
+			top=20
+			left=0
+			caption="Swiss Ephemeris"
+			checked=1
+		end create
+	end create
+
+create planetary_lines_inverted as qcheckbox
+	top=570
+	left=100
+	caption="Inverted"
+	onclick=planetary_lines_inverted_click
+end create
+
+    create Planetary_linesbtnok as qbutton
+        left=100
+        top=600
+        caption="OK"
+        onclick=hidePlanetary_linesform
+    end create
+
+END CREATE
+
+sub hidePlanetary_linesform
+    Planetary_linesform.visible=0
+end sub
+
+sub position_click (sender as qcheckbox)
+
+select case sender.caption
+
+case "Ecliptic longitude":
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Ecliptic latitude":
+longitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Ecliptic distance":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+Planetary_method.itemindex=0
+
+case "Ecliptic speed in longitude":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Ecliptic speed in latitude":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Ecliptic speed in distance":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Equatorial rectascension":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Equatorial declination":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Equatorial distance":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+Planetary_method.itemindex=0
+
+case "Equatorial speed in rectascension":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_declination_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Equatorial speed in declination":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+equatorial_speed_distance_checkbox.checked=0
+
+case "Equatorial speed in distance":
+longitude_checkbox.checked=0
+latitude_checkbox.checked=0
+ecliptic_distance_checkbox.checked=0
+speed_longitude_checkbox.checked=0
+speed_latitude_checkbox.checked=0
+ecliptic_speed_distance_checkbox.checked=0
+rectascension_checkbox.checked=0
+declination_checkbox.checked=0
+equatorial_distance_checkbox.checked=0
+speed_rectascension_checkbox.checked=0
+speed_declination_checkbox.checked=0
+
+end select
+
+end sub
+
+sub planetary_lines_inverted_click
+if planetary_lines_inverted.checked=1 then
+planet_lines_inv=-1
+else
+planet_lines_inv=1
+end if
+end sub

@@ -1,0 +1,64 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: R/RS/RSCHUPP/PAR-Packer-1.025.tar.gz
+  CHECKSUM_STATUS: OK
+  ID: R/RS/RSCHUPP/PAR-Packer-1.025.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: RSCHUPP
+  archived: tar
+  build_dir: C:\Perl\cpan\build\PAR-Packer-1.025-TxC_qh
+  incommandcolor: 1
+  localfile: C:\Perl\cpan\sources\authors\id\R\RS\RSCHUPP\PAR-Packer-1.025.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: 1
+    TEXT: NO
+    TIME: 1426423731
+  mandatory: 1
+  negative_prefs_cache: 1
+  prefs: {}
+  prereq_pm:
+    build_requires:
+      ExtUtils::Embed: '0'
+      ExtUtils::MakeMaker: '6.59'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      Archive::Zip: '1.00'
+      Compress::Zlib: '1.16'
+      File::Temp: '0.05'
+      Getopt::ArgvFile: '1.07'
+      IO::Compress::Gzip: '0'
+      Module::ScanDeps: '1.17'
+      PAR: '1.005'
+      PAR::Dist: '0.22'
+      Parse::Binary: '0.04'
+      Text::ParseWords: '0'
+      Win32::Exe: '0.17'
+      Win32::Process: '0'
+      perl: '5.008001'
+  reqtype: c
+  sponsored_mods:
+    Getopt::ArgvFile: 1
+    Module::ScanDeps: 1
+    PAR: 1
+    PAR::Dist: 1
+    Parse::Binary: 1
+    Win32::Exe: 1
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423459
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423461
+perl:
+  $^X: c:\perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426423731

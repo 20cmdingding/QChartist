@@ -1,0 +1,7 @@
+[Settings]
+csvpath=
+barsdisplayed=100
+countedbars=300
+automation=0
+exitsignal=0
+csvpathexit=

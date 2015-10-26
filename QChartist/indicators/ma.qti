@@ -1,0 +1,31 @@
+dim ExtMapBuffer(0 to 1000) as double
+
+
+
+sub sma(period as integer)
+
+    dim sum as double
+dim per as integer
+    sum=0
+    dim i as integer,p as integer
+    p=bars-1
+    p=1000
+    if p<val(maperiodedit.text) then
+        p=val(maperiodedit.text)
+    end if
+per=val(maperiodedit.text)
+if period>0 then
+per=period
+end if
+    for i=1 to per-1
+        sum=sum+close(p)
+        p--
+    next i
+    while p>=0
+        sum=sum+close(p)
+        extmapbuffer(p)=sum/per
+        sum=sum-close(p+per-1)
+        p--
+    wend
+
+end sub   

@@ -1,0 +1,1704 @@
+declare sub Planetary_lines ' This line of code must stay here
+dim Planetary_lines_earthbuffer(0 to 100,0 to 1000) as double ' This line of code must stay here.
+dim Planetary_lines_jupiterbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_marsbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_mercurybuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_neptunebuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_saturnbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_uranusbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_venusbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_sunbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_moonbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_plutobuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_mean_nodebuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_true_nodebuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_mean_apogbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_oscu_apogbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_chironbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_pholusbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_ceresbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_pallasbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_junobuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_vestabuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_nplanetsbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_ast_offsetbuffer(0 to 100,0 to 1000) as double
+dim Planetary_lines_averagebuffer(0 to 100,0 to 1000) as double
+
+sub Planetary_lines
+' Put your indicator RapidQ code here
+
+if heliocentric.checked=0 and geocentric.checked=0 and barycentric.checked=0 then
+	showmessage "Please choose between heliocentric, geocentric and barycentric"
+	exit sub
+end if
+
+defstr year,month,day,hours,minutes
+defstr coordinates
+defstr longitude
+defdbl longitudedbl
+defdbl degrees
+defint limit=val(barslimitedit.text)
+
+dim i as integer
+defint j1,j2,j3,j4,j5,j6,j7,j8,j9,j10,j11,j12,j13,j14,j15,j16,j17,j18,j19,j20,j21,j22,j23,j24
+defint k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12,k13,k14,k15,k16,k17,k18,k19,k20,k21,k22,k23,k24
+
+dim pricedegrees as double
+defint incrgl
+
+' Sweph
+Dim x(6) As Double
+    Dim x2(6) As Double
+    Dim cusp(13) As Double
+    Dim ascmc(10) As Double
+    Dim attr(20) As Double
+    Dim tret(20) As Double
+    Dim geopos(10) As Double
+    Dim geoposx(10) As Double
+    Dim xnasc(6) As Double
+    Dim xndsc(6) As Double
+    Dim xperi(6) As Double
+    Dim xaphe(6) As Double
+    Dim cal As Byte
+    Dim o As orient
+    Dim ss As String * 16
+    cal = 103  ' g for gregorian calendar
+    'defdbl h = phour + pmin / 60
+    'olen = LenB(ss)
+    defdbl plon=8
+    defdbl plat=47
+    geopos(0) = plon
+    geopos(1) = plat
+    geopos(2) = 0
+
+for i=limit to 0 step -1
+	for incrgl=0 to 500
+		Planetary_lines_earthbuffer(incrgl,i)=0
+		Planetary_lines_jupiterbuffer(incrgl,i)=0
+		Planetary_lines_marsbuffer(incrgl,i)=0
+		Planetary_lines_mercurybuffer(incrgl,i)=0
+		Planetary_lines_neptunebuffer(incrgl,i)=0
+		Planetary_lines_saturnbuffer(incrgl,i)=0
+		Planetary_lines_uranusbuffer(incrgl,i)=0
+		Planetary_lines_venusbuffer(incrgl,i)=0
+		Planetary_lines_sunbuffer(incrgl,i)=0
+		Planetary_lines_moonbuffer(incrgl,i)=0
+		Planetary_lines_plutobuffer(incrgl,i)=0
+		Planetary_lines_mean_nodebuffer(incrgl,i)=0
+		Planetary_lines_true_nodebuffer(incrgl,i)=0
+		Planetary_lines_mean_apogbuffer(incrgl,i)=0
+		Planetary_lines_oscu_apogbuffer(incrgl,i)=0
+		Planetary_lines_chironbuffer(incrgl,i)=0
+		Planetary_lines_pholusbuffer(incrgl,i)=0
+		Planetary_lines_ceresbuffer(incrgl,i)=0
+		Planetary_lines_pallasbuffer(incrgl,i)=0
+		Planetary_lines_junobuffer(incrgl,i)=0
+		Planetary_lines_vestabuffer(incrgl,i)=0
+		Planetary_lines_nplanetsbuffer(incrgl,i)=0
+		Planetary_lines_ast_offsetbuffer(incrgl,i)=0
+		Planetary_lines_averagebuffer(incrgl,i)=0
+	next incrgl
+next i
+
+for i=limit to 0 step -1
+j1=0
+j2=0
+j3=0
+j4=0
+j5=0
+j6=0
+j7=0
+j8=0
+j9=0
+j10=0
+j11=0
+j12=0
+j13=0
+j14=0
+j15=0
+j16=0
+j17=0
+j18=0
+j19=0
+j20=0
+j21=0
+j22=0
+j23=0
+j24=0
+k1=0
+k2=0
+k3=0
+k4=0
+k5=0
+k6=0
+k7=0
+k8=0
+k9=0
+k10=0
+k11=0
+k12=0
+k13=0
+k14=0
+k15=0
+k16=0
+k17=0
+k18=0
+k19=0
+k20=0
+k21=0
+k22=0
+k23=0
+k24=0
+year=mid$(date(i),1,4)
+month=mid$(date(i),6,2)
+day=mid$(date(i),9,2)
+hours=mid$(time(i),1,2)
+minutes=mid$(time(i),4,2)
+
+
+if Planetary_average_checkbox.checked=0 and swephver.checked=1 then
+
+defint pday=val(day)
+defint pmonth=val(month)
+defint pyear=val(year)
+defint phour=val(hours)
+defint pmin=val(minutes)
+defdbl h = phour + pmin / 60
+defdbl ptjd_ut
+defdbl ptdj_et
+defstr pparameters
+
+defstr iyearstr,imonthstr,idaystr,hstr
+    iyearstr=str$(pyear)
+    imonthstr=str$(pmonth)
+    idaystr=str$(pday)
+    hstr=str$(h)
+    pparameters=iyearstr+";"+imonthstr+";"+idaystr+";"+hstr+";1"
+    defstr tjd_utstr=varptr$(swe_julday(varptr(pparameters)))
+    ptjd_ut=val(tjd_utstr)
+            
+    pparameters=iyearstr+";"+imonthstr+";"+idaystr+";"+hstr+";g;"+tjd_utstr
+    defstr retvalstr=varptr$(swe_date_conversion(varptr(pparameters)))
+    deflng retval = val(retvalstr)
+
+If retval <> 0 Then
+        showmessage "Illegal Date"
+        Exit Sub
+    End If 
+
+If ephemeris_time.checked=1 Then
+     defdbl tjd_et = ptjd_ut
+     defstr tjd_etstr=str$(tjd_et)
+     ptjd_ut = tjd_et - val(varptr$(swe_deltat(varptr(tjd_etstr))))
+    Else    
+     tjd_et = ptjd_ut + val(varptr$(swe_deltat(varptr(tjd_utstr))))
+    End If    
+    
+    defdbl t2 = ptjd_ut - 2415018.5
+    If t2 < 0 Then
+      t2 = t2
+    End If
+    
+    defstr tjd_ut_formated=Format$("%.8f", ptjd_ut)
+    defstr tjd_et_formated=Format$("%.8f", tjd_et)   
+    
+    defstr ut$
+    
+    If ptjd_ut=tjd_et Then
+      ut$ = ""
+      
+    Else
+      ut$ = "  UT=" + tjd_ut_formated
+    End If    
+ 
+    'swephout.text=swephout.text+"ET="+tjd_et_formated+" "+ ut$ + chr$(10) 
+
+deflng iflag = SEFLG_SPEED + SEFLG_SWIEPH
+	if rectascension_checkbox.checked=1 or _
+	declination_checkbox.checked=1 or _
+	equatorial_distance_checkbox.checked=1 or _
+	speed_rectascension_checkbox.checked=1 or _
+	speed_declination_checkbox.checked=1 or _
+	equatorial_speed_distance_checkbox.checked=1 then
+		iflag=iflag + SEFLG_EQUATORIAL
+	end if
+        If barycentric.checked = 1 Then
+            iflag = iflag + SEFLG_BARYCTR
+        End If
+        If heliocentric.checked = 1 Then
+            iflag = iflag + SEFLG_HELCTR
+        End If
+        If equinox_j2000.checked = 1 Then
+            iflag = iflag + SEFLG_J2000
+        End If
+        If Not apparent_pos.checked = 1 Then
+           iflag = iflag + SEFLG_TRUEPOS
+        End If
+        If sidereal.checked = 1 Then
+           iflag = iflag + SEFLG_SIDEREAL
+           'a = swe_set_sid_mode(SEFLG_SIDM_FAGAN_BRADLEY, 0, 0)
+        End If
+
+defint planet 
+defstr serr$ 
+defstr plnam$ 
+defstr planetstr
+defstr iflagstr
+defstr x0str
+defdbl ret_flag
+
+if Earth.checked=1 then
+
+	planet=SE_EARTH
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)	
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+defint increarth
+    for increarth=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(increarth+val(beginfromedit.text)))*val(planetary_linesratioedit.text)	
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(increarth+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_earthbuffer(j1,i)=pricedegrees
+			j1++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(increarth+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_earthbuffer(k1,i)=pricedegrees
+			k1++
+		end if
+	end if
+next increarth
+end if
+
+if Jupiter.checked=1 then
+	planet=SE_JUPITER
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+defint incrjupiter
+    for incrjupiter=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)	
+		pricedegrees=(degrees+360*(incrjupiter+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrjupiter+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_jupiterbuffer(j2,i)=pricedegrees
+			j2++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrjupiter+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_jupiterbuffer(k2,i)=pricedegrees
+			k2++
+		end if
+	end if
+next incrjupiter
+end if
+
+if Mars.checked=1 then
+	planet=SE_MARS
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrmars
+    for incrmars=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrmars+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrmars+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_marsbuffer(j3,i)=pricedegrees
+			j3++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrmars+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_marsbuffer(k3,i)=pricedegrees
+			k3++
+		end if
+	end if
+    next incrmars
+    
+end if
+
+if Mercury.checked=1 then
+	planet=SE_MERCURY
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrmercury
+    for incrmercury=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrmercury+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrmercury+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_mercurybuffer(j4,i)=pricedegrees
+			j4++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrmercury+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_mercurybuffer(k4,i)=pricedegrees
+			k4++
+		end if
+	end if
+    next incrmercury
+
+end if
+
+if neptune.checked=1 then
+	planet=SE_NEPTUNE
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrneptune
+    for incrneptune=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrneptune+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrneptune+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_neptunebuffer(j5,i)=pricedegrees
+			j5++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrneptune+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_neptunebuffer(k5,i)=pricedegrees
+			k5++
+		end if
+	end if
+    next incrneptune
+    
+end if
+
+if saturn.checked=1 then
+	planet=SE_SATURN
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrsaturn
+    for incrsaturn=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrsaturn+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrsaturn+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_saturnbuffer(j6,i)=pricedegrees
+			j6++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrsaturn+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_saturnbuffer(k6,i)=pricedegrees
+			k6++
+		end if
+	end if
+    next incrsaturn
+    
+end if
+
+if uranus.checked=1 then
+	planet=SE_URANUS
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incruranus
+    for incruranus=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incruranus+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incruranus+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_uranusbuffer(j7,i)=pricedegrees
+			j7++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incruranus+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_uranusbuffer(k7,i)=pricedegrees
+			k7++
+		end if
+	end if
+    next incruranus
+    
+end if
+
+if venus.checked=1 then
+	planet=SE_VENUS
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrvenus
+    for incrvenus=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrvenus+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrvenus+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_venusbuffer(j8,i)=pricedegrees
+			j8++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrvenus+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_venusbuffer(k8,i)=pricedegrees
+			k8++
+		end if
+	end if
+    next incrvenus
+    
+end if
+
+if sun.checked=1 then
+	planet=SE_SUN
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrsun
+    for incrsun=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrsun+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrsun+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_sunbuffer(j9,i)=pricedegrees
+			j9++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrsun+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_sunbuffer(k9,i)=pricedegrees
+			k9++
+		end if
+	end if
+    next incrsun
+    
+end if
+
+if moon.checked=1 then
+	planet=SE_MOON
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrmoon
+    for incrmoon=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrmoon+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrmoon+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_moonbuffer(j10,i)=pricedegrees
+			j10++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrmoon+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_moonbuffer(k10,i)=pricedegrees
+			k10++
+		end if
+	end if
+    next incrmoon
+    
+end if
+
+if pluto.checked=1 then
+	planet=SE_PLUTO
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrpluto
+    for incrpluto=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrpluto+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrpluto+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_plutobuffer(j11,i)=pricedegrees
+			j11++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrpluto+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_plutobuffer(k11,i)=pricedegrees
+			k11++
+		end if
+	end if
+    next incrpluto
+    
+end if
+
+if mean_node.checked=1 then
+	planet=SE_MEAN_NODE
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrmean_node
+    for incrmean_node=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrmean_node+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_mean_nodebuffer(j12,i)=pricedegrees
+			j12++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrmean_node+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_mean_nodebuffer(k12,i)=pricedegrees
+			k12++
+		end if
+	end if
+    next incrmean_node
+    
+end if
+
+if true_node.checked=1 then
+	planet=SE_TRUE_NODE
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrtrue_node
+    for incrtrue_node=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrtrue_node+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_true_nodebuffer(j13,i)=pricedegrees
+			j13++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrtrue_node+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_true_nodebuffer(k13,i)=pricedegrees
+			k13++
+		end if
+	end if
+    next incrtrue_node
+    
+end if
+
+if mean_apog.checked=1 then
+	planet=SE_MEAN_APOG
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrmean_apog
+    for incrmean_apog=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrmean_apog+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_mean_apogbuffer(j14,i)=pricedegrees
+			j14++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrmean_apog+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_mean_apogbuffer(k14,i)=pricedegrees
+			k14++
+		end if
+	end if
+    next incrmean_apog
+    
+end if
+
+if oscu_apog.checked=1 then
+	planet=SE_OSCU_APOG
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incroscu_apog
+    for incroscu_apog=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incroscu_apog+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_oscu_apogbuffer(j15,i)=pricedegrees
+			j15++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incroscu_apog+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_oscu_apogbuffer(k15,i)=pricedegrees
+			k15++
+		end if
+	end if
+    next incroscu_apog
+    
+end if
+
+if chiron.checked=1 then
+	planet=SE_CHIRON
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrchiron
+    for incrchiron=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrchiron+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_chironbuffer(j16,i)=pricedegrees
+			j16++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrchiron+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_chironbuffer(k16,i)=pricedegrees
+			k16++
+		end if
+	end if
+    next incrchiron
+    
+end if
+
+if pholus.checked=1 then
+	planet=SE_PHOLUS
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrpholus
+    for incrpholus=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrpholus+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_pholusbuffer(j17,i)=pricedegrees
+			j17++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrpholus+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_pholusbuffer(k17,i)=pricedegrees
+			k17++
+		end if
+	end if
+    next incrpholus
+    
+end if
+
+if ceres.checked=1 then
+	planet=SE_CERES
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrceres
+    for incrceres=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrceres+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_ceresbuffer(j18,i)=pricedegrees
+			j18++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrceres+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_ceresbuffer(k18,i)=pricedegrees
+			k18++
+		end if
+	end if
+    next incrceres
+    
+end if
+
+if pallas.checked=1 then
+	planet=SE_PALLAS
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrpallas
+    for incrpallas=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrpallas+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_pallasbuffer(j19,i)=pricedegrees
+			j19++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrpallas+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_pallasbuffer(k19,i)=pricedegrees
+			k19++
+		end if
+	end if
+    next incrpallas
+    
+end if
+
+if juno.checked=1 then
+	planet=SE_JUNO
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrjuno
+    for incrjuno=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrjuno+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_junobuffer(j20,i)=pricedegrees
+			j20++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrjuno+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_junobuffer(k20,i)=pricedegrees
+			k20++
+		end if
+	end if
+    next incrjuno
+    
+end if
+
+if vesta.checked=1 then
+	planet=SE_VESTA
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrvesta
+    for incrvesta=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrvesta+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_vestabuffer(j21,i)=pricedegrees
+			j21++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrvesta+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_vestabuffer(k21,i)=pricedegrees
+			k21++
+		end if
+	end if
+    next incrvesta
+    
+end if
+
+if nplanets.checked=1 then
+	planet=SE_NPLANETS
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	if longitude_checkbox.checked=1 or rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(0))*planet_lines_inv)
+	if latitude_checkbox.checked=1 or declination_checkbox.checked=1 then longitude=str$(deg2rad(x(1))*planet_lines_inv)
+	if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 then longitude=str$(x(2))
+	if speed_longitude_checkbox.checked=1 or speed_rectascension_checkbox.checked=1 then longitude=str$(deg2rad(x(3))*planet_lines_inv)
+	if speed_latitude_checkbox.checked=1 or speed_declination_checkbox.checked=1 then longitude=str$(deg2rad(x(4))*planet_lines_inv)
+	if ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then longitude=str$(x(5))
+    defint incrnplanets
+    for incrnplanets=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrnplanets+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if ecliptic_distance_checkbox.checked=1 or equatorial_distance_checkbox.checked=1 or ecliptic_speed_distance_checkbox.checked=1 or equatorial_speed_distance_checkbox.checked=1 then
+			pricedegrees=(val(longitude)+(incrnplanets+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		end if
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_nplanetsbuffer(j22,i)=pricedegrees
+			j22++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrnplanets+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_nplanetsbuffer(k22,i)=pricedegrees
+			k22++
+		end if
+	end if
+    next incrnplanets
+    
+end if
+
+if ast_offset.checked=1 then
+	planet=SE_AST_OFFSET
+        serr$ = String$(255, 0)
+        plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        planetstr=str$(planet)
+        iflagstr=str$(iflag)
+        x0str=str$(x(0))
+        pparameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        ret_flag = val(varptr$(swe_calc(varptr(pparameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            'swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        pparameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+	longitude=str$(deg2rad(x(0)))
+    defint incrast_offset
+    for incrast_offset=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrast_offset+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_venusbuffer(j23,i)=pricedegrees
+			j23++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrast_offset+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_venusbuffer(k23,i)=pricedegrees
+			k23++
+		end if
+	end if
+    next incrast_offset
+    
+end if
+
+end if
+
+if Planetary_average_checkbox.checked=0 and vsop87ver.checked=1 then
+
+if Earth.checked=1 then
+	if heliocentric.checked=1 then
+	coordinates=EARTH_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	end if
+'defint increarth
+    for increarth=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(increarth+val(beginfromedit.text)))*val(planetary_linesratioedit.text)	
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_earthbuffer(j1,i)=pricedegrees
+			j1++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(increarth+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_earthbuffer(k1,i)=pricedegrees
+			k1++
+		end if
+	end if
+next increarth
+end if
+
+if Jupiter.checked=1 then
+	if heliocentric.checked=1 then
+	coordinates=JUPITER_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	end if
+'defint incrjupiter
+    for incrjupiter=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)	
+		pricedegrees=(degrees+360*(incrjupiter+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_jupiterbuffer(j2,i)=pricedegrees
+			j2++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrjupiter+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_jupiterbuffer(k2,i)=pricedegrees
+			k2++
+		end if
+	end if
+next incrjupiter
+end if
+
+if Mars.checked=1 then
+	if heliocentric.checked=1 then
+	coordinates=MARS_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	end if
+    'defint incrmars
+    for incrmars=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrmars+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_marsbuffer(j3,i)=pricedegrees
+			j3++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrmars+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_marsbuffer(k3,i)=pricedegrees
+			k3++
+		end if
+	end if
+    next incrmars
+    
+end if
+
+if Mercury.checked=1 then
+	if heliocentric.checked=1 then
+	coordinates=MERCURY_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	end if
+    'defint incrmercury
+    for incrmercury=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrmercury+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_mercurybuffer(j4,i)=pricedegrees
+			j4++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrmercury+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_mercurybuffer(k4,i)=pricedegrees
+			k4++
+		end if
+	end if
+    next incrmercury
+
+end if
+
+if neptune.checked=1 then
+	if heliocentric.checked=1 then
+	coordinates=neptune_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	end if
+    'defint incrneptune
+    for incrneptune=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrneptune+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_neptunebuffer(j5,i)=pricedegrees
+			j5++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrneptune+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_neptunebuffer(k5,i)=pricedegrees
+			k5++
+		end if
+	end if
+    next incrneptune
+    
+end if
+
+if saturn.checked=1 then
+	if heliocentric.checked=1 then
+	coordinates=saturn_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	end if
+    'defint incrsaturn
+    for incrsaturn=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrsaturn+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_saturnbuffer(j6,i)=pricedegrees
+			j6++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrsaturn+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_saturnbuffer(k6,i)=pricedegrees
+			k6++
+		end if
+	end if
+    next incrsaturn
+    
+end if
+
+if uranus.checked=1 then
+	if heliocentric.checked=1 then
+	coordinates=uranus_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	end if
+    'defint incruranus
+    for incruranus=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incruranus+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_uranusbuffer(j7,i)=pricedegrees
+			j7++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incruranus+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_uranusbuffer(k7,i)=pricedegrees
+			k7++
+		end if
+	end if
+    next incruranus
+    
+end if
+
+if venus.checked=1 then
+	if heliocentric.checked=1 then
+	coordinates=venus_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	end if
+    'defint incrvenus
+    for incrvenus=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*val(longitude)/(rqpi*2)
+		pricedegrees=(degrees+360*(incrvenus+val(beginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_venusbuffer(j8,i)=pricedegrees
+			j8++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(val(longitude))+(incrvenus+val(beginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_venusbuffer(k8,i)=pricedegrees
+			k8++
+		end if
+	end if
+    next incrvenus
+    
+end if
+
+end if
+
+if Planetary_average_checkbox.checked=1 and vsop87ver.checked=1 then
+
+defint nbplanets=0
+longitudedbl=0
+if earth.checked=1 and heliocentric.checked=1 then 
+	coordinates=earth_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	longitudedbl=longitudedbl+val(longitude)
+	nbplanets++
+end if
+if jupiter.checked=1 and heliocentric.checked=1 then 
+	coordinates=jupiter_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	longitudedbl=longitudedbl+val(longitude)
+	nbplanets++
+end if
+if mars.checked=1 and heliocentric.checked=1 then 
+	coordinates=mars_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	longitudedbl=longitudedbl+val(longitude)
+	nbplanets++
+end if
+if mercury.checked=1 and heliocentric.checked=1 then 
+	coordinates=mercury_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	longitudedbl=longitudedbl+val(longitude)
+	nbplanets++
+end if
+if neptune.checked=1 and heliocentric.checked=1 then 
+	coordinates=neptune_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	longitudedbl=longitudedbl+val(longitude)
+	nbplanets++
+end if
+if saturn.checked=1 and heliocentric.checked=1 then 
+	coordinates=saturn_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	longitudedbl=longitudedbl+val(longitude)
+	nbplanets++
+end if
+if uranus.checked=1 and heliocentric.checked=1 then 
+	coordinates=uranus_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	longitudedbl=longitudedbl+val(longitude)
+	nbplanets++
+end if
+if venus.checked=1 and heliocentric.checked=1 then 
+	coordinates=venus_LBR_FOR(day+" "+monthtostr(val(month))+" "+year+" AD",time(i)+":00")
+	longitude=mid$(coordinates,1,instr(coordinates,";")-1)
+	longitude=mid$(longitude,5)
+	longitudedbl=longitudedbl+val(longitude)
+	nbplanets++
+end if
+
+longitudedbl=longitudedbl/nbplanets
+
+defint incravg
+    for incravg=0 to 500	
+	if planetary_method.itemindex=0 then
+		degrees=360*longitudedbl/(rqpi*2)
+		pricedegrees=(degrees+360*(incravg+val(avgbeginfromedit.text)))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_averagebuffer(j9,i)=pricedegrees
+			j9++
+		end if
+	end if
+	if planetary_method.itemindex=1 then
+		pricedegrees=(sin(longitudedbl)+(incravg+val(avgbeginfromedit.text))*val(pointsbetweenlinesedit.text))*val(planetary_linesratioedit.text)
+		if pricedegrees>=graph.yaxis.min then	
+			if pricedegrees>graph.yaxis.max then exit for
+			Planetary_lines_averagebuffer(k9,i)=pricedegrees
+			k9++
+		end if
+	end if
+    next incravg
+    
+end if
+
+next i
+
+end sub

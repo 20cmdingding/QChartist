@@ -1,0 +1,22 @@
+declare sub hideChiSquareDistributionfform
+
+CREATE ChiSquareDistributionfform as qform
+
+    Center
+    Caption = "Settings for: ChiSquareDistributionf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create ChiSquareDistributionfbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideChiSquareDistributionfform
+    end create
+
+END CREATE
+
+sub hideChiSquareDistributionfform
+    ChiSquareDistributionfform.visible=0
+end sub

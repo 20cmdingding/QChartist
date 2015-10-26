@@ -1,0 +1,22 @@
+declare sub hideLSSform
+
+CREATE LSSform as qform
+
+    Center
+    Caption = "Settings for: LSS Oscillator"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create LSSbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideLSSform
+    end create
+
+END CREATE
+
+sub hideLSSform
+    LSSform.visible=0
+end sub

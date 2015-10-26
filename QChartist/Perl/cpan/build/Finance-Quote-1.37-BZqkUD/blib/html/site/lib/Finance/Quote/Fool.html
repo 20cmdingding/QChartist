@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::Fool - Obtain quotes from the Motley Fool web site.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"fool"</span><span class="operator">,</span><span class="string">"GE"</span><span class="operator">,</span> <span class="string">"INTC"</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information from the Motley Fool website (www.fool.com). The site provides date from NASDAQ, NYSE and AMEX.</p>
+
+<p>This module is loaded by default on a Finance::Quote object. It&#39;s also possible to load it explicity by placing &quot;Fool&quot; in the argument list to Finance::Quote-&gt;new().</p>
+
+<p>Information returned by this module is governed by the Motley Fool&#39;s terms and conditions.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>The following labels may be returned by Finance::Quote::Fool: symbol, price, change, open, close, high, low, yhigh, ylow, div, yield, vol, avg_vol, pe, change_p, currency, method.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Motley Fool, http://www.fool.com</p>
+
+<p>Finance::Quote.</p>
+
+
+</body>
+
+</html>
+
+

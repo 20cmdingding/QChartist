@@ -1,0 +1,20 @@
+'------------------------- Average True Range -------------------------------------------------
+indiid++
+         
+                    if indicatorslistsel.item(indiid)="x" then 
+            
+                        if lbar=1 then           
+                            atr(1)
+                        end if
+
+                         barsback=VAL(atrbarsbackedit.text)
+                        
+                    if ibar>=lastbar-barsback then
+                        sepindicolor(drawid)=lightblue
+                        canvas.separateindicator1.Cell(drawid,lbar)= STR$(atrbuffer(offset))
+            		drawid=drawid+2
+                    end if                      
+                     
+                end if                                  
+
+        '------------------------- End Average True Range -------------------------------------------------

@@ -1,0 +1,497 @@
+---
+history:
+- attempts:
+  - method: dleasy
+    start: 1426412754.78674
+    url: &1 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412756.46882
+  file: authors/01mailrc.txt.gz
+  filesize: 231414
+  start: 1426412754.78402
+  thesiteurl: *1
+- attempts:
+  - method: dleasy
+    start: 1426412757.46814
+    url: &2 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412760.60283
+  file: modules/02packages.details.txt.gz
+  filesize: 1637996
+  start: 1426412757.46722
+  thesiteurl: *2
+- attempts:
+  - method: dleasy
+    start: 1426412774.48751
+    url: &3 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412774.87993
+  file: modules/03modlist.data.gz
+  filesize: 248
+  start: 1426412774.48685
+  thesiteurl: *3
+- attempts:
+  - method: dleasy
+    start: 1426412776.06457
+    url: &4 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412777.63806
+  file: authors/id/E/EC/ECOCODE/Finance-Quote-1.37.tar.gz
+  filesize: 251374
+  start: 1426412776.06246
+  thesiteurl: *4
+- attempts:
+  - method: dleasy
+    start: 1426412777.66074
+    url: &5 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412778.06032
+  file: authors/id/E/EC/ECOCODE/CHECKSUMS
+  filesize: 3123
+  start: 1426412777.65694
+  thesiteurl: *5
+- attempts:
+  - method: dleasy
+    start: 1426412781.86752
+    url: &6 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412782.47407
+  file: authors/id/M/MS/MSISK/HTML-TableExtract-2.12.tar.gz
+  filesize: 33797
+  start: 1426412781.86567
+  thesiteurl: *6
+- attempts:
+  - method: dleasy
+    start: 1426412782.48828
+    url: &7 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412782.95289
+  file: authors/id/M/MS/MSISK/CHECKSUMS
+  filesize: 14550
+  start: 1426412782.48437
+  thesiteurl: *7
+- attempts:
+  - method: dleasy
+    start: 1426412812.33252
+    url: &8 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412813.73652
+  file: authors/id/D/DR/DROLSKY/DateTime-1.18.tar.gz
+  filesize: 212053
+  start: 1426412812.33252
+  thesiteurl: *8
+- attempts:
+  - method: dleasy
+    start: 1426412813.75115
+    url: &9 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412815.32773
+  file: authors/id/D/DR/DROLSKY/CHECKSUMS
+  filesize: 266148
+  start: 1426412813.74691
+  thesiteurl: *9
+- attempts:
+  - method: dleasy
+    start: 1426412817.32642
+    url: &10 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412818.94693
+  file: authors/id/L/LE/LEONT/Module-Build-0.4211.tar.gz
+  filesize: 304925
+  start: 1426412817.32453
+  thesiteurl: *10
+- attempts:
+  - method: dleasy
+    start: 1426412818.96243
+    url: &11 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412820.56934
+  file: authors/id/L/LE/LEONT/CHECKSUMS
+  filesize: 286148
+  start: 1426412818.95802
+  thesiteurl: *11
+- attempts:
+  - method: dleasy
+    start: 1426412822.09967
+    url: &12 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412823.09654
+  file: authors/id/D/DA/DAGOLDEN/CPAN-Meta-2.150001.tar.gz
+  filesize: 100111
+  start: 1426412822.09814
+  thesiteurl: *12
+- attempts:
+  - method: dleasy
+    start: 1426412823.11277
+    url: &13 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426412824.75014
+  file: authors/id/D/DA/DAGOLDEN/CHECKSUMS
+  filesize: 310252
+  start: 1426412823.10788
+  thesiteurl: *13
+- attempts:
+  - method: dleasy
+    start: 1426413366.29176
+    url: &14 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413366.88229
+  file: authors/id/R/RJ/RJBS/Test-Fatal-0.014.tar.gz
+  filesize: 19685
+  start: 1426413366.28949
+  thesiteurl: *14
+- attempts:
+  - method: dleasy
+    start: 1426413366.89874
+    url: &15 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413368.7855
+  file: authors/id/R/RJ/RJBS/CHECKSUMS
+  filesize: 479710
+  start: 1426413366.89374
+  thesiteurl: *15
+- attempts:
+  - method: dleasy
+    start: 1426413399.57995
+    url: &16 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413402.10716
+  file: authors/id/D/DR/DROLSKY/DateTime-Locale-0.45.tar.gz
+  filesize: 1079736
+  start: 1426413399.57995
+  thesiteurl: *16
+- attempts:
+  - method: dleasy
+    start: 1426413413.43329
+    url: &17 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413414.60278
+  file: authors/id/D/DR/DROLSKY/Params-Validate-1.18.tar.gz
+  filesize: 124379
+  start: 1426413413.43278
+  thesiteurl: *17
+- attempts:
+  - method: dleasy
+    start: 1426413419.62786
+    url: &18 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413420.0369
+  file: authors/id/T/TO/TOKUHIROM/Test-Requires-0.08.tar.gz
+  filesize: 10888
+  start: 1426413419.62599
+  thesiteurl: *18
+- attempts:
+  - method: dleasy
+    start: 1426413420.05458
+    url: &19 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413421.48239
+  file: authors/id/T/TO/TOKUHIROM/CHECKSUMS
+  filesize: 231860
+  start: 1426413420.04884
+  thesiteurl: *19
+- attempts:
+  - method: dleasy
+    start: 1426413627.85515
+    url: &20 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413630.17956
+  file: authors/id/D/DR/DROLSKY/DateTime-TimeZone-1.85.tar.gz
+  filesize: 895086
+  start: 1426413627.85515
+  thesiteurl: *20
+- attempts:
+  - method: dleasy
+    start: 1426413642.55223
+    url: &21 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413642.99068
+  file: authors/id/S/SH/SHAY/Class-Singleton-1.5.tar.gz
+  filesize: 7785
+  start: 1426413642.55038
+  thesiteurl: *21
+- attempts:
+  - method: dleasy
+    start: 1426413643.00967
+    url: &22 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413643.65798
+  file: authors/id/S/SH/SHAY/CHECKSUMS
+  filesize: 18156
+  start: 1426413643.00341
+  thesiteurl: *22
+- attempts:
+  - method: dleasy
+    start: 1426413671.75363
+    url: &23 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413672.34643
+  file: authors/id/D/DR/DROLSKY/List-AllUtils-0.09.tar.gz
+  filesize: 25846
+  start: 1426413671.75363
+  thesiteurl: *23
+- attempts:
+  - method: dleasy
+    start: 1426413674.20446
+    url: &24 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413674.84244
+  file: authors/id/E/ET/ETHER/Test-Warnings-0.020.tar.gz
+  filesize: 33239
+  start: 1426413674.20284
+  thesiteurl: *24
+- attempts:
+  - method: dleasy
+    start: 1426413674.86215
+    url: &25 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413676.96404
+  file: authors/id/E/ET/ETHER/CHECKSUMS
+  filesize: 405556
+  start: 1426413674.85561
+  thesiteurl: *25
+- attempts:
+  - method: dleasy
+    start: 1426413861.96476
+    url: &26 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413863.39997
+  file: authors/id/L/LE/LEEJO/CGI-4.13.tar.gz
+  filesize: 186050
+  start: 1426413861.96476
+  thesiteurl: *26
+- attempts:
+  - method: dleasy
+    start: 1426413863.42035
+    url: &27 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413864.10197
+  file: authors/id/L/LE/LEEJO/CHECKSUMS
+  filesize: 17973
+  start: 1426413863.41338
+  thesiteurl: *27
+- attempts:
+  - method: dleasy
+    start: 1426413866.4447
+    url: &28 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413866.86532
+  file: authors/id/C/CH/CHORNY/Test-Warn-0.30.tar.gz
+  filesize: 11281
+  start: 1426413866.39517
+  thesiteurl: *28
+- attempts:
+  - method: dleasy
+    start: 1426413866.88618
+    url: &29 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413867.70557
+  file: authors/id/C/CH/CHORNY/CHECKSUMS
+  filesize: 39650
+  start: 1426413866.87897
+  thesiteurl: *29
+- attempts:
+  - method: dleasy
+    start: 1426413949.58461
+    url: &30 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413950.19301
+  file: authors/id/A/AD/ADAMK/Test-NoWarnings-1.04.tar.gz
+  filesize: 18204
+  start: 1426413949.58461
+  thesiteurl: *30
+- attempts:
+  - method: dleasy
+    start: 1426413950.21584
+    url: &31 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413952.22101
+  file: authors/id/A/AD/ADAMK/CHECKSUMS
+  filesize: 546183
+  start: 1426413950.20852
+  thesiteurl: *31
+- attempts:
+  - method: dleasy
+    start: 1426413953.75208
+    url: &32 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413954.96662
+  file: authors/id/E/EX/EXODIST/Test-Simple-1.001014.tar.gz
+  filesize: 127212
+  start: 1426413953.74981
+  thesiteurl: *32
+- attempts:
+  - method: dleasy
+    start: 1426413954.98934
+    url: &33 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426413955.62182
+  file: authors/id/E/EX/EXODIST/CHECKSUMS
+  filesize: 29843
+  start: 1426413954.98192
+  thesiteurl: *33
+- attempts:
+  - method: dleasy
+    start: 1426414371.8187
+    url: &34 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426414372.72296
+  file: authors/id/R/RJ/RJBS/Test-Deep-0.115.tar.gz
+  filesize: 38038
+  start: 1426414371.81815
+  thesiteurl: *34
+- attempts:
+  - method: dleasy
+    start: 1426423452.55966
+    url: &35 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423454.8974
+  file: authors/id/R/RS/RSCHUPP/PAR-Packer-1.025.tar.gz
+  filesize: 199839
+  start: 1426423452.5574
+  thesiteurl: *35
+- attempts:
+  - method: dleasy
+    start: 1426423454.99555
+    url: &36 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423455.4122
+  file: authors/id/R/RS/RSCHUPP/CHECKSUMS
+  filesize: 5048
+  start: 1426423454.98838
+  thesiteurl: *36
+- attempts:
+  - method: dleasy
+    start: 1426423461.26465
+    url: &37 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423461.93301
+  file: authors/id/J/JS/JSTENZEL/Getopt-ArgvFile-1.11.tar.gz
+  filesize: 19469
+  start: 1426423461.26221
+  thesiteurl: *37
+- attempts:
+  - method: dleasy
+    start: 1426423461.95517
+    url: &38 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423462.58822
+  file: authors/id/J/JS/JSTENZEL/CHECKSUMS
+  filesize: 21007
+  start: 1426423461.9478
+  thesiteurl: *38
+- attempts:
+  - method: dleasy
+    start: 1426423510.6987
+    url: &39 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423511.5255
+  file: authors/id/R/RS/RSCHUPP/Module-ScanDeps-1.18.tar.gz
+  filesize: 61759
+  start: 1426423510.6987
+  thesiteurl: *39
+- attempts:
+  - method: dleasy
+    start: 1426423562.25679
+    url: &40 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423563.05239
+  file: authors/id/M/MD/MDOOTSON/Win32-Exe-0.17.tar.gz
+  filesize: 53192
+  start: 1426423562.25679
+  thesiteurl: *40
+- attempts:
+  - method: dleasy
+    start: 1426423563.07591
+    url: &41 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423563.47946
+  file: authors/id/M/MD/MDOOTSON/CHECKSUMS
+  filesize: 10887
+  start: 1426423563.068
+  thesiteurl: *41
+- attempts:
+  - method: dleasy
+    start: 1426423565.61246
+    url: &42 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423566.2816
+  file: authors/id/A/AU/AUDREYT/Parse-Binary-0.11.tar.gz
+  filesize: 33313
+  start: 1426423565.6108
+  thesiteurl: *42
+- attempts:
+  - method: dleasy
+    start: 1426423566.30495
+    url: &43 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423567.5452
+  file: authors/id/A/AU/AUDREYT/CHECKSUMS
+  filesize: 145785
+  start: 1426423566.29678
+  thesiteurl: *43
+- attempts:
+  - method: dleasy
+    start: 1426423647.82294
+    url: &44 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423649.18014
+  file: authors/id/R/RS/RSCHUPP/PAR-1.008.tar.gz
+  filesize: 74635
+  start: 1426423647.82294
+  thesiteurl: *44
+- attempts:
+  - method: dleasy
+    start: 1426423650.83428
+    url: &45 !!perl/hash:CPAN::URL
+      FROM: USER
+      TEXT: http://ppm.activestate.com/CPAN/
+  end: 1426423651.44215
+  file: authors/id/R/RS/RSCHUPP/PAR-Dist-0.49.tar.gz
+  filesize: 36682
+  start: 1426423650.83375
+  thesiteurl: *45

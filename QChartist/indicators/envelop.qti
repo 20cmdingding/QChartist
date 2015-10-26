@@ -1,0 +1,77 @@
+declare sub envelop ' This line of code must stay here
+'dim envelopbuffer(0 to 1000) as double ' This line of code must stay here.
+dim  ci(0 to 1000) as double
+dim UperBuffer (0 to 1000) as double
+dim DownBuffer (0 to 1000) as double
+
+sub envelop
+' Put your indicator code here
+dim hours as integer:hours =4
+dim s as integer :s=10
+dim cb as integer:cb=1000
+dim  Envelope_Shift as double:Envelope_Shift =2
+dim Shift as integer :Shift =0
+dim i as integer
+dim x as integer
+dim m as integer
+dim pt as integer
+dim aa as integer
+dim bb as integer
+dim cc as integer
+
+' Getting period
+dim j as string:j= importedfile(displayedfile)
+dim k as integer
+k=instr(0,j,".")
+'dim i as integer
+dim l as string
+for i=k-1 to 0 step -1
+l=mid$(j,i,1)
+if asc(l)<48 or asc(l)>57 then
+exit for
+end if
+next i
+dim mm as string
+mm=mid$(j,i+1)
+mm=mid$(mm,0,instr(0,mm,".")-1)
+
+   pt=hours*60/val(mm)
+   if (pt<1) then 
+	pt=1
+   end if
+
+   for m=0 to s
+     
+      i=0
+      while(i<=cb)
+        
+         if (m=0) then
+		 ci(cb+pt)=Close(cb+pt): ci(i)=Close(i): ci(cb+2*pt)=Close(cb+2*pt)
+	end if
+         if (m<>0 and m<>s) then
+		 ci(i+pt)=0.5*(ci(i)+ci(i+2*pt)): ci(0)=0.5*(ci(0)+ci(pt)):  ci(cb+2*pt)=0.5*(ci(cb+2*pt)+ci(cb+pt))
+	  end if
+           if (m=s) then
+		 aa=i: bb=i+pt: cc=i+2*pt
+            for x=i to i+pt-1
+		  ci(x)=ci(aa)*((x-bb)*(x-cc))/((aa-bb)*(aa-cc))+ci(bb)*((x-aa)*(x-cc))/((bb-aa)*(bb-cc))+ci(cc)*((x-aa)*(x-bb))/((cc-aa)*(cc-bb))
+		next x
+           end if
+
+         i=i+pt
+        wend
+     next m
+     
+
+dim ExtCountedBars as integer:ExtCountedBars=val(cntbarsedit.text)
+   dim r as integer:   r=Bars-ExtCountedBars-1
+   
+   while(r>=0)
+     
+      UperBuffer(r)=  ci(r)*(1+Envelope_Shift/100)
+      DownBuffer(r)=  ci(r)/(1+Envelope_Shift/100)
+      r--
+     
+    wend
+
+end sub

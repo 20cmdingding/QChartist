@@ -1,0 +1,22 @@
+declare sub hideLog1Pfform
+
+CREATE Log1Pfform as qform
+
+    Center
+    Caption = "Settings for: Log1Pf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Log1Pfbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideLog1Pfform
+    end create
+
+END CREATE
+
+sub hideLog1Pfform
+    Log1Pfform.visible=0
+end sub

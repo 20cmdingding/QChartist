@@ -1,0 +1,26 @@
+---
+abstract: 'Manipulate Win32 executable files'
+author:
+  - 'Audrey Tang <cpan@audreyt.org>'
+build_requires:
+  File::Copy: '0'
+  Test::More: '0'
+configure_requires:
+  ExtUtils::MakeMaker: '0'
+dynamic_config: 0
+generated_by: 'ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.150001'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: Win32-Exe
+no_index:
+  directory:
+    - t
+    - inc
+requires:
+  Parse::Binary: '0.11'
+  XML::Parser: '2.36'
+  XML::Simple: '2.18'
+  perl: '5.006000'
+version: '0.17'

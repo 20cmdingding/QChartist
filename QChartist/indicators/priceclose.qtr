@@ -1,0 +1,21 @@
+'------------------------- Close Price -------------------------------------------------
+indiid++
+         
+                     if indicatorslistsel.item(indiid)="x" then 
+            
+                        if lbar=1 then           
+                            closepriceindi                        
+                        end if
+
+                         barsback=VAL(mabarsbackedit.text)                        
+
+                        if ibar>=lastbar-barsback then
+                            sepindicolor(drawid)=blue
+                            canvas.separateindicator1.Cell(drawid,lbar)= STR$(closepricebuffer(offset))
+				drawid=drawid+2
+            
+                        end if                      
+                     
+                    end if                                  
+
+        '------------------------- End Close Price -------------------------------------------------

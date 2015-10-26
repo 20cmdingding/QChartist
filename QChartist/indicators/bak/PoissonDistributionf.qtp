@@ -1,0 +1,22 @@
+declare sub hidePoissonDistributionfform
+
+CREATE PoissonDistributionfform as qform
+
+    Center
+    Caption = "Settings for: PoissonDistributionf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create PoissonDistributionfbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hidePoissonDistributionfform
+    end create
+
+END CREATE
+
+sub hidePoissonDistributionfform
+    PoissonDistributionfform.visible=0
+end sub

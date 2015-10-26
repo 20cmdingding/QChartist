@@ -1,0 +1,13 @@
+do{ my $x = {
+       'blib\\arch\\auto\\DateTime\\DateTime.dll' => 1,
+       'lib/DateTime.o' => 1,
+       'lib\\DateTime.o' => 1,
+       'blib/arch/auto/DateTime/DateTime.bs' => 1,
+       'lib\\DateTime.c' => 1,
+       'blib\\arch\\auto\\DateTime\\DateTime.bs' => 1,
+       'blib/arch/auto/DateTime/DateTime.so' => 1,
+       'lib/DateTime.c' => 1,
+       'blib' => 1,
+       'pod2htm*' => 1
+     };
+$x; }

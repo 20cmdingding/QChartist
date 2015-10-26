@@ -1,0 +1,39 @@
+'------------------------- Fibo MA Channels -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+smafibo
+end if
+
+barsback=200 '<--- can also be something like VAL(myindibarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=red '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(fibobuffer1(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+	indicolor(drawid)=orange '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(fibobuffer2(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+	indicolor(drawid)=yellow '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(fibobuffer3(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+	indicolor(drawid)=white '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(fibobuffer4(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+	indicolor(drawid)=white '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(fibobuffer5(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+	indicolor(drawid)=yellow '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(fibobuffer6(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+	indicolor(drawid)=orange '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(fibobuffer7(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+	indicolor(drawid)=red '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(fibobuffer8(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Fibo MA Channels -------------------------------------------------

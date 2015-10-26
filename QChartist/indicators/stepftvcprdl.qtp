@@ -1,0 +1,34 @@
+declare sub hidestepftvcprdlform
+
+CREATE stepftvcprdlform as qform
+
+    Center
+    Caption = "Settings for: stepftvcprdl"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create stepftvcprdlperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create stepftvcprdlperiodedit as qedit
+        left=stepftvcprdlperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create stepftvcprdlbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hidestepftvcprdlform
+    end create
+
+END CREATE
+
+sub hidestepftvcprdlform
+    stepftvcprdlform.visible=0
+end sub

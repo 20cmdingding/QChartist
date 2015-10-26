@@ -1,0 +1,12 @@
+declare sub IGamma ' This line of code must stay here
+dim IGammabuffer(0 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+
+sub IGamma
+' Put your indicator code here
+    dim i as integer,p as integer
+    p=200'val(priceclosebarsbackedit.text)
+    while p>=0
+        IGammabuffer(p)=IncompleteGamma(close(p+1),close(p))
+        p--
+    wend
+end sub

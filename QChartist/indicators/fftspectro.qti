@@ -1,0 +1,78 @@
+declare sub fftspectro ' This line of code must stay here
+dim fftspectrobuffer(1 to 9,0 to 1000) as double ' This line of code must stay here.
+
+sub fftspectro
+' Put your indicator RapidQ code here
+
+'set some maximum limits 
+ DEFINT maxc = 10           'max columns 
+ DEFINT maxr = 20           'max rows 
+ DEFINT maxv = 16000        'should be at least double sample points 
+
+'set the number of data points 
+ DIM n AS INTEGER
+   n = 256 'try 256, or 512, 1024, 4096 8192, etc. 
+
+DIM pi2 as single
+   pi2 =  rqpi * 2
+ DIM th AS SINGLE
+
+ DIM xdata(0 TO maxv) AS SINGLE
+ DIM ydata(0 TO maxv) AS SINGLE
+ DIM tdata(0 TO maxv) AS SINGLE
+ DIM i                AS INTEGER
+
+'**** build our waveform of sine waves ****** 
+  FOR th = n TO 0 STEP -1 
+    xdata(n-th) = close(th)
+    ydata(n-th) = 0                            'nothing in imaginary domain 
+    tdata(n-th) = n-th
+  NEXT th
+
+'calc the fft spectrum 
+
+  DIM xCopy(n)  AS SINGLE
+  DIM yCopy(n)  AS SINGLE
+  DIM Hz(0 TO n) AS SINGLE
+  DIM ph(0 TO n) AS SINGLE
+  DIM Amp(0 TO n) AS SINGLE
+
+    fft(@xdata(0), @ydata(0), n, 0)
+    FFTMagnitude(@xdata(0) , @ydata(0) , n, @Amp(0))
+    FFTPhase(@xdata(0), @ydata(0), n, @ph(0))
+    FFTFrequency(@Hz(0),(n/1.0!), n)
+
+' ' or 
+' --------DFT any size sample --------------- 
+'   DFT(@xdata(0), @ydata(0), n, 0) 
+'   DFTMagnitude(@xdata(0) , @ydata(0) , n, @Amp(0)) 
+'   DFTPhase(@xdata(0), @ydata(0), n, @ph(0)) 
+'   FFTFrequency (@Hz(0), (n), n) 
+
+defint jj,j,k=0
+
+for i=1 to 9
+	for jj=0 to n-1
+		fftspectrobuffer(i,n-1-jj) = 0
+	next jj
+next i
+
+DIM Amp2(0 TO n) AS SINGLE 
+For j = 0 To n\2 -1
+	Amp2(j)=amp(j)
+next j
+QUICKSORT(Amp2(0), Amp2(n\2 -1), descend) 
+
+For j = 0 To n\2 -1
+	for jj=0 to n-1            		
+		fftspectrobuffer(9,n-1-jj) = fftspectrobuffer(9,n-1-jj) + amp(j)*sin(Hz(j)*(jj*2*rqpi/(n-1))+((ph(j)/3)-(rqpi/6))) '/(n\2 -1)
+        next jj
+	if amp(j)>amp2(8) then
+		k++
+        	for jj=0 to n-1            		
+				fftspectrobuffer(k,n-1-jj) = amp(j)*sin(Hz(j)*(jj*2*rqpi/(n-1))+((ph(j)/3)-(rqpi/6))) '/(n\2 -1)
+            	next jj
+	end if
+Next j
+
+end sub

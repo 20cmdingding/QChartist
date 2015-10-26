@@ -1,0 +1,165 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OTHER-PIECES-OF-THE-PUZZLE">OTHER PIECES OF THE PUZZLE</a></li>
+  <li><a href="#WRITING-FASTCGI-PERL-SCRIPTS">WRITING FASTCGI PERL SCRIPTS</a></li>
+  <li><a href="#INSTALLING-FASTCGI-SCRIPTS">INSTALLING FASTCGI SCRIPTS</a></li>
+  <li><a href="#USING-FASTCGI-SCRIPTS-AS-CGI-SCRIPTS">USING FASTCGI SCRIPTS AS CGI SCRIPTS</a></li>
+  <li><a href="#EXTERNAL-FASTCGI-SERVER-INVOCATION">EXTERNAL FASTCGI SERVER INVOCATION</a></li>
+  <li><a href="#CAVEATS">CAVEATS</a></li>
+  <li><a href="#AUTHOR-INFORMATION">AUTHOR INFORMATION</a></li>
+  <li><a href="#BUGS">BUGS</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>CGI::Fast - CGI Interface for Fast CGI</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">CGI::Fast</span> <span class="string">qw(:standard)</span><span class="operator">;</span>
+    <span class="variable">$COUNTER</span> <span class="operator">=</span> <span class="number">0</span><span class="operator">;</span>
+    <span class="keyword">while</span> <span class="operator">(</span><span class="variable">new</span> <span class="variable">CGI::Fast</span><span class="operator">)</span> <span class="operator">{</span>
+        <span class="keyword">print</span> <span class="variable">header</span><span class="operator">;</span>
+        <span class="keyword">print</span> <span class="variable">start_html</span><span class="operator">(</span><span class="string">"Fast CGI Rocks"</span><span class="operator">);</span>
+        <span class="keyword">print</span>
+            <span class="variable">h1</span><span class="operator">(</span><span class="string">"Fast CGI Rocks"</span><span class="operator">),</span>
+            <span class="string">"Invocation number "</span><span class="operator">,</span><span class="variable">b</span><span class="operator">(</span><span class="variable">$COUNTER</span><span class="operator">++),</span>
+            <span class="string">" PID "</span><span class="operator">,</span><span class="variable">b</span><span class="operator">(</span><span class="variable">$$</span><span class="operator">),</span><span class="string">"."</span><span class="operator">,</span>
+            <span class="variable">hr</span><span class="operator">;</span>
+        <span class="keyword">print</span> <span class="variable">end_html</span><span class="operator">;</span>
+    <span class="operator">}</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>CGI::Fast is a subclass of the CGI object created by CGI.pm. It is specialized to work well FCGI module, which greatly speeds up CGI scripts by turning them into persistently running server processes. Scripts that perform time-consuming initialization processes, such as loading large modules or opening persistent database connections, will see large performance improvements.</p>
+
+<h1 id="OTHER-PIECES-OF-THE-PUZZLE">OTHER PIECES OF THE PUZZLE</h1>
+
+<p>In order to use CGI::Fast you&#39;ll need the FCGI module. See http://www.cpan.org/ for details.</p>
+
+<h1 id="WRITING-FASTCGI-PERL-SCRIPTS">WRITING FASTCGI PERL SCRIPTS</h1>
+
+<p>FastCGI scripts are persistent: one or more copies of the script are started up when the server initializes, and stay around until the server exits or they die a natural death. After performing whatever one-time initialization it needs, the script enters a loop waiting for incoming connections, processing the request, and waiting some more.</p>
+
+<p>A typical FastCGI script will look like this:</p>
+
+<pre><code>    <span class="comment">#!/usr/bin/perl</span>
+    <span class="keyword">use</span> <span class="variable">CGI::Fast</span><span class="operator">;</span>
+    <span class="operator">&amp;</span><span class="variable">do_some_initialization</span><span class="operator">();</span>
+    <span class="keyword">while</span> <span class="operator">(</span><span class="variable">$q</span> <span class="operator">=</span> <span class="variable">new</span> <span class="variable">CGI::Fast</span><span class="operator">)</span> <span class="operator">{</span>
+        <span class="operator">&amp;</span><span class="variable">process_request</span><span class="operator">(</span><span class="variable">$q</span><span class="operator">);</span>
+    <span class="operator">}</span>
+</code></pre>
+
+<p>Each time there&#39;s a new request, CGI::Fast returns a CGI object to your loop. The rest of the time your script waits in the call to new(). When the server requests that your script be terminated, new() will return undef. You can of course exit earlier if you choose. A new version of the script will be respawned to take its place (this may be necessary in order to avoid Perl memory leaks in long-running scripts).</p>
+
+<p>CGI.pm&#39;s default CGI object mode also works. Just modify the loop this way:</p>
+
+<pre><code>    <span class="keyword">while</span> <span class="operator">(</span><span class="variable">new</span> <span class="variable">CGI::Fast</span><span class="operator">)</span> <span class="operator">{</span>
+        <span class="operator">&amp;</span><span class="variable">process_request</span><span class="operator">;</span>
+    <span class="operator">}</span>
+</code></pre>
+
+<p>Calls to header(), start_form(), etc. will all operate on the current request.</p>
+
+<h1 id="INSTALLING-FASTCGI-SCRIPTS">INSTALLING FASTCGI SCRIPTS</h1>
+
+<p>See the FastCGI developer&#39;s kit documentation for full details. On the Apache server, the following line must be added to srm.conf:</p>
+
+<pre><code>    AddType application/x-httpd-fcgi .fcgi</code></pre>
+
+<p>FastCGI scripts must end in the extension .fcgi. For each script you install, you must add something like the following to srm.conf:</p>
+
+<pre><code>    FastCgiServer /usr/etc/httpd/fcgi-bin/file_upload.fcgi -processes 2</code></pre>
+
+<p>This instructs Apache to launch two copies of file_upload.fcgi at startup time.</p>
+
+<h1 id="USING-FASTCGI-SCRIPTS-AS-CGI-SCRIPTS">USING FASTCGI SCRIPTS AS CGI SCRIPTS</h1>
+
+<p>Any script that works correctly as a FastCGI script will also work correctly when installed as a vanilla CGI script. However it will not see any performance benefit.</p>
+
+<h1 id="EXTERNAL-FASTCGI-SERVER-INVOCATION">EXTERNAL FASTCGI SERVER INVOCATION</h1>
+
+<p>FastCGI supports a TCP/IP transport mechanism which allows FastCGI scripts to run external to the webserver, perhaps on a remote machine. To configure the webserver to connect to an external FastCGI server, you would add the following to your srm.conf:</p>
+
+<pre><code>    FastCgiExternalServer /usr/etc/httpd/fcgi-bin/file_upload.fcgi -host sputnik:8888</code></pre>
+
+<p>Two environment variables affect how the <code>CGI::Fast</code> object is created, allowing <code>CGI::Fast</code> to be used as an external FastCGI server. (See <code>FCGI</code> documentation for <code>FCGI::OpenSocket</code> for more information.)</p>
+
+<dl>
+
+<dt id="FCGI_SOCKET_PATH">FCGI_SOCKET_PATH</dt>
+<dd>
+
+<p>The address (TCP/IP) or path (UNIX Domain) of the socket the external FastCGI script to which bind an listen for incoming connections from the web server.</p>
+
+</dd>
+<dt id="FCGI_LISTEN_QUEUE">FCGI_LISTEN_QUEUE</dt>
+<dd>
+
+<p>Maximum length of the queue of pending connections.</p>
+
+</dd>
+</dl>
+
+<p>For example:</p>
+
+<pre><code>    <span class="comment">#!/usr/local/bin/perl    # must be a FastCGI version of perl!</span>
+    <span class="keyword">use</span> <span class="variable">CGI::Fast</span><span class="operator">;</span>
+    <span class="operator">&amp;</span><span class="variable">do_some_initialization</span><span class="operator">();</span>
+    <span class="variable">$ENV</span><span class="operator">{</span><span class="string">FCGI_SOCKET_PATH</span><span class="operator">}</span> <span class="operator">=</span> <span class="string">"sputnik:8888"</span><span class="operator">;</span>
+    <span class="variable">$ENV</span><span class="operator">{</span><span class="string">FCGI_LISTEN_QUEUE</span><span class="operator">}</span> <span class="operator">=</span> <span class="number">100</span><span class="operator">;</span>
+    <span class="keyword">while</span> <span class="operator">(</span><span class="variable">$q</span> <span class="operator">=</span> <span class="variable">new</span> <span class="variable">CGI::Fast</span><span class="operator">)</span> <span class="operator">{</span>
+        <span class="operator">&amp;</span><span class="variable">process_request</span><span class="operator">(</span><span class="variable">$q</span><span class="operator">);</span>
+    <span class="operator">}</span>
+</code></pre>
+
+<h1 id="CAVEATS">CAVEATS</h1>
+
+<p>I haven&#39;t tested this very much.</p>
+
+<h1 id="AUTHOR-INFORMATION">AUTHOR INFORMATION</h1>
+
+<p>Copyright 1996-1998, Lincoln D. Stein. All rights reserved.</p>
+
+<p>This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>Address bug reports and comments to: lstein@cshl.org</p>
+
+<h1 id="BUGS">BUGS</h1>
+
+<p>This section intentionally left blank.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../../lib/CGI/Carp.html">CGI::Carp</a>, <a href="../../lib/CGI.html">CGI</a></p>
+
+
+</body>
+
+</html>
+
+

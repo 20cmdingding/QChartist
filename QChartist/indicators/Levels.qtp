@@ -1,0 +1,34 @@
+declare sub hideLevelsform
+
+CREATE Levelsform as qform
+
+    Center
+    Caption = "Settings for: Levels"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Levelsperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create Levelsperiodedit as qedit
+        left=Levelsperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create Levelsbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideLevelsform
+    end create
+
+END CREATE
+
+sub hideLevelsform
+    Levelsform.visible=0
+end sub

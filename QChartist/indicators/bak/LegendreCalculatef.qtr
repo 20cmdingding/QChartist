@@ -1,0 +1,18 @@
+'------------------------- LegendreCalculatef -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+LegendreCalculatef
+end if
+
+barsback=200 '<--- can also be something like VAL(LegendreCalculatefbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(LegendreCalculatefbuffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End LegendreCalculatef -------------------------------------------------

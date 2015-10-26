@@ -1,0 +1,40 @@
+
+' ''RQEXPORT function SinglePlusDouble_1:Double (sng1:Single, dbl1:Double:ByRef)
+Function SinglePlusDouble_1 (sng1 As Single ptr, ByRef dbl1 As Double, a3 As Integer, a4 As Integer) As Double
+    Print " in FB:  sng1: ";sng1
+    Print " in FB:  dbl1: ";dbl1
+    dbl1 = dbl1 + sng1[0]
+    Print " in FB:  Double Out: ";dbl1
+    Function = dbl1
+End function
+
+'
+' ''RQEXPORT function SinglePlusDouble_2:Single (sng1:Single:ByRef, dbl1:Double)
+Function SinglePlusDouble_2 (ByRef sng1 As Single, dbl1 As Double ptr, a3 As Integer, a4 As Integer) As Single
+    Print " in FB:  sng1: ";sng1
+    Print " in FB:  dbl1: ";dbl1
+    sng1 = dbl1[0] + sng1
+    Print " in FB:  Single Out: ";sng1
+    Function = sng1
+End function
+
+'
+' ''RQEXPORT function SinglePlusDouble_3:Single (sng1:Single:ByRef, dbl1:Double:ByRef)
+Function SinglePlusDouble_3 (ByRef sng1 As Single, ByRef dbl1 As Double, a3 As Integer, a4 As Integer) As Single
+    Print " in FB:  sng1: ";sng1
+    Print " in FB:  dbl1: ";dbl1
+    sng1 = dbl1 + sng1
+    Print " in FB:  Single Out: ";sng1
+    Function = sng1
+End function
+
+'
+' ''RQEXPORT function SinglePlusDouble_4:Double (sng1:Single, dbl1:Double)
+Function SinglePlusDouble_4 (sng1 As Single ptr, dbl1 As Double ptr, a3 As Integer, a4 As Integer) As Double
+    Print " in FB:  sng1: ";sng1
+    Print " in FB:  dbl1: ";dbl1
+    dbl1[0] = dbl1[0] + sng1[0]
+    Print " in FB:  Single Out: ";dbl1[0]
+    Function = dbl1[0]
+End function
+'

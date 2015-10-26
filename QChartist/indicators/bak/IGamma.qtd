@@ -1,0 +1,1 @@
+Incomplete gamma integral: In this implementation both arguments must be positive. The integral is evaluated by either a power series or continued fraction expansion, depending on the relative values of a and x.

@@ -1,0 +1,2088 @@
+==============================================================================================
+                           QChart:  A Charting Class for Rapid-Q
+                          Copyright (c) 2003-2004  Michael J. Zito
+                              Released under the LPGL License
+==============================================================================================
+
+QChart provides a rich set of 2-D charting routines for Rapid-Q programmers.
+It generates histograms, bar charts, XY-scatter plots, line graphs, pie charts
+and box plots.  Each charting routine will calculate an appropriate scale and plot
+the data contained in the .Data or .XYData property of the object.  The user may optionally
+specify the scaling as well as fonts, grids or other properties (see code and HTML
+documentation). Once the data is formatted graphs can be called with a few lines
+of simple code. (See QChartEx.rqb for examples of setting up and calling each chart type.)
+
+QChart Component
+
+QChart is a component for easily adding professional looking Bar, Line, XY Scatter, Hi-Lo-Close and Box & Whisker plots to Rapid-Q programs.
+
+    * QChart is implemented as an extension to QCanvas and so inherits all of the QCanvas Properties, Methods and Events. 
+    * The properties and methods specific to QChart's functionality are listed in this document. 
+    * More information and examples are included in the commented code for QChart.obj and QChartEx.rqb
+
+ 
+
+Creating a copy of the QChart Component in your code:
+
+$INCLUDE "c:\RapidQ\QChart.obj" 'ßPath should point to correct directory on your system
+
+CREATE frmMain AS QForm
+
+    CREATE Graph AS QChart                            'ßCreate a copy of the new object
+
+      Width = frmMain.ClientWidth                     'ßSet any inherited QCanvas Properties (i.e., Align etc…)
+
+      Height = frmMain.ClientHeight         
+
+      Graph.OnPaint = Graph.PaintChart             'ßThis line is REQUIRED to process Repaints
+
+    END CREATE
+
+END CREATE
+
+Graph.ClearAll
+
+frmMain.ShowModal   
+
+ 
+
+Creating a graph using the QChart Component:
+
+Initialize                                         This  method must be called first.  It sets all chart properties to their default values
+
+Set the Chart Type and Style     Set ChartType and ChartStyle to desired settings
+
+Customize                                      Make desired changes to any of the QChart properties
+
+Dimension the Data Grid             Set the Data.RowCount and Data.ColCount dimensions to
+
+hold your data  (See data formats below)
+
+Load Data                                      Load data into the Data Grid (See data formats below)
+
+DrawChart                                     Causes QChart to draw the currently defined chart to the screen
+
+ 
+
+Modifying an existing graph using the QChart Component:
+
+Change Property Values             Make changes to any of the QChart properties for an existing chart
+
+DrawChart                                     Causes the chart to be redrawn with the new property values
+
+ 
+
+Chart Type specific data formats:
+
+ 
+
+Bar and Line Charts 
+
+    * Data groups are in columns, data values are in each row
+    * Set .Data.ColCount to the number of groups
+    * Set .Data.RowCount to the number of data points in the largest group
+    * Row 0 is for legend text
+    * Col 0 is for X Axis Labels
+
+ 
+	
+
+0
+	
+
+1
+	
+
+2
+	
+
+. . .
+	
+
+n
+
+0
+	
+
+Histo Min
+	
+
+ß                      Legend Text                         à
+
+1
+	
+
+X
+
+=
+
+L
+
+b
+
+l
+
+s
+	
+
+A1
+	
+
+B1
+	
+
+. . .
+	
+
+n1
+
+2
+	
+
+A2
+	
+
+B2
+	
+
+. . .
+	
+
+n2
+
+.
+	
+
+.
+	
+
+.
+	
+
+. . .
+	
+
+.
+
+.
+	
+
+.
+	
+
+.
+	
+
+. . .
+	
+
+.
+
+.
+	
+
+.
+	
+
+.
+	
+
+. . .
+	
+
+.
+
+n
+	
+
+An
+	
+
+Bn
+	
+
+. . .
+	
+
+nn
+
+ 
+
+XY Scatter Charts
+
+    * Data pairs are in adjacent columns: Col1 = X value, Col2 = Y value
+    * Data values are in each row
+    * Set .Data.ColCount to the number of XY pairs * 2
+    * Set .Data.RowCount to the number of data points in the largest group
+    * Row 0 of the Y Col is for group labels / legend text
+    * Data for each pair should be in ascending order on the X value
+
+ 
+	
+
+0
+	
+
+1
+	
+
+2
+	
+
+3
+	
+
+4
+	
+
+…
+	
+
+m
+	
+
+n
+
+0
+	
+
+Not Used
+	
+
+Not Used
+	
+
+LegendText
+	
+
+Not Used
+	
+
+LegendText
+	
+
+. . .
+	
+
+Not Used
+	
+
+LegendText
+
+1
+	
+
+"
+	
+
+x11
+	
+
+y11
+	
+
+x21
+	
+
+y21
+	
+
+. . .
+	
+
+xm1
+	
+
+yn1
+
+2
+	
+
+"
+	
+
+x12
+	
+
+y12
+	
+
+x22
+	
+
+y22
+	
+
+. . .
+	
+
+xm2
+	
+
+yn2
+
+.
+	
+
+"
+	
+
+.
+	
+
+.
+	
+
+.
+	
+
+.
+	
+
+. . .
+	
+
+.
+	
+
+.
+
+.
+	
+
+"
+	
+
+.
+	
+
+.
+	
+
+.
+	
+
+.
+	
+
+. . .
+	
+
+.
+	
+
+.
+
+.
+	
+
+"
+	
+
+.
+	
+
+.
+	
+
+.
+	
+
+.
+	
+
+. . .
+	
+
+.
+	
+
+.
+
+n
+	
+
+Not Used
+	
+
+x1n
+	
+
+y1n
+	
+
+x2n
+	
+
+y2n
+	
+
+. . .
+	
+
+xmn
+	
+
+ynn
+
+ 
+
+Box & Whisker and Hi-Lo-Close Plots
+
+    * Data groups are in columns, data values are in each row
+    * Set .Data.ColCount to the number of groups
+    * Set .Data.RowCount to 5
+    * Data must be set up with the highest value in row 1 the lowest value in row 5 and intermediate values in descending order from row 1 to row 5.
+    * Row 0 is for legend text
+
+Plot Types à
+	
+
+Box & Whisker
+	
+
+HLC Antenna
+	
+
+HLC
+
+Box
+
+ 
+	
+
+0
+	
+
+1
+	
+
+…
+	
+
+N
+
+0
+	
+
+Not Used
+	
+
+ß             Legend Text                à
+
+1
+	
+
+"
+	
+
+Max
+	
+
+Hi
+	
+
+Hi
+
+2
+	
+
+"
+	
+
+Quartile 3
+	
+
+Close
+	
+
+Hi
+
+3
+	
+
+"
+	
+
+Median
+	
+
+Close
+	
+
+Close
+
+4
+	
+
+"
+	
+
+Quartile 1
+	
+
+Close
+	
+
+Lo
+
+5
+	
+
+Not Used
+	
+
+Min
+	
+
+Lo
+	
+
+Lo
+
+ 
+
+Pie Charts
+
+    * Data groups are in columns, data values are in Row 1
+    * Set .Data.ColCount to the number of groups
+    * Set .Data.RowCount to 1
+    * Row 0 is for legend text
+    * Col 0 is not used (*)
+
+ 
+
+ 
+	
+
+0
+	
+
+1
+	
+
+…
+	
+
+N
+
+0
+	
+
+Not Used
+	
+
+ß             Legend Text                à
+
+1
+	
+
+"
+	
+
+x1
+	
+
+…
+	
+
+xN
+
+ 
+
+ 
+
+QChart Properties (Inherited From QCanvas)
+
+ 
+
+Field
+	
+
+Type
+	
+
+R/W
+	
+
+Default
+
+Align
+	
+
+INTEGER
+	
+
+RW
+	
+
+alNone
+
+ClientHeight
+	
+
+INTEGER
+	
+
+RW
+	
+
+ 
+
+ClientWidth
+	
+
+INTEGER
+	
+
+RW
+	
+
+ 
+
+Color
+	
+
+INTEGER
+	
+
+RW
+	
+
+ 
+
+CopyMode
+	
+
+INTEGER
+	
+
+RW
+	
+
+cmBlackness
+
+Cursor
+	
+
+INTEGER
+	
+
+RW
+	
+
+crDefault
+
+Enabled
+	
+
+INTEGER
+	
+
+RW
+	
+
+True
+
+Font
+	
+
+QFONT
+	
+
+W
+	
+
+ 
+
+Height
+	
+
+INTEGER
+	
+
+RW
+	
+
+ 
+
+Hint
+	
+
+STRING
+	
+
+RW
+	
+
+ 
+
+Left
+	
+
+INTEGER
+	
+
+RW
+	
+
+0
+
+Parent
+	
+
+QFORM/QPANEL/QTABCONTROL
+	
+
+W
+	
+
+ 
+
+Pixel
+	
+
+2D ARRAY of INTEGER
+	
+
+RW
+	
+
+ 
+
+PopupMenu
+	
+
+QPOPUPMENU
+	
+
+W
+	
+
+ 
+
+ShowHint
+	
+
+INTEGER
+	
+
+RW
+	
+
+False
+
+Tag
+	
+
+INTEGER
+	
+
+RW
+	
+
+ 
+
+Top
+	
+
+INTEGER
+	
+
+RW
+	
+
+0
+
+Width
+	
+
+INTEGER
+	
+
+RW
+	
+
+ 
+
+Visible
+	
+
+INTEGER
+	
+
+RW
+	
+
+True
+
+
+QChart Specific Properties
+
+ 
+
+Field
+	
+
+Type
+	
+
+Description
+	
+
+R/W
+	
+
+Default
+
+AxisBorder
+	
+
+Integer
+	
+
+Draw a border around the plot area
+	
+
+R/W
+	
+
+TRUE
+
+AxisFont
+	
+
+QFONT
+	
+
+Font used to label X and Y axes
+	
+
+W
+	
+
+ 
+
+bgColor
+	
+
+Long
+	
+
+Chart background color
+	
+
+R/W
+	
+
+ 
+
+BW
+	
+
+Integer
+	
+
+Use only black and white for plotting data
+	
+
+R/W
+	
+
+FALSE
+
+ChartBorder
+	
+
+Integer
+	
+
+Draw a border around the entire chart
+	
+
+R/W
+	
+
+TRUE
+
+ChartStyle
+	
+
+Integer
+	
+
+csBar, csHisto, csStacked, csPctStacked, csPoints, csLines, csBoth, csWhisker, csHiLo, csPieVal, csPiePct
+	
+
+R/W
+	
+
+csPoints
+
+ChartType
+	
+
+Integer
+	
+
+ctBar, ctXY, ctLine, ctBox, ctPie
+	
+
+R/W
+	
+
+ctXY
+
+Colors()
+	
+
+ARRAY of Long
+	
+
+Array of predefined color references
+	
+
+R/W
+	
+
+ 
+
+Data
+	
+
+QSTRINGGRID
+	
+
+2D string array that holds data to be plotted (See formats above)
+	
+
+----
+	
+
+ 
+
+   .ColCount
+	
+
+Integer
+	
+
+Number of Columns in the data array
+	
+
+R/W
+	
+
+1
+
+   .RowCount
+	
+
+Integer
+	
+
+Number of Rows in the data array
+	
+
+R/W
+	
+
+1
+
+   .Cell(i,j)
+	
+
+String
+	
+
+Contents of the indexed cell in the data array
+	
+
+R/W
+	
+
+""
+
+DoLegend
+	
+
+Integer
+	
+
+Draw a legend to the right edge of chart
+	
+
+R/W
+	
+
+TRUE
+
+fgColor
+	
+
+Long
+	
+
+Chart foreground color
+	
+
+R/W
+	
+
+ 
+
+GreyScale
+	
+
+Integer
+	
+
+Use grey scale for plotting data
+	
+
+R/W
+	
+
+FALSE
+
+GridColor
+	
+
+Long
+	
+
+Color used for grid lines
+	
+
+R/W
+	
+
+ 
+
+LegendFont
+	
+
+QFONT
+	
+
+Font used to draw legend
+	
+
+W
+	
+
+ 
+
+MainFont
+	
+
+QFONT
+	
+
+Font used to draw the Main Title
+	
+
+W
+	
+
+ 
+
+MainTitle.Text
+	
+
+String
+	
+
+Text displayed as the chart's Main Title
+	
+
+R/W
+	
+
+ 
+
+MarkerSize
+	
+
+Single
+	
+
+Size of plot markers for XY and Line charts
+	
+
+R/W
+	
+
+2.5
+
+PlotAreaColor
+	
+
+Long
+	
+
+Color of plot area background
+	
+
+R/W
+	
+
+ 
+
+Series(i)
+	
+
+UDT Array (Elements Below)
+	
+
+Holds format information for each series plotted
+	
+
+----
+	
+
+ 
+
+   .AutoColor
+	
+
+   Integer
+	
+
+Use the next available color in the Colors() Array
+	
+
+R/W
+	
+
+TRUE
+
+   .AutoMark
+	
+
+   Integer
+	
+
+Cycle through the 8 available marker styles
+	
+
+R/W
+	
+
+TRUE
+
+   .Color
+	
+
+   Long
+	
+
+Color used when plotting series data
+	
+
+R/W
+	
+
+ 
+
+   .HatchStyle
+	
+
+   Integer
+	
+
+Hatch pattern used for Bar charts and Box plots
+	
+
+R/W
+	
+
+hsSolid
+
+   .LineStyle
+	
+
+   Integer
+	
+
+Line pattern used for XY and Line charts
+	
+
+R/W
+	
+
+lsSolid
+
+   .LineWidth
+	
+
+   Integer
+	
+
+Line width used for XY and Line charts (in pixels)
+	
+
+R/W
+	
+
+1
+
+   .Marker
+	
+
+   Integer
+	
+
+Marker style used for XY and Line charts
+	
+
+R/W
+	
+
+msFilledCircle
+
+SubFont
+	
+
+QFONT
+	
+
+Font used to draw the Subtitle
+	
+
+W
+	
+
+ 
+
+SubTitle.Text
+	
+
+String
+	
+
+Text displayed as the chart's Subtitle
+	
+
+R/W
+	
+
+ 
+
+XAxis
+	
+
+UDT (Elements Below)
+	
+
+Holds format information for the X Axis
+	
+
+----
+	
+
+ 
+
+   .AutoScale
+	
+
+   Integer
+	
+
+QChart calculates the axis scale; If False user MUST set Min and Max
+	
+
+R/W
+	
+
+TRUE
+
+   .Color
+	
+
+   Long
+	
+
+Color used to draw axis
+	
+
+R/W
+	
+
+ 
+
+   .Div
+	
+
+   Integer
+	
+
+Number of divisions on the axis
+	
+
+R/W
+	
+
+10
+
+   .DrawZero
+	
+
+   Integer
+	
+
+Draw a zero line if data spans the origin
+	
+
+R/W
+	
+
+TRUE
+
+   .Grid
+	
+
+   Integer
+	
+
+True = draw grid for the axis ; False = No grid
+	
+
+R/W
+	
+
+TRUE
+
+   .Labeled
+	
+
+   Integer
+	
+
+Label the axis tic marks
+	
+
+R/W
+	
+
+TRUE
+
+   .LogScale
+	
+
+   Integer
+	
+
+True = Log Scale ; False = Linear Scale
+	
+
+R/W
+	
+
+FALSE
+
+   .Max
+	
+
+   Single
+	
+
+Axis scale maximum.  (Ignored if Autoscale = True)
+	
+
+R/W
+	
+
+1
+
+   .Min
+	
+
+   Single
+	
+
+Axis scale minimum.  (Ignored if Autoscale = True)
+	
+
+R/W
+	
+
+0
+
+ 
+
+   .MnrTics
+	
+
+   Integer
+	
+
+True = Draw tic marks ; False = No tic marks
+	
+
+R/W
+	
+
+TRUE
+
+ 
+
+   .Tics
+	
+
+   Integer
+	
+
+True = Draw tic marks ; False = No tic marks
+	
+
+R/W
+	
+
+TRUE
+
+   .ZeroColor
+	
+
+   Long
+	
+
+Color used to draw zero line
+	
+
+R/W
+	
+
+ 
+
+XTitle.Text
+	
+
+String
+	
+
+Text displayed as the chart's X Axis title
+	
+
+R/W
+	
+
+ 
+
+YAxis
+	
+
+UDT (Elements Below)
+	
+
+Holds format information for the Y Axis
+	
+
+----
+	
+
+ 
+
+   .AutoScale
+	
+
+   Integer
+	
+
+QChart calculates the axis scale; If False user MUST set Min and Max
+	
+
+R/W
+	
+
+TRUE
+
+   .Color
+	
+
+   Long
+	
+
+Color used to draw axis
+	
+
+R/W
+	
+
+ 
+
+   .Div
+	
+
+   Integer
+	
+
+Number of divisions on the axis
+	
+
+R/W
+	
+
+10
+
+   .DrawZero
+	
+
+   Integer
+	
+
+Draw a zero line if data spans the origin
+	
+
+R/W
+	
+
+TRUE
+
+   .Grid
+	
+
+   Integer
+	
+
+True = draw grid for the axis ; False = No grid
+	
+
+R/W
+	
+
+TRUE
+
+   .Labeled
+	
+
+   Integer
+	
+
+Label the axis tic marks
+	
+
+R/W
+	
+
+TRUE
+
+   .LogScale
+	
+
+   Integer
+	
+
+True = Log Scale ; False = Linear Scale
+	
+
+R/W
+	
+
+FALSE
+
+   .Max
+	
+
+   Single
+	
+
+Axis scale maximum.  (Ignored if Autoscale = True)
+	
+
+R/W
+	
+
+1
+
+   .Min
+	
+
+   Single
+	
+
+Axis scale minimum.  (Ignored if Autoscale = True)
+	
+
+R/W
+	
+
+0
+
+ 
+
+   .MnrTics
+	
+
+   Integer
+	
+
+True = Draw tic marks ; False = No tic marks
+	
+
+R/W
+	
+
+TRUE
+
+ 
+
+   .Tics
+	
+
+   Integer
+	
+
+True = Draw tic marks ; False = No tic marks
+	
+
+R/W
+	
+
+TRUE
+
+   .ZeroColor
+	
+
+   Long
+	
+
+Color used to draw zero line
+	
+
+R/W
+	
+
+ 
+
+YTitle.Text
+	
+
+String
+	
+
+Text displayed as the chart's Y Axis title
+	
+
+R/W
+	
+
+ 
+
+QChart Methods
+
+Method
+	
+
+Type
+	
+
+Description
+	
+
+Params
+
+Initialize
+	
+
+SUB
+	
+
+Sets Default Values for all Chart Variables
+	
+
+0
+
+ClearAll
+	
+
+SUB
+	
+
+Paints a blank Image using bgColor
+	
+
+0
+
+PaintChart
+	
+
+SUB
+	
+
+Processes WM_PAINT message (Draws Buffer to Image)
+	
+
+0
+
+DrawChart
+	
+
+SUB (Overlay AS Integer)
+	
+
+Draws the Currently Defined Chart
+	
+
+1
+
+ReDrawChart
+	
+
+SUB
+	
+
+Called from Resize Event, Redraws the Chart at New Size
+	
+
+0
+
+SaveChart
+	
+
+SUB (FileNam AS STRING)
+	
+
+Opens a Save Dialog and Saves Chart to a .BMP File
+	
+
+1
+
+PrintChart
+	
+
+SUB (Prn AS INTEGER, Orient AS INTEGER, Margin AS INTEGER, Copies AS INTEGER)
+	
+
+Prints Current Chart Using CopyRect. 
+
+NOTE: CopyRect is Not Supported by All Printers. 
+
+            Your Mileage May Vary!
+	
+
+4
+
+QChart Events (Inherited From QCanvas)
+
+Event
+	
+
+Type
+	
+
+Occurs when...
+	
+
+Params
+
+OnClick
+	
+
+VOID
+	
+
+User clicked on chart
+	
+
+0
+
+OnMouseDown
+	
+
+SUB (Button%, X%, Y%, Shift%)
+	
+
+Mouse button held down
+	
+
+4
+
+OnMouseMove
+	
+
+SUB (X%, Y%, Shift%)
+	
+
+Mouse moves
+	
+
+3
+
+OnMouseUp
+	
+
+SUB (Button%, X%, Y%, Shift%)
+	
+
+Mouse button is released
+	
+
+4
+
+OnPaint
+	
+
+VOID
+	
+
+Receives WM_PAINT message
+	
+
+0
+
+QChart Example
+
+'----- Compiler Directives
+
+$OPTIMIZE ON
+
+$TYPECHECK ON
+
+'----- Code modules (Change path to point to the correct directory on your system)
+
+$INCLUDE "c:\RapidQ\QChart\QChart.obj"
+
+'----- Form Event SUB Declarations
+
+DECLARE SUB btnOnClick (SENDER AS QButton)
+
+DECLARE SUB frmMainResize (SENDER AS QForm)
+
+CREATE frmMain AS QForm
+
+  Center
+
+  Width = 640
+
+  Height = 480
+
+  Caption = "QChart Example"
+
+  OnResize = frmMainResize
+
+    CREATE btnBar AS QButton
+
+      Caption = "Bar Chart"
+
+      OnClick = btnOnClick
+
+    END CREATE
+
+    CREATE btnXY AS QButton
+
+      Caption = "XY Scatter"
+
+      Top = 25
+
+      OnClick = btnOnClick
+
+    END CREATE       
+
+    CREATE btnBox AS QButton
+
+      Caption = "Box Plot"
+
+      Top = 50
+
+      OnClick = btnOnClick
+
+    END CREATE     
+
+    CREATE Graph AS QChart            'Create a copy of the new object
+
+      Align = 4                                          'alRight
+
+      Width = frmMain.ClientWidth - btnBar.Width
+
+      Height = frmMain.ClientHeight         
+
+      OnPaint = Graph.PaintChart          'ßThis line REQUIRED to process Repaints
+
+    END CREATE
+
+END CREATE
+
+ 
+
+Graph.ClearAll
+
+frmMain.ShowModal   
+
+ 
+
+SUB btnOnClick (SENDER AS QButton)
+
+  DIM i  AS INTEGER                                                          'Loop counters...
+
+  DIM j  AS INTEGER
+
+  DIM k  AS SINGLE                                                            'A Scratch Variable
+
+  SELECT CASE Sender.Caption
+
+    CASE "Bar Chart"
+
+      WITH Graph
+
+        .Initialize                                                                        'Set defaults
+
+        .ChartType = ctBar                                                      'Bar Chart
+
+        .ChartStyle = csBar                                                      'Bar Chart
+
+        .MainTitle.Text = "Bar Chart Example"                     'Change desired options
+
+        .SubTitle.Text = "All values set to default"
+
+        .XTitle.Text = "X Axis"     
+
+        .YTitle.Text = "Y Axis"
+
+        k = 24
+
+        .Data.ColCount = 6                                                      'Set .Data dimensions
+
+        .Data.RowCount = 3
+
+        RANDOMIZE                                                                'Load the data                          
+
+        FOR i = 1 TO .Data.ColCount                  
+
+          .Data.Cell(i,0) = "Series " + STR$(i)
+
+          FOR j = 1 to .Data.RowCount
+
+            .Data.Cell(0,j) = "Group " + STR$(j)
+
+            .Data.Cell(i,j) = STR$(INT(RND * k))
+
+          NEXT j
+
+        NEXT i
+
+        .DrawChart (False)                                                        'Draw it!
+
+      END WITH   
+
+    CASE "XY Scatter"
+
+      WITH Graph
+
+        .Initialize 
+
+        .ChartType = ctXY 
+
+        .ChartStyle = csBoth
+
+        .MainTitle.Text = "Scatter Plot With Lines" 
+
+        .XTitle.Text = "X Axis"     
+
+        .YTitle.Text = "Y Axis"
+
+        .Data.ColCount = 4
+
+        .Data.RowCount = 11     
+
+        k = 100
+
+        RANDOMIZE
+
+        FOR i = 2 to .Data.ColCount STEP 2 
+
+          .Data.Cell(i , 0) = "Series " + STR$(i \ 2)
+
+          .Series(i\2).LineWidth = 2
+
+          FOR j = 1 to .Data.RowCount 
+
+            .Data.Cell(i - 1 , j) = STR$(j)
+
+            .Data.Cell(i , j) = STR$(RND * k)
+
+          NEXT j 
+
+        NEXT i
+
+        .DrawChart (True)                                                        'Draw it as an Overlay
+
+      END WITH
+
+    CASE "Box Plot"
+
+      WITH Graph
+
+        .Initialize
+
+        .ChartType = ctBox
+
+        .ChartStyle = csWhisker       
+
+        .MainTitle.Text = "Box and Whisker Plot"
+
+        .SubTitle.Text = "Shows the Default QChart Palette"
+
+        .XTitle.Text = "X Axis"     
+
+        .YTitle.Text = "Y Axis"
+
+        .XAxis.Grid = False
+
+        .XAxis.Tics = False
+
+        .YAxis.AutoScale = False
+
+          .YAxis.Min = 0
+
+          .YAxis.Max = 50
+
+        .Data.ColCount = 25
+
+        .Data.RowCount = 5
+
+        k = 10 
+
+        RANDOMIZE
+
+        FOR i = 1 to .Data.ColCount 
+
+          .Data.Cell(i , 0) = "Group " + STR$(I                       'Legend in Row 0 of Each Col
+
+          .Data.Cell(i , 1) = STR$(RND * k + 40)                    'Max Values
+
+          .Data.Cell(i , 2) = STR$(RND * k + 30)                    'Q3 Values
+
+          .Data.Cell(i , 3) = STR$(RND * k + 20)                    'Q2 Values
+
+          .Data.Cell(i , 4) = STR$(RND * k + 10)                    'Q1 Values
+
+          .Data.Cell(i , 5) = STR$(RND * k)                             'Min Values                                               
+
+        NEXT i
+
+        .DrawChart (False)                                                       'Draw it!
+
+      END WITH 
+
+  END SELECT     
+
+END SUB
+
+ 
+
+SUB frmMainResize (SENDER AS QForm)
+
+  WITH Graph
+
+    .Width = frmMain.ClientWidth - btnBar.Width          'Calculate new sizes
+
+    .Height = frmMain.ClientHeight
+
+    .RedrawChart                                                                    'Redraw the QChart Object
+
+  END WITH 
+
+  'Plus anything else that needs doing in your form resize
+
+END SUB 

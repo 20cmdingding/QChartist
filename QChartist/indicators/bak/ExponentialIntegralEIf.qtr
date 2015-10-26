@@ -1,0 +1,18 @@
+'------------------------- ExponentialIntegralEIf -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+ExponentialIntegralEIf
+end if
+
+barsback=200 '<--- can also be something like VAL(ExponentialIntegralEIfbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(ExponentialIntegralEIfbuffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End ExponentialIntegralEIf -------------------------------------------------

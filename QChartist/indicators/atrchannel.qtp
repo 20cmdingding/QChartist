@@ -1,0 +1,44 @@
+declare sub hideatrchannelform
+
+CREATE atrchannelform as qform
+
+    Center
+    Caption = "Settings for: ATR Channel"
+    visible=0
+    
+    create atrchannelperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create atrchannelperiodedit as qedit
+        left=atrchannelperiodlab.width+100
+        top=0
+        text="18"
+    end create
+    
+    create atrchannelbarsbacklab as qlabel
+        top=atrchannelperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create atrchannelbarsbackedit as qedit
+        left=atrchannelperiodedit.left
+        top=atrchannelbarsbacklab.top
+        text="200"
+    end create
+    
+    create atrchannelbtnok as qbutton
+        left=0
+        top=atrchannelbarsbacklab.top+atrchannelbarsbacklab.height+15
+        caption="OK"
+        onclick=hideatrchannelform
+    end create
+          
+END CREATE   
+
+sub hideatrchannelform
+atrchannelform.visible=0
+end sub

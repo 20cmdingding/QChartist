@@ -1,0 +1,181 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#new">new</a></li>
+      <li><a href="#unformat">unformat</a></li>
+      <li><a href="#format">format</a></li>
+      <li><a href="#blank">blank</a></li>
+    </ul>
+  </li>
+  <li><a href="#ATTRIBUTES">ATTRIBUTES</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Parse::Binary::FixedFormat - Convert between fixed-length fields and hashes</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>   <span class="keyword">use</span> <span class="variable">Parse::Binary::FixedFormat</span><span class="operator">;</span>
+   
+   <span class="keyword">my</span> <span class="variable">$tarhdr</span> <span class="operator">=</span>
+      <span class="variable">new</span> <span class="variable">Parse::Binary::FixedFormat</span> <span class="operator">[</span> <span class="string">qw(name:a100 mode:a8 uid:a8 gid:a8 size:a12
+                                 mtime:a12 chksum:a8 typeflag:a1 linkname:a100
+                                 magic:a6 version:a2 uname:a32 gname:a32
+                                 devmajor:a8 devminor:a8 prefix:a155)</span> <span class="operator">]</span><span class="operator">;</span>
+   <span class="keyword">my</span> <span class="variable">$buf</span><span class="operator">;</span>
+   <span class="keyword">read</span> <span class="variable">TARFILE</span><span class="operator">,</span> <span class="variable">$buf</span><span class="operator">,</span> <span class="number">512</span><span class="operator">;</span>
+   
+   <span class="comment"># create a hash from the buffer read from the file</span>
+   <span class="keyword">my</span> <span class="variable">$hdr</span> <span class="operator">=</span> <span class="variable">$tarhdr</span><span class="operator">-&gt;</span><span class="variable">unformat</span><span class="operator">(</span><span class="variable">$buf</span><span class="operator">);</span>   <span class="comment"># $hdr gets a hash ref</span>
+   
+   <span class="comment"># create a flat record from a hash reference</span>
+   <span class="keyword">my</span> <span class="variable">$buf</span> <span class="operator">=</span> <span class="variable">$tarhdr</span><span class="operator">-&gt;</span><span class="variable">format</span><span class="operator">(</span><span class="variable">$hdr</span><span class="operator">);</span>     <span class="comment"># $hdr is a hash ref</span>
+   
+   <span class="comment"># create a hash for a new record</span>
+   <span class="keyword">my</span> <span class="variable">$newrec</span> <span class="operator">=</span> <span class="variable">$tarhdr</span><span class="operator">-&gt;</span><span class="variable">blank</span><span class="operator">();</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><b>Parse::Binary::FixedFormat</b> can be used to convert between a buffer with fixed-length field definitions and a hash with named entries for each field. The perl <code>pack</code> and <code>unpack</code> functions are used to perform the conversions. <b>Parse::Binary::FixedFormat</b> builds the format string by concatenating the field descriptions and converts between the lists used by <code>pack</code> and <code>unpack</code> and a hash that can be reference by field name.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<p><b>Parse::Binary::FixedFormat</b> provides the following methods.</p>
+
+<h2 id="new">new</h2>
+
+<p>To create a converter, invoke the <b>new</b> method with a reference to a list of field specifications.</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$cvt</span> <span class="operator">=</span>
+        <span class="variable">new</span> <span class="variable">Parse::Binary::FixedFormat</span> <span class="operator">[</span> <span class="string">'field-name:descriptor:count'</span><span class="operator">,</span> <span class="operator">...</span> <span class="operator">]</span><span class="operator">;</span>
+</code></pre>
+
+<p>Field specifications contain the following information.</p>
+
+<dl>
+
+<dt id="field-name">field-name</dt>
+<dd>
+
+<p>This is the name of the field and will be used as the hash index.</p>
+
+</dd>
+<dt id="descriptor">descriptor</dt>
+<dd>
+
+<p>This describes the content and size of the field. All of the descriptors get strung together and passed to <b>pack</b> and <b>unpack</b> as part of the template argument. See <b>perldoc -f pack</b> for information on what can be specified here.</p>
+
+<p>Don&#39;t use repeat counts in the descriptor except for string types (&quot;a&quot;, &quot;A&quot;, &quot;h, &quot;H&quot;, and &quot;Z&quot;). If you want to get an array out of the buffer, use the <code>count</code> argument.</p>
+
+</dd>
+<dt id="count">count</dt>
+<dd>
+
+<p>This specifies a repeat count for the field. If specified as a non-zero value, this field&#39;s entry in the resultant hash will be an array reference instead of a scalar.</p>
+
+</dd>
+</dl>
+
+<h2 id="unformat">unformat</h2>
+
+<p>To convert a buffer of data into a hash, pass the buffer to the <b>unformat</b> method.</p>
+
+<pre><code>    <span class="variable">$hashref</span> <span class="operator">=</span> <span class="variable">$cvt</span><span class="operator">-&gt;</span><span class="variable">unformat</span><span class="operator">(</span><span class="variable">$buf</span><span class="operator">);</span>
+</code></pre>
+
+<p>Parse::Binary::FixedFormat applies the constructed format to the buffer with <code>unpack</code> and maps the returned list of elements to hash entries. Fields can now be accessed by name though the hash:</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="variable">$hashref</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="variable">field</span><span class="operator">-</span><span class="variable">name</span><span class="operator">}</span><span class="operator">;</span>
+    <span class="keyword">print</span> <span class="variable">$hashref</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="variable">array</span><span class="operator">-</span><span class="variable">field</span><span class="operator">}[</span><span class="number">3</span><span class="operator">]</span><span class="operator">;</span>
+</code></pre>
+
+<h2 id="format">format</h2>
+
+<p>To convert the hash back into a fixed-format buffer, pass the hash reference to the <b>format</b> method.</p>
+
+<pre><code>    <span class="variable">$buf</span> <span class="operator">=</span> <span class="variable">$cvt</span><span class="operator">-&gt;</span><span class="variable">format</span><span class="operator">(</span><span class="variable">$hashref</span><span class="operator">);</span>
+</code></pre>
+
+<h2 id="blank">blank</h2>
+
+<p>To get a hash that can be used to create a new record, call the <b>blank</b> method.</p>
+
+<pre><code>    <span class="variable">$newrec</span> <span class="operator">=</span> <span class="variable">$cvt</span><span class="operator">-&gt;</span><span class="variable">blank</span><span class="operator">();</span>
+</code></pre>
+
+<h1 id="ATTRIBUTES">ATTRIBUTES</h1>
+
+<p>Each Parse::Binary::FixedFormat instance contains the following attributes.</p>
+
+<dl>
+
+<dt id="Names">Names</dt>
+<dd>
+
+<p>Names contains a list of the field names for this variant.</p>
+
+</dd>
+<dt id="Count">Count</dt>
+<dd>
+
+<p>Count contains a list of occurrence counts. This is used to indicate which fields contain arrays.</p>
+
+</dd>
+<dt id="Format">Format</dt>
+<dd>
+
+<p>Format contains the template string for the Perl <b>pack</b> and <b>unpack</b> functions.</p>
+
+</dd>
+</dl>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;</p>
+
+<p>Based on Data::FixedFormat, written by Thomas Pfau &lt;pfau@nbpfaus.net&gt; http://nbpfaus.net/~pfau/.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2004-2009 by Audrey Tang &lt;cpan@audreyt.org&gt;.</p>
+
+<p>Copyright (C) 2000,2002 Thomas Pfau. All rights reserved.</p>
+
+<p>This module is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

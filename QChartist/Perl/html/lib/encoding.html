@@ -1,0 +1,481 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../displayToc.js"></script>
+<script language="JavaScript" src="../tocParas.js"></script>
+<script language="JavaScript" src="../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#WARNING">WARNING</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#ABSTRACT">ABSTRACT</a>
+    <ul>
+      <li><a href="#Literal-Conversions">Literal Conversions</a></li>
+      <li><a href="#PerlIO-layers-for-STD-IN-OUT">PerlIO layers for STD(IN|OUT)</a></li>
+      <li><a href="#Implicit-upgrading-for-byte-strings">Implicit upgrading for byte strings</a></li>
+      <li><a href="#Side-effects">Side effects</a></li>
+    </ul>
+  </li>
+  <li><a href="#FEATURES-THAT-REQUIRE-5.8.1">FEATURES THAT REQUIRE 5.8.1</a></li>
+  <li><a href="#USAGE">USAGE</a></li>
+  <li><a href="#The-Filter-Option">The Filter Option</a>
+    <ul>
+      <li><a href="#Filter-related-changes-at-Encode-version-1.87">Filter-related changes at Encode version 1.87</a></li>
+    </ul>
+  </li>
+  <li><a href="#CAVEATS">CAVEATS</a>
+    <ul>
+      <li><a href="#NOT-SCOPED">NOT SCOPED</a></li>
+      <li><a href="#DO-NOT-MIX-MULTIPLE-ENCODINGS">DO NOT MIX MULTIPLE ENCODINGS</a></li>
+      <li><a href="#tr-with-ranges">tr/// with ranges</a>
+        <ul>
+          <li><a href="#workaround-to-tr">workaround to tr///;</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#EXAMPLE---Greekperl">EXAMPLE - Greekperl</a></li>
+  <li><a href="#KNOWN-PROBLEMS">KNOWN PROBLEMS</a>
+    <ul>
+      <li><a href="#The-Logic-of-:locale">The Logic of :locale</a></li>
+    </ul>
+  </li>
+  <li><a href="#HISTORY">HISTORY</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>encoding - allows you to write your script in non-ascii or non-utf8</p>
+
+<h1 id="WARNING">WARNING</h1>
+
+<p>This module is deprecated under perl 5.18. It uses a mechanism provided by perl that is deprecated under 5.18 and higher, and may be removed in a future version.</p>
+
+<p>The easiest and the best alternative is to write your script in UTF-8 and declear:</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">utf8</span><span class="operator">;</span> <span class="comment"># not use encoding ':utf8';</span>
+</code></pre>
+
+<p>See <a href="../lib/pods/perluniintro.html">perluniintro</a> and <a href="../lib/utf8.html">utf8</a> for details.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"greek"</span><span class="operator">;</span>  <span class="comment"># Perl like Greek to you?</span>
+  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"euc-jp"</span><span class="operator">;</span> <span class="comment"># Jperl!</span>
+  
+  <span class="comment"># or you can even do this if your shell supports your native encoding</span>
+  
+  <span class="variable">perl</span> <span class="operator">-</span><span class="variable">Mencoding</span><span class="operator">=</span><span class="variable">latin2</span> <span class="keyword">-e</span><span class="string">'...'</span> <span class="comment"># Feeling centrally European?</span>
+  <span class="variable">perl</span> <span class="operator">-</span><span class="variable">Mencoding</span><span class="operator">=</span><span class="variable">euc</span><span class="operator">-</span><span class="variable">kr</span> <span class="keyword">-e</span><span class="string">'...'</span> <span class="comment"># Or Korean?</span>
+  
+  <span class="comment"># more control</span>
+  
+  <span class="comment"># A simple euc-cn =&gt; utf-8 converter</span>
+  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"euc-cn"</span><span class="operator">,</span> <span class="string">STDOUT</span> <span class="operator">=&gt;</span> <span class="string">"utf8"</span><span class="operator">;</span>  <span class="keyword">while</span><span class="operator">(&lt;&gt;){</span><span class="keyword">print</span><span class="operator">};</span>
+  
+  <span class="comment"># "no encoding;" supported (but not scoped!)</span>
+  <span class="keyword">no</span> <span class="variable">encoding</span><span class="operator">;</span>
+  
+  <span class="comment"># an alternate way, Filter</span>
+  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"euc-jp"</span><span class="operator">,</span> <span class="string">Filter</span><span class="operator">=&gt;</span><span class="number">1</span><span class="operator">;</span>
+  <span class="comment"># now you can use kanji identifiers -- in euc-jp!</span>
+  
+  <span class="comment"># switch on locale -</span>
+  <span class="comment"># note that this probably means that unless you have a complete control</span>
+  <span class="comment"># over the environments the application is ever going to be run, you should</span>
+  <span class="comment"># NOT use the feature of encoding pragma allowing you to write your script</span>
+  <span class="comment"># in any recognized encoding because changing locale settings will wreck</span>
+  <span class="comment"># the script; you can of course still use the other features of the pragma.</span>
+  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">':locale'</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="ABSTRACT">ABSTRACT</h1>
+
+<p>Let&#39;s start with a bit of history: Perl 5.6.0 introduced Unicode support. You could apply <code>substr()</code> and regexes even to complex CJK characters -- so long as the script was written in UTF-8. But back then, text editors that supported UTF-8 were still rare and many users instead chose to write scripts in legacy encodings, giving up a whole new feature of Perl 5.6.</p>
+
+<p>Rewind to the future: starting from perl 5.8.0 with the <b>encoding</b> pragma, you can write your script in any encoding you like (so long as the <code>Encode</code> module supports it) and still enjoy Unicode support. This pragma achieves that by doing the following:</p>
+
+<ul>
+
+<li><p>Internally converts all literals (<code>q//,qq//,qr//,qw///, qx//</code>) from the encoding specified to utf8. In Perl 5.8.1 and later, literals in <code>tr///</code> and <code>DATA</code> pseudo-filehandle are also converted.</p>
+
+</li>
+<li><p>Changing PerlIO layers of <code>STDIN</code> and <code>STDOUT</code> to the encoding specified.</p>
+
+</li>
+</ul>
+
+<h2 id="Literal-Conversions">Literal Conversions</h2>
+
+<p>You can write code in EUC-JP as follows:</p>
+
+<pre><code>  <span class="keyword">my</span> <span class="variable">$Rakuda</span> <span class="operator">=</span> <span class="string">"\xF1\xD1\xF1\xCC"</span><span class="operator">;</span> <span class="comment"># Camel in Kanji</span>
+               <span class="comment">#&lt;-char-&gt;&lt;-char-&gt;   # 4 octets</span>
+  <span class="regex">s/\bCamel\b/$Rakuda/</span><span class="operator">;</span>
+</code></pre>
+
+<p>And with <code>use encoding &quot;euc-jp&quot;</code> in effect, it is the same thing as the code in UTF-8:</p>
+
+<pre><code>  <span class="keyword">my</span> <span class="variable">$Rakuda</span> <span class="operator">=</span> <span class="string">"\x{99F1}\x{99DD}"</span><span class="operator">;</span> <span class="comment"># two Unicode Characters</span>
+  <span class="regex">s/\bCamel\b/$Rakuda/</span><span class="operator">;</span>
+</code></pre>
+
+<h2 id="PerlIO-layers-for-STD-IN-OUT">PerlIO layers for <code>STD(IN|OUT)</code></h2>
+
+<p>The <b>encoding</b> pragma also modifies the filehandle layers of STDIN and STDOUT to the specified encoding. Therefore,</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"euc-jp"</span><span class="operator">;</span>
+  <span class="keyword">my</span> <span class="variable">$message</span> <span class="operator">=</span> <span class="string">"Camel is the symbol of perl.\n"</span><span class="operator">;</span>
+  <span class="keyword">my</span> <span class="variable">$Rakuda</span> <span class="operator">=</span> <span class="string">"\xF1\xD1\xF1\xCC"</span><span class="operator">;</span> <span class="comment"># Camel in Kanji</span>
+  <span class="variable">$message</span> <span class="operator">=~</span> <span class="regex">s/\bCamel\b/$Rakuda/</span><span class="operator">;</span>
+  <span class="keyword">print</span> <span class="variable">$message</span><span class="operator">;</span>
+</code></pre>
+
+<p>Will print &quot;\xF1\xD1\xF1\xCC is the symbol of perl.\n&quot;, not &quot;\x{99F1}\x{99DD} is the symbol of perl.\n&quot;.</p>
+
+<p>You can override this by giving extra arguments; see below.</p>
+
+<h2 id="Implicit-upgrading-for-byte-strings">Implicit upgrading for byte strings</h2>
+
+<p>By default, if strings operating under byte semantics and strings with Unicode character data are concatenated, the new string will be created by decoding the byte strings as <i>ISO 8859-1 (Latin-1)</i>.</p>
+
+<p>The <b>encoding</b> pragma changes this to use the specified encoding instead. For example:</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">'utf8'</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">$string</span> <span class="operator">=</span> <span class="keyword">chr</span><span class="operator">(</span><span class="number">20000</span><span class="operator">);</span> <span class="comment"># a Unicode string</span>
+    <span class="variable">utf8::encode</span><span class="operator">(</span><span class="variable">$string</span><span class="operator">);</span>   <span class="comment"># now it's a UTF-8 encoded byte string</span>
+    <span class="comment"># concatenate with another Unicode string</span>
+    <span class="keyword">print</span> <span class="keyword">length</span><span class="operator">(</span><span class="variable">$string</span> <span class="operator">.</span> <span class="keyword">chr</span><span class="operator">(</span><span class="number">20000</span><span class="operator">));</span>
+</code></pre>
+
+<p>Will print <code>2</code>, because <code>$string</code> is upgraded as UTF-8. Without <code><span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">'utf8'</span><span class="operator">;</span>
+</code>, it will print <code>4</code> instead, since <code>$string</code> is three octets when interpreted as Latin-1.</p>
+
+<h2 id="Side-effects">Side effects</h2>
+
+<p>If the <code>encoding</code> pragma is in scope then the lengths returned are calculated from the length of <code>$/</code> in Unicode characters, which is not always the same as the length of <code>$/</code> in the native encoding.</p>
+
+<p>This pragma affects utf8::upgrade, but not utf8::downgrade.</p>
+
+<h1 id="FEATURES-THAT-REQUIRE-5.8.1">FEATURES THAT REQUIRE 5.8.1</h1>
+
+<p>Some of the features offered by this pragma requires perl 5.8.1. Most of these are done by Inaba Hiroto. Any other features and changes are good for 5.8.0.</p>
+
+<dl>
+
+<dt id="NON-EUC-doublebyte-encodings">&quot;NON-EUC&quot; doublebyte encodings</dt>
+<dd>
+
+<p>Because perl needs to parse script before applying this pragma, such encodings as Shift_JIS and Big-5 that may contain &#39;\&#39; (BACKSLASH; \x5c) in the second byte fails because the second byte may accidentally escape the quoting character that follows. Perl 5.8.1 or later fixes this problem.</p>
+
+</dd>
+<dt id="tr">tr//</dt>
+<dd>
+
+<p><code>tr//</code> was overlooked by Perl 5 porters when they released perl 5.8.0 See the section below for details.</p>
+
+</dd>
+<dt id="DATA-pseudo-filehandle">DATA pseudo-filehandle</dt>
+<dd>
+
+<p>Another feature that was overlooked was <code>DATA</code>.</p>
+
+</dd>
+</dl>
+
+<h1 id="USAGE">USAGE</h1>
+
+<dl>
+
+<dt id="use-encoding-ENCNAME">use encoding [<i>ENCNAME</i>] ;</dt>
+<dd>
+
+<p>Sets the script encoding to <i>ENCNAME</i>. And unless ${^UNICODE} exists and non-zero, PerlIO layers of STDIN and STDOUT are set to &quot;:encoding(<i>ENCNAME</i>)&quot;.</p>
+
+<p>Note that STDERR WILL NOT be changed.</p>
+
+<p>Also note that non-STD file handles remain unaffected. Use <code>use open</code> or <code>binmode</code> to change layers of those.</p>
+
+<p>If no encoding is specified, the environment variable <a>PERL_ENCODING</a> is consulted. If no encoding can be found, the error <code>Unknown encoding &#39;<i>ENCNAME</i>&#39;</code> will be thrown.</p>
+
+</dd>
+<dt id="use-encoding-ENCNAME-STDIN-ENCNAME_IN">use encoding <i>ENCNAME</i> [ STDIN =&gt; <i>ENCNAME_IN</i> ...] ;</dt>
+<dd>
+
+<p>You can also individually set encodings of STDIN and STDOUT via the <code>STDIN =&gt; <i>ENCNAME</i></code> form. In this case, you cannot omit the first <i>ENCNAME</i>. <code>STDIN =&gt; undef</code> turns the IO transcoding completely off.</p>
+
+<p>When ${^UNICODE} exists and non-zero, these options will completely ignored. ${^UNICODE} is a variable introduced in perl 5.8.1. See <a href="../lib/pods/perlrun.html">perlrun</a> see <a href="../lib/pods/perlvar.html#UNICODE">&quot;${^UNICODE}&quot; in perlvar</a> and <a href="../lib/pods/perlrun.html#C">&quot;-C&quot; in perlrun</a> for details (perl 5.8.1 and later).</p>
+
+</dd>
+<dt id="use-encoding-ENCNAME-Filter-1">use encoding <i>ENCNAME</i> Filter=&gt;1;</dt>
+<dd>
+
+<p>This turns the encoding pragma into a source filter. While the default approach just decodes interpolated literals (in qq() and qr()), this will apply a source filter to the entire source code. See <a href="#The-Filter-Option">&quot;The Filter Option&quot;</a> below for details.</p>
+
+</dd>
+<dt id="no-encoding">no encoding;</dt>
+<dd>
+
+<p>Unsets the script encoding. The layers of STDIN, STDOUT are reset to &quot;:raw&quot; (the default unprocessed raw stream of bytes).</p>
+
+</dd>
+</dl>
+
+<h1 id="The-Filter-Option">The Filter Option</h1>
+
+<p>The magic of <code>use encoding</code> is not applied to the names of identifiers. In order to make <code><span class="variable">$</span><span class="operator">{</span><span class="string">"\x{4eba}"</span><span class="operator">}</span><span class="operator">++</span>
+</code> ($human++, where human is a single Han ideograph) work, you still need to write your script in UTF-8 -- or use a source filter. That&#39;s what &#39;Filter=&gt;1&#39; does.</p>
+
+<p>What does this mean? Your source code behaves as if it is written in UTF-8 with &#39;use utf8&#39; in effect. So even if your editor only supports Shift_JIS, for example, you can still try examples in Chapter 15 of <code>Programming Perl, 3rd Ed.</code>. For instance, you can use UTF-8 identifiers.</p>
+
+<p>This option is significantly slower and (as of this writing) non-ASCII identifiers are not very stable WITHOUT this option and with the source code written in UTF-8.</p>
+
+<h2 id="Filter-related-changes-at-Encode-version-1.87">Filter-related changes at Encode version 1.87</h2>
+
+<ul>
+
+<li><p>The Filter option now sets STDIN and STDOUT like non-filter options. And <code>STDIN=&gt;<i>ENCODING</i></code> and <code>STDOUT=&gt;<i>ENCODING</i></code> work like non-filter version.</p>
+
+</li>
+<li><p><code>use utf8</code> is implicitly declared so you no longer have to <code>use utf8</code> to <code><span class="variable">$</span><span class="operator">{</span><span class="string">"\x{4eba}"</span><span class="operator">}</span><span class="operator">++</span>
+</code>.</p>
+
+</li>
+</ul>
+
+<h1 id="CAVEATS">CAVEATS</h1>
+
+<h2 id="NOT-SCOPED">NOT SCOPED</h2>
+
+<p>The pragma is a per script, not a per block lexical. Only the last <code>use encoding</code> or <code>no encoding</code> matters, and it affects <b>the whole script</b>. However, the &lt;no encoding&gt; pragma is supported and <b>use encoding</b> can appear as many times as you want in a given script. The multiple use of this pragma is discouraged.</p>
+
+<p>By the same reason, the use this pragma inside modules is also discouraged (though not as strongly discouraged as the case above. See below).</p>
+
+<p>If you still have to write a module with this pragma, be very careful of the load order. See the codes below;</p>
+
+<pre><code>  <span class="comment"># called module</span>
+  <span class="keyword">package</span> <span class="variable">Module_IN_BAR</span><span class="operator">;</span>
+  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"bar"</span><span class="operator">;</span>
+  <span class="comment"># stuff in "bar" encoding here</span>
+  <span class="number">1</span><span class="operator">;</span>
+  
+  <span class="comment"># caller script</span>
+  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"foo"</span>
+  <span class="keyword">use</span> <span class="variable">Module_IN_BAR</span><span class="operator">;</span>
+  <span class="comment"># surprise! use encoding "bar" is in effect.</span>
+</code></pre>
+
+<p>The best way to avoid this oddity is to use this pragma RIGHT AFTER other modules are loaded. i.e.</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">Module_IN_BAR</span><span class="operator">;</span>
+  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"foo"</span><span class="operator">;</span>
+</code></pre>
+
+<h2 id="DO-NOT-MIX-MULTIPLE-ENCODINGS">DO NOT MIX MULTIPLE ENCODINGS</h2>
+
+<p>Notice that only literals (string or regular expression) having only legacy code points are affected: if you mix data like this</p>
+
+<pre><code>    <span class="operator">\</span><span class="variable">xDF</span><span class="operator">\x</span><span class="operator">{</span><span class="string">100</span><span class="operator">}</span>
+</code></pre>
+
+<p>the data is assumed to be in (Latin 1 and) Unicode, not in your native encoding. In other words, this will match in &quot;greek&quot;:</p>
+
+<pre><code>    <span class="string">"\xDF"</span> <span class="operator">=~</span> <span class="regex">/\x{3af}/</span>
+</code></pre>
+
+<p>but this will not</p>
+
+<pre><code>    <span class="string">"\xDF\x{100}"</span> <span class="operator">=~</span> <span class="regex">/\x{3af}\x{100}/</span>
+</code></pre>
+
+<p>since the <code>\xDF</code> (ISO 8859-7 GREEK SMALL LETTER IOTA WITH TONOS) on the left will <b>not</b> be upgraded to <code><span class="operator">\x</span><span class="operator">{</span><span class="string">3af</span><span class="operator">}</span>
+</code> (Unicode GREEK SMALL LETTER IOTA WITH TONOS) because of the <code><span class="operator">\x</span><span class="operator">{</span><span class="string">100</span><span class="operator">}</span>
+</code> on the left. You should not be mixing your legacy data and Unicode in the same string.</p>
+
+<p>This pragma also affects encoding of the 0x80..0xFF code point range: normally characters in that range are left as eight-bit bytes (unless they are combined with characters with code points 0x100 or larger, in which case all characters need to become UTF-8 encoded), but if the <code>encoding</code> pragma is present, even the 0x80..0xFF range always gets UTF-8 encoded.</p>
+
+<p>After all, the best thing about this pragma is that you don&#39;t have to resort to \x{....} just to spell your name in a native encoding. So feel free to put your strings in your encoding in quotes and regexes.</p>
+
+<h2 id="tr-with-ranges">tr/// with ranges</h2>
+
+<p>The <b>encoding</b> pragma works by decoding string literals in <code>q//,qq//,qr//,qw///, qx//</code> and so forth. In perl 5.8.0, this does not apply to <code>tr///</code>. Therefore,</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">'euc-jp'</span><span class="operator">;</span>
+  <span class="comment">#....</span>
+  <span class="variable">$kana</span> <span class="operator">=~</span> <span class="regex">tr/\xA4\xA1-\xA4\xF3/\xA5\xA1-\xA5\xF3/</span><span class="operator">;</span>
+  <span class="comment">#           -------- -------- -------- --------</span>
+</code></pre>
+
+<p>Does not work as</p>
+
+<pre><code>  <span class="variable">$kana</span> <span class="operator">=~</span> <span class="regex">tr/\x{3041}-\x{3093}/\x{30a1}-\x{30f3}/</span><span class="operator">;</span>
+</code></pre>
+
+<dl>
+
+<dt id="Legend-of-characters-above">Legend of characters above</dt>
+<dd>
+
+<pre><code>  <span class="variable">utf8</span>     <span class="variable">euc</span><span class="operator">-</span><span class="variable">jp</span>   <span class="variable">charnames::viacode</span><span class="operator">()</span>
+  <span class="operator">-----------------------------------------</span>
+  <span class="operator">\x</span><span class="operator">{</span><span class="string">3041</span><span class="operator">}</span> <span class="operator">\</span><span class="variable">xA4</span><span class="operator">\</span><span class="variable">xA1</span> <span class="variable">HIRAGANA</span> <span class="variable">LETTER</span> <span class="variable">SMALL</span> <span class="variable">A</span>
+  <span class="operator">\x</span><span class="operator">{</span><span class="string">3093</span><span class="operator">}</span> <span class="operator">\</span><span class="variable">xA4</span><span class="operator">\</span><span class="variable">xF3</span> <span class="variable">HIRAGANA</span> <span class="variable">LETTER</span> <span class="variable">N</span>
+  <span class="operator">\x</span><span class="operator">{</span><span class="string">30a1</span><span class="operator">}</span> <span class="operator">\</span><span class="variable">xA5</span><span class="operator">\</span><span class="variable">xA1</span> <span class="variable">KATAKANA</span> <span class="variable">LETTER</span> <span class="variable">SMALL</span> <span class="variable">A</span>
+  <span class="operator">\x</span><span class="operator">{</span><span class="string">30f3</span><span class="operator">}</span> <span class="operator">\</span><span class="variable">xA5</span><span class="operator">\</span><span class="variable">xF3</span> <span class="variable">KATAKANA</span> <span class="variable">LETTER</span> <span class="variable">N</span>
+</code></pre>
+
+</dd>
+</dl>
+
+<p>This counterintuitive behavior has been fixed in perl 5.8.1.</p>
+
+<h3 id="workaround-to-tr">workaround to tr///;</h3>
+
+<p>In perl 5.8.0, you can work around as follows;</p>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">'euc-jp'</span><span class="operator">;</span>
+  <span class="comment">#  ....</span>
+  <span class="keyword">eval</span> <span class="string">qq{ \$kana =~ tr/\xA4\xA1-\xA4\xF3/\xA5\xA1-\xA5\xF3/ }</span><span class="operator">;</span>
+</code></pre>
+
+<p>Note the <code>tr//</code> expression is surrounded by <code><span class="string">qq{}</span>
+</code>. The idea behind is the same as classic idiom that makes <code>tr///</code> &#39;interpolate&#39;.</p>
+
+<pre><code>   <span class="regex">tr/</span><span class="variable">$from</span><span class="regex">/$to/</span><span class="operator">;</span>            <span class="comment"># wrong!</span>
+   <span class="keyword">eval</span> <span class="string">qq{ tr/</span><span class="variable">$from</span><span class="string">/</span><span class="variable">$to</span><span class="string">/ }</span><span class="operator">;</span> <span class="comment"># workaround.</span>
+</code></pre>
+
+<p>Nevertheless, in case of <b>encoding</b> pragma even <code>q//</code> is affected so <code>tr///</code> not being decoded was obviously against the will of Perl5 Porters so it has been fixed in Perl 5.8.1 or later.</p>
+
+<h1 id="EXAMPLE---Greekperl">EXAMPLE - Greekperl</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">encoding</span> <span class="string">"iso 8859-7"</span><span class="operator">;</span>
+    
+    <span class="comment"># \xDF in ISO 8859-7 (Greek) is \x{3af} in Unicode.</span>
+    
+    <span class="variable">$a</span> <span class="operator">=</span> <span class="string">"\xDF"</span><span class="operator">;</span>
+    <span class="variable">$b</span> <span class="operator">=</span> <span class="string">"\x{100}"</span><span class="operator">;</span>
+    
+    <span class="keyword">printf</span> <span class="string">"%#x\n"</span><span class="operator">,</span> <span class="keyword">ord</span><span class="operator">(</span><span class="variable">$a</span><span class="operator">);</span> <span class="comment"># will print 0x3af, not 0xdf</span>
+    
+    <span class="variable">$c</span> <span class="operator">=</span> <span class="variable">$a</span> <span class="operator">.</span> <span class="variable">$b</span><span class="operator">;</span>
+    
+    <span class="comment"># $c will be "\x{3af}\x{100}", not "\x{df}\x{100}".</span>
+    
+    <span class="comment"># chr() is affected, and ...</span>
+    
+    <span class="keyword">print</span> <span class="string">"mega\n"</span>  <span class="keyword">if</span> <span class="keyword">ord</span><span class="operator">(</span><span class="keyword">chr</span><span class="operator">(</span><span class="number">0xdf</span><span class="operator">))</span> <span class="operator">==</span> <span class="number">0x3af</span><span class="operator">;</span>
+    
+    <span class="comment"># ... ord() is affected by the encoding pragma ...</span>
+    
+    <span class="keyword">print</span> <span class="string">"tera\n"</span> <span class="keyword">if</span> <span class="keyword">ord</span><span class="operator">(</span><span class="keyword">pack</span><span class="operator">(</span><span class="string">"C"</span><span class="operator">,</span> <span class="number">0xdf</span><span class="operator">))</span> <span class="operator">==</span> <span class="number">0x3af</span><span class="operator">;</span>
+    
+    <span class="comment"># ... as are eq and cmp ...</span>
+    
+    <span class="keyword">print</span> <span class="string">"peta\n"</span> <span class="keyword">if</span> <span class="string">"\x{3af}"</span> <span class="keyword">eq</span>  <span class="keyword">pack</span><span class="operator">(</span><span class="string">"C"</span><span class="operator">,</span> <span class="number">0xdf</span><span class="operator">);</span>
+    <span class="keyword">print</span> <span class="string">"exa\n"</span>  <span class="keyword">if</span> <span class="string">"\x{3af}"</span> <span class="keyword">cmp</span> <span class="keyword">pack</span><span class="operator">(</span><span class="string">"C"</span><span class="operator">,</span> <span class="number">0xdf</span><span class="operator">)</span> <span class="operator">==</span> <span class="number">0</span><span class="operator">;</span>
+    
+    <span class="comment"># ... but pack/unpack C are not affected, in case you still</span>
+    <span class="comment"># want to go back to your native encoding</span>
+    
+    <span class="keyword">print</span> <span class="string">"zetta\n"</span> <span class="keyword">if</span> <span class="keyword">unpack</span><span class="operator">(</span><span class="string">"C"</span><span class="operator">,</span> <span class="operator">(</span><span class="keyword">pack</span><span class="operator">(</span><span class="string">"C"</span><span class="operator">,</span> <span class="number">0xdf</span><span class="operator">)))</span> <span class="operator">==</span> <span class="number">0xdf</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="KNOWN-PROBLEMS">KNOWN PROBLEMS</h1>
+
+<dl>
+
+<dt id="literals-in-regex-that-are-longer-than-127-bytes">literals in regex that are longer than 127 bytes</dt>
+<dd>
+
+<p>For native multibyte encodings (either fixed or variable length), the current implementation of the regular expressions may introduce recoding errors for regular expression literals longer than 127 bytes.</p>
+
+</dd>
+<dt id="EBCDIC">EBCDIC</dt>
+<dd>
+
+<p>The encoding pragma is not supported on EBCDIC platforms. (Porters who are willing and able to remove this limitation are welcome.)</p>
+
+</dd>
+<dt id="format">format</dt>
+<dd>
+
+<p>This pragma doesn&#39;t work well with format because PerlIO does not get along very well with it. When format contains non-ascii characters it prints funny or gets &quot;wide character warnings&quot;. To understand it, try the code below.</p>
+
+<pre><code>  <span class="comment"># Save this one in utf8</span>
+  <span class="comment"># replace *non-ascii* with a non-ascii string</span>
+  <span class="keyword">my</span> <span class="variable">$camel</span><span class="operator">;</span>
+  <span class="keyword">format</span> <span class="variable">STDOUT</span> <span class="operator">=</span><span class="default">
+  *non-ascii*@&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+  $camel
+  .</span>
+  <span class="variable">$camel</span> <span class="operator">=</span> <span class="string">"*non-ascii*"</span><span class="operator">;</span>
+  <span class="keyword">binmode</span><span class="operator">(</span><span class="string">STDOUT</span><span class="operator">=&gt;</span><span class="string">':encoding(utf8)'</span><span class="operator">);</span> <span class="comment"># bang!</span>
+  <span class="keyword">write</span><span class="operator">;</span>              <span class="comment"># funny</span>
+  <span class="keyword">print</span> <span class="variable">$camel</span><span class="operator">,</span> <span class="string">"\n"</span><span class="operator">;</span> <span class="comment"># fine</span>
+</code></pre>
+
+<p>Without binmode this happens to work but without binmode, print() fails instead of write().</p>
+
+<p>At any rate, the very use of format is questionable when it comes to unicode characters since you have to consider such things as character width (i.e. double-width for ideographs) and directions (i.e. BIDI for Arabic and Hebrew).</p>
+
+</dd>
+<dt id="Thread-safety">Thread safety</dt>
+<dd>
+
+<p><code>use encoding ...</code> is not thread-safe (i.e., do not use in threaded applications).</p>
+
+</dd>
+</dl>
+
+<h2 id="The-Logic-of-:locale">The Logic of :locale</h2>
+
+<p>The logic of <code>:locale</code> is as follows:</p>
+
+<ol>
+
+<li><p>If the platform supports the langinfo(CODESET) interface, the codeset returned is used as the default encoding for the open pragma.</p>
+
+</li>
+<li><p>If 1. didn&#39;t work but we are under the locale pragma, the environment variables LC_ALL and LANG (in that order) are matched for encodings (the part after <code>.</code>, if any), and if any found, that is used as the default encoding for the open pragma.</p>
+
+</li>
+<li><p>If 1. and 2. didn&#39;t work, the environment variables LC_ALL and LANG (in that order) are matched for anything looking like UTF-8, and if any found, <code>:utf8</code> is used as the default encoding for the open pragma.</p>
+
+</li>
+</ol>
+
+<p>If your locale environment variables (LC_ALL, LC_CTYPE, LANG) contain the strings &#39;UTF-8&#39; or &#39;UTF8&#39; (case-insensitive matching), the default encoding of your STDIN, STDOUT, and STDERR, and of <b>any subsequent file open</b>, is UTF-8.</p>
+
+<h1 id="HISTORY">HISTORY</h1>
+
+<p>This pragma first appeared in Perl 5.8.0. For features that require 5.8.1 and better, see above.</p>
+
+<p>The <code>:locale</code> subpragma was implemented in 2.01, or Perl 5.8.6.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../lib/pods/perlunicode.html">perlunicode</a>, <a href="../lib/Encode.html">Encode</a>, <a href="../lib/open.html">open</a>, <a href="../lib/Filter/Util/Call.html">Filter::Util::Call</a>,</p>
+
+<p>Ch. 15 of <code>Programming Perl (3rd Edition)</code> by Larry Wall, Tom Christiansen, Jon Orwant; O&#39;Reilly &amp; Associates; ISBN 0-596-00027-8</p>
+
+
+</body>
+
+</html>
+
+

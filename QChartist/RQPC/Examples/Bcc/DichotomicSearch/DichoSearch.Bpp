@@ -1,0 +1,30 @@
+//
+// -------------------------------------------------------------------
+// RQPC BCC EXAMPLE  C++ Dichotomic Search         Jan 2007,   Jacques
+//
+// returns -1 if not found
+// -------------------------------------------------------------------
+//
+// ''RQEXPORT function SearchDicho (ptrIntegerTable, nbrOfIntegerInTable, SearchedValue)
+// 
+int SearchDicho(int tab[], int nbrVal, int val, int i4){
+  bool bFound;
+  int id;  //indice de début
+  int iEnd;  //indice de fin
+  int iMiddle;  //indice de "milieu"
+  
+  bFound = false;
+  id = 0;
+  iEnd = nbrVal; 
+  
+  /* boucle de recherche */
+  while(!bFound && ((iEnd - id) > 1)){
+    iMiddle = (id + iEnd)/2;
+    bFound = (tab[iMiddle] == val);
+    if(tab[iMiddle] > val) iEnd = iMiddle;
+    else id = iMiddle;
+	}
+  if(tab[id] == val) return(id);
+  else return(-1);
+}
+// -------------------------------------------------------------------

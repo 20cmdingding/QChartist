@@ -1,0 +1,34 @@
+declare sub hideweeklypivotcppform
+
+CREATE weeklypivotcppform as qform
+
+    Center
+    Caption = "Settings for: Weekly Pivot cpp"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create weeklypivotcppbarsbacklab as qlabel
+        left=0
+        top=0
+        caption="Bars back:"
+    end create
+
+    create weeklypivotcppbarsbackedit as qedit
+        left=weeklypivotcppbarsbacklab.width+100
+        top=0
+        text="500"
+    end create
+
+    create weeklypivotcppbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideweeklypivotcppform
+    end create
+
+END CREATE
+
+sub hideweeklypivotcppform
+    weeklypivotcppform.visible=0
+end sub

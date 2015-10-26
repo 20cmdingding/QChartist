@@ -1,0 +1,86 @@
+declare sub hideplanets_scaleform
+
+declare sub planets_scale_inverted_click
+defint planets_scale_inv=1
+
+CREATE planets_scaleform as qform
+
+    Center
+    Caption = "Settings for: planets_scale"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create planets_scale_ratio_label as qlabel
+	top=0
+	left=0
+	caption="ratio:"
+end create
+
+create planets_scale_ratio as qedit
+	top=0
+	left=planets_scale_ratio_label.left+planets_scale_ratio_label.width
+	text="1000"
+end create
+
+create planets_scale_planet as qcombobox
+	top=20
+	left=0
+	additems "Earth"
+	additems "Mars"
+	additems "Venus"
+	additems "Saturn"
+	additems "Neptune"
+	additems "Pluto"
+	additems "Jupiter"
+	additems "Uranus"
+	additems "Mercury"
+	itemindex=8
+end create
+
+create planets_scale_limit_label as qlabel
+top=40
+left=0
+caption="Bars limit:"
+end create
+
+create planets_scale_limit as qedit
+top=40
+left=planets_scale_limit_label.left+planets_scale_limit_label.width
+text="300"
+end create
+
+create planets_scale_helio_geo as qcombobox
+	top=60
+	left=0
+	additems "Heliocentric"
+	itemindex=0
+end create
+
+create planets_scale_inverted as qcheckbox
+	top=80
+	left=0
+	caption="Inverted"
+	onclick=planets_scale_inverted_click
+end create
+
+    create planets_scalebtnok as qbutton
+        left=0
+        top=100
+        caption="OK"
+        onclick=hideplanets_scaleform
+    end create
+
+END CREATE
+
+sub hideplanets_scaleform
+    planets_scaleform.visible=0
+end sub
+
+sub planets_scale_inverted_click
+if planets_scale_inverted.checked=1 then
+planets_scale_inv=-1
+else
+planets_scale_inv=1
+end if
+end sub

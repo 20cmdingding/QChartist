@@ -1,0 +1,2 @@
+#define FBRCDATA 6868     //RCDATA not defined in FB
+BAS_CODE FBRCDATA "GetResource.Bas"

@@ -1,0 +1,105 @@
+dim candleavgsma(0 to 1000) as double
+
+
+
+
+dim candleavgema(0 to 1000) as double
+
+sub candleavgemasub(period as integer,pricehlc as integer)
+    
+    dim pr as double
+    pr=2/(period+1)
+    dim i as integer,p as integer
+    p=bars-2
+    p=200
+    while p>=0
+        if p=200 then
+            candleavgema(p+1)=close(p+1)
+        end if
+select case pricehlc
+case 0:
+        candleavgema(p)=close(p)*pr+candleavgema(p+1)*(1-pr)
+case 1:
+        candleavgema(p)=high(p)*pr+candleavgema(p+1)*(1-pr)
+case 2:
+        candleavgema(p)=low(p)*pr+candleavgema(p+1)*(1-pr)
+end select
+
+        p--
+    wend
+
+end sub
+
+declare sub candleavgsmasub(period as integer)
+
+declare sub CandleAvg ' This line of code must stay here
+dim candleavgbuffer(0 to 1000) as double' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+dim barvalue(0 to 1000) as double
+
+sub CandleAvg
+' Put your indicator code here
+dim length as integer,h_period as integer,l_period as integer,c_period as integer
+
+length=3
+h_period=3
+l_period=3
+c_period=3
+
+dim shift as integer,limit as integer
+dim updel as double,dndel as double,h as double,l as double,c as double
+
+for shift=200 to 0 step -1
+candleavgemasub(h_period,1)
+h=candleavgema(shift)
+candleavgemasub(l_period,2)
+l=candleavgema(shift)
+candleavgemasub(c_period,0)
+c=candleavgema(shift)
+
+updel=h-c
+dndel=c-l
+
+
+if updel<dndel then 
+barvalue(shift)=1
+end if
+
+if updel>dndel then 
+barvalue(shift)=-1
+end if
+
+if updel=dndel then 
+barvalue(shift)=0
+end if
+
+next shift
+
+candleavgsmasub(length)
+for shift=200 to 0 step -1
+candleavgbuffer(shift)=candleavgsma(shift)
+next shift
+
+end sub
+
+sub candleavgsmasub(period as integer)
+
+    dim sum as double
+
+    sum=0
+    dim i as integer,p as integer
+    p=bars-1
+    p=1000
+
+    for i=1 to period-1
+        sum=sum+barvalue(p)
+        p--
+    next i
+    while p>=0
+        sum=sum+barvalue(p)
+        candleavgsma(p)=sum/period
+        sum=sum-barvalue(p+period-1)
+        p--
+    wend
+
+end sub   
+

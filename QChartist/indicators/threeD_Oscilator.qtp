@@ -1,0 +1,46 @@
+declare sub hidethreeD_Oscilatorform
+
+CREATE threeD_Oscilatorform as qform
+
+    Center
+    Caption = "Settings for: threeD Oscilator"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create threeD_Oscilatorperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create threeD_Oscilatorperiodedit as qedit
+        left=threeD_Oscilatorperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+create threeD_Oscilatorcurtflab as qlabel
+        left=0
+        top=20
+        caption="Current timeframe:"
+    end create
+
+    create threeD_Oscilatorcurtfedit as qedit
+        left=threeD_Oscilatorcurtflab.width+10
+        top=20
+        text="60"
+    end create
+
+    create threeD_Oscilatorbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hidethreeD_Oscilatorform
+    end create
+
+END CREATE
+
+sub hidethreeD_Oscilatorform
+    threeD_Oscilatorform.visible=0
+end sub

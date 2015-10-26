@@ -1,0 +1,65 @@
+dim bandssmabuffer(0 to 1000) as double
+
+declare sub bandssma()
+
+sub bandssma()
+
+    dim sum as double
+    sum=0
+    dim i as integer,p as integer
+    p=bars-1
+    p=1000
+    if p<val(bandsperiodedit.text) then
+        p=val(bandsperiodedit.text)
+    end if
+    for i=1 to val(bandsperiodedit.text)-1
+        sum=sum+close(p)
+        p--
+    next i
+    while p>=0
+        sum=sum+close(p)
+        bandssmabuffer(p)=sum/val(bandsperiodedit.text)
+        sum=sum-close(p+val(bandsperiodedit.text)-1)
+        p--
+    wend
+
+end sub
+
+declare sub bands()
+
+dim bandsperiod as integer,bandsdeviations as double
+bandsdeviations=2
+dim bandsmovingbuffer(0 to 1000) as double,bandsupperbuffer(0 to 1000) as double,bandslowerbuffer(0 to 1000) as double
+bandsperiod=val(bandsperiodedit.text)
+sub bands()
+
+dim i as integer,k as integer,deviation as double,sum as double,oldval as double,newres as double
+
+if bars<=bandsperiod then
+    exit sub
+end if
+
+dim limit as integer
+limit=1000
+bandssma
+for i=0 to limit-1
+    bandsmovingbuffer(i)=bandssmabuffer(i)
+next i
+
+i=1000-bandsperiod+1
+while i>=0
+    sum=0
+    k=i+bandsperiod-1
+    oldval=bandsmovingbuffer(i)
+    while k>=i
+        newres=close(k)-oldval
+        sum+=newres*newres
+        k--
+    wend
+    deviation=bandsdeviations*sqr(sum/bandsperiod)
+    bandsupperbuffer(i)=oldval+deviation
+    bandslowerbuffer(i)=oldval-deviation
+    i--
+wend
+
+end sub

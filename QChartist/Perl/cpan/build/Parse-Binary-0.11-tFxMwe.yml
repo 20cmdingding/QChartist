@@ -1,0 +1,56 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: Parse::Binary
+  CHECKSUM_STATUS: OK
+  ID: A/AU/AUDREYT/Parse-Binary-0.11.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: AUDREYT
+  archived: tar
+  build_dir: C:\Perl\cpan\build\Parse-Binary-0.11-tFxMwe
+  incommandcolor: 2
+  install: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423600
+  localfile: C:\Perl\cpan\sources\authors\id\A\AU\AUDREYT\Parse-Binary-0.11.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423585
+  make_test: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423585
+  mandatory: 1
+  negative_prefs_cache: 1
+  prefs:
+    install: {}
+  prereq_pm:
+    build_requires:
+      ExtUtils::MakeMaker: '0'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      ExtUtils::MakeMaker: '6.98'
+  reqtype: r
+  sponsored_mods: {}
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423568
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426423568
+perl:
+  $^X: c:\perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426423600

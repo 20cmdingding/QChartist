@@ -1,0 +1,22 @@
+declare sub hideEllipticIntegralKfform
+
+CREATE EllipticIntegralKfform as qform
+
+    Center
+    Caption = "Settings for: EllipticIntegralKf"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create EllipticIntegralKfbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideEllipticIntegralKfform
+    end create
+
+END CREATE
+
+sub hideEllipticIntegralKfform
+    EllipticIntegralKfform.visible=0
+end sub

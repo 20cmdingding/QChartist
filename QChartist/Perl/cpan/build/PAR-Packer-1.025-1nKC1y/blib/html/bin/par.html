@@ -1,0 +1,214 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../displayToc.js"></script>
+<script language="JavaScript" src="../tocParas.js"></script>
+<script language="JavaScript" src="../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Binary-PAR-loader-parl">Binary PAR loader (parl)</a></li>
+      <li><a href="#Stand-alone-executable-format">Stand-alone executable format</a></li>
+    </ul>
+  </li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>par.pl - Make and run Perl Archives</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>(Please see <a href="../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/pp.html">pp</a> for convenient ways to make self-contained executables, scripts or PAR archives from perl programs.)</p>
+
+<p>To make a <i>PAR distribution</i> from a CPAN module distribution:</p>
+
+<pre><code>    % par.pl -p                 # make a PAR dist under the current path
+    % par.pl -p Foo-0.01        # assume unpacked CPAN dist in Foo-0.01/</code></pre>
+
+<p>To manipulate a <i>PAR distribution</i>:</p>
+
+<pre><code>    % par.pl -i Foo-0.01-i386-freebsd-5.8.0.par # install
+    % par.pl -i http://foo.com/Foo-0.01         # auto-appends archname + perlver
+    % par.pl -i cpan://AUTRIJUS/PAR-0.74        # uses CPAN author directory
+    % par.pl -u Foo-0.01-i386-freebsd-5.8.0.par # uninstall
+    % par.pl -s Foo-0.01-i386-freebsd-5.8.0.par # sign
+    % par.pl -v Foo-0.01-i386-freebsd-5.8.0.par # verify</code></pre>
+
+<p>To use <i>Hello.pm</i> from <i>./foo.par</i>:</p>
+
+<pre><code>    % par.pl -A./foo.par -MHello
+    % par.pl -A./foo -MHello    # the .par part is optional</code></pre>
+
+<p>Same thing, but search <i>foo.par</i> in the <i>@INC</i>;</p>
+
+<pre><code>    % par.pl -Ifoo.par -MHello
+    % par.pl -Ifoo -MHello      # ditto</code></pre>
+
+<p>Run <i>test.pl</i> or <i>script/test.pl</i> from <i>foo.par</i>:</p>
+
+<pre><code>    % par.pl foo.par test.pl    # looks for &#39;main.pl&#39; by default,
+                                # otherwise run &#39;test.pl&#39;</code></pre>
+
+<p>To make a self-containing script containing a PAR file :</p>
+
+<pre><code>    % par.pl -O./foo.pl foo.par
+    % ./foo.pl test.pl          # same as above</code></pre>
+
+<p>To embed the necessary non-core modules and shared objects for PAR&#39;s execution (like <code>Zlib</code>, <code>IO</code>, <code>Cwd</code>, etc), use the <b>-b</b> flag:</p>
+
+<pre><code>    % par.pl -b -O./foo.pl foo.par
+    % ./foo.pl test.pl          # runs anywhere with core modules installed</code></pre>
+
+<p>If you also wish to embed <i>core</i> modules along, use the <b>-B</b> flag instead:</p>
+
+<pre><code>    % par.pl -B -O./foo.pl foo.par
+    % ./foo.pl test.pl          # runs anywhere with the perl interpreter</code></pre>
+
+<p>This is particularly useful when making stand-alone binary executables; see <a href="../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/pp.html">pp</a> for details.</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This stand-alone command offers roughly the same feature as <code>perl -MPAR</code>, except that it takes the pre-loaded <i>.par</i> files via <code>-Afoo.par</code> instead of <code>-MPAR=foo.par</code>.</p>
+
+<p>Additionally, it lets you convert a CPAN distribution to a PAR distribution, as well as manipulate such distributions. For more information about PAR distributions, see <a href="../site/lib/PAR/Dist.html">PAR::Dist</a>.</p>
+
+<h2 id="Binary-PAR-loader-parl">Binary PAR loader (<a>parl</a>)</h2>
+
+<p>If you have a C compiler, or a pre-built binary package of <b>PAR</b> is available for your platform, a binary version of <b>par.pl</b> will also be automatically installed as <b>parl</b>. You can use it to run <i>.par</i> files:</p>
+
+<pre><code>    # runs script/run.pl in archive, uses its lib/* as libraries
+    % parl myapp.par run.pl     # runs run.pl or script/run.pl in myapp.par
+    % parl otherapp.pl          # also runs normal perl scripts</code></pre>
+
+<p>However, if the <i>.par</i> archive contains either <i>main.pl</i> or <i>script/main.pl</i>, it is used instead:</p>
+
+<pre><code>    % parl myapp.par run.pl     # runs main.pl, with &#39;run.pl&#39; as @ARGV</code></pre>
+
+<p>Finally, the <code>-O</code> option makes a stand-alone binary executable from a PAR file:</p>
+
+<pre><code>    % parl -B -Omyapp myapp.par
+    % ./myapp                   # run it anywhere without perl binaries</code></pre>
+
+<p>With the <code>--par-options</code> flag, generated binaries can act as <code>parl</code> to pack new binaries:</p>
+
+<pre><code>    % ./myapp --par-options -Omyap2 myapp.par   # identical to ./myapp
+    % ./myapp --par-options -Omyap3 myap3.par   # now with different PAR</code></pre>
+
+<h2 id="Stand-alone-executable-format">Stand-alone executable format</h2>
+
+<p>The format for the stand-alone executable is simply concatenating the following elements:</p>
+
+<ul>
+
+<li><p>The executable itself</p>
+
+<p>Either in plain-text (<i>par.pl</i>) or native executable format (<i>parl</i> or <i>parl.exe</i>).</p>
+
+</li>
+<li><p>Any number of embedded files</p>
+
+<p>These are typically used for bootstrapping PAR&#39;s various XS dependencies. Each section contains:</p>
+
+<dl>
+
+<dt id="The-magic-string-FILE">The magic string &quot;<code>FILE</code>&quot;</dt>
+<dd>
+
+</dd>
+<dt id="Length-of-file-name-in-pack-N-format-plus-9">Length of file name in <code>pack(&#39;N&#39;)</code> format plus 9</dt>
+<dd>
+
+</dd>
+<dt id="bytes-of-hex-encoded-CRC32-of-file-content">8 bytes of hex-encoded CRC32 of file content</dt>
+<dd>
+
+</dd>
+<dt id="A-single-slash">A single slash (&quot;<code>/</code>&quot;)</dt>
+<dd>
+
+</dd>
+<dt id="The-file-name-without-path">The file name (without path)</dt>
+<dd>
+
+</dd>
+<dt id="File-length-in-pack-N-format">File length in <code>pack(&#39;N&#39;)</code> format</dt>
+<dd>
+
+</dd>
+<dt id="The-files-content-not-compressed">The file&#39;s content (not compressed)</dt>
+<dd>
+
+</dd>
+</dl>
+
+</li>
+<li><p>One PAR file</p>
+
+<p>This is just a zip file beginning with the magic string &quot;<code>PK\003\004</code>&quot;.</p>
+
+</li>
+<li><p>Ending section</p>
+
+<p>The pre-computed cache name. A pack(&#39;Z40&#39;) string of the value of -T (--tempcache) or the hash of the file, followed by <code>\0CACHE</code>. The hash of the file is calculated with <a href="../lib/Digest/SHA.html">Digest::SHA</a>, <a href="../lib/Digest/SHA1.html">Digest::SHA1</a>, or <a href="../lib/Digest/MD5.html">Digest::MD5</a>. If none of those modules is available, the <code>mtime</code> of the file is used.</p>
+
+<p>A pack(&#39;N&#39;) number of the total length of FILE and PAR sections, followed by a 8-bytes magic string: &quot;<code>\012PAR.pm\012</code>&quot;.</p>
+
+</li>
+</ul>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../site/lib/PAR.html">PAR</a>, <a href="../site/lib/PAR/Dist.html">PAR::Dist</a>, <a>parl</a>, <a href="../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/pp.html">pp</a></p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;, Steffen Mueller &lt;smueller@cpan.org&gt;</p>
+
+<p><a href="http://par.perl.org/">http://par.perl.org/</a> is the official PAR website. You can write to the mailing list at &lt;par@perl.org&gt;, or send an empty mail to &lt;par-subscribe@perl.org&gt; to participate in the discussion.</p>
+
+<p>Please submit bug reports to &lt;bug-par@rt.cpan.org&gt;.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2002-2009 by Audrey Tang &lt;cpan@audreyt.org&gt;.</p>
+
+<p>Neither this program nor the associated <a>parl</a> program impose any licensing restrictions on files generated by their execution, in accordance with the 8th article of the Artistic License:</p>
+
+<pre><code>    <span class="string">"Aggregation of this Package with a commercial distribution is
+    always permitted provided that the use of this Package is embedded;
+    that is, when no overt attempt is made to make this Package's
+    interfaces visible to the end user of the commercial distribution.
+    Such use shall not be construed as a distribution of this Package."</span>
+</code></pre>
+
+<p>Therefore, you are absolutely free to place any license on the resulting executable, as long as the packed 3rd-party libraries are also available under the Artistic License.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

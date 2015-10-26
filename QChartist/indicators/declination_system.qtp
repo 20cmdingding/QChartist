@@ -1,0 +1,30 @@
+declare sub hidedeclination_systemform
+
+CREATE declination_systemform as qform
+
+    Center
+    Caption = "Settings for: declination_system"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create declination_system_helio_geo as qcombobox
+left=0
+top=0
+additems "Heliocentric"
+additems "Geocentric"
+itemindex=0
+end create
+
+    create declination_systembtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hidedeclination_systemform
+    end create
+
+END CREATE
+
+sub hidedeclination_systemform
+    declination_systemform.visible=0
+end sub

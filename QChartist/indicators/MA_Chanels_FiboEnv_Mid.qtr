@@ -1,0 +1,45 @@
+'------------------------- MA Chanels FiboEnv Mid -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=MA_Chanels_FiboEnv_Midperiodedit.text
+curtfstr=MA_Chanels_FiboEnv_Midcurtfedit.text
+cpptmpfuncreturn=varptr$(MA_Chanels_FiboEnv_Mid(varptr(periodstr),varptr(curtfstr)))
+end if
+
+barsback=500 '<--- can also be something like VAL(MA_Chanels_FiboEnv_Midbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MA_Chanels_FiboEnv_Midbuffer1"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MA_Chanels_FiboEnv_Midbuffer2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MA_Chanels_FiboEnv_Midbuffer3"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MA_Chanels_FiboEnv_Midbuffer4"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MA_Chanels_FiboEnv_Midbuffer5"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MA_Chanels_FiboEnv_Midbuffer6"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MA_Chanels_FiboEnv_Midbuffer7"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End MA Chanels FiboEnv Mid -------------------------------------------------

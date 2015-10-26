@@ -1,0 +1,474 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#EXAMPLES">EXAMPLES</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a></li>
+  <li><a href="#ENVIRONMENT">ENVIRONMENT</a></li>
+  <li><a href="#NOTES">NOTES</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#ACKNOWLEDGMENTS">ACKNOWLEDGMENTS</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>pp - PAR Packager</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><b>pp</b> <span style="white-space: nowrap;">[ <b>-ABCEFILMPTSVXacdefghilmnoprsvxz</b> ]</span> <span style="white-space: nowrap;">[ <i>parfile</i> | <i>scriptfile</i> ]</span>...</p>
+
+<h1 id="EXAMPLES">EXAMPLES</h1>
+
+<p>Note: When running on Microsoft Windows, the <i>a.out</i> below will be replaced by <i>a.exe</i> instead.</p>
+
+<pre><code>    <span class="operator">% </span><span class="variable">pp</span> <span class="variable">hello</span><span class="operator">.</span><span class="variable">pl</span>               <span class="comment"># Pack 'hello.pl' into executable 'a.out'</span>
+    <span class="operator">% </span><span class="variable">pp</span> <span class="keyword">-o</span> <span class="variable">hello</span> <span class="variable">hello</span><span class="operator">.</span><span class="variable">pl</span>      <span class="comment"># Pack 'hello.pl' into executable 'hello'</span>
+                                <span class="comment"># (or 'hello.exe' on Win32)</span>
+    
+    <span class="operator">% </span><span class="variable">pp</span> <span class="keyword">-o</span> <span class="variable">foo</span> <span class="variable">foo</span><span class="operator">.</span><span class="variable">pl</span> <span class="variable">bar</span><span class="operator">.</span><span class="variable">pl</span>   <span class="comment"># Pack 'foo.pl' and 'bar.pl' into 'foo'</span>
+    <span class="operator">% .</span><span class="regex">/foo                     # Run 'foo.pl' inside 'foo'
+    % mv foo bar; ./bar</span>         <span class="comment"># Run 'bar.pl' inside 'foo'</span>
+    <span class="operator">% </span><span class="variable">mv</span> <span class="variable">bar</span> <span class="variable">baz</span><span class="operator">;</span> <span class="operator">.</span><span class="regex">/baz         # Error: Can't open perl script "baz"
+    
+    % pp -p file                # Creates a PAR file, 'a.par'
+    % pp -o hello a.par         # Pack 'a.par' to executable 'hello'
+    % pp -S -o hello file       # Combine the two steps above
+    
+    % pp -p -o out.par file     # Creates 'out.par' from 'file'
+    % pp -B -p -o out.par file  # same as above, but bundles core modules
+                                # and removes any local paths from </span><span class="variable">@INC</span><span class="regex">
+    % pp -P -o out.pl file      # Creates 'out.pl' from 'file'
+    % pp -B -p -o out.pl file   # same as above, but bundles core modules
+                                # and removes any local paths from </span><span class="variable">@INC</span><span class="regex">
+                                # (-B is assumed when making executables)
+    
+    % pp -e "print 123"         # Pack a one-liner into 'a.out'
+    % pp -p -e "print 123"      # Creates a PAR file 'a.par'
+    % pp -P -e "print 123"      # Creates a perl script 'a.pl'
+    
+    % pp -c hello               # Check dependencies from "perl -c hello"
+    % pp -x hello               # Check dependencies from "perl hello"
+    % pp -n -x hello            # same as above, but skips static scanning
+    
+    % pp -I /foo</span> <span class="variable">hello</span>          <span class="comment"># Extra include paths</span>
+    <span class="operator">% </span><span class="variable">pp</span> <span class="keyword">-M</span> <span class="variable">Foo::Bar</span> <span class="variable">hello</span>      <span class="comment"># Extra modules in the include path</span>
+    <span class="operator">% </span><span class="variable">pp</span> <span class="keyword">-M</span> <span class="variable">abbrev</span><span class="operator">.</span><span class="variable">pl</span> <span class="variable">hello</span>     <span class="comment"># Extra libraries in the include path</span>
+    <span class="operator">% </span><span class="variable">pp</span> <span class="keyword">-X</span> <span class="variable">Foo::Bar</span> <span class="variable">hello</span>      <span class="comment"># Exclude modules</span>
+    <span class="operator">% </span><span class="variable">pp</span> <span class="operator">-</span><span class="variable">a</span> <span class="variable">data</span><span class="operator">.</span><span class="variable">txt</span> <span class="variable">hello</span>      <span class="comment"># Additional data files</span>
+    
+    <span class="operator">% </span><span class="variable">pp</span> <span class="keyword">-r</span> <span class="variable">hello</span>               <span class="comment"># Pack 'hello' into 'a.out', runs 'a.out'</span>
+    <span class="operator">% </span><span class="variable">pp</span> <span class="keyword">-r</span> <span class="variable">hello</span> <span class="variable">a</span> <span class="variable">b</span> <span class="variable">c</span>         <span class="comment"># Pack 'hello' into 'a.out', runs 'a.out'</span>
+                                <span class="comment"># with arguments 'a b c'</span>
+    
+    <span class="operator">% </span><span class="variable">pp</span> <span class="variable">hello</span> <span class="operator">--</span><span class="keyword">log</span><span class="operator">=</span><span class="variable">c</span>          <span class="comment"># Pack 'hello' into 'a.out', logs</span>
+                                <span class="comment"># messages into 'c'</span>
+    
+    <span class="comment"># Pack 'hello' into a console-less 'out.exe' (Win32 only)</span>
+    <span class="operator">% </span><span class="variable">pp</span> <span class="operator">--</span><span class="variable">gui</span> <span class="keyword">-o</span> <span class="variable">out</span><span class="operator">.</span><span class="variable">exe</span> <span class="variable">hello</span>
+    
+    <span class="operator">% </span><span class="variable">pp</span> <span class="variable">@file</span> <span class="variable">hello</span><span class="operator">.</span><span class="variable">pl</span>         <span class="comment"># Pack 'hello.pl' but read _additional_</span>
+                                <span class="comment"># options from file 'file'</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><i>pp</i> creates standalone executables from Perl programs, using the compressed packager provided by <a href="../../site/lib/PAR.html">PAR</a>, and dependency detection heuristics offered by <a href="../../site/lib/Module/ScanDeps.html">Module::ScanDeps</a>. Source files are compressed verbatim without compilation.</p>
+
+<p>You may think of <i>pp</i> as &quot;<i>perlcc</i> that works without hassle&quot;. :-)</p>
+
+<p>A GUI interface is also available as the <i>tkpp</i> command.</p>
+
+<p>It does not provide the compilation-step acceleration provided by <i>perlcc</i> (however, see <b>-f</b> below for byte-compiled, source-hiding techniques), but makes up for it with better reliability, smaller executable size, and full retrieval of original source code.</p>
+
+<p>When a single input program is specified, the resulting executable will behave identically as that program. However, when multiple programs are packaged, the produced executable will run the one that has the same basename as <code>$0</code> (i.e. the filename used to invoke it). If nothing matches, it dies with the error <code>Can&#39;t open perl script &quot;$0&quot;</code>.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<p>Options are available in a <i>short</i> form and a <i>long</i> form. For example, the three lines below are all equivalent:</p>
+
+<pre><code>    % pp -o output.exe input.pl
+    % pp --output output.exe input.pl
+    % pp --output=output.exe input.pl</code></pre>
+
+<p>Since the command lines can become sufficiently long to reach the limits imposed by some shells, it is possible to have <i>pp</i> read some of its options from one or more text files. The basic usage is to just include an argument starting with an &#39;at&#39; (@) sigil. This argument will be interpeted as a file to read options from. Mixing ordinary options and <code>@file</code> options is possible. This is implemented using the <a href="../../site/lib/Getopt/ArgvFile.html">Getopt::ArgvFile</a> module, so read its documentation for advanced usage.</p>
+
+<dl>
+
+<dt id="a---addfile-FILE-DIR"><b>-a</b>, <b>--addfile</b>=<i>FILE</i>|<i>DIR</i></dt>
+<dd>
+
+<p>Add an extra file into the package. If the file is a directory, recursively add all files inside that directory, with links turned into actual files.</p>
+
+<p>By default, files are placed under <code>/</code> inside the package with their original names. You may override this by appending the target filename after a <code><span class="operator">;</span>
+</code>, like this:</p>
+
+<pre><code>    <span class="operator">% </span><span class="variable">pp</span> <span class="operator">-</span><span class="variable">a</span> <span class="string">"old_filename.txt;new_filename.txt"</span>
+    <span class="operator">% </span><span class="variable">pp</span> <span class="operator">-</span><span class="variable">a</span> <span class="string">"old_dirname;new_dirname"</span>
+</code></pre>
+
+<p>You may specify <code>-a</code> multiple times.</p>
+
+</dd>
+<dt id="A---addlist-FILE"><b>-A</b>, <b>--addlist</b>=<i>FILE</i></dt>
+<dd>
+
+<p>Read a list of file/directory names from <i>FILE</i>, adding them into the package. Each line in <i>FILE</i> is taken as an argument to <b>-a</b> above.</p>
+
+<p>You may specify <code>-A</code> multiple times.</p>
+
+</dd>
+<dt id="B---bundle"><b>-B</b>, <b>--bundle</b></dt>
+<dd>
+
+<p>Bundle core modules in the resulting package. This option is enabled by default, except when <code>-p</code> or <code>-P</code> is specified.</p>
+
+<p>Since PAR version 0.953, this also strips any local paths from the list of module search paths <code>@INC</code> before running the contained script.</p>
+
+</dd>
+<dt id="C---clean"><b>-C</b>, <b>--clean</b></dt>
+<dd>
+
+<p>Clean up temporary files extracted from the application at runtime. By default, these files are cached in the temporary directory; this allows the program to start up faster next time.</p>
+
+</dd>
+<dt id="c---compile"><b>-c</b>, <b>--compile</b></dt>
+<dd>
+
+<p>Run <code>perl -c inputfile</code> to determine additonal run-time dependencies.</p>
+
+</dd>
+<dt id="cd---cachedeps-FILE"><b>-cd</b>, <b>--cachedeps</b>=<i>FILE</i></dt>
+<dd>
+
+<p>Use <i>FILE</i> to cache detected dependencies. Creates <i>FILE</i> unless present. This will speed up the scanning process on subsequent runs.</p>
+
+</dd>
+<dt id="d---dependent"><b>-d</b>, <b>--dependent</b></dt>
+<dd>
+
+<p>Reduce the executable size by not including a copy of perl interpreter. Executables built this way will need a separate <i>perl5x.dll</i> or <i>libperl.so</i> to function correctly. This option is only available if perl is built as a shared library.</p>
+
+</dd>
+<dt id="e---eval-STRING"><b>-e</b>, <b>--eval</b>=<i>STRING</i></dt>
+<dd>
+
+<p>Package a one-liner, much the same as <code>perl -e &#39;...&#39;</code></p>
+
+</dd>
+<dt id="E---evalfeature-STRING"><b>-E</b>, <b>--evalfeature</b>=<i>STRING</i></dt>
+<dd>
+
+<p>Behaves just like <code>-e</code>, except that it implicitly enables all optional features (in the main compilation unit) with Perl 5.10 and later. See <a href="../../lib/feature.html">feature</a>.</p>
+
+</dd>
+<dt id="x---execute"><b>-x</b>, <b>--execute</b></dt>
+<dd>
+
+<p>Run <code>perl inputfile</code> to determine additonal run-time dependencies.</p>
+
+</dd>
+<dt id="xargs-STRING"><b>--xargs</b>=<i>STRING</i></dt>
+<dd>
+
+<p>If <b>-x</b> is given, splits the <code>STRING</code> using the function <code>shellwords</code> from <a href="../../lib/Text/ParseWords.html">Text::ParseWords</a> and passes the result as <code>@ARGV</code> when running <code>perl inputfile</code>.</p>
+
+</dd>
+<dt id="X---exclude-MODULE"><b>-X</b>, <b>--exclude</b>=<i>MODULE</i></dt>
+<dd>
+
+<p>Exclude the given module from the dependency search path and from the package. If the given file is a zip or par or par executable, all the files in the given file (except MANIFEST, META.yml and script/*) will be excluded and the output file will &quot;use&quot; the given file at runtime.</p>
+
+</dd>
+<dt id="f---filter-FILTER"><b>-f</b>, <b>--filter</b>=<i>FILTER</i></dt>
+<dd>
+
+<p>Filter source script(s) with a <a href="../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter.html">PAR::Filter</a> subclass. You may specify multiple such filters.</p>
+
+<p>If you wish to hide the source code from casual prying, this will do:</p>
+
+<pre><code>    % pp -f Bleach source.pl</code></pre>
+
+<p>If you are more serious about hiding your source code, you should have a look at Steve Hay&#39;s <a>PAR::Filter::Crypto</a> module. Make sure you understand the Filter::Crypto caveats!</p>
+
+</dd>
+<dt id="g---gui"><b>-g</b>, <b>--gui</b></dt>
+<dd>
+
+<p>Build an executable that does not have a console window. This option is ignored on non-MSWin32 platforms or when <code>-p</code> is specified.</p>
+
+</dd>
+<dt id="h---help"><b>-h</b>, <b>--help</b></dt>
+<dd>
+
+<p>Show basic usage information.</p>
+
+</dd>
+<dt id="I---lib-DIR"><b>-I</b>, <b>--lib</b>=<i>DIR</i></dt>
+<dd>
+
+<p>Add the given directory to the perl library file search path. May be specified multiple times.</p>
+
+</dd>
+<dt id="l---link-FILE-LIBRARY"><b>-l</b>, <b>--link</b>=<i>FILE</i>|<i>LIBRARY</i></dt>
+<dd>
+
+<p>Add the given shared library (a.k.a. shared object or DLL) into the packed file. Also accepts names under library paths; i.e. <code>-l ncurses</code> means the same thing as <code>-l libncurses.so</code> or <code>-l /usr/local/lib/libncurses.so</code> in most Unixes. May be specified multiple times.</p>
+
+</dd>
+<dt id="L---log-FILE"><b>-L</b>, <b>--log</b>=<i>FILE</i></dt>
+<dd>
+
+<p>Log the output of packaging to a file rather than to stdout.</p>
+
+</dd>
+<dt id="F---modfilter-FILTER-REGEX"><b>-F</b>, <b>--modfilter</b>=<i>FILTER[=REGEX]</i>,</dt>
+<dd>
+
+<p>Filter included perl module(s) with a <a href="../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter.html">PAR::Filter</a> subclass. You may specify multiple such filters.</p>
+
+<p>By default, the <i>PodStrip</i> filter is applied. In case that causes trouble, you can turn this off by setting the environment variable <code>PAR_VERBATIM</code> to <code>1</code>.</p>
+
+<p>Since PAR 0.958, you can use an optional regular expression (<i>REGEX</i> above) to select the files in the archive which should be filtered. Example:</p>
+
+<pre><code>  pp -o foo.exe -F Bleach=warnings\.pm$ foo.pl</code></pre>
+
+<p>This creates a binary executable <i>foo.exe</i> from <i>foo.pl</i> packaging all files as usual except for files ending in <code>warnings.pm</code> which are filtered with <a href="../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Filter/Bleach.html">PAR::Filter::Bleach</a>.</p>
+
+</dd>
+<dt id="M---module-MODULE"><b>-M</b>, <b>--module</b>=<i>MODULE</i></dt>
+<dd>
+
+<p>Add the specified module into the package, along with its dependencies. Also accepts filenames relative to the <code>@INC</code> path; i.e. <code>-M Module::ScanDeps</code> means the same thing as <code>-M Module/ScanDeps.pm</code>.</p>
+
+<p>If <i>MODULE</i> has an extension that is not <code>.pm</code>/<code>.ix</code>/<code>.al</code>, it will not be scanned for dependencies, and will be placed under <code>/</code> instead of <code>/lib/</code> inside the PAR file. This use is deprecated -- consider using the <b>-a</b> option instead.</p>
+
+<p>You may specify <code>-M</code> multiple times.</p>
+
+</dd>
+<dt id="m---multiarch"><b>-m</b>, <b>--multiarch</b></dt>
+<dd>
+
+<p>Build a multi-architecture PAR file. Implies <b>-p</b>.</p>
+
+</dd>
+<dt id="n---noscan"><b>-n</b>, <b>--noscan</b></dt>
+<dd>
+
+<p>Skip the default static scanning altogether, using run-time dependencies from <b>-c</b> or <b>-x</b> exclusively.</p>
+
+</dd>
+<dt id="o---output-FILE"><b>-o</b>, <b>--output</b>=<i>FILE</i></dt>
+<dd>
+
+<p>File name for the final packaged executable.</p>
+
+</dd>
+<dt id="p---par"><b>-p</b>, <b>--par</b></dt>
+<dd>
+
+<p>Create PAR archives only; do not package to a standalone binary.</p>
+
+</dd>
+<dt id="P---perlscript"><b>-P</b>, <b>--perlscript</b></dt>
+<dd>
+
+<p>Create stand-alone perl script; do not package to a standalone binary.</p>
+
+</dd>
+<dt id="r---run"><b>-r</b>, <b>--run</b></dt>
+<dd>
+
+<p>Run the resulting packaged script after packaging it.</p>
+
+</dd>
+<dt id="reusable"><b>--reusable</b></dt>
+<dd>
+
+<p><b>EXPERIMENTAL</b></p>
+
+<p>Make the packaged executable reusable for running arbitrary, external Perl scripts as if they were part of the package:</p>
+
+<pre><code>  pp -o myapp --reusable someapp.pl
+  ./myapp --par-options --reuse otherapp.pl</code></pre>
+
+<p>The second line will run <i>otherapp.pl</i> instead of <i>someapp.pl</i>.</p>
+
+</dd>
+<dt id="S---save"><b>-S</b>, <b>--save</b></dt>
+<dd>
+
+<p>Do not delete generated PAR file after packaging.</p>
+
+</dd>
+<dt id="s---sign"><b>-s</b>, <b>--sign</b></dt>
+<dd>
+
+<p>Cryptographically sign the generated PAR or binary file using <a>Module::Signature</a>.</p>
+
+</dd>
+<dt id="T---tempcache"><b>-T</b>, <b>--tempcache</b></dt>
+<dd>
+
+<p>Set the program unique part of the cache directory name that is used if the program is run without -C. If not set, a hash of the executable is used.</p>
+
+<p>When the program is run, its contents are extracted to a temporary directory. On Unix systems, this is commonly <i>/tmp/par-USER/cache-XXXXXXX</i>. <i>USER</i> is replaced by the name of the user running the program, but &quot;spelled&quot; in hex. <i>XXXXXXX</i> is either a hash of the executable or the value passed to the <code>-T</code> or <code>--tempcache</code> switch.</p>
+
+</dd>
+<dt id="v---verbose-NUMBER"><b>-v</b>, <b>--verbose</b>[=<i>NUMBER</i>]</dt>
+<dd>
+
+<p>Increase verbosity of output; <i>NUMBER</i> is an integer from <code>1</code> to <code>3</code>, <code>3</code> being the most verbose. Defaults to <code>1</code> if specified without an argument. Alternatively, <b>-vv</b> sets verbose level to <code>2</code>, and <b>-vvv</b> sets it to <code>3</code>.</p>
+
+</dd>
+<dt id="V---version"><b>-V</b>, <b>--version</b></dt>
+<dd>
+
+<p>Display the version number and copyrights of this program.</p>
+
+</dd>
+<dt id="z---compress-NUMBER"><b>-z</b>, <b>--compress</b>=<i>NUMBER</i></dt>
+<dd>
+
+<p>Set zip compression level; <i>NUMBER</i> is an integer from <code>0</code> to <code>9</code>, <code>0</code> = no compression, <code>9</code> = max compression. Defaults to <code>6</code> if <b>-z</b> is not used.</p>
+
+</dd>
+</dl>
+
+<h1 id="ENVIRONMENT">ENVIRONMENT</h1>
+
+<dl>
+
+<dt id="PP_OPTS">PP_OPTS</dt>
+<dd>
+
+<p>Command-line options (switches). Switches in this variable are taken as if they were on every <i>pp</i> command line.</p>
+
+</dd>
+</dl>
+
+<h1 id="NOTES">NOTES</h1>
+
+<p>Here are some recipes showing how to utilize <i>pp</i> to bundle <i>source.pl</i> with all its dependencies, on target machines with different expected settings:</p>
+
+<dl>
+
+<dt id="Stone-alone-setup">Stone-alone setup:</dt>
+<dd>
+
+<p>To make a stand-alone executable, suitable for running on a machine that doesn&#39;t have perl installed:</p>
+
+<pre><code>    % pp -o packed.exe source.pl        # makes packed.exe
+    # Now, deploy &#39;packed.exe&#39; to target machine...
+    $ packed.exe                        # run it</code></pre>
+
+</dd>
+<dt id="Perl-interpreter-only-without-core-modules">Perl interpreter only, without core modules:</dt>
+<dd>
+
+<p>To make a packed .pl file including core modules, suitable for running on a machine that has a perl interpreter, but where you want to be sure of the versions of the core modules that your program uses:</p>
+
+<pre><code>    % pp -B -P -o packed.pl source.pl   # makes packed.pl
+    # Now, deploy &#39;packed.pl&#39; to target machine...
+    $ perl packed.pl                    # run it</code></pre>
+
+</dd>
+<dt id="Perl-with-core-modules-installed">Perl with core modules installed:</dt>
+<dd>
+
+<p>To make a packed .pl file without core modules, relying on the target machine&#39;s perl interpreter and its core libraries. This produces a significantly smaller file than the previous version:</p>
+
+<pre><code>    % pp -P -o packed.pl source.pl      # makes packed.pl
+    # Now, deploy &#39;packed.pl&#39; to target machine...
+    $ perl packed.pl                    # run it</code></pre>
+
+</dd>
+<dt id="Perl-with-PAR.pm-and-its-dependencies-installed">Perl with PAR.pm and its dependencies installed:</dt>
+<dd>
+
+<p>Make a separate archive and executable that uses the archive. This relies upon the perl interpreter and libraries on the target machine.</p>
+
+<pre><code>    <span class="operator">% </span><span class="variable">pp</span> <span class="keyword">-p</span> <span class="variable">source</span><span class="operator">.</span><span class="variable">pl</span>                   <span class="comment"># makes source.par</span>
+    <span class="operator">% </span><span class="variable">echo</span> <span class="string">"use PAR 'source.par';"</span> <span class="operator">&gt;</span> <span class="variable">packed</span><span class="operator">.</span><span class="variable">pl</span><span class="operator">;</span>
+    <span class="operator">% </span><span class="variable">cat</span> <span class="variable">source</span><span class="operator">.</span><span class="variable">pl</span> <span class="operator">&gt;&gt;</span> <span class="variable">packed</span><span class="operator">.</span><span class="variable">pl</span><span class="operator">;</span>       <span class="comment"># makes packed.pl</span>
+    <span class="comment"># Now, deploy 'source.par' and 'packed.pl' to target machine...</span>
+    <span class="operator">$ </span><span class="variable">perl</span> <span class="variable">packed</span><span class="operator">.</span><span class="variable">pl</span>                    <span class="comment"># run it, perl + core modules required</span>
+</code></pre>
+
+</dd>
+</dl>
+
+<p>Note that even if your perl was built with a shared library, the &#39;Stand-alone executable&#39; above will <i>not</i> need a separate <i>perl5x.dll</i> or <i>libperl.so</i> to function correctly. But even in this case, the underlying system libraries such as <i>libc</i> must be compatible between the host and target machines. Use <code>--dependent</code> if you are willing to ship the shared library with the application, which can significantly reduce the executable size.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/script/tkpp.html">tkpp</a>, <a>par.pl</a>, <a>parl</a>, <a>perlcc</a></p>
+
+<p><a href="../../site/lib/PAR.html">PAR</a>, <a href="../../cpan/build/PAR-Packer-1.025-1nKC1y/blib/lib/PAR/Packer.html">PAR::Packer</a>, <a href="../../site/lib/Module/ScanDeps.html">Module::ScanDeps</a></p>
+
+<p><a href="../../lib/Getopt/Long.html">Getopt::Long</a>, <a href="../../site/lib/Getopt/ArgvFile.html">Getopt::ArgvFile</a></p>
+
+<h1 id="ACKNOWLEDGMENTS">ACKNOWLEDGMENTS</h1>
+
+<p>Simon Cozens, Tom Christiansen and Edward Peschko for writing <i>perlcc</i>; this program try to mimic its interface as close as possible, and copied liberally from their code.</p>
+
+<p>Jan Dubois for writing the <i>exetype.pl</i> utility, which has been partially adapted into the <code>-g</code> flag.</p>
+
+<p>Mattia Barbon for providing the <code>myldr</code> binary loader code.</p>
+
+<p>Jeff Goff for suggesting the name <code>pp</code>.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;, Steffen Mueller &lt;smueller@cpan.org&gt;</p>
+
+<p><a href="http://par.perl.org/">http://par.perl.org/</a> is the official PAR website. You can write to the mailing list at &lt;par@perl.org&gt;, or send an empty mail to &lt;par-subscribe@perl.org&gt; to participate in the discussion.</p>
+
+<p>Please submit bug reports to &lt;bug-par@rt.cpan.org&gt;.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2002-2009 by Audrey Tang &lt;cpan@audreyt.org&gt;.</p>
+
+<p>Neither this program nor the associated <a>parl</a> program impose any licensing restrictions on files generated by their execution, in accordance with the 8th article of the Artistic License:</p>
+
+<pre><code>    <span class="string">"Aggregation of this Package with a commercial distribution is
+    always permitted provided that the use of this Package is embedded;
+    that is, when no overt attempt is made to make this Package's
+    interfaces visible to the end user of the commercial distribution.
+    Such use shall not be construed as a distribution of this Package."</span>
+</code></pre>
+
+<p>Therefore, you are absolutely free to place any license on the resulting executable, as long as the packed 3rd-party libraries are also available under the Artistic License.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

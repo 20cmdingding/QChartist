@@ -1,0 +1,46 @@
+declare sub hidebbhlform 
+
+' BB-HL indicator tunable parameters
+
+CREATE bbhlform as qform
+
+    Center
+    Caption = "Settings for: BB - HL"
+    visible=0
+    
+    create bbhlperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create bbhlperiodedit as qedit
+        left=bbhlperiodlab.width+100
+        top=0
+        text="120"
+    end create
+    
+    create bbhlbarsbacklab as qlabel
+        top=bbhlperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create bbhlbarsbackedit as qedit
+        left=bbhlperiodedit.left
+        top=bbhlbarsbacklab.top
+        text="200"
+    end create
+    
+    create bbhlbtnok as qbutton
+        left=0
+        top=bbhlbarsbacklab.top+bbhlbarsbacklab.height+15
+        caption="OK"
+        onclick=hidebbhlform
+    end create
+          
+END CREATE 
+
+sub hidebbhlform
+bbhlform.visible=0
+end sub

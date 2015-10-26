@@ -1,0 +1,81 @@
+---
+distribution: !!perl/hash:CPAN::Distribution
+  CALLED_FOR: L/LE/LEEJO/CGI-4.13.tar.gz
+  CHECKSUM_STATUS: OK
+  ID: L/LE/LEEJO/CGI-4.13.tar.gz
+  RO:
+    CPAN_COMMENT: ~
+    CPAN_USERID: LEEJO
+  archived: tar
+  build_dir: C:\Perl\cpan\build\CGI-4.13-dmwt6V
+  incommandcolor: 2
+  install: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414465
+  localfile: C:\Perl\cpan\sources\authors\id\L\LE\LEEJO\CGI-4.13.tar.gz
+  make: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414431
+  make_test: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414451
+  mandatory: 1
+  negative_prefs_cache: 1
+  prefs:
+    install: {}
+  prereq_pm:
+    build_requires:
+      ExtUtils::MakeMaker: '0'
+      File::Find: '0'
+      IO::File: '0'
+      IO::Handle: '0'
+      POSIX: '0'
+      Test::Deep: '0.11'
+      Test::More: '0.98'
+      Test::NoWarnings: '1.04'
+      Test::Warn: '0.3'
+    opt_build_requires: {}
+    opt_requires: {}
+    requires:
+      Carp: '0'
+      Config: '0'
+      Encode: '0'
+      Exporter: '0'
+      File::Spec: '0.82'
+      File::Temp: '0'
+      HTML::Entities: '3.69'
+      base: '0'
+      constant: '0'
+      if: '0'
+      overload: '0'
+      parent: '0.225'
+      perl: '5.008001'
+      strict: '0'
+      utf8: '0'
+      warnings: '0'
+  reqtype: r
+  sponsored_mods:
+    Test::Deep: 1
+    Test::NoWarnings: 1
+  unwrapped: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414279
+  writemakefile: !!perl/hash:CPAN::Distrostatus
+    COMMANDID: 1
+    FAILED: ''
+    TEXT: YES
+    TIME: 1426414280
+perl:
+  $^X: c:\perl\bin\perl.exe
+  mtime_$^X: 1413407498
+  mtime_dll: 0
+  sitearchexp: C:\Perl\site\lib
+time: 1426414465

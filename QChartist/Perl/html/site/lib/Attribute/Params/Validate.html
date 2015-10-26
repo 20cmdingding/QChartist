@@ -1,0 +1,141 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#EXPORT">EXPORT</a></li>
+      <li><a href="#ATTRIBUTES">ATTRIBUTES</a></li>
+      <li><a href="#OO">OO</a></li>
+      <li><a href="#CAVEATS">CAVEATS</a></li>
+    </ul>
+  </li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Attribute::Params::Validate - Define validation through subroutine attributes</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>version 1.18</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>  <span class="keyword">use</span> <span class="variable">Attribute::Params::Validate</span> <span class="string">qw(:all)</span><span class="operator">;</span>
+  
+  <span class="comment"># takes named params (hash or hashref)</span>
+  <span class="comment"># foo is mandatory, bar is optional</span>
+  <span class="keyword">sub</span><span class="variable"> foo : Validate</span><span class="operator">(</span> foo =&gt; 1, bar =&gt; 0 <span class="operator">)</span>
+  <span class="operator">{</span>
+      <span class="comment"># insert code here</span>
+  <span class="operator">}</span>
+  
+  <span class="comment"># takes positional params</span>
+  <span class="comment"># first two are mandatory, third is optional</span>
+  <span class="keyword">sub</span><span class="variable"> bar : ValidatePos</span><span class="operator">(</span> 1, 1, 0 <span class="operator">)</span>
+  <span class="operator">{</span>
+      <span class="comment"># insert code here</span>
+  <span class="operator">}</span>
+  
+  <span class="comment"># for some reason Perl insists that the entire attribute be on one line</span>
+  <span class="keyword">sub</span><span class="variable"> foo2 : Validate</span><span class="operator">(</span> foo =&gt; { type =&gt; ARRAYREF }, bar =&gt; { can =&gt; [ 'print', 'flush', 'frobnicate' ] }, baz =&gt; { type =&gt; SCALAR, callbacks =&gt; { 'numbers only' =&gt; sub { shift(<span class="operator">)</span> <span class="operator">=~</span> <span class="regex">/^\d+$/</span> <span class="operator">},</span> <span class="string">'less than 90'</span> <span class="operator">=&gt;</span> <span class="keyword">sub</span><span class="variable"> </span><span class="operator">{</span> <span class="keyword">shift</span><span class="operator">()</span> <span class="operator">&lt;</span> <span class="number">90</span> <span class="operator">}</span> <span class="operator">}</span> <span class="operator">}</span> <span class="operator">)</span>
+  <span class="operator">{</span>
+      <span class="comment"># insert code here</span>
+  <span class="operator">}</span>
+  
+  <span class="comment"># note that this is marked as a method.  This is very important!</span>
+  <span class="keyword">sub</span><span class="variable"> baz : Validate</span><span class="operator">(</span> foo =&gt; { type =&gt; ARRAYREF }, bar =&gt; { isa =&gt; 'Frobnicator' } <span class="operator">)</span> <span class="variable">method</span>
+  <span class="operator">{</span>
+      <span class="comment"># insert code here</span>
+  <span class="operator">}</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>The Attribute::Params::Validate module allows you to validate method or function call parameters just like Params::Validate does. However, this module allows you to specify your validation spec as an attribute, rather than by calling the <code>validate</code> routine.</p>
+
+<p>Please see Params::Validate for more information on how you can specify what validation is performed.</p>
+
+<h2 id="EXPORT">EXPORT</h2>
+
+<p>This module exports everything that Params::Validate does except for the <code>validate</code> and <code>validate_pos</code> subroutines.</p>
+
+<h2 id="ATTRIBUTES">ATTRIBUTES</h2>
+
+<ul>
+
+<li><p>Validate</p>
+
+<p>This attribute corresponds to the <code>validate</code> subroutine in Params::Validate.</p>
+
+</li>
+<li><p>ValidatePos</p>
+
+<p>This attribute corresponds to the <code>validate_pos</code> subroutine in Params::Validate.</p>
+
+</li>
+</ul>
+
+<h2 id="OO">OO</h2>
+
+<p>If you are using this module to mark <b>methods</b> for validation, as opposed to subroutines, it is crucial that you mark these methods with the <code>:method</code> attribute, as well as the <code>Validate</code> or <code>ValidatePos</code> attribute.</p>
+
+<p>If you do not do this, then the object or class used in the method call will be passed to the validation routines, which is probably not what you want.</p>
+
+<h2 id="CAVEATS">CAVEATS</h2>
+
+<p>You <b>must</b> put all the arguments to the <code>Validate</code> or <code>ValidatePos</code> attribute on a single line, or Perl will complain.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Params::Validate</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<ul>
+
+<li><p>Dave Rolsky &lt;autarch@urth.org&gt;</p>
+
+</li>
+<li><p>Ilya Martynov &lt;ilya@martynov.org&gt;</p>
+
+</li>
+</ul>
+
+<h1 id="COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</h1>
+
+<p>This software is Copyright (c) 2001 - 2015 by Dave Rolsky and Ilya Martynov.</p>
+
+<p>This is free software, licensed under:</p>
+
+<pre><code>  The Artistic License 2.0 (GPL Compatible)</code></pre>
+
+
+</body>
+
+</html>
+
+

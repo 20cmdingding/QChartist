@@ -1,0 +1,44 @@
+declare sub hidebandsform 
+
+CREATE bandsform as qform
+
+    Center
+    Caption = "Settings for: Bollinger Bands"
+    visible=0
+         
+    create bandsperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create bandsperiodedit as qedit
+        left=bandsperiodlab.width+100
+        top=0
+        text="20"
+    end create
+    
+    create bandsbarsbacklab as qlabel
+        top=bandsperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create bandsbarsbackedit as qedit
+        left=bandsperiodedit.left
+        top=bandsbarsbacklab.top
+        text="200"
+    end create
+                    
+    create bandsbtnok as qbutton
+        left=0
+        top=bandsbarsbacklab.top+bandsbarsbacklab.height+15
+        caption="OK"
+        onclick=hidebandsform 
+    end create
+          
+END CREATE        
+
+sub hidebandsform
+bandsform.visible=0
+end sub

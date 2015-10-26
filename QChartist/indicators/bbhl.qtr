@@ -1,0 +1,24 @@
+'--------BB - HL-------------------------------------------------------------
+indiid++
+        
+                    if indicatorslistsel.item(indiid)="x" then 
+            
+                        if lbar=1 then     
+                            bbhl                        
+                        end if
+
+                         barsback=VAL(bbhlbarsbackedit.text)                            
+
+                        if ibar>=lastbar-barsback then
+                            indicolor(drawid)=purple
+                            .Data_Indi.Cell(drawid,lbar)= STR$(upperbandbuffer(offset))
+				drawid=drawid+2
+                            indicolor(drawid)=purple
+                            .Data_Indi.Cell(drawid,lbar)= STR$(lowerbandbuffer(offset))
+				drawid=drawid+2
+            
+                        end if                      
+                     
+                    end if			
+        
+        '--------End BB - HL----------------------------------------------------------       

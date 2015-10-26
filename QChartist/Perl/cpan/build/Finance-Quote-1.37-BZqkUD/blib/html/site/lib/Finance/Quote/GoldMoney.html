@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::GoldMoney - obtain spot rates from GoldMoney.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%rates</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">'goldmoeny'</span><span class="operator">,</span><span class="string">'gold'</span><span class="operator">,</span> <span class="string">'silver'</span><span class="operator">,</span> <span class="string">'platinum'</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains current spot rates for &#39;gold&#39;, &#39;silver&#39; and &#39;platinum&#39; from Goldmoney (http://www.goldmoney.com). All other symbols are ignored.</p>
+
+<p>Information returned by this module is governed by Net Transactions Ltd.&#39;s terms and conditions. This module is *not* affiliated with the company in any way. Use at your own risk.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>The following labels are returned by Finance::Quote::GoldMoney:</p>
+
+<pre><code>        - exchange
+        - name
+        - date, time
+        - price (per ounce), price_gg (per goldgram, gold only),
+      price_pg (per platinumgram, platinum only)
+    - currency</code></pre>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>GoldMoney (Net Transactions Ltd.), http://www.goldmoney.com/</p>
+
+
+</body>
+
+</html>
+
+

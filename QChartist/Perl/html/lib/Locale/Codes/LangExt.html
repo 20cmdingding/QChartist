@@ -1,0 +1,177 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#SUPPORTED-CODE-SETS">SUPPORTED CODE SETS</a></li>
+  <li><a href="#ROUTINES">ROUTINES</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Locale::Codes::LangExt - standard codes for language extension identification</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>   <span class="keyword">use</span> <span class="variable">Locale::Codes::LangExt</span><span class="operator">;</span>
+   
+   <span class="variable">$lext</span> <span class="operator">=</span> <span class="variable">code2langext</span><span class="operator">(</span><span class="string">'acm'</span><span class="operator">);</span>                 <span class="comment"># $lext gets 'Mesopotamian Arabic'</span>
+   <span class="variable">$code</span> <span class="operator">=</span> <span class="variable">langext2code</span><span class="operator">(</span><span class="string">'Mesopotamian Arabic'</span><span class="operator">);</span> <span class="comment"># $code gets 'acm'</span>
+   
+   <span class="variable">@codes</span>   <span class="operator">=</span> <span class="variable">all_langext_codes</span><span class="operator">();</span>
+   <span class="variable">@names</span>   <span class="operator">=</span> <span class="variable">all_langext_names</span><span class="operator">();</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>The <code>Locale::Codes::LangExt</code> module provides access to standard codes used for identifying language extensions, such as those as defined in the IANA language registry.</p>
+
+<p>Most of the routines take an optional additional argument which specifies the code set to use. If not specified, the default IANA language registry codes will be used.</p>
+
+<h1 id="SUPPORTED-CODE-SETS">SUPPORTED CODE SETS</h1>
+
+<p>There are several different code sets you can use for identifying language extensions. A code set may be specified using either a name, or a constant that is automatically exported by this module.</p>
+
+<p>For example, the two are equivalent:</p>
+
+<pre><code>   <span class="variable">$lext</span> <span class="operator">=</span> <span class="variable">code2langext</span><span class="operator">(</span><span class="string">'acm'</span><span class="operator">,</span><span class="string">'alpha'</span><span class="operator">);</span>
+   <span class="variable">$lext</span> <span class="operator">=</span> <span class="variable">code2langext</span><span class="operator">(</span><span class="string">'acm'</span><span class="operator">,</span><span class="variable">LOCALE_LANGEXT_ALPHA</span><span class="operator">);</span>
+</code></pre>
+
+<p>The codesets currently supported are:</p>
+
+<dl>
+
+<dt id="alpha"><b>alpha</b></dt>
+<dd>
+
+<p>This is the set of three-letter (lowercase) codes from the IANA language registry, such as &#39;acm&#39; for Mesopotamian Arabic.</p>
+
+<p>This is the default code set.</p>
+
+</dd>
+</dl>
+
+<h1 id="ROUTINES">ROUTINES</h1>
+
+<dl>
+
+<dt id="code2langext-CODE-CODESET-retired"><b>code2langext ( CODE [,CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="langext2code-NAME-CODESET-retired"><b>langext2code ( NAME [,CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="langext_code2code-CODE-CODESET-CODESET2"><b>langext_code2code ( CODE ,CODESET ,CODESET2 )</b></dt>
+<dd>
+
+</dd>
+<dt id="all_langext_codes-CODESET-retired"><b>all_langext_codes ( [CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="all_langext_names-CODESET-retired"><b>all_langext_names ( [CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::LangExt::rename_langext-CODE-NEW_NAME-CODESET"><b>Locale::Codes::LangExt::rename_langext ( CODE ,NEW_NAME [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::LangExt::add_langext-CODE-NAME-CODESET"><b>Locale::Codes::LangExt::add_langext ( CODE ,NAME [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::LangExt::delete_langext-CODE-CODESET"><b>Locale::Codes::LangExt::delete_langext ( CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::LangExt::add_langext_alias-NAME-NEW_NAME"><b>Locale::Codes::LangExt::add_langext_alias ( NAME ,NEW_NAME )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::LangExt::delete_langext_alias-NAME"><b>Locale::Codes::LangExt::delete_langext_alias ( NAME )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::LangExt::rename_langext_code-CODE-NEW_CODE-CODESET"><b>Locale::Codes::LangExt::rename_langext_code ( CODE ,NEW_CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::LangExt::add_langext_code_alias-CODE-NEW_CODE-CODESET"><b>Locale::Codes::LangExt::add_langext_code_alias ( CODE ,NEW_CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::LangExt::delete_langext_code_alias-CODE-CODESET"><b>Locale::Codes::LangExt::delete_langext_code_alias ( CODE [,CODESET] )</b></dt>
+<dd>
+
+<p>These routines are all documented in the Locale::Codes::API man page.</p>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<dl>
+
+<dt id="Locale::Codes"><b>Locale::Codes</b></dt>
+<dd>
+
+<p>The Locale-Codes distribution.</p>
+
+</dd>
+<dt id="Locale::Codes::API"><b>Locale::Codes::API</b></dt>
+<dd>
+
+<p>The list of functions supported by this module.</p>
+
+</dd>
+<dt id="http:-www.iana.org-assignments-language-subtag-registry"><b>http://www.iana.org/assignments/language-subtag-registry</b></dt>
+<dd>
+
+<p>The IANA language subtag registry.</p>
+
+</dd>
+</dl>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>See Locale::Codes for full author history.</p>
+
+<p>Currently maintained by Sullivan Beck (sbeck@cpan.org).</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<pre><code>   Copyright (c) 2011-2014 Sullivan Beck</code></pre>
+
+<p>This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+
+</body>
+
+</html>
+
+

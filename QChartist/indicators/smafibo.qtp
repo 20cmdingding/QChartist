@@ -1,0 +1,22 @@
+declare sub hidesmafiboform
+
+CREATE smafiboform as qform
+
+    Center
+    Caption = "Settings for: Fibo MA Channels"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create smafibobtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hidesmafiboform
+    end create
+
+END CREATE
+
+sub hidesmafiboform
+    smafiboform.visible=0
+end sub

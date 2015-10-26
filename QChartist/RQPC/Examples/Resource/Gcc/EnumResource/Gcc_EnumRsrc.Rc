@@ -1,0 +1,6 @@
+#define FBRCDATA 7474    // RCDATA not known in FB
+BADGERS BITMAP "Badgers.Bmp"
+TestTube ICON "Testtube.Ico"
+UMBRELLA ICON "Umbrella.Ico"
+
+BASCODE FBRCDATA "EnumResourceDemo.Bas"

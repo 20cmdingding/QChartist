@@ -1,0 +1,881 @@
+---- SUM UP DOC --- use RapidQ32.Dll v109 ----
+Use Examples: NEVER CASE SENSITIVE except for ''pre
+- RQPC.EXE Call Example:
+      RQPC.EXE YourBasPathFile.Ext [PathFileNice.Ico] [options]
+      RQPC.EXE help or ?
+      (.Exe is mandatory for version before 0.2200)
+- PreCompiler
+  Within the 30 first non commented lines of the main RapidQ
+  code file (Line begining with a single Quote are not counted):
+
+  ''pre cmd ICON NOCONSOLE NOENCRYPT TINY VOFF OPT
+  ''pre cmd EXE RUN SHOW LIBS_SUBDIR=HW2005 DIRICON GICO
+  ''pre cmd RCEXE=RCx.EXE RQ32DLL=RQ_xxx32.DLL
+  ''pre cmd OUTPUT NODONE NOKILL NOBK
+  ''pre cmd ADDDLL UPX PRINTF RTLBUFF=xxxxxx
+  ''pre ICON PathWithSpaces.Ico
+  ''pre LIBS_SUBDIR PathWithSpaces
+  DefStr BuildCount   = "0.000"    ''pre + 0.001 3
+  DefStr BuildCount2  = "1"        ''pre + 1
+  DeFStr JustForFun   = "25.6"     ''pre - 33.2 1
+  DefStr CompileDate  = ""         ''pre Date$
+  DefStr CompileTime  = ""         ''pre Time$
+  DefStr CompileTimer = ""         ''pre Timer
+
+LIBS_SUBDIR, RUN/NORUN, HELP/?, SHOW/NOSHOW, EXE/NOEXE, VON/VOFF
+OPT/NOOPT, SHELL, OUTPUT/NOOUTPUT apply to Tiny and Long Exe,
+the other only to Tiny.
+
+-  ' ''RQEXPORT [function|sub|data[:ARRAY|STRING|OTHER]] _
+   <functionname[:Type]> [argname_1[:RQ_Type[:ByVal|ByRef]], ..., _4]
+
+- To set Icon in your forms with Tiny:   (not automatically done anymore)
+    $RESOURCE FORM_ICO AS "PathFile.Ico"
+    frmMyForm.IcoHandle = FORM_ICO
+  This has been solved by Paul in RapidQ32.Dll v109
+
+---- end sum up doc -------------------
+
+- Command Line Parameters list:
+  ----------------------------
+        HELP, ?
+        CON, CONSOLE, NOCON, NOCONSOLE
+        ENC, ENCRYPT, NOENC, NOENCRYPT
+        TINY, NOTINY
+        OPT, OPTIMIZE, NOOPT, NOOPTIMIZE
+        VON, VERBOSE, VOFF, NOVERBOSE
+        EXE, NOEXE
+        RUN, NORUN
+        SHOW, NOSHOW
+        OUTOUT, NOOUTPUT
+        NODONE
+        KILL, NOKILL, KILLFILES, NOKILLFILES
+        NOBK
+        DIRICON
+        GICO
+        YourIconPathFile.Ico  (no path = code path)
+        LIBS_SUBDIR=HW2005
+        RCEXE=RCx.EXE
+        RQ32DLL=RQ_xxx32.DLL
+        Your_MASM_Main_Code_PathFile.Asm
+        Your_FreeBasic_Main_Code.Fbb
+        Your_Gcc_Main_Code.Cpp
+        Your_Bcc_Main_Code.Bpp
+        Your_Resource.Rc
+        Null.Asm, NUll.Fbb, Null.Cpp, Null.Bpp
+        AddRq32Dll, AddDll, NoAddRq32Dll, NoDll, Upx, NoUpx
+        Printf, RTLBuff=xxxxxx
+
+- PreCompiler Parameters list (basically the same as Cmd Line)
+  ---------------------------
+    This is the best way to pass commands to RQPC
+    Definitions:  the  "''pre"   tag has one FUNCTION followed
+                  by COMMANDS or OPTIONS.
+    The Separator is a single space.
+
+    "''pre cmd"      options/commands from ''pre cmd
+        CON or CONSOLE, NOCON or NOCONSOLE
+        ENC or ENCRYPT, NOENC or NOENCRYPT
+        TINY, NOTINY
+        OPT or OPTIMIZE, NOOPT or NOOPTIMIZE
+        VON or VERBOSE, VOFF or NOVERBOSE
+        EXE, NOEXE
+        RUN, NORUN
+        SHOW, NOSHOW
+        OUTOUT, NOOUTPUT
+        NOADDDONE or NODONE, ADDDONE or DONE
+        KILL or KILLFILES, NOKILLFILES or NOKILL
+        NOBK
+        DIRICON
+        GICO
+        YourIconPathFile.Ico  (no path = code path)
+        LIBS_SUBDIR=HW2005
+        RCEXE=RCx.EXE
+        RQ32DLL=RQ_xxx32.DLL
+        Your_MASM_Main_Code_PathFile.Asm
+        Your_FreeBasic_Main_Code.Fbb
+        Your_Gcc_Main_Code.Cpp
+        Your_Bcc_Main_Code.Bpp
+        Your_Resource.Rc
+        Null.Asm, NUll.Fbb, Null.Cpp, Null.Bpp
+        AddRq32Dll or AddDll, NoAddRq32Dll or NoDll, Upx, NoUpx
+        Printf, RTLBuff=xxxxxx
+
+        For RQPC version after 0.2200, space maybe included
+        in path providing the whole option is placed between
+        double quotes ie:
+           "X:\My Path\My File.Ico"
+           "X:\My Path\My File.Asm"
+           "LIB_SUBDIR=Lib Path"
+
+    the following are obsolete due to previous:
+    "''pre icon" IconPathFileWithSpaces.ico
+    "''pre ASM" Your_Masm_Main_Code_PathFile_WithSpace.Asm
+    "''pre FBB" Your_FreeBasic_Main_Code_PathFile_WithSpace.Fbb
+    "''pre CPP" Your_Gcc_Main_Code_PathFile_WithSpace.Cpp
+    "''pre BPP" Your_Bcc_Main_Code_PathFile_WithSpace.Bpp
+    "''pre LIBS_SUBDIR" LibsSubDirPathWithSpaces
+    end obsolete
+
+    "''pre end"
+    "''pre +", "''pre -", "''pre Time$", "''pre Date$",
+    "''pre Timer", "''pre First"
+    "''pre shell show|hide now|onbuildok" YourShellString
+
+   . multiple ''pre cmd lines   allowed
+   . Multiple external compiler allowed. You can mix GCC, FB,
+     BCC and MASM function but it's possible ... but with some
+     limitation
+   . Commands between double quotes can contain spaces that will
+     not be seen as separator.
+   . No extra character allowed inside the cmd. Separators
+     are spaces and quotes.
+   . Anything after a double space will be ignored?
+   . Indentation with SPACES is allowed NOT with TABS
+   . side effect: you can comment an option  by adding a
+     character to it at the head, not for Asm, Fbb, Cpp, Bpp,Ico
+     where it should be at the end :) of the tag, ie:
+     nice.ico' 'con con' 'upx upx' ... will be ignored
+-----------------------------------------------------------
+Detailed Documentation
+======================
+You can simply compile a code by running:
+
+    RQPC.EXE YourBasPathFile.Ext
+
+RQPC is 100% compatible with RC.EXE in original configuration.
+
+It should even be possible to Rename RC.Exe >>> RC_000.EXE
+and rename RQPC.EXE >>> RC.EXE and copy it in you RapidQ root
+directory. Then in RPPC.INI set:   RCEXE=RC_000.EXE
+and, theoretically, it should be transparent (not tested).
+
+RQPC will compile according to RQPC.INI file settings, which
+default settings are RapidQ long exe as usual. You can change
+default setting in RQPC.INI file, to set your own default
+values. You must modify RQPC.INI according to your RapidQ
+directory installation (Same for Masm, Gcc, Freebasic, Bcc;
+if you want to use them only)
+
+If you change the name of RQPC.Exe, it will still load
+RQPC.Ini values.
+-----------------------------------------------------------
+
+When compiling a code, the compiling parameters are first set
+according to RQPC.INI file.
+
+When compiling a code, these default values are overwritten
+according to command line content and then overwritten according
+to PreCompiler "''pre cmd" lines content of your RapidQ code.
+
+So you can modify these parameters at these three levels.
+
+Command Line and PreCompiler Commands are NEVER case sensitive
+except the "''pre" tag of the precompiler.
+' ---------------------------------------------------------
+
+Command Line
+------------
+  - The first command Line argument must be 'Help' or '?' or the
+    'Path+FileName.Ext' of the file to compile (without the
+    quotes:)
+
+    To get help, you can simply start RQPC without argument and
+    click on "Help" in the error window that pop's up
+
+  - Implemented Options/Commands    (without the double quotes :)
+    (all these Options/Commands can be used in the ''pre cmd too)
+
+    "CON" or "CONSOLE", "NOCON" or "NOCONSOLE"     only for Tiny
+        Mandatory to compile a console code or a Tiny GUI that
+        uses the Print command.
+        (When you use Print in a Tiny GUI, without CON set, it
+        will hang harmlessly. It happens, remember it)
+        Default in RQPC.INI is Con.
+
+    "ENC" or "ENCRYPT", "NOENC" or "NOENCRYPT"     only for Tiny
+        Encrypt the bytecode. The initialised strings of your
+        code cannot be read anymore when editing your
+        Executable anymore. It's a very basic encryption very
+        easy to crack but it's better than nothing. Default
+        in RQPC.INI is NOENCRYPT.
+
+    "TINY", "NOTINY"
+        Compile or not a Tiny executable
+        Default in RQPC.INI is NOTINY usual RapidQ Exe
+
+    "OPT" or "OPTIMIZE", "NOOPT" or "NOOPTIMIZE"  =  RC.EXE -opt
+        For Long Exe and Tiny       default is NOOPT
+        RC.EXE Optimizes the bytecode for length. (With "OPT"
+        the bytecode size is typically ?twice smaller, a side
+        effect is that the compile time is longer when opt is
+        set, typically ?twice longer to compile)
+
+    "VON" or "VERBOSE", "VOFF" or "NOVERBOSE"  = RC.EXE -VON/VOFF
+        For Long Exe and Tiny       default is VOFF
+        RC.EXE feed back text output in enhanced
+
+    "EXE", "NOEXE"            For Long Exe and Tiny
+        create or not an executable. If "NOEXE" is set, only the
+        bytecode is created.                   Default in is EXE
+
+    "RUN", "NORUN"            For Long Exe and Tiny
+        Run or not the created executable after compilation
+        Default in is NORUN
+        When NOEXE is set, the bytecode will be RUN. (This can
+        fail when 'exe' path is used in the code.)
+
+    "SHOW", "NOSHOW"          For Long Exe and Tiny
+        Nothing will be showed modally. When all is finished,
+        it exit process. To ease shell on RQPC. The output
+        of the compiler is written in a file named "Dump.$$$"
+        in the directory of the main code file ... very lightly
+        tested ! Many exceptions ;), many error showmessage
+        may will pop up even when noshow is set.
+                                              Default is SHOW
+
+    "OUTPUT", "NOOUTPUT"      For Long Exe and Tiny
+        Will show the compiler output even when compiling is
+        successfull.                       Default is "NOOUTPUT"
+
+    "<PathFileName>.ICO"            only for Tiny
+        If one of the command line command ends with ".Ico",
+        then it will be considered to be the path+filename for
+        the application Icon. Path with space is allowed but
+        the whole path must then be set between double quotes.
+
+        If no path is provided, the icon will be searched in
+        the path of the RapidQ code Main File (ie: MyIcon.Ico).
+
+        If a relative path is provided, it will be relative
+        to the RapidQ Code Main File (ie Dir1\Dir2\MyIcon.Ico)
+
+        Default in RQPC.INI is "". RapidQ default Icon
+        is used for Long Exe, as usual. For Tiny, special
+        default icons are build in this software (a black 'C'
+        for Console and a black 'G' for GUI. GUI with a console
+        will have the 'C' icon if "GICO" is not set).
+
+    "DIRICON"                 only for Tiny
+        The first Icon found in the Code Directory will be
+        used as application Icon
+
+    "GICO" it's a very 'cosmetic' feature, it's ONLY effect is
+        to force the default GUI icon when a console is added
+        to a Gui code. Without it the Default 'C' icon is set
+        to a Gui with a console.
+
+    "LIBS_SUBDIR"             only for long exe
+        Many Library versions are available for RapidQ. This
+        makes it easier to compile with a different set of
+        Libraries. The different set of Libraries must be
+        stored in Sub directories of main Library directory.
+        'LIBS_SUBDIR' is the Relative path of these Libraries
+        to the RQLIBS_DIR set in RQPC.INI
+        (Default RQLIBS_DIR is c:\RapidQ\Libs\).
+        example:
+          "LIBS_SUBDIR=HW2005" long executables will be build
+          with a library from RapidQ\Libs\HW2005 directory.
+          I Suggest: Libs\HW2005, Libs\DRELEC, Libs\ORG,
+          Libs\LIBS_106, Libs\Libs_107 are the most common
+          library set.
+        Use double quotes to pass the _WHOLE_command if there
+        are spaces in the sub dir.
+
+    "RCEXE"                  for Long exe and Tiny
+        since the RC.EXE patch (Nov 2006), we have multiple
+        RC.EXE versions available. This will allow you to
+        compile your code with the RC.EXE version of your
+        choice. Just rename your RC.EXE with different names.
+        ie: rename your RC.Exe: RC_000.Exe, RC_106.Exe, 107, ...
+        then add in the Command line or in a ''pre cmd
+        "RCEXE=RC_106.Exe"
+
+    "RQ32DLL"               only for Tiny
+        since the RapidQ32.Dll have been patched successfully
+        (Nov 2006), we have multiple RapidQ32.Dll versions
+        This will help you call a different versions of
+        RapidQ32.Dll in your Tiny Executable.
+        WARNING: except for RapidQ32.Dll, the name of the DLL is
+        a LOCAL NAME that YOU set. That name will be Built in
+        your Tiny Executable, so it will only work on a Computer
+        that has a RapidQ32.Dll renamed to the name YOU use. So
+        to Broadcast an executable always Build it with a Dll
+        named RapidQ32.Dll. This is just a test and debug tool.
+        Thanks Paul, with the unpatched Dll, all this was much
+        less interesting.
+
+    "NOADDDONE" or "NODONE", "ADDDONE" or "DONE"    only for Tiny
+        the bytecode launcher does not need to be recompiled each
+        time the RapidQ Code is recompiled, it slows the compile
+        process. Once the Launcher.Exe is created, RQPC adds to
+        your code, in the ''pre cmd  line   "TinyDone"   to tell
+        RQPC that it don't have to recompile the launcher. To
+        force the bytecode launcher to be recompiled each time the
+        RapidQ code is recompiled, add "NODONE" in one of your
+        ''pre cmd   lines. "TinyDone" will then be ignored if
+        present and not set if not.
+        "ADDDONE" = "DONE" can only inhibit a "NODONE" when set
+        in RQPC.INI
+
+        "NODONE" sets TINYDONE to False
+        
+    "KILL" or "KILLFILES", "NOKILL" or "NOKILLFILES"
+        Delete or not all the 'useless' files generated during
+        compilations. They are usefull to debug
+
+    "BK", "NOBK"
+        When RQPC adds something to your RapidQ code, a back up
+        of the your original code is made adding .BK to the
+        original name. "NOBK" will delete that file too when
+        KILL is set
+
+    "UPX", "NOUPX"  will upx compress the Tiny.exe.
+        Downmload it at http://upx.sourceforge.net/   and
+        copy Upx.exe in the directory of RQPC.EXE
+        Default: noupx
+
+    "ADDRQ32DLL" or "ADDDLL", "NOADDRQ32DLL" or "NODLL"
+        To use this, the RapidQ32.Dll (v109 preferably) must be
+        copied in the directory of RQPC and renamed "RQ32.DLL".
+        ResHacker.Exe from Resource Hacker free software must be
+        copied in the directory of RQPC.EXE  Download it at:
+               http://www.angusj.com
+        When ADDDLL is set, RQ32.DLL is include in your
+        executable as a resource at compile time and extracted
+        in the directory of the executable at runtime, the
+        executable uses that dll to Execute the bytecode. This
+        creates a pseudo 'standalone' executable. When RQ32.DLL
+        is Upxed the size of the pseudo standalone executable
+        is 340K plus bytecode.
+        
+        Default nodll
+        
+    "RTLBUFF=<size>" set the maximum size of the buffer used
+        by the Runtime Linker when Masm, FB, Gcc or Bcc
+        functions must be linked with RapidQ. Default is
+        32707: approximatily 1000 names can be linked. If
+        the buffer is overflowed, you will be warned and
+        you'll have to increase that buffer size with
+        RTLBUFF=<newsize>
+
+    "PRINTF" only usefull with Gcc external functions printing
+        on stdout (the console). Without "PRINTF" nothing will
+        appear in the console when ie printf("testkjhkjhkjh") is
+        used in a Gcc code. Printf may helps to debug Cpp code.
+        The size of the exe with "PRINTF" is increased,min 250K,
+        80K Upxed.
+    
+
+   - RC.EXE extra arguments can be passed such as -GUI, -CON
+     -g..., -d... . Argument like -B, -opt, vON/vOFF can be
+     passed that way too, but they may be overwritten by
+     PreCompiler ??? this applies to Long exe and Tiny.
+
+    "<PathFileName>.Asm"
+    "<PathFileName>.Fbb"
+    "<PathFileName>.Cpp"
+    "<PathFileName>.Bpp"
+      between double quotes when they include spaces
+
+      only for Tiny
+      Here is the new GREAT magic. It will create a Tiny
+      Header including your Masm/FB/Gcc/Bcc functions and
+      these functions will be automatically automatically
+      linked at Runtime with your RapidQ Code.
+
+        Example:
+        '' ---- Start of your FB Code file named   "MyFB.Fbb"
+        ' ''RQEXPORT function AddInt (i1, i2)
+        Function AddInt (i1, i2) As Long
+            Function = i1 + i2
+        End Function
+        '' ---- end of your FB code
+
+        '' ---- Start of your RapidQ code named  MyRq.bas
+        ''pre cmd console Tiny MyFB.Fbb
+        Print AddInt (7, 8)
+        ShowMessage ("Wait")
+        '' ---- End of your RapidQ code
+
+        Then you compile with     RQPC.EXE MyRq.Bas
+
+        And it will be DONE! AddInt will be a FAST FB function
+        with all FB functions possible. Same is possible for
+        MASM, GCC and BCC.
+
+        In the created files, you have all the source codes of
+        your executable launcher, that you can recompile by
+        yourself then add the bytecode as resource to your
+        Launcher.Exe, using Resource Hacker free software,
+        and set another Icon to it.
+        For all implemented compilers, the ''RQEXPORT statement
+        has the same syntaxe.
+
+        - ''RQEXPORT    must be Uppercase, the rest is not case
+          sensitive
+
+        ' ''RQEXPORT [function|sub|data[:ARRAY|STRING|OTHER]] _
+                <functionname[:Type]> [argname_1[:RQ_Type[:ByVal|ByRef]], ..., _4]
+
+        - You can EXPORT to RapidQ, Function, Sub and Data.
+          On the RapidQ side, a file YourCodeTiny.Inc is
+          generated and automatically included on top of your
+          RapidQ code. On MASM, FB, GCC, BCC side, a code is
+          generated creating a string of format:
+                 ...;MyFuncName,ptrMyFunctionName;...
+          That String named Name__Address is passed to RapidQ
+          via the environment string by two values:
+          "ptrNameAddress" and "lenNameAddress". So RapidQ can
+          get a pointer to each of the exported Function, sub or
+          Data. With the ''RQEXPORT statement, RQPC creates
+          RQ_YourCodeTiny.Inc including Functions just as needed
+          to be to fullfill the requirement. Then it's as easy
+          as showed above. See the files generated for
+          RTL_FB/Minimum/MyRQ.Bas ...         
+
+          There maybe are better methods of run time linking with
+          RapidQ? ... Later maybe ?
+
+          In MASM, GCC and BCC the Name__Address string is
+          set by default at a maximum of 32707 characters?
+          around 1000 EXPORTED items possible. That limit
+          can be increased with command RTLBUFF=<size>
+          You will be warned if the limit is reached.
+          With FB there is no Limit.
+          
+        - Bytecode are interpreted by a function in a DLL - here
+          only RQ_ExecuteMemory in RapidQ32.Dll is used - that
+          function can be called from any compiler. And the
+          code calling the bytecode - the Launcher - is in the
+          same module/process as the Dll, so Header code is part
+          of RapidQ code, it is just a matter of getting pointer
+          and address, there is no access violation between each
+          other.
+
+        - the YourCode.Exe is simply YourCode.Bc added as
+          resource to YourLauncher.Exe and YourLauncher.Exe is
+          the output of the compiler used to Compile
+          YourCodeTiny.Fbb|Cpp|Asm|Bpp . Resource Hacker is
+          a wonder that can add or modify, in a blick, a
+          resource in an executable.
+
+        - With Icon, the Icon is simply linked as a resource.
+          and then change by Resource Hacker if necessary.
+
+        - 'External' functions arguments can be Integer (default),
+          Single, Double and String
+
+        - For String, Double and Single MASM, FB, GCC or BCC
+          function always receives a pointer to that value.
+          See the examples.
+
+        - FunctionName:Type allows to return String, Double,
+          Single and Integer (the default type) to RapidQ.
+
+        - data[ARRAY|STRING|OTHER] is only used in FB and is
+          ignored elsewhere. OTHER is the Default value
+
+        - ' ''INCLUDE yourpathfile.ext  will include an external
+          file in your MASM, FB, GCC, BCC code. ''INCLUDE must
+          be in UPPERCASE. With ' ''INCLUDE   you can have a
+          'bank' of Fbb, Gcc, Masm, Bcc functions ready to be
+          included.
+
+     - Null.Asm, Null.Fbb, Null.Cpp, Null.Bpp are used to force
+       a Launcher compile with an Null = Empty file. This is
+       usefull to force a Tiny to be compiled ... for test ???
+       The compiler corresponding to the Null file extension
+       will be used. The Null file does not exist, even if it
+       exists, it will be ignored.
+
+     - Requires the installation of the compiler you will use.
+       and some directory setting in joined file RQPC.INI
+       you dont need all the compilers, you can only have one
+       installed ... none is possible too.
+
+     - the only limitation in code I met, was collision with
+       declaration made in the Bytecode launcher.
+       Will be solved later ...
+
+     - RQPC is written in RapidQ. Except for few functions
+       written in FbToRqInc.
+
+     - for now you cannot mix Masm, Gcc, Bcc or FB code but
+       it's possible using .Obj files passed just as .Ico,
+       .Asm, .Fbb, .Cpp, Bpp files. Same thing could be done
+       for Resources .RC. There could be a ''BCINCLUDE that
+       would include a full bytecode and create in the RapidQ
+       code a Function 'calling' that bytecode. These bytecodes
+       interpreted by a DLL function are great things ...
+
+       From version 0.2000, it is possible to add multiple
+       .asm, .fbb, .Cpp, .Bpp and even .Rc files in the
+       command line or the "''pre cmd" line. The first file
+       set will determine the compiler that will be used. The
+       others will be compiled to .obj and then a linkage will
+       be TRIERD with all the .Obj obtained. It works rather
+       well with MASM as main compiler. Of course you will have
+       to make all the necessary declaration in the MAIN code.
+       There are examples of this in MASM\MasmWithXXX\
+       (This is under construction). Cross linking can easily
+       be a headake.
+       
+       For .Rc files it works with all compilers and is
+       considered finished but still alpha.
+
+     - you can do all this without the use of RQPC, just
+       use the bits and manually write the RTL code in the FB
+       Gcc, Bcc, Masm code and the RQ.Inc   Then compile it and
+       add resources to the Launcher: bytecode, nice icon ...
+
+     It would take me a boring year to write a full clear doc,
+     I decided to post as it is now. Further version will
+     come ... maybe later.
+
+     I dont publish the source code of RQPC -for now- because
+     it's under construction, should be cleaned and it's not
+     usefull. On request, I will upload some parts ... later.
+
+     Remember that for the compile with .Asm, .Fbb, .Cpp, Bpp
+     files, RQPC outputs the FULL source code of your
+     application Launcher.
+
+     Without .Asm, .Fbb, .Cpp or .Bpp file, the Launcher is
+     built with internal resource (it was the primary goal of
+     this code :)
+
+' ---------------------------------------------------------
+PreCompiler
+===========         NEVER CASE SENSITIVE except the "''pre" tag
+  - leading lines spaces are removed, so indentation with
+    space is allowed but NOT WITH TABS
+  - Within the 30 first non commented lines of the main code
+    file, if a line contain the "''pre " tag, it will be
+    interpreted by the PreCompiler
+  - function  "cmd"   ''pre cmd <options/Commands>
+         implemented options/commands:
+             CON or CONSOLE, NOCON or NOCONSOLE
+             ENC or ENCRYPT, NOENC or NOENCRYPT
+             TINY, NOTINY
+             OPT or OPTIMIZE, NOOPT or NOOPTIMIZE
+             VON or VERBOSE, VOFF or NOVERBOSE
+             EXE, NOEXE
+             RUN, NORUN
+             SHOW, NOSHOW
+             OUTOUT, NOOUTPUT
+             DIRICON
+             GICO
+             NOADDDONE or NODONE, ADDDONE or DONE
+             KILL or KILLFILES, NOKILL or NOKILLFILES
+             NOBK
+             PathFilename.Ico
+             LIBS_SUBDIR=LibSubDirPath
+             RCEXE=RCx.EXE
+             RQ32DLL=RQ_xxx32.DLL
+             YourTinyPathFile.Asm
+             YourTinyPathFile.Fbb
+             YourTinyPathFile.Cpp
+             YourTinyPathFile.Bpp
+             Your_Resource.Rc
+             Null.Asm, NUll.Fbb, Null.Cpp, Null.Bpp
+             AddRq32Dll = AddDll, NoAddRq32Dll = NoDll
+             Upx, NoUpx
+             Printf, RTLBuff=xxxxxx
+
+             same ???evident meanings as in command line.
+
+      If an option/command is not recognized, it is dropped.
+      A double space causes the interpretation of an empty
+      command/option which means line end. Anything after a
+      double space, after "''pre", will be ignored
+
+      You can disable an option by adding an extra character to
+      it. Add a quote header  ie:
+          'enc        enc will be ignored, default value used
+      It's an easy way to add/suppress options, it does not
+      work for .Ico, .Asm, .Fbb, .Cpp, .Bpp, .Rc files where the
+      PreCompiler look for the last 4 characters of the
+      command/option; for these, the comment character should
+      be add ... after :)
+      ie:            MyIcon.Ico'   will be ignored :)
+
+
+  - function "ICON", "ASM", "FBB", "CPP", "BPP", "RC" and
+    "LIB_SUBDIR"        are obsolete, from version 0.2700
+    ''pre cmd "pathfile with spaces.ico|Asm|Cpp|Bcc|Fbb|rc" works
+    ''pre cmd "LIB_SUDIR=DirName With Space" works too
+     --------------------------------------------
+    - function "ICON"   ''pre icon <PathFileName(space ok)>.Ico
+        If no path is provided, the icon will be searched in
+        the path of the RapidQ Code Main File
+        (ie: ''pre icon \with space dir\MyIcon.Ico).
+        This before V 0.2700 was the only way to set an Icon
+        whose pathfilename contains spaces.
+
+        If a relative path is provided, it will be relative
+        to the RapidQ Code Main File
+        (ie ''icon Dir1\Dir2\MyIcon.Ico)
+
+        Default sIcoPathFile in UserConfig.Inc is "".
+
+        RapidQ default Icon is used for Long Exe. For Tiny,
+        special default Icons are build in RqPreCompiler (a
+        black 'C' for Console and a black 'G' for GUI. GUI
+        with a console will have a 'C' icon if GICO option is
+        not set.
+
+    - function "ASM"  ''pre ASM <AsmPathFileName(space ok)>.Asm
+        For path same as for .Ico  but for .Asm code
+        Do the same as ''pre cmd yourfile.asm
+    
+    - function "FBB"  ''pre Fbb <FbbPathFileName(space ok)>.Fbb
+        For path same as for .Ico  but for .Fbb code
+        Do the same as ''pre cmd yourfile.Fbb
+
+    - function "CPP"  ''pre Cpp <CppPathFileName(space ok)>.Cpp
+        For path same as for .Ico  but for .Cpp code
+        Do the same as ''pre cmd yourfile.Cpp
+
+    - function "BPP"  ''pre Bpp <BppPathFileName(space ok)>.Bpp
+        For path same as for .Ico  but for .Bpp code
+        Do the same as ''pre cmd yourfile.Bpp
+
+    - function "RC"  ''pre Rc <RcPathFileName(space ok)>.Bpp
+        For path same as for .Ico  but for .Rc resource
+        Do the same as ''pre cmd yourfile.Rc
+
+
+    - function "LIBS_SUBDIR"
+                ''pre LIBS_SUBDIR <Libs Sub dir (space ok)>
+        Many Libraries versions are available for RapidQ. This
+        makes it easier to compile with a different set of
+        Libraries. To use this feature, the different set of
+        Libraries must be stored in sub directories of the
+        main Library directory. 'LIBS_SUBDIR' is the Relative
+        path to these Libraries.
+        example:
+          "''pre LIBS_SUBDIR HW2005" long executables will be
+           build with a library from RapidQ\Libs\HW2005
+           directory. HW2005, DRELEC, ORG, LIB_106  are the
+           most common sets of RapidQ libraries.
+    ---------------------------------------------
+
+  - function "End"      optional   ''pre end
+        will stop line scanning for ''pre lines and save time.
+        Line scanning automatically stops after a count of 30
+        non commented  lines.
+           Const PRECOMPILER_MUST_START_BEFORE_LINE = 30
+        set in RQPC.INI
+
+        PreCompiler work takes here less than 5 millisecond
+
+  - functions   "+"   "-"   "Date$"   "Time$"   "Timer"  "First"
+        ''pre +, ''pre -, ''pre date$, ''pre Times, ''pre timer,
+        ''pre first
+
+        will do 'usual' PreCompiler works.
+        An example is very clear:
+
+        Within the 30 first non commented lines of the main
+        RapidQ code file, the string of the following lines
+        will be modified according the ''pre function
+
+            DefStr sBuild        = "10"      ''pre + 1 0
+            DefStr sSusbtract    = "100000"  ''pre - 1 0
+            DefStr sCompileTime  = ""        ''pre time$
+            DefStr sCompileTimer = ""        ''pre timer
+            DefStr sCompileDate  = ""        ''pre date$
+            DefStr sFirstCompile = ""        ''pre first
+
+        When using + and - with decimal value, you must add
+        the number of decimal to be displayed:
+            DefStr sBuildCount   = "10.000"  ''pre + 0.001 3
+        Without the '3', 0.690 is displayed 0.69
+        These Strings can be initialised.
+
+        This can be used to increment a BuildCount, set a
+        CompileDate or a CompileTime ... These changes must be
+        saved, so the main source code file is rewritten and
+        saved. A side effect of this is that single LF are
+        replaced by CR+LF in the source main code file. Can
+        this be a issue with some editor ???? I tried some,
+        all worked !
+
+        Before saving the modified code, a back up of the
+        original file is done. If "nobk" and "kill" are set
+        that file will be deleted if everything is OK.
+        in the RQPC file, Default value is BK.
+
+  - function "Shell"               not tested at all ;)
+        ''pre shell show|hide now|onbuildok YourShellString
+        - "show/hide" will show/hide the shell screen
+        - "now" will execute the shell now
+        - "OnBuildOk" will execute the shell after the
+          compilation is ok and the executable being build
+          successfully
+
+  -  function "Mac"  will insert a PreCompiler macro in your
+        code when you will next run RqPreCompiler YourBasFile.
+        Before line 30, lines begining with a single Quote
+        are not counted. Not of great use :)
+'
+' An Examples (much easier to understand):
+' -----------
+    ''pre cmd console encrypt tiny opt NOVERBOSE show EXE
+    ''pre libs_subdir=\Dir1\nospaceallowed\Dir3 NoSpaceDir\Demo.Ico
+    DefStr sBuild        = "0"       ''pre + 1 0
+    DefStr sSusbtract    = "100000"  ''pre - 1 0
+    DefStr sCompileTime  = ""        ''pre time$
+    DefStr sCompileTimer = ""        ''pre timer
+    DefStr sCompileDate  = ""        ''pre date$
+    DefStr sBuildCount   = "10.000"  ''pre + 0.001 3
+    ''pre shell show now dir /s
+    ''pre shell hide onbuildok whatever.exe with arguments
+    ''pre end
+' -------
+
+  - RQPC.Exe returns the following values:
+      1=OK               compile OK
+      100=ERROR_COMPILE  compile ERROR
+      1000=ENDPREMAC     return of Insert PreCompiler macro = OK
+      2000=SHOW_HELP     return of show help = OK
+
+    Not verified ... yet :)
+
+DOWNLOADING THE COMPILERS and Documlentation
+------------------------------------------------
+    RQPC dont only requires these installation if you want to
+    include external MASM, C/C++ or FreeBasic Functions in
+    your RapidQ code.
+
+    MASM
+    ----
+    You can download Masm32 Version 9 for XP only at
+        http://www.masm32.com
+    It is a 3.5 MB download and requires 25 MB of HD space.
+    Masm32 only installs in the root disk directory.
+
+    For Win9X version: (V8 works in win98)
+        http://www.movsd.com/masmdl.htm
+
+    MASM contains a documentation but it's not a starter point.
+
+
+    FREEBASIC
+    ---------
+    Download:
+        http://www.freebasic.net/forum/       in the News forum
+        http://sourceforge.net/project/showfiles.php?group_id=122342
+    Documentation:
+        http://www.freebasic.net/wiki/wikka.php?wakka=FBWiki
+        http://downloads.sourceforge.net/fbc/FB-manual-chm-08.dec.2006.zip
+    Forum
+        http://www.freebasic.net/forum/
+
+
+    GCC
+    ---
+    Download: OnLine install:
+        http://www.mingw.org/MinGWiki/index.php/Install%20MinGW
+    Forum
+        http://lists.sourceforge.net/mailman/listinfo/mingw-users
+    Documentation
+        http://www.mingw.org/docs.shtml
+        http://www.acm.uiuc.edu/webmonkeys/book/c_guide/
+        http://www.cplusplus.com/ref/
+        http://www.cppreference.com/
+
+    BCC
+    ---
+    Download: (you'll need to register)
+        http://community.borland.com/cgi-bin/surveys/web_download_survey.cgi?sid=33
+
+    UPX:
+    ---
+        http://upx.sourceforge.net/
+
+    RESOURCE HACKER
+    ---------------
+        http://www.angusj.com/
+
+' --------------------------------------------------------------
+' COMMON ERRORS
+' -------------
+' - the Launcher has not been recompiled: TinyDone in the ''pre
+' - the external function have not 4 arguments
+' - Tiny is not set
+' - noconsole set when a GUI uses Print
+'
+'---------------------------------------------------------------
+' RQPC V 0.1    RqPreCompiler                  Nov 2006, Jacques
+'---------------------------------------------------------------
+'
+
+
+
+RQPC OUTPUT:
+-----------                                  
+What is shown in the output window can also be found in a file
+named RQPC.$$$ in the directory of your main file code.
+The output of RQPC is show on compiling error only by default,
+Option ''pre cmd output    will show it on success too.
+
+
+
+' -------------------------------------
+Rapid-Q Compiler Beta by William Yu Copyright 1999-2000
+Compiling C:\$$_RQPC\Distribution\PreCompilerDemo.Bas to C:\$$_RQPC\Distribution\PreCompilerDemo.bc
+
+Number of statements: 445        Compile time: 0.160000
+Numeric Variables:    399
+String Variables:     7
+Resource data:        0
+Bytes global data:    12104
+Bytes sub data:       77
+
+___RQPC__ INFO: Type: INTERNAL RESOURCES    ''Pre line found=1
+ sCodePathFile: C:\$$_RQPC\Distribution\PreCompilerDemo.Bas
+  sIcoPathFile: C:\$$_RQPC\Distribution\Globe.ico
+  Tiny Build with INTERNAL RESOURCE
+        sRcExe: c:\Rapid-Q\RC_107.EXE
+       sLibDir: c:\Rapid-Q\Libs\LIBS_107
+      sRq32Dll: RapidQ32.Dll                       Exe Size: 22016
+FLAGS: Console=1 Encrypt=1 Tiny=1 MakeExe=1 Run=1 Output=0 Optim=0
+       Dll32inExe=0 Upx=0
+TIMES: (in ms): CmdLine: 0  PreComp: 11  Valid: 33  RQCmpl: 452
+       CmplTny: 0  Exe_Bld: 23  ResHack: 1166  Upx:564  Tot: 1685  Run: 75
+' -------------------------------------
+
+
+
+Outpout doc:
+-----------
+- Type:INTERNAL RESOURCE|MASM|FB|GCC|BCC| 
+
+- Tiny Build Internal Resource or the name of the ain external file
+
+- Flags indicates what options were used to compile the code
+
+- Times: all times are in milliseconds
+  - CmdLine: time to scan RQPC received command line
+  - PreComp: time to do pre compiler work. Interpret all the
+             ''pre xxx lines
+  -   Valid: time to check all input validity
+  -  RQCmpl: time to compile RapidQ ByteCode (for Tiny) or
+             Executable (for 'long exe')
+  - CmplTny: time to compile (when external compiler is used) or
+             extract from internal resources (when no external
+             compiler used) the bytecode launcher.
+  - Exe_Bld: time to Encrypt bytecode, if necessary and set
+             some flags in the Tiny Launcher if no external
+             compiler is used.
+  - ResHack: time to add the bytecode as a resource to the
+             Launcher and to change the Icon, of the resulting
+             executable, this is done by calling an external
+             utility: ResHacker.Exe
+  -     Upx: time to Upx the resulting executabme. Only shown
+             if Upx option is set
+  -     Tot: Total compile time
+  -     Run: Time necessary to Shell the resulting Executable
+----------------------------------------------------------------

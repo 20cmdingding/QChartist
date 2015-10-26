@@ -1,0 +1,22 @@
+declare sub hidePsifform
+
+CREATE Psifform as qform
+
+    Center
+    Caption = "Settings for: Psif"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Psifbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hidePsifform
+    end create
+
+END CREATE
+
+sub hidePsifform
+    Psifform.visible=0
+end sub

@@ -1,0 +1,44 @@
+declare sub hidersiform 
+
+CREATE rsiform as qform
+
+    Center
+    Caption = "Settings for: Relative Strength Index"
+    visible=0
+    
+    create rsiperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+    
+    create rsiperiodedit as qedit
+        left=rsiperiodlab.width+100
+        top=0
+        text="14"
+    end create
+    
+    create rsibarsbacklab as qlabel
+        top=rsiperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create rsibarsbackedit as qedit
+        left=rsiperiodedit.left
+        top=rsibarsbacklab.top
+        text="200"
+    end create
+    
+    create rsibtnok as qbutton
+        left=0
+        top=rsibarsbacklab.top+rsibarsbacklab.height+15
+        caption="OK"
+        onclick=hidersiform
+    end create
+          
+END CREATE    
+
+sub hidersiform
+rsiform.visible=0
+end sub

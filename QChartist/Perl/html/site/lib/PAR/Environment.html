@@ -1,0 +1,219 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#INDEX-OF-ENVIRONMENT-VARIABLES">INDEX OF ENVIRONMENT VARIABLES</a>
+    <ul>
+      <li><a href="#PAR_0">PAR_0</a></li>
+      <li><a href="#PAR_ARGC-PAR_ARGV_0-PAR_ARGV_">PAR_ARGC, PAR_ARGV_0, PAR_ARGV_...</a></li>
+      <li><a href="#PAR_CLEAN">PAR_CLEAN</a></li>
+      <li><a href="#PAR_DEBUG">PAR_DEBUG</a></li>
+      <li><a href="#PAR_GLOBAL_CLEAN">PAR_GLOBAL_CLEAN</a></li>
+      <li><a href="#PAR_GLOBAL_DEBUG">PAR_GLOBAL_DEBUG</a></li>
+      <li><a href="#PAR_GLOBAL_TEMP">PAR_GLOBAL_TEMP</a></li>
+      <li><a href="#PAR_GLOBAL_TMPDIR">PAR_GLOBAL_TMPDIR</a></li>
+      <li><a href="#PAR_INITIALIZED">PAR_INITIALIZED</a></li>
+      <li><a href="#PAR_PROGNAME">PAR_PROGNAME</a></li>
+      <li><a href="#PAR_APP_REUSE">PAR_APP_REUSE</a></li>
+      <li><a href="#PAR_RUN">PAR_RUN</a></li>
+      <li><a href="#PAR_SPAWNED">PAR_SPAWNED</a></li>
+      <li><a href="#PAR_TEMP">PAR_TEMP</a></li>
+      <li><a href="#PAR_TMPDIR">PAR_TMPDIR</a></li>
+      <li><a href="#PAR_VERBATIM">PAR_VERBATIM</a></li>
+      <li><a href="#PAR_VERBOSE">PAR_VERBOSE</a></li>
+      <li><a href="#PP_OPTS">PP_OPTS</a></li>
+      <li><a href="#TMP-TEMP-TMPDIR-TEMPDIR">TMP, TEMP, TMPDIR, TEMPDIR</a></li>
+    </ul>
+  </li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>PAR::Environment - Index and reference of PAR environment variables</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>PAR uses various environment variables both during the building process of executables or PAR archives and the <i>use</i> of them. Since the wealth of combinations and settings might confuse one or the other (like me), this document is intended to document all environment variables which PAR uses.</p>
+
+<p>Wherever I want to refer to the <code><span class="variable">$ENV</span><span class="operator">{</span><span class="string">FOO</span><span class="operator">}</span>
+</code> environment hash entry, I will usually talk about the <code>FOO</code> variable for brevity.</p>
+
+<h1 id="INDEX-OF-ENVIRONMENT-VARIABLES">INDEX OF ENVIRONMENT VARIABLES</h1>
+
+<p><b>Please note that this is still very, very incomplete! Contributions welcome!</b></p>
+
+<p>For each variable, there should be a description what it contains, when it can be expected to exist (and contain meaningful information), when it is sensible to define it yourself, and what effect this has.</p>
+
+<p>Of course, the description may use examples.</p>
+
+<h2 id="PAR_0">PAR_0</h2>
+
+<p>If the running program is run from within a PAR archive or pp-produced executable, this variable contains the name of the extracted program (i.e. .pl file). This is useful of you want to open the source code file of the running program.</p>
+
+<p>For example, if you package a file <i>foo.pl</i> into <i>bar.par</i> and run <i>foo.pl</i> with this command</p>
+
+<pre><code>  par.pl foo.par bar.pl</code></pre>
+
+<p>then the <code>PAR_0</code> variable will contain something like <code>/tmp/par-youser/cache-b175f53eb731da9594e0dde337d66013ddf25a44/495829f0.pl</code> where <code>youser</code> is your username and <code>/tmp/par-youser/cache-b175f53eb731da9594e0dde337d66013ddf25a44/</code> is the PAR cache directory (<code>PAR_TEMP</code>).</p>
+
+<p>The name of the PAR cache directory can take a number of different forms, so use <code>PAR_0</code> if you want to find the extracted program&#39;s .pl file -- attempting to construct the name yourself requires complex logic that has already produced the value in <code>PAR_0</code>.</p>
+
+<p>This works the same for executable binaries (<i>.exe</i>, ...).</p>
+
+<p>If you are looking for the name and path of the pp-ed binary file, please refer to the <code>PAR_PROGNAME</code> variable.</p>
+
+<h2 id="PAR_ARGC-PAR_ARGV_0-PAR_ARGV_">PAR_ARGC, PAR_ARGV_0, PAR_ARGV_...</h2>
+
+<p>You should not rely on these variables outside of the PAR binary loader code.</p>
+
+<p>These variables are set when a non-dependent pp-ed binary executable runs. The initially executed process extracts another binary and runs it as a child process. In order to pass its command line arguments to the child, the parent process sets <code>PAR_ARG*</code> as they would be used in C programs: <code>PAR_ARGC</code> has the number of arguments, <code>PAR_ARGV_0</code> has the name of the executable, <code>PAR_ARGV_*</code> are the command line arguments.</p>
+
+<p>If you would like to access the name of the running program (script or binary), please refer to <code>PAR_0</code> and <code>PAR_PROGNAME</code> instead!</p>
+
+<p>Related: <code>PAR_SPAWNED</code>, <code>PAR_0</code>, <code>PAR_PROGNAME</code></p>
+
+<h2 id="PAR_CLEAN">PAR_CLEAN</h2>
+
+<p>Users should set <code>PAR_GLOBAL_CLEAN</code> instead. Recreated from <code>PAR_GLOBAL_CLEAN</code> and the value of <code>-C</code> from the YAML file by the PAR loader, and used within loader to control the initial behavior of extraction, and the final behavior of cleanup. The user can reference <code>PAR_CLEAN</code> in the application to determine which of these behaviors is being used for this run of the application.</p>
+
+<h2 id="PAR_DEBUG">PAR_DEBUG</h2>
+
+<p>Users should set <code>PAR_GLOBAL_DEBUG</code> instead.</p>
+
+<p>If this variable is set to a true value and <i>par.pl</i> is run, verbose output is sent to STDOUT or the logging filehandle. This is overridden by the <code>-q</code> option to <i>par.pl</i>, for steps after argument parsing occurs.</p>
+
+<p>This currently only influences <i>par.pl</i>. Whether this is the intended behaviour remains to be verified.</p>
+
+<h2 id="PAR_GLOBAL_CLEAN">PAR_GLOBAL_CLEAN</h2>
+
+<p>Setting <code>PAR_GLOBAL_CLEAN</code> alters the behavior of par applications which see that environment variable at launch. <code>PAR_GLOBAL_CLEAN</code> overrides the <code>-C</code> option. Settings of 0 and 1 are supported. 0 corresponds to not using <code>-C</code> on the pp command line; 1 corresponds to using <code>-C</code> on the pp command line. <code>PAR_GLOBAL_CLEAN</code> is ignored if <code>PAR_GLOBAL_TEMP</code> is set, yet it controls the form of <code>PAR_TEMP</code> when <code>PAR_GLOBAL_TEMP</code> is not set.</p>
+
+<h2 id="PAR_GLOBAL_DEBUG">PAR_GLOBAL_DEBUG</h2>
+
+<p>The PAR loader becomes more verbose when <code>PAR_DEBUG</code> is set. Setting <code>PAR_GLOBAL_DEBUG</code> guarantees that <code>PAR_DEBUG</code> will be set internally, initially. See <code>PAR_DEBUG</code> for more details.</p>
+
+<h2 id="PAR_GLOBAL_TEMP">PAR_GLOBAL_TEMP</h2>
+
+<p>Contributes to the calculation of <code>PAR_TEMP</code>, and is further explained there.</p>
+
+<h2 id="PAR_GLOBAL_TMPDIR">PAR_GLOBAL_TMPDIR</h2>
+
+<p>Contributes to the calculation of <code>PAR_TEMP</code>, and is further explained there.</p>
+
+<h2 id="PAR_INITIALIZED">PAR_INITIALIZED</h2>
+
+<p>This environment variable is for internal use by the PAR binary loader only. Documented only to avoid surprises if spawned applications expect to see a value initialized by the user.</p>
+
+<h2 id="PAR_PROGNAME">PAR_PROGNAME</h2>
+
+<p><code>PAR_PROGNAME</code> is set to the fully-qualified path name of the executable program. On Windows, this is reliably obtained from the <code>GetModuleFileName</code> API. On other OSes, if the C runtime is given a qualified path name, it is used, or the unqualified file name given is qualified by walking the path. This is reasonably reliable given normal program spawning conventions, but cannot be guaranteed to be correct in all circumstances.</p>
+
+<h2 id="PAR_APP_REUSE">PAR_APP_REUSE</h2>
+
+<p>Strictly internal. Skip this section if you&#39;re not a PAR developer.</p>
+
+<p>The variable shouldn&#39;t ever be exposed to user code and packaged applications should not depend on it being set or not.</p>
+
+<p>If an application has been packaged with the <code>--reusable</code> option, the bootstrapping code will set this environment variable to the name of the program that is to be run instead of the packaged program. The <i>main.pl</i> loader script fetches the file name, deletes the environment variable, and then runs the given program.</p>
+
+<h2 id="PAR_RUN">PAR_RUN</h2>
+
+<p>This environment variable was set during constructions of <code>PAR::Packer</code> objects (usually during <i>pp</i> runs only) by versions of PAR up to 0.957. Since PAR 0.958, this variable is unused.</p>
+
+<h2 id="PAR_SPAWNED">PAR_SPAWNED</h2>
+
+<p>This variable is used internally by the <i>parl</i> binary loader to signal the child process that it&#39;s the child.</p>
+
+<p>You should not rely on this variable outside of the PAR binary loader code. For a slightly more detailed discussion, please refer to the <i>who_am_i.txt</i> documentation file in the PAR source distribution which was contributed by Alan Stewart. Related: <code>PAR_ARGC</code>, <code>PAR_ARGV_*</code></p>
+
+<p>Documented only to avoid surprises if spawned applications expect to see a value initialized by the user.</p>
+
+<h2 id="PAR_TEMP">PAR_TEMP</h2>
+
+<p>Users should set <code>PAR_GLOBAL_TEMP</code> instead. <code>PAR_TEMP</code> is calculated from a variety of other variables. See the <code>NOTES</code> section in the pod for PAR.pm for a complete description of how the calculation proceeds. <code>PAR_TEMP</code>, once calculated, is used as the location where PAR stores its extracted, temporary file cache.</p>
+
+<h2 id="PAR_TMPDIR">PAR_TMPDIR</h2>
+
+<p>Contributes to the calculation of <code>PAR_TEMP</code>, and is further explained there. Users should set <code>PAR_GLOBAL_TMPDIR</code> instead.</p>
+
+<h2 id="PAR_VERBATIM">PAR_VERBATIM</h2>
+
+<p>The <code>PAR_VERBATIM</code> variable controls the way Perl code is packaged into a PAR archive or binary executable. If it is set to a true value during the packaging process, modules (and scripts) are <b>not</b> passed through the default <code>PAR::Filter::PodStrip</code> filter which removes all POD documentation from the code. Note that the <code>PAR::Filter::PatchContent</code> filter is still applied.</p>
+
+<p>The <code>-F</code> option to the <i>pp</i> tool overrides the <code>PAR_VERBATIM</code> setting. That means if you set <code>PAR_VERBATIM=1</code> but specify <code>-F PodStrip</code> on the <code>pp</code> command line, the <code>PodStrip</code> filter will be applied.</p>
+
+<p><code>PAR_VERBATIM</code> is not used by the PAR application.</p>
+
+<h2 id="PAR_VERBOSE">PAR_VERBOSE</h2>
+
+<p>Setting this environment variable to a positive integer has the same effect as using the <code>-verbose</code> switch to <i>pp</i>.</p>
+
+<h2 id="PP_OPTS">PP_OPTS</h2>
+
+<p>During a <i>pp</i> run, the contents of the <code>PP_OPTS</code> variable are treated as if they were part of the command line. In newer versions of PAR, you can also write options to a file and execute <i>pp</i> as follows to read the options from the file:</p>
+
+<pre><code>  pp @FILENAME</code></pre>
+
+<p>That can, of course, be combined with other command line arguments to <i>pp</i> or the <code>PP_OPTS</code> variable.</p>
+
+<h2 id="TMP-TEMP-TMPDIR-TEMPDIR">TMP, TEMP, TMPDIR, TEMPDIR</h2>
+
+<p>Please refer to <code>PAR_TMPDIR</code>.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>The PAR homepage at <a href="http://par.perl.org">http://par.perl.org</a>.</p>
+
+<p><a href="../../../cpan/build/PAR-1.008-zOnYU5/blib/lib/PAR.html">PAR</a>, <a href="../../../cpan/build/PAR-1.008-zOnYU5/blib/lib/PAR/Tutorial.html">PAR::Tutorial</a>, <a href="../../../cpan/build/PAR-1.008-zOnYU5/blib/lib/PAR/FAQ.html">PAR::FAQ</a> (For a more current FAQ, refer to the homepage.)</p>
+
+<p><a>par.pl</a>, <a>parl</a>, <a>pp</a></p>
+
+<p><a href="../../../site/lib/PAR/Dist.html">PAR::Dist</a> for details on PAR distributions.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Steffen Mueller &lt;smueller@cpan.org&gt;</p>
+
+<p><a href="http://par.perl.org/">http://par.perl.org/</a> is the official PAR website. You can write to the mailing list at &lt;par@perl.org&gt;, or send an empty mail to &lt;par-subscribe@perl.org&gt; to participate in the discussion.</p>
+
+<p>Please submit bug reports to &lt;bug-par@rt.cpan.org&gt;. If you need support, however, joining the &lt;par@perl.org&gt; mailing list is preferred.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>PAR: Copyright 2003-2010 by Audrey Tang, &lt;cpan@audreyt.org&gt;.</p>
+
+<p>This document: Copyright 2006-2010 by Steffen Mueller, &lt;smueller@cpan.org&gt;</p>
+
+<p>Some information has been taken from Alan Stewart&#39;s extra documentation in the <i>contrib/</i> folder of the PAR distribution.</p>
+
+<p>This program or documentation is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

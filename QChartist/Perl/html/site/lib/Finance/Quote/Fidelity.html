@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#NOTE-NOTE-NOTE-NOTE-NOTE">NOTE NOTE NOTE NOTE NOTE</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::Fidelity - Obtain information from Fidelity Investments.</p>
+
+<h1 id="NOTE-NOTE-NOTE-NOTE-NOTE">NOTE NOTE NOTE NOTE NOTE</h1>
+
+<p>This module is currently non-functional.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"fidelity"</span><span class="operator">,</span><span class="string">"FBGRX"</span><span class="operator">);</span>
+    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"fidelity_direct"</span><span class="operator">,</span><span class="string">"FBGRX"</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information from Fidelity Investments, http://www.fidelity.com/. This module is loaded by default on the Finance::Quote object. It is also possible to load this module explicitly by passing &quot;Fidelity&quot; as one of Finance::Quote-&gt;new()&#39;s parameters.</p>
+
+<p>The &quot;fidelity&quot; fetch method may make use of failover modules. The &quot;fidelity_direct&quot; method will only obtain information directly from Fidelity.</p>
+
+<p>Information returned by this module is governed by Fidelity Investment&#39;s terms and conditions.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>The following labels may be returned by Finance::Quote::Fidelity: exchange, name, number, nav, change, ask, date, yield, price.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Fidelity Investments, http://www.fidelity.com/</p>
+
+<p>Finance::Quote::Yahoo::USA;</p>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,185 @@
+dim ema20buffer(0 to 1000) as double
+dim extmapbuffer9(0 to 1000) as double
+sub ema20()
+    dim per as integer
+    per=20
+
+    dim pr as double
+    pr=2/(per+1)
+    dim i as integer,p as integer
+    p=bars-2
+    p=1000
+    while p>=0
+        if p=1000 then
+            extmapbuffer9(p+1)=(high(p+1)+low(p+1))/2
+        end if
+        ema20buffer(p)=((high(p)+low(p))/2)*pr+extmapbuffer9(p+1)*(1-pr)
+        p--
+    wend
+
+end sub
+
+
+declare sub stddev()
+
+dim stddivperiod as integer,shift as integer
+stddivperiod=225
+shift=0
+dim stddevbuffer(0 to 1000) as double
+
+sub stddev()
+
+    dim i as integer,k as integer
+    dim deviation as double,sum as double,oldval as double,newres as double
+    dim limit as integer
+    limit=1000
+    ema20
+    for i=0 to limit-1
+        stddevbuffer(i)=ema20buffer(i)
+    next i
+
+    i=1000
+
+    while i>=0
+        sum=0
+        k=i+stddivperiod-1
+        oldval=stddevbuffer(i)
+        while k>=i
+            newres=close(k)-oldval
+            sum=sum+newres*newres
+            k--
+        wend
+        deviation=sqr(sum/stddivperiod)
+        stddevbuffer(i)=deviation
+        i--
+    wend
+
+end sub
+
+
+
+declare sub cog()
+
+dim bars_back as integer,m as integer,kstd as double,sname as integer
+dim fx(0 to 1000) as double,sqh(0 to 1000) as double,sql(0 to 1000) as double,stdh(0 to 1000) as double,stdl(0 to 1000) as double
+dim ai(10,10) as double,b(10) as double,x(10) as double,sx(20) as double
+dim sum as double
+dim ip as integer,p as integer,f as integer
+dim qq as double,mm as double,tt as double
+dim ii as integer,jj as integer,kk as integer,ll as integer,nn as integer
+dim sq as double,std as double
+
+bars_back=225
+m=4
+i=0
+kstd=2
+sname=1102
+p=bars_back
+nn=m+1
+
+sub cog()
+bars_back=val(cogbarsbackedit.text)
+p=bars_back
+    dim mi as integer
+    
+    p=bars_back
+    sx(1)=p+1
+    
+    for mi=1 to nn*2-2
+        sum=0
+        for n=i to i+p
+            sum=sum+(n^mi)
+        next n
+        sx(mi+1)=sum
+    next mi
+
+    for mi=1 to nn
+        sum=0
+        for n=i to i+p
+            if mi=1 then
+                sum=sum+close(n)
+            else
+                sum=sum+close(n)*(n^(mi-1))
+            end if
+        next n
+        b(mi)=sum
+    next mi
+
+    for jj=1 to nn
+        for ii=1 to nn
+            kk=ii+jj-1
+            ai(ii,jj)=sx(kk)
+        next ii
+    next jj
+    
+    for kk=1 to nn-1
+        ll=0:mm=0
+        for ii=kk to nn
+            if abs(ai(ii,kk))>mm then
+                mm=abs(ai(ii,kk))
+                ll=ii
+            end if
+        next ii
+        
+        if ll=0 then
+            exit sub
+        end if
+        
+        if ll<>kk then
+            for jj=1 to nn
+                tt=ai(kk,jj)
+                ai(kk,jj)=ai(ll,jj)
+                ai(ll,jj)=tt
+            next jj
+            tt=b(kk):b(kk)=b(ll):b(ll)=tt
+        end if
+        
+        for ii=kk+1 to nn
+            qq=ai(ii,kk)/ai(kk,kk)
+            for jj=1 to nn
+                if jj=kk then
+                    ai(ii,jj)=0
+                else
+                    ai(ii,jj)=ai(ii,jj)-qq*ai(kk,jj)
+                end if
+            next jj
+            b(ii)=b(ii)-qq*b(kk)
+        next ii
+    next kk
+    
+    x(nn)=b(nn)/ai(nn,nn)
+    
+    for ii=nn-1 to 1 step -1
+        tt=0
+        for jj=1 to nn-ii
+            tt=tt+ai(ii,ii+jj)*x(ii+jj)
+            x(ii)=(1/ai(ii,ii))*(b(ii)-tt)
+        next jj
+    next ii
+    
+    for n=i to i+p
+        sum=0
+        for kk=1 to m
+            sum=sum+x(kk+1)*(n^kk)
+        next kk
+        fx(n)=x(1)+sum
+    next n
+    
+    sq=0
+    
+    for n=i to i+p
+        sq=sq+((close(n)-fx(n))^2)
+    next n
+    
+    sq=sqr(sq/(p+1))*kstd
+    stddev
+    std=stddevbuffer(i)*kstd
+    
+    for n=i to i+p
+        sqh(n)=fx(n)+sq
+        sql(n)=fx(n)-sq
+        stdh(n)=fx(n)+std
+        stdl(n)=fx(n)-std
+    next n
+    
+end sub

@@ -1,0 +1,36 @@
+'------------------------- stepftvcprdl -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=stepftvcprdlperiodedit.text
+cpptmpfuncreturn=varptr$(stepftvcprdl(varptr(periodstr)))
+end if
+
+barsback=chartbars(displayedfile) '<--- can also be something like VAL(ftvcprdlbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="Line1Buffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    bufnamestr="Line2Buffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=red '<--- replace with your color
+    bufnamestr="Line3Buffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="steplevelup"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="stepleveldn"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End stepftvcprdl -------------------------------------------------

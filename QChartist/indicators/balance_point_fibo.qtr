@@ -1,0 +1,28 @@
+'------------------------- balance_point_fibo -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+curtfstr=balance_point_fibocurtfedit.text
+cpptmpfuncreturn=varptr$(balance_point_fibo(varptr(curtfstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(balance_point_fibobarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=lightblue '<--- replace with your color
+    bufnamestr="dbp"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="dbph"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="dbpl"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End balance_point_fibo -------------------------------------------------

@@ -1,0 +1,60 @@
+declare sub atr(period as integer)
+
+dim atrperiod as integer
+atrperiod=val(atrperiodedit.text)
+dim atrbuffer(1 to 1000) as double,tempbuffer(1 to 1000) as double
+dim tempbuffergrid as qstringgrid
+
+sub atr(period as integer)
+    atrperiod=val(atrperiodedit.text)
+    if period>1 then
+        atrperiod=period
+    end if
+
+    dim i as integer
+    i=val(atrbarsbackedit.text)-1
+
+    while i>=0
+        dim high2 as double,low2 as double
+        high2=high(i):low2=low(i)
+        if i=1000-1 then
+            tempbuffergrid.cell(1,i)=str$(high2-low2)
+        else
+            dim prevclose as double
+            prevclose=close(i+1)
+            dim value1 as double,value2 as double
+            if high2>=prevclose then
+                value1=high2
+            else
+                value1=prevclose
+            end if
+            if low2<=prevclose then
+                value2=low2
+            else
+                value2=prevclose
+            end if
+            tempbuffergrid.cell(1,i)=str$(value1-value2)
+        end if
+        i--
+    wend
+    dim sum as double
+    sum=0
+    dim p as integer
+    p=bars-1
+    p=1000
+    if p<atrperiod then
+        p=atrperiod
+    end if
+    for i=1 to atrperiod-1
+        sum=sum+val(tempbuffergrid.cell(1,p))
+        p--
+    next i
+    while p>=0
+        sum=sum+val(tempbuffergrid.cell(1,p))
+        atrbuffer(p)=sum/atrperiod
+        atrbuffer(p)=atrbuffer(p)
+        sum=sum-val(tempbuffergrid.cell(1,p+atrperiod-1))
+        p--
+    wend        
+    
+end sub  

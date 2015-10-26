@@ -1,0 +1,27 @@
+'------------------------- LSS Oscillator -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+LSS
+end if
+
+barsback=200 '<--- can also be something like VAL(LSSbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(LSSbuffer(offset))
+    drawid=drawid+2
+    sepindicolor(drawid)=gray '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(LSSbufferlevel1(offset))
+    drawid=drawid+2
+    sepindicolor(drawid)=gray '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(LSSbufferlevel2(offset))
+    drawid=drawid+2
+    sepindicolor(drawid)=gray '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(LSSbufferlevel3(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End LSS Oscillator -------------------------------------------------

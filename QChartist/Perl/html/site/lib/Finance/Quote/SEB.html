@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#FUND-NAMES">FUND NAMES</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::SEB - Obtain fund prices from www.seb.se</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%fundinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"seb_funds"</span><span class="operator">,</span><span class="string">"fund name"</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information about SEB fund prices from www.seb.se. The only available information source is &quot;seb_funds&quot; and it will use www.seb.se.</p>
+
+<h1 id="FUND-NAMES">FUND NAMES</h1>
+
+<p>Unfortunately there is no unique identifier for the fund names. Therefore the complete fund name must be given, including spaces, case is important.</p>
+
+<p>Consult http://taz.vv.sebank.se/cgi-bin/pts3/pow/Fonder/kurser/kurslista_body.asp for all available funds.</p>
+
+<p>Example &quot;SEB Aktiesparfond&quot;</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>Information available from SEB may include the following labels: date method source name currency price. The prices are updated at the end of each bank day.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>SEB website - http://www.seb.se/</p>
+
+
+</body>
+
+</html>
+
+

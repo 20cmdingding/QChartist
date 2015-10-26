@@ -1,0 +1,4 @@
+EXPORTS
+  boot_Win32__Exe__InsertResourceSection
+  _boot_Win32__Exe__InsertResourceSection = boot_Win32__Exe__InsertResourceSection
+  

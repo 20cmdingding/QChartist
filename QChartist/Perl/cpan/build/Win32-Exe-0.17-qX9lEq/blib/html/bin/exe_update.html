@@ -1,0 +1,125 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../displayToc.js"></script>
+<script language="JavaScript" src="../tocParas.js"></script>
+<script language="JavaScript" src="../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#OPTIONS">OPTIONS</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>exe_update.pl - Modify windows executable files</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p><b>exe_update.pl</b> <span style="white-space: nowrap;">[ <b>--gui</b> | <b>--console</b> ]</span> <span style="white-space: nowrap;">[ <b>--icon</b> <i>iconfile</i> ]</span> <span style="white-space: nowrap;">[ <b>--manifest</b> <i>manifestfile</i> ]</span> <span style="white-space: nowrap;">[ <b>--info</b> <i>key=value;...</i> ]</span> <i>exefile</i></p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This program rewrites PE headers in a Windows executable file. It can change whether the executable runs with a console window, as well as setting the icons, manifest and version information associated with it. In general, a PE file must have an existing resource section or you cannot add icons, manifests or version info. However, on Win32 platforms a new resource section will be created if none exists.</p>
+
+<h1 id="OPTIONS">OPTIONS</h1>
+
+<p>Options are available in a <i>short</i> form and a <i>long</i> form. For example, the three lines below are all equivalent:</p>
+
+<pre><code>    % exe_update.pl -i new.ico input.exe
+    % exe_update.pl --icon new.ico input.exe
+    % exe_update.pl --icon=new.ico input.exe</code></pre>
+
+<dl>
+
+<dt id="c---console"><b>-c</b>, <b>--console</b></dt>
+<dd>
+
+<p>Set the executable to always display a console window.</p>
+
+</dd>
+<dt id="g---gui"><b>-g</b>, <b>--gui</b></dt>
+<dd>
+
+<p>Set the executable so it does not have a console window.</p>
+
+</dd>
+<dt id="i---icon-FILE"><b>-i</b>, <b>--icon</b>=<i>FILE</i></dt>
+<dd>
+
+<p>Specify an icon file (in <i>.ico</i>, <i>.exe</i> or <i>.dll</i> format) for the executable.</p>
+
+</dd>
+<dt id="m---manifest-FILE"><b>-m</b>, <b>--manifest</b>=<i>FILE</i></dt>
+<dd>
+
+<p>Specify a manifest file in <i>.xml</i> format for the executable.</p>
+
+</dd>
+<dt id="N---info-KEY-VAL"><b>-N</b>, <b>--info</b>=<i>KEY=VAL</i></dt>
+<dd>
+
+<p>Attach version information for the executable. The name/value pair is joined by <code>=</code>. You may specify <code>-N</code> multiple times, or use <code><span class="operator">;</span>
+</code> to link several pairs.</p>
+
+<p>These special <code>KEY</code> names are recognized:</p>
+
+<pre><code>    Comments        CompanyName     FileDescription FileVersion
+    InternalName    LegalCopyright  LegalTrademarks OriginalFilename
+    ProductName     ProductVersion</code></pre>
+
+</dd>
+<dt id="A---manifestargs-KEY-VAL"><b>-A</b>, <b>--manifestargs</b>=<i>KEY=VAL</i></dt>
+<dd>
+
+<p>As an alternative to specifying a manifest file, specify manifest attributes. The name/value pair is joined by <code>=</code>. You may specify <code>-A</code> multiple times, or use <code><span class="operator">;</span>
+</code> to link several pairs. This option may be preferable to using a manifest file as these attributes will be combined with any existing manifest that may be in the executable.</p>
+
+<p>These special <code>KEY</code> names are recognized:</p>
+
+<pre><code>    ExecutionLevel  UIAccess     ExecName   Description
+    CommonControls  Version</code></pre>
+
+<p>The CommonControls key is a simple boolean value to indicate that the Common Controls Version 6.0.0.0 dependency should be added to the manifest.</p>
+
+<p>e.g</p>
+
+<p>--manifestargs=&quot;ExecutionLevel=requireAdministrator;ExecName=My.App;CommonControls=1&quot; --manifestargs=&quot;Version=1.3.6.7895;UIAccess=false&quot;</p>
+
+</dd>
+</dl>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2004, 2006, 2010 by Audrey Tang &lt;cpan@audreyt.org&gt;.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

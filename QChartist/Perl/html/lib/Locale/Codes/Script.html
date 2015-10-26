@@ -1,0 +1,195 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#SUPPORTED-CODE-SETS">SUPPORTED CODE SETS</a></li>
+  <li><a href="#ROUTINES">ROUTINES</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Locale::Codes::Script - standard codes for script identification</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>   <span class="keyword">use</span> <span class="variable">Locale::Codes::Script</span><span class="operator">;</span>
+   
+   <span class="variable">$script</span>  <span class="operator">=</span> <span class="variable">code2script</span><span class="operator">(</span><span class="string">'phnx'</span><span class="operator">);</span>                     <span class="comment"># 'Phoenician'</span>
+   <span class="variable">$code</span>    <span class="operator">=</span> <span class="variable">script2code</span><span class="operator">(</span><span class="string">'Phoenician'</span><span class="operator">);</span>               <span class="comment"># 'Phnx'</span>
+   <span class="variable">$code</span>    <span class="operator">=</span> <span class="variable">script2code</span><span class="operator">(</span><span class="string">'Phoenician'</span><span class="operator">,</span>
+                          <span class="variable">LOCALE_CODE_NUMERIC</span><span class="operator">);</span>        <span class="comment"># 115</span>
+   
+   <span class="variable">@codes</span>   <span class="operator">=</span> <span class="variable">all_script_codes</span><span class="operator">();</span>
+   <span class="variable">@scripts</span> <span class="operator">=</span> <span class="variable">all_script_names</span><span class="operator">();</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>The <code>Locale::Codes::Script</code> module provides access to standards codes used for identifying scripts, such as those defined in ISO 15924.</p>
+
+<p>Most of the routines take an optional additional argument which specifies the code set to use. If not specified, the default ISO 15924 four-letter codes will be used.</p>
+
+<h1 id="SUPPORTED-CODE-SETS">SUPPORTED CODE SETS</h1>
+
+<p>There are several different code sets you can use for identifying scripts. A code set may be specified using either a name, or a constant that is automatically exported by this module.</p>
+
+<p>For example, the two are equivalent:</p>
+
+<pre><code>   <span class="variable">$script</span> <span class="operator">=</span> <span class="variable">code2script</span><span class="operator">(</span><span class="string">'phnx'</span><span class="operator">,</span><span class="string">'alpha'</span><span class="operator">);</span>
+   <span class="variable">$script</span> <span class="operator">=</span> <span class="variable">code2script</span><span class="operator">(</span><span class="string">'phnx'</span><span class="operator">,</span><span class="variable">LOCALE_SCRIPT_ALPHA</span><span class="operator">);</span>
+</code></pre>
+
+<p>The codesets currently supported are:</p>
+
+<dl>
+
+<dt id="alpha-LOCALE_SCRIPT_ALPHA"><b>alpha, LOCALE_SCRIPT_ALPHA</b></dt>
+<dd>
+
+<p>This is a set of four-letter (capitalized) codes from ISO 15924 such as &#39;Phnx&#39; for Phoenician. It also includes additions to this set included in the IANA language registry.</p>
+
+<p>The Zxxx, Zyyy, and Zzzz codes are not used.</p>
+
+<p>This is the default code set.</p>
+
+</dd>
+<dt id="num-LOCALE_SCRIPT_NUMERIC"><b>num, LOCALE_SCRIPT_NUMERIC</b></dt>
+<dd>
+
+<p>This is a set of three-digit numeric codes from ISO 15924 such as 115 for Phoenician.</p>
+
+</dd>
+</dl>
+
+<h1 id="ROUTINES">ROUTINES</h1>
+
+<dl>
+
+<dt id="code2script-CODE-CODESET-retired"><b>code2script ( CODE [,CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="script2code-NAME-CODESET-retired"><b>script2code ( NAME [,CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="script_code2code-CODE-CODESET-CODESET2"><b>script_code2code ( CODE ,CODESET ,CODESET2 )</b></dt>
+<dd>
+
+</dd>
+<dt id="all_script_codes-CODESET-retired"><b>all_script_codes ( [CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="all_script_names-CODESET-retired"><b>all_script_names ( [CODESET] [,&#39;retired&#39;])</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Script::rename_script-CODE-NEW_NAME-CODESET"><b>Locale::Codes::Script::rename_script ( CODE ,NEW_NAME [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Script::add_script-CODE-NAME-CODESET"><b>Locale::Codes::Script::add_script ( CODE ,NAME [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Script::delete_script-CODE-CODESET"><b>Locale::Codes::Script::delete_script ( CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Script::add_script_alias-NAME-NEW_NAME"><b>Locale::Codes::Script::add_script_alias ( NAME ,NEW_NAME )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Script::delete_script_alias-NAME"><b>Locale::Codes::Script::delete_script_alias ( NAME )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Script::rename_script_code-CODE-NEW_CODE-CODESET"><b>Locale::Codes::Script::rename_script_code ( CODE ,NEW_CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Script::add_script_code_alias-CODE-NEW_CODE-CODESET"><b>Locale::Codes::Script::add_script_code_alias ( CODE ,NEW_CODE [,CODESET] )</b></dt>
+<dd>
+
+</dd>
+<dt id="Locale::Codes::Script::delete_script_code_alias-CODE-CODESET"><b>Locale::Codes::Script::delete_script_code_alias ( CODE [,CODESET] )</b></dt>
+<dd>
+
+<p>These routines are all documented in the Locale::Codes::API man page.</p>
+
+</dd>
+</dl>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<dl>
+
+<dt id="Locale::Codes"><b>Locale::Codes</b></dt>
+<dd>
+
+<p>The Locale-Codes distribution.</p>
+
+</dd>
+<dt id="Locale::Codes::API"><b>Locale::Codes::API</b></dt>
+<dd>
+
+<p>The list of functions supported by this module.</p>
+
+</dd>
+<dt id="http:-www.unicode.org-iso15924"><b>http://www.unicode.org/iso15924/</b></dt>
+<dd>
+
+<p>Home page for ISO 15924.</p>
+
+</dd>
+<dt id="http:-www.iana.org-assignments-language-subtag-registry"><b>http://www.iana.org/assignments/language-subtag-registry</b></dt>
+<dd>
+
+<p>The IANA language subtag registry.</p>
+
+</dd>
+</dl>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>See Locale::Codes for full author history.</p>
+
+<p>Currently maintained by Sullivan Beck (sbeck@cpan.org).</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<pre><code>   Copyright (c) 1997-2001 Canon Research Centre Europe (CRE).
+   Copyright (c) 2001-2010 Neil Bowers
+   Copyright (c) 2010-2014 Sullivan Beck</code></pre>
+
+<p>This module is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+
+</body>
+
+</html>
+
+

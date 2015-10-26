@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a>
+    <ul>
+      <li><a href="#Recommendation-for-when-to-use-CGI::Pretty">Recommendation for when to use CGI::Pretty</a></li>
+      <li><a href="#Tags-that-wont-be-formatted">Tags that won&#39;t be formatted</a></li>
+      <li><a href="#Customizing-the-Indenting">Customizing the Indenting</a></li>
+    </ul>
+  </li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>CGI::Pretty - module to produce nicely formatted HTML code</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">CGI::Pretty</span> <span class="string">qw( :html3 )</span><span class="operator">;</span>
+    
+    <span class="comment"># Print a table with a single data element</span>
+    <span class="keyword">print</span> <span class="variable">table</span><span class="operator">(</span> <span class="variable">TR</span><span class="operator">(</span> <span class="variable">td</span><span class="operator">(</span> <span class="string">"foo"</span> <span class="operator">)</span> <span class="operator">)</span> <span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>CGI::Pretty is a module that derives from CGI. It&#39;s sole function is to allow users of CGI to output nicely formatted HTML code.</p>
+
+<p>When using the CGI module, the following code: print table( TR( td( &quot;foo&quot; ) ) );</p>
+
+<p>produces the following output: &lt;TABLE&gt;&lt;TR&gt;&lt;TD&gt;foo&lt;/TD&gt;&lt;/TR&gt;&lt;/TABLE&gt;</p>
+
+<p>If a user were to create a table consisting of many rows and many columns, the resultant HTML code would be quite difficult to read since it has no carriage returns or indentation.</p>
+
+<p>CGI::Pretty fixes this problem. What it does is add a carriage return and indentation to the HTML code so that one can easily read it.</p>
+
+<pre><code>    <span class="keyword">print</span> <span class="variable">table</span><span class="operator">(</span> <span class="variable">TR</span><span class="operator">(</span> <span class="variable">td</span><span class="operator">(</span> <span class="string">"foo"</span> <span class="operator">)</span> <span class="operator">)</span> <span class="operator">);</span>
+</code></pre>
+
+<p>now produces the following output: &lt;TABLE&gt; &lt;TR&gt; &lt;TD&gt;foo&lt;/TD&gt; &lt;/TR&gt; &lt;/TABLE&gt;</p>
+
+<h2 id="Recommendation-for-when-to-use-CGI::Pretty">Recommendation for when to use CGI::Pretty</h2>
+
+<p>CGI::Pretty is far slower than using CGI.pm directly. A benchmark showed that it could be about 10 times slower. Adding newlines and spaces may alter the rendered appearance of HTML. Also, the extra newlines and spaces also make the file size larger, making the files take longer to download.</p>
+
+<p>With all those considerations, it is recommended that CGI::Pretty be used primarily for debugging.</p>
+
+<h2 id="Tags-that-wont-be-formatted">Tags that won&#39;t be formatted</h2>
+
+<p>The following tags are not formatted: &lt;a&gt;, &lt;pre&gt;, &lt;code&gt;, &lt;script&gt;, &lt;textarea&gt;, and &lt;td&gt;. If these tags were formatted, the user would see the extra indentation on the web browser causing the page to look different than what would be expected. If you wish to add more tags to the list of tags that are not to be touched, push them onto the <code>@AS_IS</code> array:</p>
+
+<pre><code>    <span class="keyword">push</span> <span class="variable">@CGI::Pretty::AS_IS</span><span class="operator">,</span><span class="string">qw(XMP)</span><span class="operator">;</span>
+</code></pre>
+
+<h2 id="Customizing-the-Indenting">Customizing the Indenting</h2>
+
+<p>If you wish to have your own personal style of indenting, you can change the <code>$INDENT</code> variable:</p>
+
+<pre><code>    <span class="variable">$CGI::Pretty::INDENT</span> <span class="operator">=</span> <span class="string">"\t\t"</span><span class="operator">;</span>
+</code></pre>
+
+<p>would cause the indents to be two tabs.</p>
+
+<p>Similarly, if you wish to have more space between lines, you may change the <code>$LINEBREAK</code> variable:</p>
+
+<pre><code>    <span class="variable">$CGI::Pretty::LINEBREAK</span> <span class="operator">=</span> <span class="string">"\n\n"</span><span class="operator">;</span>
+</code></pre>
+
+<p>would create two carriage returns between lines.</p>
+
+<p>If you decide you want to use the regular CGI indenting, you can easily do the following:</p>
+
+<pre><code>    <span class="variable">$CGI::Pretty::INDENT</span> <span class="operator">=</span> <span class="variable">$CGI::Pretty::LINEBREAK</span> <span class="operator">=</span> <span class="string">""</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Brian Paulsen &lt;Brian@ThePaulsens.com&gt;, with minor modifications by Lincoln Stein &lt;lstein@cshl.org&gt; for incorporation into the CGI.pm distribution.</p>
+
+<p>Copyright 1999, Brian Paulsen. All rights reserved.</p>
+
+<p>This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>Bug reports and comments to Brian@ThePaulsens.com. You can also write to lstein@cshl.org, but this code looks pretty hairy to me and I&#39;m not sure I understand it!</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../../lib/CGI.html">CGI</a></p>
+
+
+</body>
+
+</html>
+
+

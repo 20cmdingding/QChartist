@@ -1,0 +1,22 @@
+declare sub hideIVolumeform
+
+CREATE IVolumeform as qform
+
+    Center
+    Caption = "Settings for: IVolume"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create IVolumebtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideIVolumeform
+    end create
+
+END CREATE
+
+sub hideIVolumeform
+    IVolumeform.visible=0
+end sub

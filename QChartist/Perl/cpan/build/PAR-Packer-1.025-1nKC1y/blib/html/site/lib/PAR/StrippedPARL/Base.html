@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#CLASS-METHODS">CLASS METHODS</a>
+    <ul>
+      <li><a href="#write_parl">write_parl</a></li>
+      <li><a href="#get_raw">get_raw</a></li>
+      <li><a href="#write_raw">write_raw</a></li>
+    </ul>
+  </li>
+  <li><a href="#SUBCLASSING">SUBCLASSING</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>PAR::StrippedPARL::Base - Base class for the PARL data packages</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>  <span class="comment"># Please use one of the siblings of this class instead.</span>
+  <span class="keyword">use</span> <span class="variable">base</span> <span class="string">'PAR::StrippedPARL::Base'</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This class is internal to PAR. Do not use it outside of PAR.</p>
+
+<p>This class is basically just a container for a static binary PAR loader which doesn&#39;t include the PAR code like the <i>parl</i> or <i>parl.exe</i> you are used to. If you&#39;re really curious, I&#39;ll tell you it is just a copy of the <i>myldr/static</i> (or <i>myldr/static.exe</i>) file.</p>
+
+<p>The data is appended during the <code>make</code> phase of the PAR build process.</p>
+
+<p>If the binary data isn&#39;t appended during the build process, the two class methods will return the empty list.</p>
+
+<h1 id="CLASS-METHODS">CLASS METHODS</h1>
+
+<h2 id="write_parl">write_parl</h2>
+
+<p>Takes a file name as argument. Writes the raw binary data in the package to the specified file and embeds the core modules to produce a complete PAR loader (<i>parl</i>).</p>
+
+<p>Returns true on success or the empty list on failure.</p>
+
+<h2 id="get_raw">get_raw</h2>
+
+<p>Returns the binary data attached to the data package.</p>
+
+<p>Returns the empty list on failure.</p>
+
+<h2 id="write_raw">write_raw</h2>
+
+<p>Takes a file name as argument and writes the binary data to the file.</p>
+
+<p>Returns true on success and the empty list on failure.</p>
+
+<h1 id="SUBCLASSING">SUBCLASSING</h1>
+
+<p>Subclasses need to implement the <code>_data_pos</code> class method which returns the value of <code>tell DATA</code> as it was after the class was loaded.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Steffen Mueller &lt;smueller@cpan.org&gt;, Audrey Tang &lt;cpan@audreyt.org&gt;</p>
+
+<h1 id="COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</h1>
+
+<p>Copyright 2006-2009 by Steffen Mueller &lt;smueller@cpan.org&gt;.</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,1 @@
+path %path%;c:\perl\bin;c:\perl\site\bin;c:\perl\site\lib\auto\mingw\bin

@@ -1,0 +1,43 @@
+declare sub TSF ' This line of code must stay here
+dim tsfbuffer(1 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+declare function lreg(st0 as integer,st1 as integer) as double
+
+sub TSF
+' Put your indicator code here
+dim i as integer
+for i=val(tsfbarsback.text) to 0 step -1
+tsfbuffer(i)=lreg(i,i+val(tsfperiod.text)-1)
+next i
+end sub
+
+function lreg(st0 as integer,st1 as integer)
+
+dim sx as double,sxx as double,sxy as double, sy as double,beta as double,alfa as double,_
+x as double,y as double,c as double,value as double,rv as double,i as integer,n as integer
+sx=0
+sxx=0
+sxy=0
+
+rv=0
+n=st1-st0+1
+sy=close(st0)
+sx=0
+sxy=0
+sxx=0
+for i=1 to n-1
+x=i
+y=close(st0+i)
+sx=sx+x
+sy=sy+y
+sxx=sxx+(x*x)
+sxy=sxy+(x*y)
+next i
+c=sxx*n-sx*sx
+if c=0 then
+exit function
+end if
+beta=(n*sxy-sx*sy)/c
+alfa=(sy-beta*sx)/n
+rv=alfa
+lreg=rv
+end function

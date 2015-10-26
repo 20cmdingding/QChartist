@@ -1,0 +1,345 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../displayToc.js"></script>
+<script language="JavaScript" src="../../tocParas.js"></script>
+<script language="JavaScript" src="../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#NAME1">NAME</a></li>
+  <li><a href="#VERSION1">VERSION</a></li>
+  <li><a href="#WARNING">WARNING</a></li>
+  <li><a href="#DEPRECATION">DEPRECATION</a></li>
+  <li><a href="#METHODS">METHODS</a></li>
+  <li><a href="#ACKNOWLEDGEMENTS">ACKNOWLEDGEMENTS</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</a></li>
+  <li><a href="#CONTRIBUTORS">CONTRIBUTORS</a></li>
+  <li><a href="#POD-ERRORS">POD ERRORS</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>JSON::Any - Wrapper Class for the various JSON classes.</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>version 1.32</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>This module tries to provide a coherent API to bring together the various JSON modules currently on CPAN. This module will allow you to code to any JSON API and have it work regardless of which JSON module is actually installed.</p>
+
+<pre><code>        <span class="keyword">use</span> <span class="variable">JSON::Any</span><span class="operator">;</span>
+        
+        <span class="keyword">my</span> <span class="variable">$j</span> <span class="operator">=</span> <span class="variable">JSON::Any</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+        
+        <span class="variable">$json</span> <span class="operator">=</span> <span class="variable">$j</span><span class="operator">-&gt;</span><span class="variable">objToJson</span><span class="operator">(</span><span class="operator">{</span><span class="string">foo</span><span class="operator">=&gt;</span><span class="string">'bar'</span><span class="operator">,</span> <span class="string">baz</span><span class="operator">=&gt;</span><span class="string">'quux'</span><span class="operator">}</span><span class="operator">);</span>
+        <span class="variable">$obj</span> <span class="operator">=</span> <span class="variable">$j</span><span class="operator">-&gt;</span><span class="variable">jsonToObj</span><span class="operator">(</span><span class="variable">$json</span><span class="operator">);</span>
+</code></pre>
+
+<p>or</p>
+
+<pre><code>        <span class="variable">$json</span> <span class="operator">=</span> <span class="variable">$j</span><span class="operator">-&gt;</span><span class="variable">encode</span><span class="operator">(</span><span class="operator">{</span><span class="string">foo</span><span class="operator">=&gt;</span><span class="string">'bar'</span><span class="operator">,</span> <span class="string">baz</span><span class="operator">=&gt;</span><span class="string">'quux'</span><span class="operator">}</span><span class="operator">);</span>
+        <span class="variable">$obj</span> <span class="operator">=</span> <span class="variable">$j</span><span class="operator">-&gt;</span><span class="variable">decode</span><span class="operator">(</span><span class="variable">$json</span><span class="operator">);</span>
+</code></pre>
+
+<p>or</p>
+
+<pre><code>        <span class="variable">$json</span> <span class="operator">=</span> <span class="variable">$j</span><span class="operator">-&gt;</span><span class="variable">Dump</span><span class="operator">(</span><span class="operator">{</span><span class="string">foo</span><span class="operator">=&gt;</span><span class="string">'bar'</span><span class="operator">,</span> <span class="string">baz</span><span class="operator">=&gt;</span><span class="string">'quux'</span><span class="operator">}</span><span class="operator">);</span>
+        <span class="variable">$obj</span> <span class="operator">=</span> <span class="variable">$j</span><span class="operator">-&gt;</span><span class="variable">Load</span><span class="operator">(</span><span class="variable">$json</span><span class="operator">);</span>
+</code></pre>
+
+<p>or</p>
+
+<pre><code>        <span class="variable">$json</span> <span class="operator">=</span> <span class="variable">$j</span><span class="operator">-&gt;</span><span class="variable">to_json</span><span class="operator">(</span><span class="operator">{</span><span class="string">foo</span><span class="operator">=&gt;</span><span class="string">'bar'</span><span class="operator">,</span> <span class="string">baz</span><span class="operator">=&gt;</span><span class="string">'quux'</span><span class="operator">}</span><span class="operator">);</span>
+        <span class="variable">$obj</span> <span class="operator">=</span> <span class="variable">$j</span><span class="operator">-&gt;</span><span class="variable">from_json</span><span class="operator">(</span><span class="variable">$json</span><span class="operator">);</span>
+</code></pre>
+
+<p>or without creating an object:</p>
+
+<pre><code>        <span class="variable">$json</span> <span class="operator">=</span> <span class="variable">JSON::Any</span><span class="operator">-&gt;</span><span class="variable">objToJson</span><span class="operator">(</span><span class="operator">{</span><span class="string">foo</span><span class="operator">=&gt;</span><span class="string">'bar'</span><span class="operator">,</span> <span class="string">baz</span><span class="operator">=&gt;</span><span class="string">'quux'</span><span class="operator">}</span><span class="operator">);</span>
+        <span class="variable">$obj</span> <span class="operator">=</span> <span class="variable">JSON::Any</span><span class="operator">-&gt;</span><span class="variable">jsonToObj</span><span class="operator">(</span><span class="variable">$json</span><span class="operator">);</span>
+</code></pre>
+
+<p>On load, JSON::Any will find a valid JSON module in your @INC by looking for them in this order:</p>
+
+<pre><code>    Cpanel::JSON::XS
+        JSON::XS 
+    JSON::PP
+        JSON 
+        JSON::DWIW </code></pre>
+
+<p>And loading the first one it finds.</p>
+
+<p>You may change the order by specifying it on the <code>use JSON::Any</code> line:</p>
+
+<pre><code>        <span class="keyword">use</span> <span class="variable">JSON::Any</span> <span class="string">qw(DWIW XS CPANEL JSON PP)</span><span class="operator">;</span>
+</code></pre>
+
+<p>Specifying an order that is missing modules will prevent those module from being used:</p>
+
+<pre><code>        <span class="keyword">use</span> <span class="variable">JSON::Any</span> <span class="string">qw(CPANEL PP)</span><span class="operator">;</span> <span class="comment"># same as JSON::MaybeXS</span>
+</code></pre>
+
+<p>This will check in that order, and will never attempt to load JSON::XS, JSON.pm, or JSON::DWIW. This can also be set via the $ENV{JSON_ANY_ORDER} environment variable.</p>
+
+<p>JSON::Syck has been deprecated by it&#39;s author, but in the attempt to still stay relevant as a &quot;Compat Layer&quot; JSON::Any still supports it. This support however has been made optional starting with JSON::Any 1.19. In deference to a bug request starting with JSON 1.20 JSON::Syck and other deprecated modules will still be installed, but only as a last resort and will now include a warning.</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">JSON::Any</span> <span class="string">qw(Syck XS JSON)</span><span class="operator">;</span> 
+</code></pre>
+
+<p>or</p>
+
+<pre><code>    <span class="variable">$ENV</span><span class="operator">{</span><span class="string">JSON_ANY_ORDER</span><span class="operator">}</span> <span class="operator">=</span> <span class="string">'Syck XS JSON'</span><span class="operator">;</span>
+</code></pre>
+
+<p>WARNING: If you call JSON::Any with an empty list</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">JSON::Any</span> <span class="operator">();</span>
+</code></pre>
+
+<p>It will skip the JSON package detection routines and will die loudly that it couldn&#39;t find a package.</p>
+
+<h1 id="NAME1">NAME</h1>
+
+<p>JSON::Any</p>
+
+<h1 id="VERSION1">VERSION</h1>
+
+<p>version 1.32</p>
+
+<h1 id="WARNING">WARNING</h1>
+
+<p>JSON::XS 3.0 or higher has a conflict with any version of JSON.pm less than 2.90 when you use JSON.pm&#39;s <code>-support_by_pp</code> option, which JSON::Any enables by default.</p>
+
+<p>This situation should only come up with JSON::Any if you have JSON.pm 2.61 or lower and JSON::XS 3.0 or higher installed and you for JSON::Any to use JSON.pm via <code><span class="keyword">use</span> <span class="variable">JSON::Any</span> <span class="string">qw(JSON)</span><span class="operator">;</span>
+</code> or the <code>JSON_ANY_ORDER</code> environment variable.</p>
+
+<p>If you run into an issue where you&#39;re getting recursive inheritance errors in a Types::Serialiser package, please try upgrading JSON.pm to 2.90 or higher.</p>
+
+<h1 id="DEPRECATION">DEPRECATION</h1>
+
+<p>The original need for JSON::Any has been solved (quite some time ago actually). If you&#39;re producing new code it is recommended to use JSON.pm which will optionally use JSON::XS for speed purposes.</p>
+
+<p>JSON::Any will continue to be maintained for compatibility with existing code, and frankly because the maintainer prefers the JSON::Any API.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<dl>
+
+<dt id="new"><code>new</code></dt>
+<dd>
+
+<p>Will take any of the parameters for the underlying system and pass them through. However these values don&#39;t map between JSON modules, so, from a portability standpoint this is really only helpful for those parameters that happen to have the same name. This will be addressed in a future release.</p>
+
+<p>The one parameter that is universally supported (to the extent that is supported by the underlying JSON modules) is <code>utf8</code>. When this parameter is enabled all resulting JSON will be marked as unicode, and all unicode strings in the input data structure will be preserved as such.</p>
+
+<p>Also note that the <code>allow_blessed</code> parameter is recognised by all the modules that throw exceptions when a blessed reference is given them meaning that setting it to true works for all modules. Of course, that means that you cannot set it to false intentionally in order to always get such exceptions.</p>
+
+<p>The actual output will vary, for example <a href="../../lib/JSON.html">JSON</a> will encode and decode unicode chars (the resulting JSON is not unicode) whereas <a>JSON::XS</a> will emit unicode JSON.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="handlerType"><code>handlerType</code></dt>
+<dd>
+
+<p>Takes no arguments, returns a string indicating which JSON Module is in use.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="handler"><code>handler</code></dt>
+<dd>
+
+<p>Takes no arguments, if called on an object returns the internal JSON::* object in use. Otherwise returns the JSON::* package we are using for class methods.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="true"><code>true</code></dt>
+<dd>
+
+<p>Takes no arguments, returns the special value that the internal JSON object uses to map to a JSON <code>true</code> boolean.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="false"><code>false</code></dt>
+<dd>
+
+<p>Takes no arguments, returns the special value that the internal JSON object uses to map to a JSON <code>false</code> boolean.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="objToJson"><code>objToJson</code></dt>
+<dd>
+
+<p>Takes a single argument, a hashref to be converted into JSON. It returns the JSON text in a scalar.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="to_json"><code>to_json</code></dt>
+<dd>
+
+</dd>
+<dt id="Dump"><code>Dump</code></dt>
+<dd>
+
+</dd>
+<dt id="encode"><code>encode</code></dt>
+<dd>
+
+<p>Aliases for objToJson, can be used interchangeably, regardless of the underlying JSON module.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="jsonToObj"><code>jsonToObj</code></dt>
+<dd>
+
+<p>Takes a single argument, a string of JSON text to be converted back into a hashref.</p>
+
+</dd>
+</dl>
+
+<dl>
+
+<dt id="from_json"><code>from_json</code></dt>
+<dd>
+
+</dd>
+<dt id="Load"><code>Load</code></dt>
+<dd>
+
+</dd>
+<dt id="decode"><code>decode</code></dt>
+<dd>
+
+<p>Aliases for jsonToObj, can be used interchangeably, regardless of the underlying JSON module.</p>
+
+</dd>
+</dl>
+
+<h1 id="ACKNOWLEDGEMENTS">ACKNOWLEDGEMENTS</h1>
+
+<p>This module came about after discussions on irc.perl.org about the fact that there were now six separate JSON perl modules with different interfaces.</p>
+
+<p>In the spirit of Class::Any, JSON::Any was created with the considerable help of Matt &#39;mst&#39; Trout.</p>
+
+<p>Simon Wistow graciously supplied a patch for backwards compat with JSON::XS versions previous to 2.01</p>
+
+<p>San Dimas High School Football Rules!</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<ul>
+
+<li><p>Chris Thompson &lt;cthom@cpan.org&gt;</p>
+
+</li>
+<li><p>Chris Prather &lt;chris@prather.org&gt;</p>
+
+</li>
+<li><p>Robin Berjon &lt;robin@berjon.com&gt;</p>
+
+</li>
+<li><p>Marc Mims &lt;marc@questright.com&gt;</p>
+
+</li>
+<li><p>Tomas Doran &lt;bobtfish@bobtfish.net&gt;</p>
+
+</li>
+</ul>
+
+<h1 id="COPYRIGHT-AND-LICENSE">COPYRIGHT AND LICENSE</h1>
+
+<p>This software is copyright (c) 2013 by Chris Thompson.</p>
+
+<p>This is free software; you can redistribute it and/or modify it under the same terms as the Perl 5 programming language system itself.</p>
+
+<h1 id="CONTRIBUTORS">CONTRIBUTORS</h1>
+
+<ul>
+
+<li><p>Chris Prather &lt;cprather@hdpublishing.com&gt;</p>
+
+</li>
+<li><p>Dagfinn Ilmari Manns&aring;ker &lt;ilmari@ilmari.org&gt;</p>
+
+</li>
+<li><p>Justin Hunter &lt;justin.d.hunter@gmail.com&gt;</p>
+
+</li>
+<li><p>Matthew Horsfall &lt;wolfsage@gmail.com&gt;</p>
+
+</li>
+<li><p>Todd Rinaldo &lt;toddr@cpan.org&gt;</p>
+
+</li>
+<li><p>marc.mims &lt;marc.mims@daca5766-e62f-0410-9ddd-e5e43faa6270&gt;</p>
+
+</li>
+<li><p>nothingmuch@woobling.org &lt;nothingmuch@woobling.org@daca5766-e62f-0410-9ddd-e5e43faa6270&gt;</p>
+
+</li>
+<li><p>perigrin &lt;perigrin@daca5766-e62f-0410-9ddd-e5e43faa6270&gt;</p>
+
+</li>
+<li><p>robin.berjon@gmail.com &lt;robin.berjon@gmail.com@daca5766-e62f-0410-9ddd-e5e43faa6270&gt;</p>
+
+</li>
+</ul>
+
+<h1 id="POD-ERRORS">POD ERRORS</h1>
+
+<p>Hey! <b>The above document had some coding errors, which are explained below:</b></p>
+
+<dl>
+
+<dt id="Around-line-701">Around line 701:</dt>
+<dd>
+
+<p>Non-ASCII character seen before =encoding in &#39;Manns&aring;ker&#39;. Assuming ISO8859-1</p>
+
+</dd>
+</dl>
+
+
+</body>
+
+</html>
+
+

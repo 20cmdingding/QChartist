@@ -1,0 +1,536 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"><script src="Quote.pm_fichiers/json"></script>
+  <link rel="stylesheet" href="Quote.pm_fichiers/style.css" type="text/css">
+<style>
+.styleswitch {
+  text-align: right;
+}
+</style>
+
+
+<script type="text/javascript" src="Quote.pm_fichiers/jquery_002.js"></script>
+<script type="text/javascript" src="Quote.pm_fichiers/jquery_003.js"></script>
+<script type="text/javascript" src="Quote.pm_fichiers/sh_main.js"></script>
+<script type="text/javascript" src="Quote.pm_fichiers/sh_perl.js"></script>
+<script type="text/javascript" src="Quote.pm_fichiers/jquery.js"></script>
+
+<link rel="stylesheet" href="Quote.pm_fichiers/print.css" type="text/css" media="print">
+  <link rel="alternate" type="application/rss+xml" title="RSS 1.0" href="http://search.cpan.org/uploads.rdf">
+  <link rel="search" href="http://st.pimg.net/tucs/opensearch.xml" type="application/opensearchdescription+xml" title="SearchCPAN">
+  <title>Finance::Quote - search.cpan.org</title>
+ <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3528438-1']);
+    _gaq.push(["_setCustomVar",1,"Author","HAMPTON",3]);
+    _gaq.push(["_setCustomVar",5,"Release","Finance-Quote-1.13",3]);
+    _gaq.push(["_setCustomVar",2,"Distribution","Finance-Quote",3]);
+    _gaq.push(["_setCustomVar",3,"Module","Finance::Quote",3]);
+    _gaq.push(['_trackPageview']);
+  </script>
+ <link rel="stylesheet" type="text/css" href="Quote.pm_fichiers/sh_none.css" id="theme0.23298898437914628"></head>
+ <body id="cpansearch">
+   <div class="header">
+<center><div class="logo"><a href="http://search.cpan.org/"><img src="Quote.pm_fichiers/cpan_banner.png" alt="CPAN"></a></div></center>
+<div class="menubar">
+ <a href="http://search.cpan.org/">Home</a>
+· <a href="http://search.cpan.org/author/">Authors</a>
+· <a href="http://search.cpan.org/recent">Recent</a>
+· <a href="http://log.perl.org/cpansearch/">News</a>
+· <a href="http://search.cpan.org/mirror">Mirrors</a>
+· <a href="http://search.cpan.org/faq.html">FAQ</a>
+· <a href="http://search.cpan.org/feedback">Feedback</a>
+</div>
+<form method="get" action="/search" name="f" class="searchbox">
+<input name="query" size="35" type="text">
+<br>in <select name="mode">
+ <option selected="selected" value="all">All</option>
+ <option value="module">Modules</option>
+ <option value="dist">Distributions</option>
+ <option value="author">Authors</option>
+</select>&nbsp;<input value="CPAN Search" type="submit">
+</form>
+</div>
+
+
+ <a name="_top"></a>
+  <div class="path">
+<div id="permalink" class="noprint"><a href="http://search.cpan.org/perldoc?Finance%3A%3AQuote">permalink</a></div>
+  <a href="http://search.cpan.org/%7Ehampton/">David Hampton</a> &gt;
+  <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/">Finance-Quote-1.13</a> &gt;
+  Finance::Quote
+ </div>
+
+<div class="noprint" style="float:right;align:left;width:19ex">
+<a href="http://hexten.net/cpan-faces/"><img src="Quote.pm_fichiers/7dc3e94d64fe46ed4fba7f570b2ce87c.png" style="float: right;" height="80" width="80"></a>
+<br style="clear:both">
+<p style="text-align:right">Download:<br> <a href="http://search.cpan.org/CPAN/authors/id/H/HA/HAMPTON/Finance-Quote-1.13.tar.gz">Finance-Quote-1.13.tar.gz</a></p>
+<p style="text-align:right"><a href="http://deps.cpantesters.org/?module=Finance%3A%3AQuote;perl=latest">Dependencies</a></p>
+<p style="text-align:right"><a href="http://www.annocpan.org/%7EHAMPTON/Finance-Quote-1.13/lib/Finance/Quote.pm">Annotate this POD
+</a></p>
+<div class="box" style="width:150px; float: right">
+<h1 class="t5">Related Modules</h1>
+<div style="margin:2px">
+<a href="http://search.cpan.org/perldoc?LWP%3A%3ASimple">LWP::Simple</a><br>
+<a href="http://search.cpan.org/perldoc?LWP%3A%3AUserAgent">LWP::UserAgent</a><br>
+<a href="http://search.cpan.org/perldoc?Crypt%3A%3ASSLeay">Crypt::SSLeay</a><br>
+<a href="http://search.cpan.org/perldoc?WWW%3A%3ASearch">WWW::Search</a><br>
+<a href="http://search.cpan.org/perldoc?WWW%3A%3AMechanize">WWW::Mechanize</a><br>
+<a href="http://search.cpan.org/perldoc?XML%3A%3ARSS">XML::RSS</a><br>
+<a href="http://search.cpan.org/perldoc?IO%3A%3AFile">IO::File</a><br>
+<a href="http://search.cpan.org/perldoc?IO%3A%3ASocket">IO::Socket</a><br>
+<a href="http://search.cpan.org/perldoc?HTML%3A%3ATokeParser">HTML::TokeParser</a><br>
+<a href="http://search.cpan.org/perldoc?HTML%3A%3AParser">HTML::Parser</a><br>
+<small>
+<a href="http://perlmonks.org/?node=cpan+module+search&amp;pivot=1&amp;module=Finance%3A%3AQuote">more...</a><br>
+By <a href="http://perlmonks.org/">perlmonks.org</a></small>
+</div>
+</div>
+
+<div style="float:right">
+<div class="box" style="width:150px">
+<h1 class="t5">CPAN RT</h1>
+<div style="margin:2px">
+<table style="margin-left: auto; margin-right: auto;">
+<tbody><tr><td>New&nbsp;</td><td style="text-align: right;"> 27</td></tr>
+<tr><td>Open&nbsp;</td><td style="text-align: right;"> 17</td></tr>
+</tbody></table>
+<a href="https://rt.cpan.org/Public/Dist/Display.html?Name=Finance-Quote">View/Report Bugs</a><br>
+</div>
+</div>
+
+</div>
+</div>
+  Module Version:  1.13 &nbsp;
+<span class="noprint">
+  <a href="http://search.cpan.org/src/HAMPTON/Finance-Quote-1.13/lib/Finance/Quote.pm">Source</a> &nbsp;
+  Latest&nbsp;Release:&nbsp;<a href="http://search.cpan.org/%7Eecocode/Finance-Quote/lib/Finance/Quote.pm">Finance-Quote-1.37</a>
+</span>
+<a name="___top"></a>
+<div class="pod">
+<div class="toc">
+<div class="indexgroup">
+<ul class="indexList indexList1">
+  <li class="indexItem indexItem1"><a href="#NAME">NAME</a>
+  </li><li class="indexItem indexItem1"><a href="#SYNOPSIS">SYNOPSIS</a>
+  </li><li class="indexItem indexItem1"><a href="#DESCRIPTION">DESCRIPTION</a>
+  <ul class="indexList indexList2">
+    <li class="indexItem indexItem2"><a href="#LABELS">LABELS</a>
+  </li></ul>
+  </li><li class="indexItem indexItem1"><a href="#AVAILABLE_METHODS">AVAILABLE METHODS</a>
+  <ul class="indexList indexList2">
+    <li class="indexItem indexItem2"><a href="#NEW">NEW</a>
+    </li><li class="indexItem indexItem2"><a href="#FETCH">FETCH</a>
+    </li><li class="indexItem indexItem2"><a href="#SOURCES">SOURCES</a>
+    </li><li class="indexItem indexItem2"><a href="#CURRENCY">CURRENCY</a>
+    </li><li class="indexItem indexItem2"><a href="#SET_CURRENCY">SET_CURRENCY</a>
+    </li><li class="indexItem indexItem2"><a href="#FAILOVER">FAILOVER</a>
+    </li><li class="indexItem indexItem2"><a href="#USER_AGENT">USER_AGENT</a>
+    </li><li class="indexItem indexItem2"><a href="#SCALE_FIELD">SCALE_FIELD</a>
+  </li></ul>
+  </li><li class="indexItem indexItem1"><a href="#ENVIRONMENT">ENVIRONMENT</a>
+  </li><li class="indexItem indexItem1"><a href="#BUGS">BUGS</a>
+  </li><li class="indexItem indexItem1"><a href="#COPYRIGHT">COPYRIGHT</a>
+  </li><li class="indexItem indexItem1"><a href="#AUTHORS">AUTHORS</a>
+  </li><li class="indexItem indexItem1"><a href="#SEE_ALSO">SEE ALSO</a>
+</li></ul>
+</div>
+</div>
+
+<h1><a class="u" name="NAME">NAME <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<p>Finance::Quote - Get stock and mutual fund quotes from various exchanges</p>
+
+<h1><a class="u" name="SYNOPSIS">SYNOPSIS <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<pre class="sh_perl sh_sourceCode">   <span class="sh_keyword">use</span> Finance<span class="sh_symbol">::</span>Quote<span class="sh_symbol">;</span>
+   <span class="sh_variable">$q</span> <span class="sh_symbol">=</span> Finance<span class="sh_symbol">::</span>Quote<span class="sh_symbol">-&gt;</span>new<span class="sh_symbol">;</span>
+
+   <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">timeout</span><span class="sh_symbol">(</span><span class="sh_number">60</span><span class="sh_symbol">);</span>
+
+   <span class="sh_variable">$conversion_rate</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">currency</span><span class="sh_symbol">(</span><span class="sh_string">"AUD"</span><span class="sh_symbol">,</span><span class="sh_string">"USD"</span><span class="sh_symbol">);</span>
+   <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">set_currency</span><span class="sh_symbol">(</span><span class="sh_string">"EUR"</span><span class="sh_symbol">);</span>  <span class="sh_comment"># Return all info in Euros.</span>
+
+   <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">require_labels</span><span class="sh_symbol">(</span><span class="sh_keyword">qw</span><span class="sh_string">/price date high low volume/</span><span class="sh_symbol">);</span>
+
+   <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">failover</span><span class="sh_symbol">(</span><span class="sh_number">1</span><span class="sh_symbol">);</span>     <span class="sh_comment"># Set failover support (on by default).</span>
+
+   <span class="sh_variable">%quotes</span>  <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">fetch</span><span class="sh_symbol">(</span><span class="sh_string">"nasdaq"</span><span class="sh_symbol">,</span><span class="sh_variable">@stocks</span><span class="sh_symbol">);</span>
+   <span class="sh_variable">$hashref</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">fetch</span><span class="sh_symbol">(</span><span class="sh_string">"nyse"</span><span class="sh_symbol">,</span><span class="sh_variable">@stocks</span><span class="sh_symbol">);</span></pre>
+
+<h1><a class="u" name="DESCRIPTION">DESCRIPTION <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<p>This module gets stock quotes from various internet sources, 
+including Yahoo! Finance, Fidelity Investments, and the Australian Stock
+ Exchange. There are two methods of using this module -- a functional 
+interface that is depreciated, and an object-orientated method that 
+provides greater flexibility and stability.</p>
+
+<p>With the exception of straight currency exchange rates, all 
+information is returned as a two-dimensional hash (or a reference to 
+such a hash, if called in a scalar context). For example:</p>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_variable">%info</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">fetch</span><span class="sh_symbol">(</span><span class="sh_string">"australia"</span><span class="sh_symbol">,</span><span class="sh_string">"CML"</span><span class="sh_symbol">);</span>
+    <span class="sh_keyword">print</span> <span class="sh_string">"The price of CML is "</span><span class="sh_symbol">.</span><span class="sh_variable">$info</span><span class="sh_cbracket">{</span><span class="sh_string">"CML"</span><span class="sh_symbol">,</span><span class="sh_string">"price"</span><span class="sh_cbracket">}</span><span class="sh_symbol">;</span></pre>
+
+<p>The first part of the hash (eg, "CML") is referred to as the stock. 
+The second part (in this case, "price") is referred to as the label.</p>
+
+<h2><a class="u" name="LABELS">LABELS</a></h2>
+
+<p>When information about a stock is returned, the following standard 
+labels may be used. Some custom-written modules may use labels not 
+mentioned here. If you wish to be certain that you obtain a certain set 
+of labels for a given stock, you can specify that using 
+require_labels().</p>
+
+<pre class="sh_perl sh_sourceCode">    name         Company or Mutual Fund Name
+    <span class="sh_keyword">last</span>         Last Price
+    high         Highest trade today
+    low          Lowest trade today
+    date         Last Trade <span class="sh_function">Date</span>  <span class="sh_symbol">(</span>MM<span class="sh_string">/DD/</span>YY <span class="sh_keyword">format</span><span class="sh_symbol">)</span>
+    time         Last Trade Time
+    net          Net Change
+    p_change     Percent Change from previous day<span class="sh_string">'s close</span>
+    volume       Volume
+    avg_vol      Average Daily Vol
+    bid          Bid
+    ask          Ask
+    <span class="sh_keyword">close</span>        Previous Close
+    <span class="sh_keyword">open</span>         Today<span class="sh_string">'s Open</span>
+    day_range    Day<span class="sh_string">'s Range</span>
+    year_range   <span class="sh_number">52</span><span class="sh_symbol">-</span>Week Range
+    eps          Earnings per Share
+    pe           P<span class="sh_symbol">/</span>E Ratio
+    div_date     Dividend Pay Date
+    div          Dividend per Share
+    div_yield    Dividend Yield
+    cap          Market Capitalization
+    ex_div       Ex<span class="sh_symbol">-</span>Dividend Date<span class="sh_symbol">.</span>
+    nav          Net Asset Value
+    yield        <span class="sh_function">Yield</span> <span class="sh_symbol">(</span>usually <span class="sh_number">30</span> day avg<span class="sh_symbol">)</span>
+    exchange     The exchange the information was obtained from<span class="sh_symbol">.</span>
+    success      Did the stock successfully <span class="sh_keyword">return</span> information<span class="sh_symbol">?</span> <span class="sh_symbol">(</span>true<span class="sh_symbol">/</span>false<span class="sh_symbol">)</span>
+    errormsg     If success is false<span class="sh_symbol">,</span> this field may contain the reason why<span class="sh_symbol">.</span>
+    method       The <span class="sh_function">module</span> <span class="sh_symbol">(</span>as could be passed to fetch<span class="sh_symbol">)</span> which found
+                 this information<span class="sh_symbol">.</span></pre>
+
+<p>If all stock lookups fail (possibly because of a failed connection) 
+then the empty list may be returned, or undef in a scalar context.</p>
+
+<h1><a class="u" name="AVAILABLE_METHODS">AVAILABLE METHODS <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<h2><a class="u" name="NEW">NEW</a></h2>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_keyword">my</span> <span class="sh_variable">$q</span> <span class="sh_symbol">=</span> Finance<span class="sh_symbol">::</span>Quote<span class="sh_symbol">-&gt;</span>new<span class="sh_symbol">;</span>
+    <span class="sh_keyword">my</span> <span class="sh_variable">$q</span> <span class="sh_symbol">=</span> Finance<span class="sh_symbol">::</span>Quote<span class="sh_symbol">-&gt;</span><span class="sh_function">new</span><span class="sh_symbol">(</span><span class="sh_string">"ASX"</span><span class="sh_symbol">);</span>
+    <span class="sh_keyword">my</span> <span class="sh_variable">$q</span> <span class="sh_symbol">=</span> Finance<span class="sh_symbol">::</span>Quote<span class="sh_symbol">-&gt;</span><span class="sh_function">new</span><span class="sh_symbol">(</span><span class="sh_string">"-defaults"</span><span class="sh_symbol">,</span> <span class="sh_string">"CustomModule"</span><span class="sh_symbol">);</span></pre>
+
+<p>With no arguents, this creates a new Finance::Quote object with the 
+default methods. If the environment variable FQ_LOAD_QUOTELET is set, 
+then the contents of FQ_LOAD_QUOTELET (split on whitespace) will be used
+ as the argument list. This allows users to load their own custom 
+modules without having to change existing code. If you do not want users
+ to be able to load their own modules at run-time, pass an explicit 
+argumetn to -&gt;new() (usually "-defaults").</p>
+
+<p>When new() is passed one or more arguments, an object is created with
+ only the specified modules loaded. If the first argument is 
+"-defaults", then the default modules will be loaded first, followed by 
+any other specified modules.</p>
+
+<p>Note that the FQ_LOAD_QUOTELET environment variable must begin with "-defaults" if you wish the default modules to be loaded.</p>
+
+<p>Any modules specified will automatically be looked for in the 
+Finance::Quote:: module-space. Hence, Finance::Quote-&gt;new("ASX") will
+ load the module Finance::Quote::ASX.</p>
+
+<p>Please read the Finance::Quote hacker's guide for information on how to create new modules for Finance::Quote.</p>
+
+<h2><a class="u" name="FETCH">FETCH</a></h2>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_keyword">my</span> <span class="sh_variable">%stocks</span>  <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">fetch</span><span class="sh_symbol">(</span><span class="sh_string">"usa"</span><span class="sh_symbol">,</span><span class="sh_string">"IBM"</span><span class="sh_symbol">,</span><span class="sh_string">"MSFT"</span><span class="sh_symbol">,</span><span class="sh_string">"LNUX"</span><span class="sh_symbol">);</span>
+    <span class="sh_keyword">my</span> <span class="sh_variable">$hashref</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">fetch</span><span class="sh_symbol">(</span><span class="sh_string">"usa"</span><span class="sh_symbol">,</span><span class="sh_string">"IBM"</span><span class="sh_symbol">,</span><span class="sh_string">"MSFT"</span><span class="sh_symbol">,</span><span class="sh_string">"LNUX"</span><span class="sh_symbol">);</span></pre>
+
+<p>Fetch takes an exchange as its first argument. The second and 
+remaining arguments are treated as stock-names. In the standard 
+Finance::Quote distribution, the following exchanges are recognised:</p>
+
+<pre class="sh_perl sh_sourceCode">    australia           Australan Stock Exchange
+    dwsfunds            Deutsche Bank Gruppe funds
+    fidelity            Fidelity Investments
+    tiaacref            TIAA<span class="sh_symbol">-</span>CREF
+    troweprice          T<span class="sh_symbol">.</span> Rowe Price
+    europe              European Markets
+    canada              Canadian Markets
+    usa                 USA Markets
+    nyse                New York Stock Exchange
+    nasdaq              NASDAQ
+    uk_unit_trusts      UK Unit Trusts
+    vanguard            Vanguard Investments
+    vwd                 Vereinigte Wirtschaftsdienste GmbH</pre>
+
+<p>When called in an array context, a hash is returned. In a scalar 
+context, a reference to a hash will be returned. The structure of this 
+hash is described earlier in this document.</p>
+
+<p>The fetch method automatically arranges for failover support and currency conversion if requested.</p>
+
+<p>If you wish to fetch information from only one particular source, 
+then consult the documentation of that sub-module for further 
+information.</p>
+
+<h2><a class="u" name="SOURCES">SOURCES</a></h2>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_keyword">my</span> <span class="sh_variable">@sources</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span>sources<span class="sh_symbol">;</span>
+    <span class="sh_keyword">my</span> <span class="sh_variable">$listref</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span>sources<span class="sh_symbol">;</span></pre>
+
+<p>The sources method returns a list of sources that have currently been
+ loaded and can be passed to the fetch method. If you're providing a 
+user with a list of sources to choose from, then it is recommended that 
+you use this method.</p>
+
+<h2><a class="u" name="CURRENCY">CURRENCY</a></h2>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_variable">$conversion_rate</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">currency</span><span class="sh_symbol">(</span><span class="sh_string">"USD"</span><span class="sh_symbol">,</span><span class="sh_string">"AUD"</span><span class="sh_symbol">);</span></pre>
+
+<p>The currency method takes two arguments, and returns a conversion 
+rate that can be used to convert from the first currency into the 
+second. In the example above, we've requested the factor that would 
+convert US dollars into Australian dollars.</p>
+
+<p>The currency method will return a false value if a given currency conversion cannot be fetched.</p>
+
+<p>At the moment, currency rates are fetched from Yahoo!, and the 
+information returned is governed by Yahoo!'s terms and conditions. See 
+Finance::Quote::Yahoo for more information.</p>
+
+<h2><a class="u" name="SET_CURRENCY">SET_CURRENCY</a></h2>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">set_currency</span><span class="sh_symbol">(</span><span class="sh_string">"FRF"</span><span class="sh_symbol">);</span>    <span class="sh_comment"># Get results in French Francs.</span></pre>
+
+<p>The set_currency method can be used to request that all information 
+be returned in the specified currency. Note that this increases the 
+chance stock-lookup failure, as remote requests must be made to fetch 
+both the stock information and the currency rates. In order to improve 
+reliability and speed performance, currency conversion rates are cached 
+and are assumed not to change for the duration of the Finance::Quote 
+object.</p>
+
+<p>At this time, currency conversions are only looked up using Yahoo!'s 
+services, and hence information obtained with automatic currency 
+conversion is bound by Yahoo!'s terms and conditions.</p>
+
+<h2><a class="u" name="FAILOVER">FAILOVER</a></h2>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">failover</span><span class="sh_symbol">(</span><span class="sh_number">1</span><span class="sh_symbol">);</span>    <span class="sh_comment"># Set automatic failover support.</span>
+    <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">failover</span><span class="sh_symbol">(</span><span class="sh_number">0</span><span class="sh_symbol">);</span>    <span class="sh_comment"># Disable failover support.</span></pre>
+
+<p>The failover method takes a single argument which either sets (if 
+true) or unsets (if false) automatic failover support. If automatic 
+failover support is enabled (default) then multiple information sources 
+will be tried if one or more sources fail to return the requested 
+information. Failover support will significantly increase the time spent
+ looking for a non-existant stock.</p>
+
+<p>If the failover method is called with no arguments, or with an 
+undefined argument, it will return the current failover state 
+(true/false).</p>
+
+<h2><a class="u" name="USER_AGENT">USER_AGENT</a></h2>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_keyword">my</span> <span class="sh_variable">$ua</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span>user_agent<span class="sh_symbol">;</span></pre>
+
+<p>The user_agent method returns the LWP::UserAgent object that 
+Finance::Quote and its helpers use. Normally this would not be useful to
+ an application, however it is possible to modify the user-agent 
+directly using this method:</p>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span>user_agent<span class="sh_symbol">-&gt;</span><span class="sh_function">timeout</span><span class="sh_symbol">(</span><span class="sh_number">10</span><span class="sh_symbol">);</span>        <span class="sh_comment"># Set the timeout directly.</span></pre>
+
+<h2><a class="u" name="SCALE_FIELD">SCALE_FIELD</a></h2>
+
+<pre class="sh_perl sh_sourceCode">    <span class="sh_keyword">my</span> <span class="sh_variable">$pounds</span> <span class="sh_symbol">=</span> <span class="sh_variable">$q</span><span class="sh_symbol">-&gt;</span><span class="sh_function">scale_field</span><span class="sh_symbol">(</span><span class="sh_variable">$item_in_pence</span><span class="sh_symbol">,</span><span class="sh_number">0.01</span><span class="sh_symbol">);</span></pre>
+
+<p>The scale_field() function is a helper that can scale complex fields 
+such as ranges (eg, "102.5 - 103.8") and other fields where the numbers 
+should be scaled but any surrounding text preserved. It's most useful in
+ writing new Finance::Quote modules where you may retrieve information 
+in a non-ISO4217 unit (such as cents) and would like to scale it to a 
+more useful unit (like dollars).</p>
+
+<h1><a class="u" name="ENVIRONMENT">ENVIRONMENT <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<p>Finance::Quote respects all environment that your installed version 
+of LWP::UserAgent respects. Most importantly, it respects the http_proxy
+ environment variable.</p>
+
+<h1><a class="u" name="BUGS">BUGS <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<p>There are no ways for a user to define a failover list.</p>
+
+<p>The two-dimensional hash is a somewhat unwieldly method of passing 
+around information when compared to references. A future release is 
+planned that will allow for information to be returned in a more 
+flexible $hash{$stock}{$label} style format.</p>
+
+<p>There is no way to override the default behaviour to cache currency conversion rates.</p>
+
+<h1><a class="u" name="COPYRIGHT">COPYRIGHT <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<pre class="sh_perl sh_sourceCode"> Copyright <span class="sh_number">1998</span><span class="sh_symbol">,</span> Dj Padzensky
+ Copyright <span class="sh_number">1998</span><span class="sh_symbol">,</span> <span class="sh_number">1999</span> Linas Vepstas
+ Copyright <span class="sh_number">2000</span><span class="sh_symbol">,</span> Yannick LE <span class="sh_function">NY</span> <span class="sh_symbol">(</span>update <span class="sh_keyword">for</span> Yahoo Europe <span class="sh_keyword">and</span> YahooQuote<span class="sh_symbol">)</span>
+ Copyright <span class="sh_number">2000-2001</span><span class="sh_symbol">,</span> Paul <span class="sh_function">Fenwick</span> <span class="sh_symbol">(</span>updates <span class="sh_keyword">for</span> ASX<span class="sh_symbol">,</span> maintainence <span class="sh_keyword">and</span> release<span class="sh_symbol">)</span>
+ Copyright <span class="sh_number">2000-2001</span><span class="sh_symbol">,</span> Brent <span class="sh_function">Neal</span> <span class="sh_symbol">(</span>update <span class="sh_keyword">for</span> TIAA<span class="sh_symbol">-</span>CREF<span class="sh_symbol">)</span>
+ Copyright <span class="sh_number">2000</span> Volker <span class="sh_function">Stuerzl</span> <span class="sh_symbol">(</span>DWS <span class="sh_keyword">and</span> VWD support<span class="sh_symbol">)</span>
+ Copyright <span class="sh_number">2000</span> Keith <span class="sh_function">Refson</span> <span class="sh_symbol">(</span>Trustnet support<span class="sh_symbol">)</span>
+ Copyright <span class="sh_number">2001</span> Rob <span class="sh_function">Sessink</span> <span class="sh_symbol">(</span>AEX support<span class="sh_symbol">)</span>
+ Copyright <span class="sh_number">2001</span> Leigh <span class="sh_function">Wedding</span> <span class="sh_symbol">(</span>ASX updates<span class="sh_symbol">)</span>
+ Copyright <span class="sh_number">2001</span> Tobias <span class="sh_function">Vancura</span> <span class="sh_symbol">(</span>Fool support<span class="sh_symbol">)</span>
+ Copyright <span class="sh_number">2001</span> James <span class="sh_function">Treacy</span> <span class="sh_symbol">(</span>TD Waterhouse support<span class="sh_symbol">)</span></pre>
+
+<p>This program is free software; you can redistribute it and/or modify 
+it under the terms of the GNU General Public License as published by the
+ Free Software Foundation; either version 2 of the License, or (at your 
+option) any later version.</p>
+
+<p>Currency information fetched through this module is bound by Yahoo!'s terms and conditons.</p>
+
+<p>Other copyrights and conditions may apply to data fetched through 
+this module. Please refer to the sub-modules for further information.</p>
+
+<h1><a class="u" name="AUTHORS">AUTHORS <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<pre class="sh_perl sh_sourceCode">  Dj <span class="sh_function">Padzensky</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;djpadz@padz.net&gt;</span><span class="sh_symbol">),</span> PadzNet<span class="sh_symbol">,</span> Inc<span class="sh_symbol">.</span>
+  Linas <span class="sh_function">Vepstas</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;linas@linas.org&gt;</span><span class="sh_symbol">)</span>
+  Yannick LE <span class="sh_function">NY</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;y-le-ny@ifrance.com&gt;</span><span class="sh_symbol">)</span>
+  Paul <span class="sh_function">Fenwick</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;pjf@schools.net.au&gt;</span><span class="sh_symbol">)</span>
+  Brent <span class="sh_function">Neal</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;brentn@users.sourceforge.net&gt;</span><span class="sh_symbol">)</span>
+  Volker <span class="sh_function">Stuerzl</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;volker.stuerzl@gmx.de&gt;</span><span class="sh_symbol">)</span>
+  Keith <span class="sh_function">Refson</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;Keith.Refson#earth.ox.ac.uk&gt;</span><span class="sh_symbol">)</span>
+  Rob <span class="sh_function">Sessink</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;rob_ses@users.sourceforge.net&gt;</span><span class="sh_symbol">)</span>
+  Leigh <span class="sh_function">Wedding</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;leigh.wedding@telstra.com&gt;</span><span class="sh_symbol">)</span>
+  Tobias <span class="sh_function">Vancura</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;tvancura@altavista.net&gt;</span><span class="sh_symbol">)</span>
+  James <span class="sh_function">Treacy</span> <span class="sh_symbol">(</span>C<span class="sh_string">&lt;treacy@debian.org&gt;</span><span class="sh_symbol">)</span></pre>
+
+<p>The Finance::Quote home page can be found at <a href="http://finance-quote.sourceforge.net/" class="podlinkurl">http://finance-quote.sourceforge.net/</a></p>
+
+<p>The Finance::YahooQuote home page can be found at <a href="http://www.padz.net/%7Edjpadz/YahooQuote/" class="podlinkurl">http://www.padz.net/~djpadz/YahooQuote/</a></p>
+
+<p>The GnuCash home page can be found at <a href="http://www.gnucash.org/" class="podlinkurl">http://www.gnucash.org/</a></p>
+
+<h1><a class="u" name="SEE_ALSO">SEE ALSO <img alt="^" src="Quote.pm_fichiers/up.gif"></a></h1>
+
+<p><a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/AEX.pm" class="podlinkpod">Finance::Quote::AEX</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/ASX.pm" class="podlinkpod">Finance::Quote::ASX</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Cdnfundlibrary.pm" class="podlinkpod">Finance::Quote::Cdnfundlibrary</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/DWS.pm" class="podlinkpod">Finance::Quote::DWS</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Fidelity.pm" class="podlinkpod">Finance::Quote::Fidelity</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/FinanceCanada.pm" class="podlinkpod">Finance::Quote::FinanceCanada</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Fool.pm" class="podlinkpod">Finance::Quote::Fool</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/FTPortfolios.pm" class="podlinkpod">Finance::Quote::FTPortfolios</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Tdefunds.pm" class="podlinkpod">Finance::Quote::Tdefunds</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Tdwaterhouse.pm" class="podlinkpod">Finance::Quote::Tdwaterhouse</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Tiaacref.pm" class="podlinkpod">Finance::Quote::Tiaacref</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Troweprice.pm" class="podlinkpod">Finance::Quote::Troweprice</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Trustnet.pm" class="podlinkpod">Finance::Quote::Trustnet</a>, <a href="http://search.cpan.org/perldoc?Finance%3A%3AQuote%3A%3AVWD" class="podlinkpod">Finance::Quote::VWD</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Yahoo/Australia.pm" class="podlinkpod">Finance::Quote::Yahoo::Australia</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Yahoo/Europe.pm" class="podlinkpod">Finance::Quote::Yahoo::Europe</a>, <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote/Yahoo/USA.pm" class="podlinkpod">Finance::Quote::Yahoo::USA</a>, <a href="http://search.cpan.org/perldoc?LWP%3A%3AUserAgent" class="podlinkpod">LWP::UserAgent</a></p>
+
+<p>You should have also received the <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote.pm" class="podlinkpod">Finance::Quote</a>
+ hacker's guide with this package. Please read it if you are interested 
+in adding extra methods to this package. The hacker's guide can also be 
+found on the <a href="http://search.cpan.org/%7Ehampton/Finance-Quote-1.13/lib/Finance/Quote.pm" class="podlinkpod">Finance::Quote</a> website, <a href="http://finance-quote.sourceforge.net/" class="podlinkurl">http://finance-quote.sourceforge.net/</a></p>
+
+</div>
+<!-- This should probably be put in the <div class="footer"></div> -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        var startingStyle = $.cookie('css') ? $.cookie('css') : 'http://st.pimg.net/tucs/css/sh_none.min.css';
+        $.fn.styleSwitch(startingStyle);
+        $("#styleswitch").val(startingStyle);
+        sh_highlightDocument();
+        $("#styleswitch").bind(($.browser.msie ? "click" : "change"), function() {
+            $.fn.styleSwitch($(this).val());
+        });
+    });
+</script>
+<div class="styleswitch">
+    syntax highlighting:
+    <select id="styleswitch">
+        <option selected="selected" value="http://st.pimg.net/tucs/css/sh_none.min.css">no syntax highlighting</option>
+        <option value="http://st.pimg.net/tucs/css/sh_acid.min.css">acid</option>
+        <option value="http://st.pimg.net/tucs/css/sh_berries-dark.min.css">berries-dark</option>
+        <option value="http://st.pimg.net/tucs/css/sh_berries-light.min.css">berries-light</option>
+        <option value="http://st.pimg.net/tucs/css/sh_bipolar.min.css">bipolar</option>
+        <option value="http://st.pimg.net/tucs/css/sh_blacknblue.min.css">blacknblue</option>
+        <option value="http://st.pimg.net/tucs/css/sh_bright.min.css">bright</option>
+        <option value="http://st.pimg.net/tucs/css/sh_contrast.min.css">contrast</option>
+        <option value="http://st.pimg.net/tucs/css/sh_cpan.min.css">cpan</option>
+        <option value="http://st.pimg.net/tucs/css/sh_darkblue.min.css">darkblue</option>
+        <option value="http://st.pimg.net/tucs/css/sh_darkness.min.css">darkness</option>
+        <option value="http://st.pimg.net/tucs/css/sh_desert.min.css">desert</option>
+        <option value="http://st.pimg.net/tucs/css/sh_dull.min.css">dull</option>
+        <option value="http://st.pimg.net/tucs/css/sh_easter.min.css">easter</option>
+        <option value="http://st.pimg.net/tucs/css/sh_emacs.min.css">emacs</option>
+        <option value="http://st.pimg.net/tucs/css/sh_golden.min.css">golden</option>
+        <option value="http://st.pimg.net/tucs/css/sh_greenlcd.min.css">greenlcd</option>
+        <option value="http://st.pimg.net/tucs/css/sh_ide-anjuta.min.css">ide-anjuta</option>
+        <option value="http://st.pimg.net/tucs/css/sh_ide-codewarrior.min.css">ide-codewarrior</option>
+        <option value="http://st.pimg.net/tucs/css/sh_ide-devcpp.min.css">ide-devcpp</option>
+        <option value="http://st.pimg.net/tucs/css/sh_ide-eclipse.min.css">ide-eclipse</option>
+        <option value="http://st.pimg.net/tucs/css/sh_ide-kdev.min.css">ide-kdev</option>
+        <option value="http://st.pimg.net/tucs/css/sh_ide-msvcpp.min.css">ide-msvcpp</option>
+        <option value="http://st.pimg.net/tucs/css/sh_kwrite.min.css">kwrite</option>
+        <option value="http://st.pimg.net/tucs/css/sh_matlab.min.css">matlab</option>
+        <option value="http://st.pimg.net/tucs/css/sh_navy.min.css">navy</option>
+        <option value="http://st.pimg.net/tucs/css/sh_nedit.min.css">nedit</option>
+        <option value="http://st.pimg.net/tucs/css/sh_neon.min.css">neon</option>
+        <option value="http://st.pimg.net/tucs/css/sh_night.min.css">night</option>
+        <option value="http://st.pimg.net/tucs/css/sh_pablo.min.css">pablo</option>
+        <option value="http://st.pimg.net/tucs/css/sh_peachpuff.min.css">peachpuff</option>
+        <option value="http://st.pimg.net/tucs/css/sh_print.min.css">print</option>
+        <option value="http://st.pimg.net/tucs/css/sh_rand01.min.css">rand01</option>
+	<option value="http://st.pimg.net/tucs/css/sh_solarized-dark.min.css">solarized-dark</option>
+	<option value="http://st.pimg.net/tucs/css/sh_solarized-light.min.css">solarized-light</option>
+        <option value="http://st.pimg.net/tucs/css/sh_style.min.css">style</option>
+        <option value="http://st.pimg.net/tucs/css/sh_the.min.css">the</option>
+        <option value="http://st.pimg.net/tucs/css/sh_typical.min.css">typical</option>
+        <option value="http://st.pimg.net/tucs/css/sh_vampire.min.css">vampire</option>
+        <option value="http://st.pimg.net/tucs/css/sh_vim-dark.min.css">vim-dark</option>
+        <option value="http://st.pimg.net/tucs/css/sh_vim.min.css">vim</option>
+        <option value="http://st.pimg.net/tucs/css/sh_whatis.min.css">whatis</option>
+        <option value="http://st.pimg.net/tucs/css/sh_whitengrey.min.css">whitengrey</option>
+        <option value="http://st.pimg.net/tucs/css/sh_zellner.min.css">zellner</option>
+    </select>
+</div>
+
+
+
+<div class="footer"><div class="cpanstats">107523 Uploads, 31295 Distributions
+143798 Modules, 12040 Uploaders
+</div>
+<div class="sponsor">
+Hosted by <a href="http://www.digitalcraftsmen.net/">craftsmen</a><br>
+<a href="http://www.digitalcraftsmen.net/"><img src="Quote.pm_fichiers/DC-LOGO-S.gif"></a>
+</div>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Quote.pm_fichiers/ga.js" type="text/javascript"></script>
+<script type="text/javascript" src="Quote.pm_fichiers/v6test.js"></script>
+
+<script type="text/javascript">
+   // v6.target = '';
+   if (!v6.target) { v6.only_once = true }
+   v6.site = '7A0D89A6-2B82-11DF-B9DA-F61CBD13F020';
+   v6.api_server = 'http://ipv4.v6test.develooper.com';
+   try {
+     v6.test();
+   } catch(err) {}
+</script><div id="v6test"><img id="v6test_img_ipv4" class="v6test_test_img" src="Quote.pm_fichiers/t_003.gif" height="1" width="1"><img id="v6test_img_ipv6" class="v6test_test_img" src="Quote.pm_fichiers/t.gif" height="1" width="1"><img id="v6test_img_ipv64" class="v6test_test_img" src="Quote.pm_fichiers/t_002.gif" height="1" width="1"></div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("a[href^=http:]").click(function(){
+      var href = $(this).attr('href');
+      var m = href.match('\/\/([^\/:]+)');
+      _gaq.push(['_trackEvent','External',m[1],'Module']);
+    });
+    $("a[href^=/CPAN/]").click(function(){
+      var href = $(this).attr('href');
+      _gaq.push(['_trackEvent','Download',href,'Module']);
+    });
+  });
+</script>
+<!-- Thu Feb 12 11:42:54 2015 GMT (0.108298063278198) @eucpan101 -->
+ 
+
+</body></html>

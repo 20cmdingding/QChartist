@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#STORAGE">STORAGE</a></li>
+  <li><a href="#METHODS">METHODS</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Math::BigInt::FastCalc - Math::BigInt::Calc with some XS for more speed</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<p>Provides support for big integer calculations. Not intended to be used by other modules. Other modules which sport the same functions can also be used to support Math::BigInt, like <a>Math::BigInt::GMP</a> or <a>Math::BigInt::Pari</a>.</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>In order to allow for multiple big integer libraries, Math::BigInt was rewritten to use library modules for core math routines. Any module which follows the same API as this can be used instead by using the following:</p>
+
+<pre><code>        <span class="keyword">use</span> <span class="variable">Math::BigInt</span> <span class="string">lib</span> <span class="operator">=&gt;</span> <span class="string">'libname'</span><span class="operator">;</span>
+</code></pre>
+
+<p>&#39;libname&#39; is either the long name (&#39;Math::BigInt::Pari&#39;), or only the short version like &#39;Pari&#39;. To use this library:</p>
+
+<pre><code>        <span class="keyword">use</span> <span class="variable">Math::BigInt</span> <span class="string">lib</span> <span class="operator">=&gt;</span> <span class="string">'FastCalc'</span><span class="operator">;</span>
+</code></pre>
+
+<p>Note that from <a href="../../../lib/Math/BigInt.html">Math::BigInt</a> v1.76 onwards, FastCalc will be loaded automatically, if possible.</p>
+
+<h1 id="STORAGE">STORAGE</h1>
+
+<p>FastCalc works exactly like Calc, in stores the numbers in decimal form, chopped into parts.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<p>The following functions are now implemented in FastCalc.xs:</p>
+
+<pre><code>        _is_odd         _is_even        _is_one         _is_zero
+        _is_two         _is_ten
+        _zero           _one            _two            _ten
+        _acmp           _len
+        _inc            _dec
+        __strip_zeros   _copy</code></pre>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>This program is free software; you may redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Original math code by Mark Biggar, rewritten by Tels <a href="http://bloodgate.com/">http://bloodgate.com/</a> in late 2000. Separated from BigInt and shaped API with the help of John Peacock.</p>
+
+<p>Fixed, sped-up and enhanced by Tels http://bloodgate.com 2001-2003. Further streamlining (api_version 1 etc.) by Tels 2004-2007.</p>
+
+<p>Bug-fixing by Peter John Acklam &lt;pjacklam@online.no&gt; 2010-2011.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a href="../../../lib/Math/BigInt.html">Math::BigInt</a>, <a href="../../../lib/Math/BigFloat.html">Math::BigFloat</a>, <a>Math::BigInt::GMP</a>, <a href="../../../lib/Math/BigInt/FastCalc.html">Math::BigInt::FastCalc</a> and <a>Math::BigInt::Pari</a>.</p>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,14 @@
+[26 mai 2014, 21:46:52]
+
+[FileNames]
+Exe=C:\RQPC\Tutorial\PreCompilerDemo.Exe
+SaveAs=C:\RQPC\Tutorial\PreCompilerDemo.Exe
+Log=C:\RQPC\Tutorial\PreCompilerDemo_RH.Log
+
+[Commands]
+-addoverwrite "C:\RQPC\Tutorial\PreCompilerDemo.Bc", TBYTECODE, NBYTECODE, 0
+  Added: TBYTECODE,NBYTECODE,0
+-addoverwrite "C:\RQPC\Tutorial\Globe.ico", ICONGROUP, MAINICON, 0
+  Modified: ICONGROUP,MAINICON,1033
+
+Commands completed

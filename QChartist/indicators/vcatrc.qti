@@ -1,0 +1,75 @@
+dim vo3(0 to 1000) as double,vh3(0 to 1000) as double,vb3(0 to 1000) as double,vc3(0 to 1000) as double
+dim valuechart3levelup1(0 to 1000) as integer,valuechart3levelup2(0 to 1000) as integer
+dim valuechart3leveldn1(0 to 1000) as integer,valuechart3leveldn2(0 to 1000) as integer
+dim p3 as integer
+p3=5
+
+declare sub valuechartofatrchannels()
+
+sub valuechartofatrchannels()
+
+    dim i as integer
+    dim m1 as double,dvu as double
+    dim barsback as integer
+    barsback=val(vcatrcbarsbackedit.text)
+
+    if barsback<=p3 then
+        exit sub
+    end if
+
+    for i=1 to p3
+        vo3(barsback-i)=0
+        vh3(barsback-i)=0
+        vb3(barsback-i)=0
+        vc3(barsback-i)=0
+    next i
+
+    i=barsback-p3-1
+    atrchannelbarsbackedit.text=str$(barsback)
+    atrbarsbackedit.text=str$(barsback)
+    atrchannels
+
+    while i>=0
+
+        m1=0.5*(ch3up_buffer5(i)+ch3dn_buffer6(i))
+        m1=m1+0.5*(ch3up_buffer5(i+1)+ch3dn_buffer6(i+1))
+        m1=m1+0.5*(ch3up_buffer5(i+2)+ch3dn_buffer6(i+2))
+        m1=m1+0.5*(ch3up_buffer5(i+3)+ch3dn_buffer6(i+3))
+        m1=m1+0.5*(ch3up_buffer5(i+4)+ch3dn_buffer6(i+4))
+        m1=m1/5
+    
+        dvu=ch3up_buffer5(i)-ch3dn_buffer6(i)
+        dvu=dvu+(ch3up_buffer5(i+1)-ch3dn_buffer6(i+1))
+        dvu=dvu+(ch3up_buffer5(i+2)-ch3dn_buffer6(i+2))
+        dvu=dvu+(ch3up_buffer5(i+3)-ch3dn_buffer6(i+3))
+        dvu=dvu+(ch3up_buffer5(i+4)-ch3dn_buffer6(i+4))
+        dvu=dvu/5
+        dvu=dvu*0.2
+    
+        vo3(i)=open(i)-m1
+        vh3(i)=ch3up_buffer5(i)-m1
+        vb3(i)=ch3dn_buffer6(i)-m1
+        vc3(i)=close(i)-m1
+    
+        if dvu<>0 then
+            vo3(i)=vo3(i)/dvu
+            vh3(i)=vh3(i)/dvu
+            vb3(i)=vb3(i)/dvu
+            vc3(i)=vc3(i)/dvu
+        else
+            vo3(i)=0
+            vh3(i)=0
+            vb3(i)=0
+            vc3(i)=0
+        end if
+    
+        valuechart3levelup1(i)=4    
+        valuechart3levelup2(i)=8
+        valuechart3leveldn1(i)=-4
+        valuechart3leveldn2(i)=-8
+
+        i--    
+    
+    wend    
+
+end sub

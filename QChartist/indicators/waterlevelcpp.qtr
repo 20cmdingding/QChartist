@@ -1,0 +1,50 @@
+'------------------------- WaterLevel cpp -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=waterlevelcppperiodedit.text
+curtfstr=waterlevelcppcurtfedit.text
+cpptmpfuncreturn=varptr$(initwaterlevelcpp(varptr(curtfstr)))
+cpptmpfuncreturn=varptr$(waterlevelcpp(varptr(periodstr),varptr(curtfstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(waterlevelcppbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=gold '<--- replace with your color
+    bufnamestr="TimeFrame1Level"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="TimeFrame2Level"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="SellPrice"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=olive '<--- replace with your color
+    bufnamestr="BuyPrice"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="TimeFrame2AverageMA1"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=sweetblue '<--- replace with your color
+    bufnamestr="TimeFrame2AverageMA2"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=pink '<--- replace with your color
+    bufnamestr="TimeFrame2AverageMA3"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="TimeFrame2AverageMA4"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End WaterLevel cpp -------------------------------------------------

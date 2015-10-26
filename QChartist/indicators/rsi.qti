@@ -1,0 +1,63 @@
+declare sub rsi
+dim rsibuffer(0 to 1000) as double
+dim posbuffer(0 to 1000) as double
+dim negbuffer(0 to 1000) as double
+dim rsilevelup(0 to 1000) as integer
+dim rsileveldn(0 to 1000) as integer
+
+sub rsi
+
+defdbl rel,negative,positive
+    dim i as integer,j as integer,ncountedbars as integer    
+    dim rsiperiod as integer, barsback as integer
+defdbl sumn,sump
+    rsiperiod=val(rsiperiodedit.text)
+    barsback=val(rsibarsbackedit.text)
+    if bars<=rsiperiod then
+        exit sub
+    end if
+
+defint k
+
+    i=barsback-rsiperiod-1
+
+	while i>=0
+
+		sumn=0:sump=0
+		if i=barsback-rsiperiod-1 then
+			k=barsback-2
+			while k>=i
+			        rel=close(k)-close(k+1)
+				if rel>0 then
+					sump=sump+rel
+				else
+					sumn=sumn-rel
+				end if
+				k--
+			wend
+			positive=sump/rsiperiod
+			negative=sumn/rsiperiod
+		else
+			rel=close(i)-close(i+1)
+			if rel>0 then
+				sump=rel
+			else
+				sumn=-1*rel
+			end if
+			positive=(posbuffer(i+1)*(rsiperiod-1)+sump)/rsiperiod
+			negative=(negbuffer(i+1)*(rsiperiod-1)+sumn)/rsiperiod
+		end if
+		posbuffer(i)=positive
+		negbuffer(i)=negative
+		if negative=0 then
+			rsibuffer(i)=0
+		else
+			rsibuffer(i)=100-100/(1+positive/negative)
+		end if
+		i--
+		rsilevelup(i)=70
+		rsileveldn(i)=30
+
+	wend
+
+end sub

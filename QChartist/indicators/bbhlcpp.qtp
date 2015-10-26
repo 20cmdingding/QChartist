@@ -1,0 +1,46 @@
+declare sub hidebbhlcppform
+
+CREATE bbhlcppform as qform
+
+    Center
+    Caption = "Settings for: BB - HL cpp"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create bbhlcppperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create bbhlcppperiodedit as qedit
+        left=bbhlcppperiodlab.width+100
+        top=0
+        text="200"
+    end create
+    
+    create bbhlcppbarsbacklab as qlabel
+        top=bbhlcppperiodlab.height+15
+        left=0
+        caption="Number of bars back:"
+    end create
+    
+    create bbhlcppbarsbackedit as qedit
+        left=bbhlcppperiodedit.left
+        top=bbhlcppbarsbacklab.top
+        text="500"
+    end create
+
+    create bbhlcppbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hidebbhlcppform
+    end create
+
+END CREATE
+
+sub hidebbhlcppform
+    bbhlcppform.visible=0
+end sub

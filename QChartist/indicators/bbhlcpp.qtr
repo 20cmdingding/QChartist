@@ -1,0 +1,25 @@
+'------------------------- BB - HL cpp -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=bbhlcppperiodedit.text
+barsbackstr=bbhlcppbarsbackedit.text
+cpptmpfuncreturn=varptr$(bbhlcpp(varptr(periodstr),varptr(barsbackstr)))
+end if
+
+barsback=chartbars(displayedfile) '<--- can also be something like VAL(bbhlcppbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=purple '<--- replace with your color
+    bufnamestr="upperbandbuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=purple '<--- replace with your color
+    bufnamestr="lowerbandbuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End BB - HL cpp -------------------------------------------------

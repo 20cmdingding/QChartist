@@ -1,0 +1,46 @@
+declare sub hideVolatilityPivotform
+
+CREATE VolatilityPivotform as qform
+
+    Center
+    Caption = "Settings for: Volatility Pivot"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create VolatilityPivotbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideVolatilityPivotform
+    end create
+
+create VolatilityPivotpointlab as qlabel
+        left=0
+        top=30
+        caption="Point:"
+    end create
+
+create VolatilityPivotpointedit as qedit
+        left=0
+        top=60
+        text="0.0001"
+    end create
+
+create VolatilityPivotbarsbacklab as qlabel
+        left=0
+        top=90
+        caption="Bars back:"
+    end create
+
+create VolatilityPivotbarsbackedit as qedit
+        left=0
+        top=120
+        text="150"
+    end create
+
+END CREATE
+
+sub hideVolatilityPivotform
+    VolatilityPivotform.visible=0
+end sub

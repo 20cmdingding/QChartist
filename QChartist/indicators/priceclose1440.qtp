@@ -1,0 +1,22 @@
+declare sub hidepriceclose1440form
+
+CREATE priceclose1440form as qform
+
+    Center
+    Caption = "Settings for: priceclose1440"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create priceclose1440btnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hidepriceclose1440form
+    end create
+
+END CREATE
+
+sub hidepriceclose1440form
+    priceclose1440form.visible=0
+end sub

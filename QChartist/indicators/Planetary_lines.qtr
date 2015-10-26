@@ -1,0 +1,232 @@
+'------------------------- Planetary lines -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+Planetary_lines
+end if
+
+barsback=val(barslimitedit.text) '<--- can also be something like VAL(Planetary_linesbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+
+if earth.checked=1 then
+defint increarth
+for increarth=0 to 12
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_earthbuffer(increarth,offset))
+    drawid=drawid+2
+next increarth
+end if
+
+if jupiter.checked=1 then
+defint incrjupiter
+for incrjupiter=0 to 12
+	indicolor(drawid)=olive '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_jupiterbuffer(incrjupiter,offset))
+    drawid=drawid+2
+next incrjupiter
+end if
+
+if mars.checked=1 then
+defint incrmars
+for incrmars=0 to 12
+indicolor(drawid)=red '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_marsbuffer(incrmars,offset))
+    drawid=drawid+2
+next incrmars
+end if
+
+if mercury.checked=1 then
+defint incrmercury
+for incrmercury=0 to 12
+indicolor(drawid)=orange '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_mercurybuffer(incrmercury,offset))
+    drawid=drawid+2
+next incrmercury
+end if
+
+if neptune.checked=1 then
+defint incrneptune
+for incrneptune=0 to 12
+indicolor(drawid)=purple '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_neptunebuffer(incrneptune,offset))
+    drawid=drawid+2
+next incrneptune
+end if
+
+if saturn.checked=1 then
+defint incrsaturn
+for incrsaturn=0 to 12
+indicolor(drawid)=gray '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_saturnbuffer(incrsaturn,offset))
+    drawid=drawid+2
+next incrsaturn
+end if
+
+if uranus.checked=1 then
+defint incruranus
+for incruranus=0 to 12
+indicolor(drawid)=lightblue '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_uranusbuffer(incruranus,offset))
+    drawid=drawid+2
+next incruranus
+end if
+
+if venus.checked=1 then
+defint incrvenus
+for incrvenus=0 to 12
+indicolor(drawid)=pink '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_venusbuffer(incrvenus,offset))
+    drawid=drawid+2
+next incrvenus
+end if
+
+if sun.checked=1 then
+defint incrsun
+for incrsun=0 to 12
+indicolor(drawid)=yellow '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_sunbuffer(incrsun,offset))
+    drawid=drawid+2
+next incrsun
+end if
+
+if moon.checked=1 then
+defint incrmoon
+for incrmoon=0 to 12
+indicolor(drawid)=white '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_moonbuffer(incrmoon,offset))
+    drawid=drawid+2
+next incrmoon
+end if
+
+if pluto.checked=1 then
+defint incrpluto
+for incrpluto=0 to 12
+indicolor(drawid)=black '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_plutobuffer(incrpluto,offset))
+    drawid=drawid+2
+next incrpluto
+end if
+
+if mean_node.checked=1 then
+defint incrmean_node
+for incrmean_node=0 to 12
+indicolor(drawid)=green '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_mean_nodebuffer(incrmean_node,offset))
+    drawid=drawid+2
+next incrmean_node
+end if
+
+if true_node.checked=1 then
+defint incrtrue_node
+for incrtrue_node=0 to 12
+indicolor(drawid)=red '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_true_nodebuffer(incrtrue_node,offset))
+    drawid=drawid+2
+next incrtrue_node
+end if
+
+if mean_apog.checked=1 then
+defint incrmean_apog
+for incrmean_apog=0 to 12
+indicolor(drawid)=blue '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_mean_apogbuffer(incrmean_apog,offset))
+    drawid=drawid+2
+next incrmean_apog
+end if
+
+if oscu_apog.checked=1 then
+defint incroscu_apog
+for incroscu_apog=0 to 12
+indicolor(drawid)=olive '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_oscu_apogbuffer(incroscu_apog,offset))
+    drawid=drawid+2
+next incroscu_apog
+end if
+
+if chiron.checked=1 then
+defint incrchiron
+for incrchiron=0 to 12
+indicolor(drawid)=orange '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_chironbuffer(incrchiron,offset))
+    drawid=drawid+2
+next incrchiron
+end if
+
+if pholus.checked=1 then
+defint incrpholus
+for incrpholus=0 to 12
+indicolor(drawid)=red '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_pholusbuffer(incrpholus,offset))
+    drawid=drawid+2
+next incrpholus
+end if
+
+if ceres.checked=1 then
+defint incrceres
+for incrceres=0 to 12
+indicolor(drawid)=pink '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_ceresbuffer(incrceres,offset))
+    drawid=drawid+2
+next incrceres
+end if
+
+if pallas.checked=1 then
+defint incrpallas
+for incrpallas=0 to 12
+indicolor(drawid)=gray '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_pallasbuffer(incrpallas,offset))
+    drawid=drawid+2
+next incrpallas
+end if
+
+if juno.checked=1 then
+defint incrjuno
+for incrjuno=0 to 12
+indicolor(drawid)=purple '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_junobuffer(incrjuno,offset))
+    drawid=drawid+2
+next incrjuno
+end if
+
+if vesta.checked=1 then
+defint incrvesta
+for incrvesta=0 to 12
+indicolor(drawid)=lightblue '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_vestabuffer(incrvesta,offset))
+    drawid=drawid+2
+next incrvesta
+end if
+
+if nplanets.checked=1 then
+defint incrnplanets
+for incrnplanets=0 to 12
+indicolor(drawid)=white '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_nplanetsbuffer(incrnplanets,offset))
+    drawid=drawid+2
+next incrnplanets
+end if
+
+if ast_offset.checked=1 then
+defint incrast_offset
+for incrast_offset=0 to 12
+indicolor(drawid)=yellow '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_ast_offsetbuffer(incrast_offset,offset))
+    drawid=drawid+2
+next incrast_offset
+end if
+
+if Planetary_average_checkbox.checked=1 then
+defint incravg
+for incravg=0 to 12
+indicolor(drawid)=yellow '<--- replace with your color	
+    .Data_Indi.Cell(drawid,lbar)= STR$(Planetary_lines_averagebuffer(incravg,offset))
+    drawid=drawid+2
+next incrvenus
+end if
+
+end if
+
+end if
+'------------------------- End Planetary lines -------------------------------------------------

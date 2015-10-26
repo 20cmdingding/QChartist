@@ -1,0 +1,35 @@
+'------------------------- StepRSI -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+steprsi
+end if
+
+barsback=200 '<--- can also be something like VAL(myindibarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=orange '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(line1buffer(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(line2buffer(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+    sepindicolor(drawid)=purple '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(line3buffer(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+    sepindicolor(drawid)=gray '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(steprsilevelup(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2
+    sepindicolor(drawid)=gray '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(steprsileveldn(offset)) '<--- replace myindibuffer with your indicator buffer name
+    drawid=drawid+2	
+end if
+
+if autoadjustsepindi.checked=1 then 
+	sepindivalminedit.text="-20"             
+	sepindivalmaxedit.text="20"        
+end if  
+
+end if
+'------------------------- End StepRSI -------------------------------------------------

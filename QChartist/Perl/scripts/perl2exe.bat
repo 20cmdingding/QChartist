@@ -1,0 +1,1 @@
+pp -x -o stock.exe stock.pl

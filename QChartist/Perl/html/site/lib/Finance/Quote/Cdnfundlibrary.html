@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#FUNDLIB-CODE">FUNDLIB-CODE</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::Cdnfundlibrary - Obtain mutual fund prices from www.fundlibrary.com</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"canadamutual"</span><span class="operator">,</span><span class="string">"fundlib-code"</span><span class="operator">);</span> <span class="comment"># Can</span>
+    <span class="variable">failover</span> <span class="variable">to</span> <span class="variable">other</span> <span class="variable">methods</span>
+    <span class="variable">%stockinfo</span> <span class="operator">=</span> <span class="variable">$q</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"fundlibrary"</span><span class="operator">,</span><span class="string">"fundlib-code"</span><span class="operator">);</span> <span class="comment"># Use this</span>
+    <span class="variable">module</span> <span class="variable">only</span><span class="operator">.</span>
+    
+    <span class="comment"># NOTE: currently no failover methods exist for canadamutual</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module obtains information about Canadian Mutual Fund prices from www.fundlibrary.com. The information source &quot;canadamutual&quot; can be used if the source of prices is irrelevant, and &quot;fundlibrary&quot; if you specifically want to use www.fundlibrary.com.</p>
+
+<h1 id="FUNDLIB-CODE">FUNDLIB-CODE</h1>
+
+<p>In Canada a mutual fund does not have a unique global symbol identifier.</p>
+
+<p>This module uses an id that represents the mutual fund on an id used by www.fundlibrary.com. There is no easy way of fetching the id except to jump onto the fundlibrary website, look up the fund and view the url for clues to its id number.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<p>Information available from fundlibrary may include the following labels:</p>
+
+<p>exchange method link source name currency yield last nav price. The link label will be a url location for a one page snapshot that fundlibrary provides on the fund.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Fundlibrary website - http://www.fundlibrary.com/</p>
+
+<p>Finance::Quote</p>
+
+
+</body>
+
+</html>
+
+

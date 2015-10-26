@@ -1,0 +1,105 @@
+declare sub astro_retrograde ' This line of code must stay here
+dim astro_retrograde_mercurybuffer(0 to 1000) as double ' This line of code must stay here.
+dim astro_retrograde_venusbuffer(0 to 1000) as double ' This line of code must stay here.
+dim astro_retrograde_earthbuffer(0 to 1000) as double ' This line of code must stay here.
+dim astro_retrograde_marsbuffer(0 to 1000) as double ' This line of code must stay here.
+dim astro_retrograde_jupiterbuffer(0 to 1000) as double ' This line of code must stay here.
+dim astro_retrograde_saturnbuffer(0 to 1000) as double ' This line of code must stay here.
+dim astro_retrograde_uranusbuffer(0 to 1000) as double ' This line of code must stay here.
+dim astro_retrograde_neptunebuffer(0 to 1000) as double ' This line of code must stay here.
+dim astro_retrograde_plutobuffer(0 to 1000) as double ' This line of code must stay here.
+
+sub astro_retrograde
+' Put your indicator RapidQ code here
+defint Body=2
+defint FutureBars=0
+defint BarsLimit=1000
+defint limit=300
+defint shift
+defint period_p = get_period(shift)
+defdbl curr_datetime
+defint ret
+
+for body=2 to 14
+
+if body=10 then body=14
+
+shift = limit - FutureBars
+' Draw Normal
+if (shift > BarsLimit) then shift = BarsLimit
+
+while ( shift > 0 )
+   
+     if (is_retrograde(val(varptr$(timebcpp(varptr(shift)))), period_p, Body,0) =1) then
+     
+       ret = 1
+     
+     else
+     
+       ret = 0
+     end if
+select case body
+case 2:
+     astro_retrograde_mercurybuffer(shift + FutureBars) = ret
+case 3:
+astro_retrograde_venusbuffer(shift + FutureBars) = ret
+case 4:
+astro_retrograde_marsbuffer(shift + FutureBars) = ret
+case 5:
+astro_retrograde_jupiterbuffer(shift + FutureBars) = ret
+case 6:
+astro_retrograde_saturnbuffer(shift + FutureBars) = ret
+case 7:
+astro_retrograde_uranusbuffer(shift + FutureBars) = ret
+case 8:
+astro_retrograde_neptunebuffer(shift + FutureBars) = ret
+case 9:
+astro_retrograde_plutobuffer(shift + FutureBars) = ret
+case 14:
+astro_retrograde_earthbuffer(shift + FutureBars) = ret
+
+end select
+     shift = shift - 1
+wend   
+
+' Draw Future
+   ' now shift = 0
+   curr_datetime = val(varptr$(timebcpp(varptr(shift))))
+   while ( shift > -FutureBars )
+   
+     if(is_retrograde(curr_datetime, period_p, Body,0) =1) then
+     
+       ret = 1
+     
+     else
+     
+       ret = 0
+     end if
+     select case body
+case 2:
+     astro_retrograde_mercurybuffer(shift + FutureBars) = ret
+case 3:
+astro_retrograde_venusbuffer(shift + FutureBars) = ret
+case 4:
+astro_retrograde_marsbuffer(shift + FutureBars) = ret
+case 5:
+astro_retrograde_jupiterbuffer(shift + FutureBars) = ret
+case 6:
+astro_retrograde_saturnbuffer(shift + FutureBars) = ret
+case 7:
+astro_retrograde_uranusbuffer(shift + FutureBars) = ret
+case 8:
+astro_retrograde_neptunebuffer(shift + FutureBars) = ret
+case 9:
+astro_retrograde_plutobuffer(shift + FutureBars) = ret
+case 14:
+astro_retrograde_earthbuffer(shift + FutureBars) = ret
+
+end select
+     shift = shift - 1
+     curr_datetime = curr_datetime + period_p
+   wend
+
+next body
+
+end sub

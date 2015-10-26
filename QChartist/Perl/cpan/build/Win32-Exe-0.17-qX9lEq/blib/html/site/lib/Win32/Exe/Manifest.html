@@ -1,0 +1,460 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#VERSION">VERSION</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#METHODS">METHODS</a>
+    <ul>
+      <li><a href="#Constructors">Constructors</a>
+        <ul>
+          <li><a href="#new">new</a></li>
+        </ul>
+      </li>
+      <li><a href="#Output">Output</a>
+        <ul>
+          <li><a href="#output">output</a></li>
+        </ul>
+      </li>
+      <li><a href="#Application-Identity">Application Identity</a>
+        <ul>
+          <li><a href="#set_assembly_name">set_assembly_name</a></li>
+          <li><a href="#get_assembly_name">get_assembly_name</a></li>
+          <li><a href="#set_assembly_description">set_assembly_description</a></li>
+          <li><a href="#get_assembly_decription">get_assembly_decription</a></li>
+          <li><a href="#set_assembly_version">set_assembly_version</a></li>
+          <li><a href="#get_assembly_version">get_assembly_version</a></li>
+          <li><a href="#set_assembly_language">set_assembly_language</a></li>
+          <li><a href="#get_assembly_language">get_assembly_language</a></li>
+          <li><a href="#set_assembly_architecture">set_assembly_architecture</a></li>
+          <li><a href="#get_assembly_architecture">get_assembly_architecture</a></li>
+        </ul>
+      </li>
+      <li><a href="#Trust-and-Security">Trust and Security</a>
+        <ul>
+          <li><a href="#set_execution_level">set_execution_level</a></li>
+          <li><a href="#get_execution_level">get_execution_level</a></li>
+          <li><a href="#set_uiaccess">set_uiaccess</a></li>
+          <li><a href="#get_uiaccess">get_uiaccess</a></li>
+        </ul>
+      </li>
+      <li><a href="#Application-Dependencies">Application Dependencies</a>
+        <ul>
+          <li><a href="#set_resource_id">set_resource_id</a></li>
+          <li><a href="#get_resource_id">get_resource_id</a></li>
+          <li><a href="#add_common_controls">add_common_controls</a></li>
+          <li><a href="#add_dependency">add_dependency</a></li>
+          <li><a href="#remove_dependency">remove_dependency</a></li>
+          <li><a href="#get_dependency">get_dependency</a></li>
+          <li><a href="#get_dependencies">get_dependencies</a></li>
+        </ul>
+      </li>
+      <li><a href="#Compatibility-Settings">Compatibility Settings</a>
+        <ul>
+          <li><a href="#set_compatibility">set_compatibility</a></li>
+          <li><a href="#get_compatibility">get_compatibility</a></li>
+          <li><a href="#set_dpiaware">set_dpiaware</a></li>
+          <li><a href="#get_dpiaware">get_dpiaware</a></li>
+        </ul>
+      </li>
+      <li><a href="#Manifest-Information">Manifest Information</a>
+        <ul>
+          <li><a href="#get_manifest_type">get_manifest_type</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT-LICENSE">COPYRIGHT &amp; LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Win32::Exe::Manifest - MSWin Application and Assembly manifest handling</p>
+
+<h1 id="VERSION">VERSION</h1>
+
+<p>This document describes version 0.15 of Win32::Exe::Manifest, released November 30, 2010.</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Win32::Exe</span>
+    <span class="keyword">my</span> <span class="variable">$exe</span> <span class="operator">=</span> <span class="variable">Win32:</span>::<span class="variable">Exe</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">'somefilepath'</span><span class="operator">);</span>
+    
+    <span class="keyword">my</span> <span class="variable">$manifest</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_manifest</span> <span class="keyword">if</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">has_manifest</span><span class="operator">;</span>
+    
+    <span class="comment"># Get themed controls</span>
+    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">add_common_controls</span><span class="operator">;</span>
+    
+    <span class="comment"># Change name</span>
+    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_assembly_name</span><span class="operator">(</span><span class="string">'My.App.Name'</span><span class="operator">);</span>
+    
+    <span class="comment"># Require Admin permissions</span>
+    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_execution_level</span><span class="operator">(</span><span class="string">'requireAdministrator'</span><span class="operator">);</span>
+    
+    <span class="comment"># write it out</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_manifest</span><span class="operator">(</span><span class="variable">$manifest</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+    
+    <span class="comment">#roll your own</span>
+    <span class="keyword">use</span> <span class="variable">Win32::Exe::Manifest</span>
+    <span class="keyword">my</span> <span class="variable">$xml</span> <span class="operator">=</span> <span class="variable">$handmademanifest</span><span class="operator">;</span>
+    <span class="operator">......</span>
+    <span class="keyword">my</span> <span class="variable">$manifest</span> <span class="operator">=</span> <span class="variable">Win32::Exe::Manifest</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="variable">$xml</span><span class="operator">,</span> <span class="string">'application'</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_manifest</span><span class="operator">(</span><span class="variable">$manifest</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+    
+    <span class="comment">#get formated $xml</span>
+    <span class="keyword">my</span> <span class="variable">$xml</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">output</span><span class="operator">;</span>
+    
+    <span class="comment">#try merge (experimental)</span>
+    
+    <span class="keyword">my</span> <span class="variable">$mfest1</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_manifest</span><span class="operator">;</span>
+    <span class="keyword">my</span> <span class="variable">$mfest2</span> <span class="operator">=</span> <span class="variable">Win32::Exe::Manifest</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="variable">$xml</span><span class="operator">,</span> <span class="string">'application'</span><span class="operator">);</span>
+    
+    <span class="variable">$mfest1</span><span class="operator">-&gt;</span><span class="variable">merge_manifest</span><span class="operator">(</span><span class="variable">$mfest2</span><span class="operator">);</span>
+    
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_manifest</span><span class="operator">(</span><span class="variable">$mfest1</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+    
+    <span class="comment">#add a dependency</span>
+    <span class="keyword">my</span> <span class="variable">$info</span> <span class="operator">=</span>
+    <span class="operator">{</span> <span class="string">type</span>     <span class="operator">=&gt;</span> <span class="string">'win32'</span><span class="operator">,</span>
+      <span class="string">name</span>     <span class="operator">=&gt;</span> <span class="string">'Dependency.Prog.Id'</span><span class="operator">,</span>
+      <span class="string">version</span>  <span class="operator">=&gt;</span> <span class="number">1.0</span><span class="operator">.</span><span class="number">0</span><span class="operator">.</span><span class="number">0</span><span class="operator">,</span>
+      <span class="string">language</span> <span class="operator">=&gt;</span> <span class="string">'*'</span><span class="operator">,</span>
+      <span class="string">processorArchitecture</span> <span class="operator">=&gt;</span> <span class="string">'*'</span><span class="operator">,</span>
+      <span class="string">publicKeyToken</span> <span class="operator">=&gt;</span> <span class="string">'hjdajhahdsa7sadhaskl'</span><span class="operator">,</span>
+    <span class="operator">}</span><span class="operator">;</span>
+    
+    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">add_dependency</span><span class="operator">(</span><span class="variable">$info</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">set_manifest</span><span class="operator">(</span><span class="variable">$manifest</span><span class="operator">);</span>
+    <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">write</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module parses and manipulates application and assembly manifests used in MS Windows executables and DLLs. It is part of the Win32::Exe distribution.</p>
+
+<h1 id="METHODS">METHODS</h1>
+
+<h2 id="Constructors">Constructors</h2>
+
+<h3 id="new">new</h3>
+
+<pre><code>    <span class="variable">Win32::Exe::Manifest</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="variable">$xml</span><span class="operator">,</span> <span class="variable">$type</span><span class="operator">);</span>
+</code></pre>
+
+<p>Create a new manifest instance from the manifest xml in $xml. The $type param is optional and may contain &#39;application&#39; (the default), or &#39;assembly&#39;.</p>
+
+<p>Manifest objects can also be created using Win32::Exe</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$exe</span> <span class="operator">=</span> <span class="variable">Win32:</span>::<span class="variable">Exe</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">(</span><span class="string">'somefilepath'</span><span class="operator">);</span>
+    <span class="keyword">my</span> <span class="variable">$manifest</span> <span class="operator">=</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">get_manifest</span> <span class="keyword">if</span> <span class="variable">$exe</span><span class="operator">-&gt;</span><span class="variable">has_manifest</span><span class="operator">;</span>
+</code></pre>
+
+<h2 id="Output">Output</h2>
+
+<h3 id="output">output</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$xml</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">output</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns a formated $xml string containing all edits and changes made using Win32::Exe::Manifest</p>
+
+<h2 id="Application-Identity">Application Identity</h2>
+
+<h3 id="set_assembly_name">set_assembly_name</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_assembly_name</span><span class="operator">(</span><span class="string">'My.Application.Name'</span><span class="operator">);</span>
+</code></pre>
+
+<p>Set the application or assembly name. The name should take the form of a progid and should not include any spaces.</p>
+
+<h3 id="get_assembly_name">get_assembly_name</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$appname</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_assembly_name</span><span class="operator">;</span>
+</code></pre>
+
+<p>Return the assembly or application name from the manifest.</p>
+
+<h3 id="set_assembly_description">set_assembly_description</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_assembly_description</span><span class="operator">(</span><span class="string">'My Application Description'</span><span class="operator">);</span>
+</code></pre>
+
+<p>Set the application description. The description is an informative string.</p>
+
+<h3 id="get_assembly_decription">get_assembly_decription</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$desc</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_assembly_description</span><span class="operator">;</span>
+</code></pre>
+
+<p>Return the assembly description from the manifest.</p>
+
+<h3 id="set_assembly_version">set_assembly_version</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_assembly_version</span><span class="operator">(</span><span class="string">'1.7.8.34456'</span><span class="operator">);</span>
+</code></pre>
+
+<p>Set the application or assembly version. The version should take the form of &#39;n.n.n.n&#39; where each n is a number between 0-65535 inclusive.</p>
+
+<h3 id="get_assembly_version">get_assembly_version</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$version</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_assembly_version</span><span class="operator">;</span>
+</code></pre>
+
+<p>Return the assembly or application version from the manifest.</p>
+
+<h3 id="set_assembly_language">set_assembly_language</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_assembly_language</span><span class="operator">(</span><span class="variable">$langid</span><span class="operator">);</span>
+</code></pre>
+
+<p>Set the application or assembly language. The language id is the DHTML language code. If you want to set &#39;language neutral&#39; then pass &#39;*&#39; for the value.</p>
+
+<p>see : <a href="http://msdn.microsoft.com/en-us/library/ms533052(VS.85).aspx">http://msdn.microsoft.com/en-us/library/ms533052(VS.85).aspx</a></p>
+
+<h3 id="get_assembly_language">get_assembly_language</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$langid</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_assembly_language</span><span class="operator">;</span>
+</code></pre>
+
+<p>Return the assembly or application language from the manifest. If there is no language id in the manifest, the method will return &#39;*&#39;</p>
+
+<h3 id="set_assembly_architecture">set_assembly_architecture</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_assembly_architecture</span><span class="operator">(</span><span class="variable">$arch</span><span class="operator">);</span>
+</code></pre>
+
+<p>Set the application or assembly architecture. Accepted values are : x86 msil ia64 amd64 *. Note the lowercase format. If you want your manifest to be architecture neutral, set architecture to &#39;*&#39;.</p>
+
+<h3 id="get_assembly_architecture">get_assembly_architecture</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$arch</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_assembly_architecture</span><span class="operator">;</span>
+</code></pre>
+
+<p>Return the assembly or application architecture from the manifest.</p>
+
+<h2 id="Trust-and-Security">Trust and Security</h2>
+
+<h3 id="set_execution_level">set_execution_level</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_execution_level</span><span class="operator">(</span><span class="variable">$level</span><span class="operator">);</span>
+</code></pre>
+
+<p>Set the application execution level. Accepted values are : asInvoker, highestAvailable, requireAdministrator, none. If you pass the value &#39;none&#39;, any trustInfo section will be removed from the manifest.</p>
+
+<p>See <a href="http://msdn.microsoft.com/en-us/library/bb756929.aspx">http://msdn.microsoft.com/en-us/library/bb756929.aspx</a></p>
+
+<h3 id="get_execution_level">get_execution_level</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$level</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_execution_level</span><span class="operator">;</span>
+</code></pre>
+
+<p>Return the application execution level.</p>
+
+<h3 id="set_uiaccess">set_uiaccess</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_uiaccess</span><span class="operator">(</span><span class="variable">$needed</span><span class="operator">);</span>
+</code></pre>
+
+<p>Set the application uiAccess requirement in the trustInfo manifest section. Accepted values are &#39;true&#39;, &#39;false&#39;. If no trustInfo section exists, one is created with the execution level set to &#39;asInvoker&#39;.</p>
+
+<p>See <a href="http://msdn.microsoft.com/en-us/library/bb756929.aspx">http://msdn.microsoft.com/en-us/library/bb756929.aspx</a></p>
+
+<h3 id="get_uiaccess">get_uiaccess</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$accessneeded</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_uiaccess</span><span class="operator">;</span>
+</code></pre>
+
+<p>Return the uiAccess setting from the trustInfo structure. If no trustInfo structure exists, method returns undef.</p>
+
+<h2 id="Application-Dependencies">Application Dependencies</h2>
+
+<h3 id="set_resource_id">set_resource_id</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_resource_id</span><span class="operator">(</span><span class="variable">$id</span><span class="operator">);</span>
+</code></pre>
+
+<p>Set the resource Id for the manifest. Valid id&#39;s are 1, 2 and 3. The default is 1. Don&#39;t set this unless you are fully aware of the effects.</p>
+
+<p>See <a href="http://msdn.microsoft.com/en-us/library/aa376607(VS.85).aspx">http://msdn.microsoft.com/en-us/library/aa376607(VS.85).aspx</a></p>
+
+<h3 id="get_resource_id">get_resource_id</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$id</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_resource_id</span><span class="operator">();</span>
+</code></pre>
+
+<p>Return the resource Id for the manifest.</p>
+
+<h3 id="add_common_controls">add_common_controls</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">add_common_controls</span><span class="operator">();</span>
+</code></pre>
+
+<p>Add a dependency on minimum version 6.0.0.0 of the Microsoft.Windows.Common-Controls shared library. This is normally done with GUI applications to use themed controls on Windows XP and above.</p>
+
+<h3 id="add_dependency">add_dependency</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">add_dependency</span><span class="operator">(</span><span class="variable">$info</span><span class="operator">);</span>
+</code></pre>
+
+<p>Add a dependency on the assembly detailed in the $info hash reference. The contents of $info should be of the form:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$info</span> <span class="operator">=</span> <span class="operator">{</span> <span class="string">type</span>     <span class="operator">=&gt;</span> <span class="string">'win32'</span><span class="operator">,</span>
+                 <span class="string">name</span>     <span class="operator">=&gt;</span> <span class="string">'Dependency.Prog.Id'</span><span class="operator">,</span>
+                 <span class="string">version</span>  <span class="operator">=&gt;</span> <span class="number">1.0</span><span class="operator">.</span><span class="number">0</span><span class="operator">.</span><span class="number">0</span><span class="operator">,</span>
+                 <span class="string">language</span> <span class="operator">=&gt;</span> <span class="string">'*'</span><span class="operator">,</span>
+                 <span class="string">processorArchitecture</span> <span class="operator">=&gt;</span> <span class="string">'*'</span><span class="operator">,</span>
+                 <span class="string">publicKeyToken</span> <span class="operator">=&gt;</span> <span class="string">'hjdajhahdsa7sadhaskl'</span><span class="operator">,</span>
+    <span class="operator">}</span><span class="operator">;</span>
+</code></pre>
+
+<p>Note that the version should be the least specific that your application requires. For example, a version of &#39;2.0.0.0&#39; would mean the system loads the first matching assembly it finds with a version of at least &#39;2.0.0.0&#39;.</p>
+
+<p>See: <a href="http://msdn.microsoft.com/en-us/library/aa374219(v=VS.85).aspx">http://msdn.microsoft.com/en-us/library/aa374219(v=VS.85).aspx</a></p>
+
+<h3 id="remove_dependency">remove_dependency</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">remove_dependency</span><span class="operator">(</span><span class="variable">$progid</span><span class="operator">);</span>
+</code></pre>
+
+<p>Remove a dependency with the $progid. For example, passing a $progid of &#39;Microsoft.Windows.Common-Controls&#39; will remove the dependency added via &#39;add_common_controls&#39; from the manifest.</p>
+
+<h3 id="get_dependency">get_dependency</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$info</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_dependency</span><span class="operator">(</span><span class="variable">$progid</span><span class="operator">);</span>
+</code></pre>
+
+<p>Return a dependency info hash for a dependency in the manifest with the &#39;name&#39; $progid. The info hash is a reference to a hash with the format:</p>
+
+<pre><code>    <span class="operator">{</span> <span class="string">type</span>     <span class="operator">=&gt;</span> <span class="string">'win32'</span><span class="operator">,</span>
+      <span class="string">name</span>     <span class="operator">=&gt;</span> <span class="string">'Dependency.Prog.Id'</span><span class="operator">,</span>
+      <span class="string">version</span>  <span class="operator">=&gt;</span> <span class="number">1.0</span><span class="operator">.</span><span class="number">0</span><span class="operator">.</span><span class="number">0</span><span class="operator">,</span>
+      <span class="string">language</span> <span class="operator">=&gt;</span> <span class="string">'*'</span><span class="operator">,</span>
+      <span class="string">processorArchitecture</span> <span class="operator">=&gt;</span> <span class="string">'*'</span><span class="operator">,</span>
+      <span class="string">publicKeyToken</span> <span class="operator">=&gt;</span> <span class="string">'hjdajhahdsa7sadhaskl'</span><span class="operator">,</span>
+    <span class="operator">};</span>
+</code></pre>
+
+<p>If there is no dependency with the name $progid, returns undef.</p>
+
+<h3 id="get_dependencies">get_dependencies</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@deps</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_dependencies</span><span class="operator">(</span><span class="variable">$progid</span><span class="operator">);</span>
+</code></pre>
+
+<p>Return an array of hash references, one for each dependency in the manifest. Each member is a reference to a hash with the format:</p>
+
+<pre><code>    <span class="operator">{</span> <span class="string">type</span>     <span class="operator">=&gt;</span> <span class="string">'win32'</span><span class="operator">,</span>
+      <span class="string">name</span>     <span class="operator">=&gt;</span> <span class="string">'Dependency.Prog.Id'</span><span class="operator">,</span>
+      <span class="string">version</span>  <span class="operator">=&gt;</span> <span class="number">1.0</span><span class="operator">.</span><span class="number">0</span><span class="operator">.</span><span class="number">0</span><span class="operator">,</span>
+      <span class="string">language</span> <span class="operator">=&gt;</span> <span class="string">'*'</span><span class="operator">,</span>
+      <span class="string">processorArchitecture</span> <span class="operator">=&gt;</span> <span class="string">'*'</span><span class="operator">,</span>
+      <span class="string">publicKeyToken</span> <span class="operator">=&gt;</span> <span class="string">'hjdajhahdsa7sadhaskl'</span><span class="operator">,</span>
+    <span class="operator">};</span>
+</code></pre>
+
+<p>If there are no dependencies, returns an empty array.</p>
+
+<h2 id="Compatibility-Settings">Compatibility Settings</h2>
+
+<h3 id="set_compatibility">set_compatibility</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_compatibility</span><span class="operator">(</span> <span class="operator">(</span><span class="string">'Windows Vista'</span><span class="operator">)</span> <span class="operator">);</span>
+</code></pre>
+
+<p>Set the operating system feature compatibility flags. Parameter is a list of operating systems that the application targets. In addition to the opertating system identifier keys, this method also accepts the shorthand strings &#39;Windows Vista&#39; and &#39;Windows 7&#39;.</p>
+
+<p>See : <a href="http://msdn.microsoft.com/en-us/library/dd371711(VS.85).aspx">http://msdn.microsoft.com/en-us/library/dd371711(VS.85).aspx</a></p>
+
+<h3 id="get_compatibility">get_compatibility</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">@osids</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_compatibility</span><span class="operator">();</span>
+</code></pre>
+
+<p>Returns a list of operating system identifier keys that the manifest notes as targetted operating systems. You can convert these os ids to the shorthand strings &#39;Windows Vista&#39; and &#39;Windows 7&#39; using the method</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$shortstring</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_osname_from_osid</span><span class="operator">(</span><span class="variable">$osid</span><span class="operator">);</span>
+</code></pre>
+
+<p>There is a reverse method</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$osid</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_osid_from_osname</span><span class="operator">(</span><span class="variable">$shortstring</span><span class="operator">);</span>
+</code></pre>
+
+<p>NOTE: Don&#39;t set this unless you fully understand the effects.</p>
+
+<p>See : <a href="http://msdn.microsoft.com/en-us/library/dd371711(VS.85).aspx">http://msdn.microsoft.com/en-us/library/dd371711(VS.85).aspx</a></p>
+
+<h3 id="set_dpiaware">set_dpiaware</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_dpdaware</span><span class="operator">(</span> <span class="string">'true'</span> <span class="operator">);</span>
+</code></pre>
+
+<p>Set section in the manifest if the application is dpi aware. Accepts values true, false, and none. If the value &#39;none&#39; is passed, the application\windowsSettings section is removed from the manifest entirely.</p>
+
+<p>See : <a href="http://msdn.microsoft.com/en-us/library/ee308410(VS.85).aspx">http://msdn.microsoft.com/en-us/library/ee308410(VS.85).aspx</a></p>
+
+<h3 id="get_dpiaware">get_dpiaware</h3>
+
+<pre><code>    <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">set_dpdaware</span><span class="operator">(</span> <span class="string">'true'</span> <span class="operator">);</span>
+</code></pre>
+
+<p>Return the dpiAware setting from the manifest, if any. If there is no setting, the method returns undef.</p>
+
+<p>See : <a href="http://msdn.microsoft.com/en-us/library/ee308410(VS.85).aspx">http://msdn.microsoft.com/en-us/library/ee308410(VS.85).aspx</a></p>
+
+<h2 id="Manifest-Information">Manifest Information</h2>
+
+<h3 id="get_manifest_type">get_manifest_type</h3>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$type</span> <span class="operator">=</span> <span class="variable">$manifest</span><span class="operator">-&gt;</span><span class="variable">get_manifest_type</span><span class="operator">;</span>
+</code></pre>
+
+<p>Returns the manifest type ( &#39;application&#39; or &#39;assembly&#39; );</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p>Modules that use Win32::Exe::Manifest</p>
+
+<p>Win32::Exe</p>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Mark Dootson &lt;mdootson@cpan.org&gt;</p>
+
+<h1 id="COPYRIGHT-LICENSE">COPYRIGHT &amp; LICENSE</h1>
+
+<p>Copyright 2010 by Mark Dootson &lt;mdootson@cpan.org&gt;</p>
+
+<p>This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+<p>See <a href="http://www.perl.com/perl/misc/Artistic.html">http://www.perl.com/perl/misc/Artistic.html</a></p>
+
+
+</body>
+
+</html>
+
+

@@ -1,0 +1,181 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#LABELS-RETURNED">LABELS RETURNED</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Finance::Quote::MtGox - Obtain information from Mt.Gox</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Finance::Quote</span><span class="operator">;</span>
+    <span class="variable">$q</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">;</span>
+    
+    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"mtgox_usd"</span><span class="operator">,</span> <span class="string">"BTC"</span><span class="operator">);</span>
+    <span class="variable">%info</span> <span class="operator">=</span> <span class="variable">Finance::Quote</span><span class="operator">-&gt;</span><span class="variable">fetch</span><span class="operator">(</span><span class="string">"mtgox_eur"</span><span class="operator">,</span> <span class="string">"LTC"</span><span class="operator">);</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>This module fetches information from Mt.Gox. The following symbols are currently known:</p>
+
+<dl>
+
+<dt id="BTC:-Bitcoin">BTC: Bitcoin</dt>
+<dd>
+
+</dd>
+<dt id="LTC:-Litecoin-market-not-yet-operational">LTC: Litecoin (market not yet operational)</dt>
+<dd>
+
+</dd>
+<dt id="NMC:-Namecoin-market-not-yet-operational">NMC: Namecoin (market not yet operational)</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>The following methods provide prices directly from Mt.Gox, in each of the currency markets that they operate.</p>
+
+<dl>
+
+<dt id="mtgox_aud:-Australian-Dollar">mtgox_aud: Australian Dollar</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_cad:-Canadian-Dollar">mtgox_cad: Canadian Dollar</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_chf:-Swiss-Franc">mtgox_chf: Swiss Franc</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_cny:-Yuan-Renminbi">mtgox_cny: Yuan Renminbi</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_dkk:-Danish-Krone">mtgox_dkk: Danish Krone</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_eur:-Euro">mtgox_eur: Euro</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_gbp:-Pound-Sterling">mtgox_gbp: Pound Sterling</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_hkd:-Hong-Kong-Dollar">mtgox_hkd: Hong Kong Dollar</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_jpy:-Yen">mtgox_jpy: Yen</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_nok:-Norweigan-Krone">mtgox_nok: Norweigan Krone</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_nzd:-New-Zealand-Dollar">mtgox_nzd: New Zealand Dollar</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_pln:-Zloty">mtgox_pln: Zloty</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_rub:-Russian-Ruble">mtgox_rub: Russian Ruble</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_sek:-Swedish-Kronor">mtgox_sek: Swedish Kronor</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_sgd:-Singapore-Dollar">mtgox_sgd: Singapore Dollar</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_thb:-Baht">mtgox_thb: Baht</dt>
+<dd>
+
+</dd>
+<dt id="mtgox_usd:-US-Dollar">mtgox_usd: US Dollar</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>In addition, &quot;bitcoin_$market&quot; methods are provided in case failover to other exchanges is desirable. These methods will return data for other digital currencies than Bitcoin; the currency for which data is retrieved is determined by the symbol name passed to the method.</p>
+
+<p>Mt.Gox operates a multi-currency market, where all offers across all markets are amalgamated into a common pool. Trades between markets are matched using the European Central Bank&#39;s daily exchange rate, plus a 2.5% fee included in the price.</p>
+
+<h1 id="LABELS-RETURNED">LABELS RETURNED</h1>
+
+<dl>
+
+<dt id="ask:-lowest-asking-price">ask: lowest asking price</dt>
+<dd>
+
+</dd>
+<dt id="bid:-highest-offer-price">bid: highest offer price</dt>
+<dd>
+
+</dd>
+<dt id="currency:-currency-of-retrieved-quote">currency: currency of retrieved quote</dt>
+<dd>
+
+</dd>
+<dt id="date-time:-time-of-last-trade">date, time: time of last trade</dt>
+<dd>
+
+</dd>
+<dt id="exchange:-always-Mt.Gox">exchange: always &#39;Mt.Gox&#39;</dt>
+<dd>
+
+</dd>
+<dt id="last:-last-trade-price">last: last trade price</dt>
+<dd>
+
+</dd>
+<dt id="method:-fetching-method-used">method: fetching method used</dt>
+<dd>
+
+</dd>
+<dt id="timezone:-always-UTC">timezone: always UTC</dt>
+<dd>
+
+</dd>
+</dl>
+
+
+</body>
+
+</html>
+
+

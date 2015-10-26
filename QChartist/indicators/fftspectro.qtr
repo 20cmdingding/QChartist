@@ -1,0 +1,51 @@
+'------------------------- fftspectro -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+fftspectro
+end if
+
+barsback=300 '<--- can also be something like VAL(fftspectrobarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=blue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(1,offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(2,offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=olive '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(3,offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=pink '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(4,offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=red '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(5,offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=yellow '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(6,offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(7,offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=purple '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(8,offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=black '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(fftspectrobuffer(9,offset))
+    drawid=drawid+2
+
+end if
+
+end if
+'------------------------- End fftspectro -------------------------------------------------

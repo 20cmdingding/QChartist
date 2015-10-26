@@ -1,0 +1,81 @@
+'------------------------- Gauquelin_sector -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+Gauquelin_sector
+end if
+
+barsback=200 '<--- can also be something like VAL(Gauquelin_sectorbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+
+defdbl gauqrads
+
+gauqrads=sin(deg2rad((Gauquelin_sector_mercurybuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_mercurybuffer(offset)-1)/11))
+sepindicolor(drawid)=orange
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+gauqrads=sin(deg2rad((Gauquelin_sector_venusbuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_venusbuffer(offset)-1)/11))
+sepindicolor(drawid)=pink
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+gauqrads=sin(deg2rad((Gauquelin_sector_earthbuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_earthbuffer(offset)-1)/11))
+sepindicolor(drawid)=blue
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+gauqrads=sin(deg2rad((Gauquelin_sector_marsbuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_marsbuffer(offset)-1)/11))
+sepindicolor(drawid)=red
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+gauqrads=sin(deg2rad((Gauquelin_sector_jupiterbuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_jupiterbuffer(offset)-1)/11))
+sepindicolor(drawid)=olive
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+gauqrads=sin(deg2rad((Gauquelin_sector_saturnbuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_saturnbuffer(offset)-1)/11))
+sepindicolor(drawid)=gray
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+gauqrads=sin(deg2rad((Gauquelin_sector_uranusbuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_uranusbuffer(offset)-1)/11))
+sepindicolor(drawid)=lightblue
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+gauqrads=sin(deg2rad((Gauquelin_sector_neptunebuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_neptunebuffer(offset)-1)/11))
+sepindicolor(drawid)=purple
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+gauqrads=sin(deg2rad((Gauquelin_sector_plutobuffer(offset)-1)*10))
+'gauqrads=sin(deg2rad(360*(Gauquelin_sector_plutobuffer(offset)-1)/11))
+sepindicolor(drawid)=black
+canvas.separateindicator1.Cell(drawid,lbar)= str$(gauqrads)
+'print str$(lbar)+" "+canvas.separateindicator1.Cell(drawid,lbar)
+drawid=drawid+2
+
+end if
+
+end if
+'------------------------- End Gauquelin_sector -------------------------------------------------

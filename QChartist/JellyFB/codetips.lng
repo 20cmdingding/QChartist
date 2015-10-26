@@ -1,0 +1,186 @@
+#DEFINE identifier
+#ERROR  error_text
+#INCLUDE [ONCE] file
+#PRINT text
+#UNDEF identifier
+ABS(numeric expression)
+ACOS(numeric expression)
+ALLOCATE(numeric expression)
+ASC(string expression[, position])
+ASIN(numeric expression)
+ATAN2( y, x )
+ATN(numeric expression)
+BIN(numeric expression)
+BIN$(numeric expression)
+BITRESET(bar, bit_number)
+BITSET(bar, bit_number)
+BLOAD filename[, addr]
+BSAVE filename, addr, size
+CALLOCATE(num_elements, size_per_element)
+CBYTE(numeric value)
+CHAIN program[.exe]
+CHDIR [pathspec]
+CHR$(number)
+CHR(number)
+CINT(numeric value)
+CIRCLE [target,] [STEP] (x,y), radius[, [color][, [start][, [end][, [aspect][, F]]]]]
+CLNG(numeric value)
+CLNGINT(numeric value)
+CLOSE [#handle]
+COLOR [foreground][,background]
+CONST symbolname = value
+COS(numeric expression)
+CSHORT(numeric value)
+CSIGN (unsigned number)
+CSNG(numeric value)
+CUBYTE(numeric value)
+CUINT(numeric value)
+CULNGINT(numeric value)
+CUNSG (signed number)
+CUSHORT(numeric value)
+CVD(8-byte-string)
+CVI(4-byte-string)
+CVLONGINT(8-byte-string)
+CVS(4-byte-string)
+CVSHORT(2-byte-string)
+DATA CONSTANT1 [,CONSTANT2]...
+DATE newdate$
+DEALLOCATE pointer
+DEFBYTE letterrange[, letterrange]...
+DEFDBL letterrange[, letterrange]...
+DEFINED (symbol name)
+DEFINT letterrange[, letterrange]...
+DEFLNG letterrange[, letterrange]...
+DEFLNGINT letterrange[, letterrange]...
+DEFSHORT letterrange[, letterrange]...
+DEFSNG letterrange[, letterrange]...
+DEFSTR letterrange[, letterrange]...
+DEFUBYTE letterrange[, letterrange]...
+DEFUINT letterrange[, letterrange]...
+DEFULNGINT letterrange[, letterrange]...
+DEFUSHORT letterrange[, letterrange]...
+DIR$(mask$ [, attribute])
+DIR(mask$ [, attribute])
+DRAW [target,] cmds$
+ENVIRON$(var_name$)
+EOF(filenum)
+ERASE array [, array...]
+EXEC( program, argument )
+EXP( number )
+FIX(numeric expression)
+FLIP [from_page][, to_page]
+FRE [( value )]
+GET [target,] [STEP] (x1, y1)-[STEP](x2, y2), arrayname[(idx)]
+GET #handle As Integer, [position As Integer], data As Any
+GOTO label
+HEX$(decimal)
+HEX(decimal)
+HIBYTE( number )
+HIWORD( number )
+IIF(condition, true, false)
+IMAGECREATE(width, height [,color])
+IMAGEDESTROY(handle)
+INPUT [prompt] {;|,} variables_list
+INSTR([start ,] subject , search )
+INT(decimal number)
+KILL [path]file$
+LBOUND(array[, dimension])
+LCASE$(text$)
+LCASE(text$)
+LEFT$(text$, n)
+LEFT(text$, n)
+LEN(variable)
+LINE [buffer,] [[STEP] (x1, y1)]-[STEP] (x2, y2)[, [color][, [B|BF][, style]]]
+LOBYTE( number )
+LOC(file slot)
+LOCATE [row][, column][, cursorstate]
+LOCK fileslot [, {record | [start] TO end}]
+LOF(file slot)
+LOG( number )
+LOWORD( number )
+LSET string_var, string_expression
+LTRIM$(arg As String)
+LTRIM(arg As String)
+MID$(text$, start[, length])
+MKD$(number as double)
+MKDIR folder$
+MKI$(integer_variable)
+MKI(integer_variable)
+MKL$(long_variable)
+MKL(long_variable)
+MKLONGINT$(short_variable)
+MKLONGINT(short_variable)
+MKS$(number as single)
+MKS(number as single)
+MKSHORT$(short_variable)
+MKSHORT(short_variable)
+MULTIKEY(scancode)
+NAME oldname$, newname$
+OCT$(integer_variable)
+OCT(integer_variable)
+OUT port, value
+PAINT [target,] [STEP] (x, y)[, [paint][, [border_color]]]
+PCOPY source, destination
+PMAP(coord, func)
+PRESET [STEP] (x, y)[,color]
+PRINT [expression1] [, | ; | +]
+PROCPTR( function_name )
+PSET [STEP] (x, y)[,color]
+RANDOMIZE number
+REALLOCATE(src as any ptr, bytes as integer )
+REDIM array AS DataType
+RESTORE label
+RGB(red, green, blue)
+RIGHT$(text$, n)
+RIGHT(text$, n)
+RMDIR folder$
+RND(1 or 0)
+RSET string_var, string_expression
+RTRIM$(arg As String)
+RTRIM(arg As String)
+RUN file$
+SADD(stringvar$)
+SCREEN mode[,[ depth][,[ num_pages][, fullscreen]]]
+SCREENCOPY [from_page][, to_page]
+SCREENINFO [w][,[h][,[depth][,[bpp][,[pitch][,[rate][,driver]]]]]
+SCREENRES width, height[, depth[, num_pages[, flags[, refresh_rate]]]]
+SCREENSET [work_page][, visible_page]
+SCREENUNLOCK [start_line][, end_line]
+SEEK(file slot, position)
+SETDATE newdate$
+SETENVIRON "var=value
+SETMOUSE x, y, visibility
+SETTIME newtime$
+SGN( number )
+SHELL "command"
+SIN( number )
+SIZEOF(variable)
+SLEEP [milliseconds]
+SPACE$( number )
+SPACE( number )
+SPC( number )
+SQR( number )
+STR$( [number] )
+STR( [number] )
+STRING$( number, Character Code )
+STRING( number, Character Code )
+STRPTR( string )
+SWAP a, b
+TAB(column)
+TAN( number )
+TIME newtime$
+TRIM$(text$)
+TRIM(arg$)
+UBOUND(array[, dimension])
+UCASE$(text$)
+UCASE(text$)
+UNLOCK fileslot [, {record | [start] TO end}]
+VAL( number$ )
+VAL64( number$ )
+VALINT( number$ )
+VARPTR(variable)
+WIDTH columns, rows 
+WINDOW [[SCREEN] (x1, y1)-(x2, y2)]
+WINDOWTITLE title AS STRING
+
+

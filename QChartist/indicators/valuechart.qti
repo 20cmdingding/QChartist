@@ -1,0 +1,72 @@
+dim vo(0 to 1000) as double,vh(0 to 1000) as double,vb(0 to 1000) as double,vc(0 to 1000) as double
+dim valuechartlevelup1(0 to 1000) as integer,valuechartlevelup2(0 to 1000) as integer
+dim valuechartleveldn1(0 to 1000) as integer,valuechartleveldn2(0 to 1000) as integer
+dim p1 as integer
+p1=5
+
+declare sub valuechart()
+
+sub valuechart()
+
+    dim i as integer
+    dim m1 as double,dvu as double
+    dim barsback as integer
+    barsback=val(valuechartbarsbackedit.text)
+
+    if barsback<=p1 then
+        exit sub
+    end if
+
+    for i=1 to p1
+        vo(barsback-i)=0
+        vh(barsback-i)=0
+        vb(barsback-i)=0
+        vc(barsback-i)=0
+    next i
+
+    i=barsback-p1-1
+
+    while i>=0
+
+        m1=0.5*(high(i)+low(i))
+        m1=m1+0.5*(high(i+1)+low(i+1))
+        m1=m1+0.5*(high(i+2)+low(i+2))
+        m1=m1+0.5*(high(i+3)+low(i+3))
+        m1=m1+0.5*(high(i+4)+low(i+4))
+        m1=m1/5
+    
+        dvu=high(i)-low(i)
+        dvu=dvu+(high(i+1)-low(i+1))
+        dvu=dvu+(high(i+2)-low(i+2))
+        dvu=dvu+(high(i+3)-low(i+3))
+        dvu=dvu+(high(i+4)-low(i+4))
+        dvu=dvu/5
+        dvu=dvu*0.2
+    
+        vo(i)=open(i)-m1
+        vh(i)=high(i)-m1
+        vb(i)=low(i)-m1
+        vc(i)=close(i)-m1
+    
+        if dvu<>0 then
+            vo(i)=vo(i)/dvu
+            vh(i)=vh(i)/dvu
+            vb(i)=vb(i)/dvu
+            vc(i)=vc(i)/dvu
+        else
+            vo(i)=0
+            vh(i)=0
+            vb(i)=0
+            vc(i)=0
+        end if
+    
+        valuechartlevelup1(i)=4    
+        valuechartlevelup2(i)=8
+        valuechartleveldn1(i)=-4
+        valuechartleveldn2(i)=-8
+
+        i--    
+    
+    wend    
+
+end sub

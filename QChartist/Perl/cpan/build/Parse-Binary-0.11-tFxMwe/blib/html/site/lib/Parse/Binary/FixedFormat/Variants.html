@@ -1,0 +1,115 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#ATTRIBUTES">ATTRIBUTES</a></li>
+  <li><a href="#AUTHORS">AUTHORS</a></li>
+  <li><a href="#COPYRIGHT">COPYRIGHT</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Parse::Binary::FixedFormat::Variants - Convert between variant records and hashes</p>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p><b>Parse::Binary::FixedFormat</b> supports variant record formats. To describe a variant structure, pass a hash reference containing the following elements to <b>new</b>. The object returned to handle variant records will be a <b>Parse::Binary::FixedFormat::Variants</b>.</p>
+
+<dl>
+
+<dt id="Chooser">Chooser</dt>
+<dd>
+
+<p>When converting a buffer to a hash, this subroutine is invoked after applying the first format to the buffer. The generated hash reference is passed to this routine. Any field names specified in the first format are available to be used in making a decision on which format to use to decipher the buffer. This routine should return the index of the proper format specification.</p>
+
+<p>When converting a hash to a buffer, this subroutine is invoked first to choose a packing format. Since the same function is used for both conversions, this function should restrict itself to field names that exist in format 0 and those fields should exist in the same place in all formats.</p>
+
+</dd>
+<dt id="Formats">Formats</dt>
+<dd>
+
+<p>This is a reference to a list of formats. Each format contains a list of field specifications.</p>
+
+</dd>
+</dl>
+
+<p>For example:</p>
+
+<pre><code>    <span class="keyword">my</span> <span class="variable">$cvt</span> <span class="operator">=</span> <span class="variable">new</span> <span class="variable">Parse::Binary::FixedFormat</span> <span class="operator">{</span>
+        <span class="string">Chooser</span> <span class="operator">=&gt;</span> <span class="keyword">sub</span><span class="variable"> </span><span class="operator">{</span> <span class="keyword">my</span> <span class="variable">$rec</span><span class="operator">=</span><span class="keyword">shift</span><span class="operator">;</span>
+                         <span class="variable">$rec</span><span class="operator">-&gt;</span><span class="operator">{</span><span class="string">RecordType</span><span class="operator">}</span> <span class="keyword">eq</span> <span class="string">'0'</span> <span class="operator">?</span> <span class="number">1</span> <span class="operator">:</span> <span class="number">2</span>
+                       <span class="operator">},</span>
+        <span class="string">Formats</span> <span class="operator">=&gt;</span> <span class="operator">[</span> <span class="operator">[</span> <span class="string">'RecordType:A1'</span> <span class="operator">]</span><span class="operator">,</span>
+                     <span class="operator">[</span> <span class="string">'RecordType:A1'</span><span class="operator">,</span> <span class="string">'FieldA:A6'</span><span class="operator">,</span> <span class="string">'FieldB:A4:4'</span> <span class="operator">]</span><span class="operator">,</span>
+                     <span class="operator">[</span> <span class="string">'RecordType:A1'</span><span class="operator">,</span> <span class="string">'FieldC:A4'</span><span class="operator">,</span> <span class="string">'FieldD:A18'</span> <span class="operator">]</span> <span class="operator">]</span>
+        <span class="operator">};</span>
+    <span class="keyword">my</span> <span class="variable">$rec0</span> <span class="operator">=</span> <span class="variable">$cvt</span><span class="operator">-&gt;</span><span class="variable">unformat</span><span class="operator">(</span><span class="string">"0FieldAB[0]B[1]B[2]B[3]"</span><span class="operator">);</span>
+    <span class="keyword">my</span> <span class="variable">$rec1</span> <span class="operator">=</span> <span class="variable">$cvt</span><span class="operator">-&gt;</span><span class="variable">unformat</span><span class="operator">(</span><span class="string">"1FldC&lt;-----FieldD-----&gt;"</span><span class="operator">);</span>
+</code></pre>
+
+<p>In the above example, the <code>Chooser</code> function looks at the contents of the <code>RecordType</code> field. If it contains a &#39;0&#39;, format 1 is used. Otherwise, format 2 is used.</p>
+
+<p><b>Parse::Binary::FixedFormat::Variants</b> can be used is if it were a <b>Parse::Binary::FixedFormat</b>. The <code>format</code> and <code>unformat</code> methods will determine which variant to use automatically. The <code>blank</code> method requires an argument that specifies the variant number.</p>
+
+<h1 id="ATTRIBUTES">ATTRIBUTES</h1>
+
+<p>Each Parse::Binary::FixedFormat::Variants instance contains the following attributes.</p>
+
+<dl>
+
+<dt id="Layouts">Layouts</dt>
+<dd>
+
+<p>Contains an array of Parse::Binary::FixedFormat objects. Each of these objects is responsible for converting a single record format variant.</p>
+
+</dd>
+<dt id="Chooser1">Chooser</dt>
+<dd>
+
+<p>This attribute contains the function that chooses which variant to apply to the record.</p>
+
+</dd>
+</dl>
+
+<h1 id="AUTHORS">AUTHORS</h1>
+
+<p>Audrey Tang &lt;cpan@audreyt.org&gt;</p>
+
+<p>Based on Data::FixedFormat::Variants, written by Thomas Pfau &lt;pfau@nbpfaus.net&gt; http://nbpfaus.net/~pfau/.</p>
+
+<h1 id="COPYRIGHT">COPYRIGHT</h1>
+
+<p>Copyright 2004-2009 by Audrey Tang &lt;cpan@audreyt.org&gt;.</p>
+
+<p>Copyright (C) 2000,2002 Thomas Pfau. All rights reserved.</p>
+
+<p>This module is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+
+<p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.</p>
+
+
+</body>
+
+</html>
+
+

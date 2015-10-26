@@ -1,0 +1,25 @@
+'------------------------- threeD Oscilator -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=threeD_Oscilatorperiodedit.text
+curtfstr=threeD_Oscilatorcurtfedit.text
+cpptmpfuncreturn=varptr$(threeD_Oscilator(varptr(periodstr),varptr(curtfstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(threeD_Oscilatorbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="sig1n"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=red '<--- replace with your color
+    bufnamestr="sig2n"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End threeD Oscilator -------------------------------------------------

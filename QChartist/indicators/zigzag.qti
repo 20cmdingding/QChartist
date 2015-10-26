@@ -1,0 +1,208 @@
+declare sub zigzag ' This line of code must stay here
+dim zigzagbuffer(0 to 1000) as double ' This line of code must stay here, replace myindibuffer with the indicator buffer name of your choice
+dim highmapbuffer(0 to 1000) as double
+dim lowmapbuffer(0 to 1000) as double
+
+
+sub zigzag
+' Put your indicator code here
+dim extdepth as integer,extdeviation as integer,extbackstep as integer, level as integer,downloadhistory as integer
+extdepth=val(zzextdepthedit.text)
+extdeviation=5
+extbackstep=3
+level=3
+downloadhistory=0
+dim i as integer,counted_bars as integer, p as integer
+dim limit as integer,counterZ as integer,whatlookfor as integer
+dim shift as integer,back as integer,lasthighpos as integer,lastlowpos as integer
+dim valzigzag as double,res as double
+dim curlow as double,curhigh as double,lasthigh as double,lastlow as double
+dim ARMin as double,ARMax as double
+ARMin=0
+ARMax=0
+p=0
+counterz=0
+whatlookfor=0
+shift=0
+back=0
+lasthighpos=0
+lastlowpos=0
+valzigzag=0
+res=0
+curlow=0
+curhigh=0
+lasthigh=0
+lastlow=0
+
+for i=0 to 1000
+zigzagbuffer(i)=0
+highmapbuffer(i)=0
+lowmapbuffer(i)=0
+next i
+
+
+while (counterz<level and i<val(zigzagbarsbackedit.text))
+	res=zigzagbuffer(i)
+	if res<>0 then
+		counterz++		
+	end if
+	i++
+
+wend
+i--
+limit=i
+
+if lowmapbuffer(i)<>0 then
+	curlow=lowmapbuffer(i)
+	whatlookfor=1
+else
+	curhigh=highmapbuffer(i)
+	whatlookfor=-1
+end if
+for i=limit-1 to 0 step -1
+	zigzagbuffer(i)=0
+	lowmapbuffer(i)=0
+	highmapbuffer(i)=0
+next i
+
+for shift=limit to 0 step -1
+
+'find min element of array
+'defint p
+
+ARMin=low(shift)
+
+FOR p = shift TO shift+extdepth-1:
+IF low(p) < ARMin THEN ARMin = low(p):
+NEXT p
+
+valzigzag=ARMin
+
+
+'print valzigzag
+
+	'valzigzag=low(ARRMin(low,shift,shift+extdepth-1))
+
+	if valzigzag=lastlow then
+		valzigzag=0
+	else
+		lastlow=valzigzag
+		if low(shift)-valzigzag>0.0001 then
+			valzigzag=0
+		else
+			for back=1 to extbackstep
+				res=lowmapbuffer(shift+back)
+				if (res<>0 and res>valzigzag) then
+					lowmapbuffer(shift+back)=0
+				end if
+			next back
+		end if
+	end if
+	if low(shift)=valzigzag then
+		lowmapbuffer(shift)=valzigzag
+	else
+		lowmapbuffer(shift)=0
+	end if
+	'valzigzag=high(ARRMax(high,shift,shift+extdepth-1))
+	
+	'find max element of array
+'defint p
+
+ARMax=high(shift)
+
+FOR p = shift TO shift+extdepth-1:
+IF high(p) > ARMax THEN ARMax = high(p):
+NEXT p
+
+valzigzag=ARMax
+
+	if valzigzag=lasthigh then
+		valzigzag=0
+	else
+		lasthigh=valzigzag
+		if valzigzag-high(shift)>0.0001 then
+			valzigzag=0
+		else
+			for back=1 to extbackstep
+				res=highmapbuffer(shift+back)
+				if (res<>0 and res<valzigzag) then
+					highmapbuffer(shift+back)=0
+				end if
+			next back
+		end if
+	end if
+	if high(shift)=valzigzag then
+		highmapbuffer(shift)=valzigzag
+	else
+		highmapbuffer(shift)=0
+	end if
+next shift
+
+' final cutting
+if whatlookfor=0 then
+	lastlow=0
+	lasthigh=0
+else
+	lastlow=curlow
+	lasthigh=curhigh
+end if
+for shift=limit to 0 step -1
+	res=0
+	select case whatlookfor
+		case 0:
+			if (lastlow=0 and lasthigh=0) then
+
+				if highmapbuffer(shift)<>0 then
+					lasthigh=high(shift)
+					lasthighpos=shift
+					whatlookfor=-1
+					zigzagbuffer(shift)=lasthigh
+					res=1
+				end if
+				if lowmapbuffer(shift)<>0 then
+					lastlow=low(shift)
+					lastlowpos=shift
+					whatlookfor=1
+					zigzagbuffer(shift)=lastlow
+					res=1
+				end if
+			end if
+			
+		case 1:
+
+			if (lowmapbuffer(shift)<>0 and lowmapbuffer(shift)<lastlow and highmapbuffer(shift)=0) then
+				zigzagbuffer(lastlowpos)=0
+				lastlowpos=shift
+				lastlow=lowmapbuffer(shift)
+				zigzagbuffer(shift)=lastlow
+				res=1
+			end if
+			if (highmapbuffer(shift)<>0 and lowmapbuffer(shift)=0) then
+				lasthigh=highmapbuffer(shift)
+				lasthighpos=shift
+				zigzagbuffer(shift)=lasthigh
+				whatlookfor=-1
+				res=1
+			end if
+			
+		case -1:
+
+			if (highmapbuffer(shift)<>0 and highmapbuffer(shift)>lasthigh and lowmapbuffer(shift)=0) then
+				zigzagbuffer(lasthighpos)=0
+				lasthighpos=shift
+				lasthigh=highmapbuffer(shift)
+				zigzagbuffer(shift)=lasthigh
+			end if
+			if (lowmapbuffer(shift)<>0 and highmapbuffer(shift)=0) then
+				lastlow=lowmapbuffer(shift)
+				lastlowpos=shift
+				zigzagbuffer(shift)=lastlow
+				whatlookfor=1
+			end if
+			
+	end select
+
+next shift
+	
+end sub
+

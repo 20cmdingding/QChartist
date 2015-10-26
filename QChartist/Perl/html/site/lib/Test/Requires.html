@@ -1,0 +1,104 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title></title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+
+<ul id="index">
+  <li><a href="#NAME">NAME</a></li>
+  <li><a href="#SYNOPSIS">SYNOPSIS</a></li>
+  <li><a href="#DESCRIPTION">DESCRIPTION</a></li>
+  <li><a href="#AUTHOR">AUTHOR</a></li>
+  <li><a href="#THANKS-TO">THANKS TO</a></li>
+  <li><a href="#ENVIRONMENT">ENVIRONMENT</a></li>
+  <li><a href="#SEE-ALSO">SEE ALSO</a></li>
+  <li><a href="#LICENSE">LICENSE</a></li>
+</ul>
+
+<h1 id="NAME">NAME</h1>
+
+<p>Test::Requires - Checks to see if the module can be loaded</p>
+
+<h1 id="SYNOPSIS">SYNOPSIS</h1>
+
+<pre><code>    <span class="comment"># in your Makefile.PL</span>
+    <span class="keyword">use</span> <span class="variable">inc::Module::Install</span><span class="operator">;</span>
+    <span class="variable">test_requires</span> <span class="string">'Test::Requires'</span><span class="operator">;</span>
+    
+    <span class="comment"># in your test</span>
+    <span class="keyword">use</span> <span class="variable">Test::More</span> <span class="string">tests</span> <span class="operator">=&gt;</span> <span class="number">10</span><span class="operator">;</span>
+    <span class="keyword">use</span> <span class="variable">Test::Requires</span> <span class="operator">{</span>
+        <span class="string">'HTTP::MobileAttribute'</span> <span class="operator">=&gt;</span> <span class="number">0</span><span class="operator">.</span><span class="number">01</span><span class="operator">,</span> <span class="comment"># skip all if HTTP::MobileAttribute doesn't installed</span>
+    <span class="operator">};</span>
+    <span class="variable">isa_ok</span> <span class="variable">HTTP::MobileAttribute</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">,</span> <span class="string">'HTTP::MobileAttribute::NonMobile'</span><span class="operator">;</span>
+    
+    <span class="comment"># or</span>
+    <span class="keyword">use</span> <span class="variable">Test::More</span> <span class="string">tests</span> <span class="operator">=&gt;</span> <span class="number">10</span><span class="operator">;</span>
+    <span class="keyword">use</span> <span class="variable">Test::Requires</span> <span class="string">qw( 
+        HTTP::MobileAttribute
+    )</span><span class="operator">;</span>
+    <span class="variable">isa_ok</span> <span class="variable">HTTP::MobileAttribute</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">,</span> <span class="string">'HTTP::MobileAttribute::NonMobile'</span><span class="operator">;</span>
+    
+    <span class="comment"># or</span>
+    <span class="keyword">use</span> <span class="variable">Test::More</span> <span class="string">tests</span> <span class="operator">=&gt;</span> <span class="number">10</span><span class="operator">;</span>
+    <span class="keyword">use</span> <span class="variable">Test::Requires</span><span class="operator">;</span>
+    <span class="variable">test_requires</span> <span class="string">'Some::Optional::Test::Required::Modules'</span><span class="operator">;</span>
+    <span class="variable">isa_ok</span> <span class="variable">HTTP::MobileAttribute</span><span class="operator">-&gt;</span><span class="variable">new</span><span class="operator">,</span> <span class="string">'HTTP::MobileAttribute::NonMobile'</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="DESCRIPTION">DESCRIPTION</h1>
+
+<p>Test::Requires checks to see if the module can be loaded.</p>
+
+<p>If this fails rather than failing tests this <b>skips all tests</b>.</p>
+
+<p>Test::Requires can also be used to require a minimum version of Perl:</p>
+
+<pre><code>    <span class="keyword">use</span> <span class="variable">Test::Requires</span> <span class="string">"5.010"</span><span class="operator">;</span>  <span class="comment"># quoting is necessary!!</span>
+    
+    <span class="comment"># or</span>
+    <span class="keyword">use</span> <span class="variable">Test::Requires</span> <span class="string">"v5.10"</span><span class="operator">;</span>
+</code></pre>
+
+<h1 id="AUTHOR">AUTHOR</h1>
+
+<p>Tokuhiro Matsuno &lt;tokuhirom @*(#RJKLFHFSDLJF gmail.com&gt;</p>
+
+<h1 id="THANKS-TO">THANKS TO</h1>
+
+<pre><code>    kazuho++ # some tricky stuff
+    miyagawa++ # original code from t/TestPlagger.pm
+    tomyhero++ # reported issue related older test::builder
+    tobyink++ # documented that Test::Requires &quot;5.010&quot; works</code></pre>
+
+<h1 id="ENVIRONMENT">ENVIRONMENT</h1>
+
+<p>If the <code>RELEASE_TESTING</code> environment variable is true, then instead of skipping tests, Test::Requires bails out.</p>
+
+<h1 id="SEE-ALSO">SEE ALSO</h1>
+
+<p><a>&quot;TestPlagger.pm&quot; in t</a></p>
+
+<h1 id="LICENSE">LICENSE</h1>
+
+<p>This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.</p>
+
+
+</body>
+
+</html>
+
+

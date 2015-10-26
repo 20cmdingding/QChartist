@@ -1,0 +1,432 @@
+'
+' -------------------------------------------------------------------
+'  ByteCode History and Howto                   Nov 2006,    Jacques
+' -------------------------------------------------------------------
+'
+This text will show you How to build your own Tiny Launcher
+-----------------------------------------------------------
+
+1.  ByteCode:   ' in Codes/ByteCode.Bas
+    --------    ' compile it to bytecode or trust my ByteCode.Bc
+
+    RapidQ compiler compiles ByteCodes and not plain executable.
+    To be executed, the ByteCode requires an interpretor. That
+    interpretor is in the RapidQxx.Lib and RapidQxx.Dll
+    RapidQ Executables are ALWAYS interpreted ByteCode. With the
+    .Lib the interpretor is built in the executable, with the
+    .Dll, the interpretor is external. Both work the same way
+    and use the same codes, so none is faster or better than
+    the other.
+
+    To get the ByteCode .BC file, compile your RapidQ code with
+    the option -B in the Rc.Exe calling command line:
+
+           Rc.Exe -B ... YourRapidQCode.Bas
+
+    a file named YourRapidQCode.Bc will be generated; this is
+    "THE BYTECODE"
+
+    To be simple, a ByteCode is like a precompiled script where
+    the keywords are replaced by numbers (code) ...
+
+
+2.  Executing/Interpreting the ByteCode
+    -----------------------------------
+    To execute/interpret that bytecode, there are two solutions:
+
+    1: you append(*) it to RapidQ32.Lib, if it's a GUI, and to
+       RapidQCC.Lib for a Console (Other .Libs cannot interpret
+       the full set of RapidQ keywords (see Yahoo RapidQ Group
+       message 10096).
+
+    2: You can use the API function RQ_ExecuteMemory and
+       RQ_ExecuteFile both present in RapidQ32.Dll and
+       RapidQCC.Dll.
+
+       Declare Function RQ_ExecuteFile Lib "Rapidq32.Dll" Alias _
+               "RQ_ExecuteFile" (Filename As String, _
+                       Commands As Long, Count As Long) As Long
+       Declare Function RQ_ExecuteMemory Lib "Rapidq32.Dll" Alias _
+                              "Rq_ExecuteMemory" (Memory As Long, _
+                            Memorysize As Long, Commands As Long, _
+                                          Count As Long) As Long
+
+       Same functions in 'RapidQcc.Dll' but for consoles code only
+
+       You just have to pass the correct argument values to the Dll
+       in your LAUNCHER CODE. The LAUCHER will be the name used
+       for the Executable Header that interpret the appended bytecode.
+
+    (*)To "append" simply mean a binary copy of the bytecode after
+    the RapidQxx.Lib, like this:
+
+        ' ---- RAPIDQ BC to EXE BUILDER ' see TinyBuilder.Bas
+        Dim bcFile As QFileStream       ' in Codes/
+        Dim tnyFile As QFileStream
+        Dim exeFile As QFileStream
+        DefStr sBc, sTny, sExe
+        '
+        ' Creates Your.Exe = Launcher + ByteCode
+        bcFile.Open ("Your.bc", fmOpenRead)
+        tnyFile.Open ("Launcher.Tny", fmOpenRead)
+        exeFile.Open ("Your.Exe", fmCreate)
+            sBc = bcFile.ReadBinStr(bcFile.Size)
+            sTny = tnyFile.ReadBinStr(tnyFile.Size)
+            exeFile.WriteBinStr (sTny, tnyFile.Size)
+            exeFile.WriteBinStr (sbc, bcFile.Size)
+        exeFile.Close
+        tnyFile.Close
+        bcFile.Close
+        ' ---- END CODE --------------------
+
+        Your.Bc        is the RapidQ -B compiled ByteCode of
+                       Your.Bas
+        Launcher.Tny   is the required RapidQxx.Lib (or a
+                       bytecode launcher see below).
+        Your.Exe       is the final Executable.
+
+
+3.  RAPIDQ BYTECODE LAUNCHER EXAMPLES  ' see ByteCodeFileLaucher.Bas
+    ---------------------------------  ' in Codes/
+    ByteCode Launcher can be written in any language and of
+    course in RapidQ, that's what the RapidQxx.Lib are.
+
+    Example 1   (Launch a File.Bc)
+    ---------
+    To begin and as example, our first ByteCode Launchers will be
+    written in RapidQ and for console ByteCode only.
+
+        ' ---- RAPIDQ BYTECODE FILE LAUNCHER CODE
+        Declare Function RQ_ExecuteFile Lib "Rapidqcc.Dll" _
+               Alias "RQ_ExecuteFile" (Filename As String,_
+                     Commands As Long, Count As Long) As Long
+        RQ_ExecuteFile("Your.Bc", 0, 0)
+        ' ---- END CODE ---------------
+
+    Pretty simple isn't it ?
+
+    Example 2  ' (Launch a Buffer = copy of file.bc in memory)
+    ---------  ' see Codes/ByteCodeLauncheInMemory.Bas
+    ByteCode can be executed in memory too. You just read
+    the bytecode file in a Buffer and use RQ_ExecuteMemory
+    instead of RQ_ExecuteFile
+
+        ' ---- RAPIDQ BYTECODE IN MEMORY LAUNCHER
+        Declare Function RQ_ExecuteMemory LIB "RapidQcc.Dll" _
+             ALIAS "RQ_ExecuteMemory" (Memory As Long, _
+             MemorySize As Long, Commands As Long, _
+                                      Count As Long) As Long
+        Dim bcFile As QFileStream
+        DefInt bcSize
+        DefStr sByteCode
+        bcFile.Open("ByteCode.Bc", fmOpenRead)
+            bcSize = bcFile.Size
+            sByteCode = bcFile.ReadBinStr(bcSize)
+        bcFile.Close
+
+        RQ_ExecuteMemory(VARPTR(sByteCode), bcSize, 0, 0)
+        ' ---- END CODE ---------------
+
+    Example 3   ' (the ByteCode is Built In RapidQ code)
+    ---------   ' see Codes/ByteCodeInArray.Bas
+
+        A ByteCode directly copied in an RapidQ Code Array,
+        No external bytecode file.
+
+        ' ---- RAPIDQ BYTECODE COPIED IN AN ARRAY
+        DECLARE FUNCTION RQ_ExecuteMemory LIB "RAPIDQ32.DLL" _
+                ALIAS "RQ_ExecuteMemory" (Memory AS LONG, _
+                MemorySize AS LONG, Commands AS LONG, _
+                                        Count AS LONG) AS LONG
+        '
+        DefByte bByteCode(0 To 77) = _
+            {&H1E, &H04, &H00, &H00, &H00, &H00, &H00, &H00, _
+             &H01, &H1E, &H00, &H00, &H08, &H1E, &H00, &H00, _
+             &H06, &H02, &H07, &H00, &H00, &H00, &H00, &H00, _
+             &H00, &H79, &H40, &H0B, &H08, &H1E, &H00, &H00, _
+             &H00, &H02, &H00, &H1E, &H00, &H54, &H65, &H73, _
+             &H74, &H20, &H52, &H51, &H5F, &H45, &H78, &H65, _
+             &H63, &H75, &H74, &H65, &H4D, &H65, &H6D, &H6F, _
+             &H72, &H79, &H20, &H42, &H79, &H74, &H65, &H43, _
+             &H6F, &H64, &H65, &H0B, &H08, &H1E, &H00, &H00, _
+             &H04, &H0B, &H4A, &H00, &H00, &H00}
+        '
+        RQ_ExecuteMemory (VarPtr(bByteCode(0)), 78, 0, 0)
+        ' ---- END CODE ---------------
+
+        bBytecode is the array build with the bytecode of the
+        following RapidQ Code:
+
+            ' ----------
+            Create myForm as QForm
+                Width = 400
+                Caption = "Test RQ_ExecuteMemory ByteCode"
+            End Create
+            myForm.ShowModal
+            ' ----------
+
+        Amazing isn't it ? It's not just amazing, it will
+        be used later to include whole processes in RapidQ
+        code.
+
+
+4.  TINY EXECUTABLES
+    ----------------
+    With its RQTiny in 2001, Pavel Minayev got the idea to
+    create RapidQ executables of very small size -min 3K-
+    by writing the Launcher in another language than RapidQ.
+    His RQTiny32.Lib and RQTinyCC.Lib are ByteCode Launchers
+    for, respectivly, Gui and Console ByteCodes, their size is
+    2560 byte. As ByteCode size can be as small as 5 byte,
+    if I remember correctly, executable of less than 3K
+    were possible for short RapidQ codes.
+
+    Pavel builds its executable the same way as William do: he
+    appended the ByteCode to the Laucher (.Exe = Launcher + .Bc).
+
+    The ByteCodes generated by RC.Exe have an interesting
+    characteristic that eases that: their last four bytes is an
+    integer representing the lenght of the ByteCode (not
+    included these last 4 bytes :). So when the Launcher wants
+    to execute the ByteCode appended to him, it:
+       - open it's own file
+       - read it in a Buffer
+       - get the lenght of the ByteCode in the last 4 bytes
+       - computes the pointer to the first ByteCode byte
+       - RQ_ExecuteMemory (ByteCodePointer, ByteCodeSize, 0, 0)
+
+    This is what Pavel's code do.
+
+    The problem with Pavel's Launchers is that they 'strangely'
+    pass command line arguments:
+        ie:  NiceExecWithArgs.exe Arg1 Arg2 "Arg3  With Spaces"
+            Cmds(0) = Drive:\PATH\NICEEXECWITHARGS.EXE
+            Cmds(1) = Drive:\Path\NiceExecWithArgs.Exe
+            Cmds(2) = Arg1
+            Cmds(3) = Arg2
+            Cmds(4) = Arg3  With Spaces   
+
+        When it should be:
+            Cmds(0) = Drive:\Path\NiceExecWithArgs.Exe
+            Cmds(1) = Arg1
+            Cmds(2) = Arg2
+            Cmds(3) = Arg3  With Spaces   
+
+    In fact the problem is that the bytecode adds a second
+    cmd$(0) . In RQPC it is removed.
+
+5.  PASSING COMMAND LINE ARGUMENTS
+    ------------------------------
+    In RqDlls.Zip file from William's RapidQ distribution is an
+    example named "Test.bas" showing how to use ByteCode and
+    how to pass Command Line arguments to it. William saw
+    ByteCodes as macro processes, I bet he never thought at
+    Tiny Executables ??? :-)
+
+    Passing command line arguments to ByteCode is done with the
+    two last arguments of RQ_ExecuteMemory and RQ_ExecuteFile,
+    left NULL up to now.
+
+    These two last arguments are simply arg[v] and argc 
+    (for those who know these two variables). In a RapidQ Code,
+    VarPtr(Command$(0)) does not work, so we must do:
+
+    ' Maximum 10 Command Line Arguments
+        DefInt ptrCmd(10), ArgCount = 0
+        DefStr Cmd(10)
+        While Command$(ArgCount) <> ""
+            Cmd(ArgCount) = Command$(ArgCount)
+            ptrCmd(ArgCount) = VarPtr(Cmd(ArgCount))
+            Inc ArgCount
+        Wend
+        ' The first Arg is dropped it is the same as the 2nd
+        RQ_ExecuteMemory(VARPTR(sByteCode), bcSize, _
+                                VarPtr(ptrCmd(1)), ArgCount - 1)
+        '
+
+     And the complete code is:
+     see Codes/ByteCodeLauncherInMemoryWithCmdLine.Bas
+
+        ' ---- RAPIDQ BYTECODE IN MEMORY LAUNCHER WITH CL ARGS
+        Declare Function RQ_ExecuteMemory LIB "RAPIDQCC.Dll" _
+                   ALIAS "RQ_ExecuteMemory" (Memory As Long, _
+                       MemorySize As Long, Commands As Long, _
+                                     Count As Long) As Long
+        Dim bcFile As QFileStream
+        DefInt bcSize
+        DefStr sByteCode
+
+        ' Reading .BC in a String
+        ' CmdConTest.Bas >> displays received cmd line args
+        bcFile.Open("CmdConTest.Bc", fmOpenRead)
+            bcSize = bcFile.Size
+            sByteCode = bcFile.ReadBinStr(bcSize)
+        bcFile.Close
+
+        ' Passing the Cmd Line Arguments to the ByteCode
+        DefInt ptrCmd(10), ArgCount = 0   ' Max 10 Cmd Line Args
+        DefStr Cmd(10)
+        While Command$(ArgCount) <> ""
+            Cmd(ArgCount) = Command$(ArgCount)
+            ptrCmd(ArgCount) = VarPtr(Cmd(ArgCount))
+            Inc ArgCount
+        Wend
+        ' The first Arg is dropped, it is the same as the 2nd
+        RQ_ExecuteMemory(VARPTR(sByteCode), bcSize, _
+                                VarPtr(ptrCmd(1)), ArgCount - 1)
+        ' ---- END CODE ---------------
+
+    That's what I add in 2003 with the RqTinyxx.JP. I wrote it
+    in BCX to reduce the size of the RqTinyXX.Jp,  ?? 5K ??
+
+
+6.  AN FB LAUNCHER IMPLEMENTATION  ' see directory  FB_Tny_1
+    -----------------------------
+
+    The Freebasic Launcher Code is    FB_Tny_1/FB_TNY.Bas
+
+    Compile it with FBC the FB compiler with the following line
+    adapted to your configuration:
+
+    c:\freebasic\fbc.exe -v -s gui -i c:\freebasic\inc -p c:\freebasic\lib Fb_Tny.Bas
+
+    Then append any ByteCode to it, it will be executed.
+
+    (read FB_Tny_1/ReadMe.Txt)
+
+
+7.  THE ICON ISSUE   see  directory   FB_Tny_1
+    --------------
+    The displayerd Icon will be the Icon of the Launcher.
+    Thus an Icon set in FB. HowTo set an Icon in FB ?
+
+    Easy, just create a file Icon.Rc (or Anything .Rc)
+    and in it, write the following line:
+
+    FB_PROGRAM_ICON ICON YourPathFileNice.ico
+
+    And recompile your FB Launcher code with
+
+    c:\freebasic\fbc.exe -v -s gui -i c:\freebasic\inc -p c:\freebasic\lib Fb_Tny.Bas Icon.Rc
+
+    Your Launcher now has a Beautifull Icon. Any icon size
+    allowed in FB.
+
+    Append a ByteCode to it. And you will have a RapidQ
+    'executable' that will have the same nice Icon.
+
+    In fact, RapidQ executable never existed, it's a bytecode
+    interpreted and Launched by the RapidQxx.Lib written in c++
+    (for usual long .exe). And here Launched by a FB code.
+
+    You will of course Rename FB_Tny.Exe with the name of your
+    application.
+
+
+8. NOTES
+   -----
+    To bear an Icon the FB Launcher must be a GUI/Windows code,
+    thus it is a GUI.
+    
+    To make it simple, the same FB Launcher code is used to
+    execute Console and Gui bytecode. To be able to do both, the
+    Launcher FB_Tny.Bas code creates a Console with the line
+
+          AllocConsole
+
+    Commenting this line and no console will be show anymore, this
+    will cause the RapidQ console codes to Bug :). So this line is
+    only necessary for RapidQ console code and for RapidQ GUI that
+    print or draw on the console.
+
+==================================================================
+==================================================================
+
+9.  AND WHAT IF ?
+    -----------
+
+           !!!!!! HERE WE ENTER THE NEW MAGIC ZONE !!!!!!!
+
+    And what if I add Functions, Subs or Datas in the FB launcher
+    code?
+
+    They would be compiled and will reside in my FB_Tny.Exe.
+
+    HMMMMMMMM, it would be GREAT if I could access them from my
+    RapidQ Code? This should be no problem, they are in the
+    same thread, same process. The root code is FB_Tny.Exe that
+    calls a DLL function that interpret the ByteCode.
+
+    All we would need is a pointer to these Functions, Subs
+    or Datas. In the FB code getting that pointer is easy with
+    VarPtr, StrPtr, the @ operatror ...
+
+    The problem will be to pass this pointer from FB Launcher
+    to RQ Code.
+
+    The two parts have one thing in Common:
+
+          THE ENVIRONMENT STRING           !!! BINGO !!!
+
+    IT IS THEN POSSIBLE !!! AND EASY !!!
+
+    Example:    See directory   FB_Tny_2
+
+    On the FB Launcher Side:            See FB_Tny_2/FB_Tny.Bas
+        ' no restriction on FB Keywords as with FbToRqInc
+        Function AddInt (i1 As Integer, i2 As Integer, i3 As Integer, _
+                                             i4 As Integer) as Integer
+            Print " in FB: Sum of ";i1;" + ";i2;" = ";i1 + i2
+            Function = i1 + i2
+        End Function
+        ' Pass the pointer to the function via the
+        ' Environment String
+        SetEnvironmentVariable ("AddInt", Str$(&AddInt))
+
+    On the RQ Side               see FB_Tny_2/RQ_DemoAddInt.Bas
+        DefInt ptrAddInt = Val(Environ$("AddInt"))
+        '
+        Declare Function cwp_AddInt Lib "user32" Alias _
+              "CallWindowProcA" (ptrAddInt As Long, i1 As Long, _
+               i2 As Long, Arg3 As Long, Arg4 As Long) As Long
+        '
+        Function AddInt(i1 as Long, i2 As Long) As Long
+            DefInt iRet = cwp_AddInt(ptrAddInt, i1, i2, 0, 0)
+            Result = iRet
+        End Function
+        '
+        DefInt iSum = AddInt (7, 8)  ' that will execute FB code
+                                     ' in the Launcher
+        Print " in RQ: and life from FB ByteCode Launcher: 7 + 8 = ";iSum
+
+    And it works! Read   FB_Tny_2/ReadMe.Txt to compile
+
+    Easy ! No ?
+
+    External Functions must always have 4 arguments because they
+    are called by API CallWindowProc
+
+10. CONCLUSIONS
+    -----------
+    - It is just as powerfull as a FreeBasic DLL except that
+      the function will be built in your RapidQ 'Executable'
+      (I should say Your RapidQ ByteCode Launcher).
+
+    - Hmmmm, it works as well with MASM or GCC or any other
+      compiler (Pascal, ...)
+
+    - A programm could ease all this! I wrote it, it is
+      named RQPC.Exe, RQPC stands for RapidQ Pre Compiler.
+
+11. BYTECODE IN RESOURCE (from v 0.2700)
+    --------------------
+    Rather than appending the bytecode to the Launcher, it's
+    possible to add it as resource. The interest of this is that
+    it creates a true executable that can be manipulated by
+    softwares like resource hacker, upx, ...
+    This is done in RQPC version greater than 0.2700 
+
+ When I started this code, I only wanted to add icon of any
+ size to Tiny executables ...
+
+Jacques
