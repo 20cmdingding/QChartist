@@ -238,7 +238,7 @@ Articles in tools menu
 new drawing tools:
 - Clear button in order to clear all drawings
 - Hand draw
-- Draw sinusoÃ¯d
+- Draw sinusoïd
 - Draw logarithmic curve and change amplitude with trackbars
 You can undo figures with a right-click
 
@@ -1121,6 +1121,10 @@ you can use realtime quotes thanks to perl scripts
 - enrichment of the QChartist.chm documentation and QChartist.sh5 added 
 for edition with Vizacc HelpMaker authoring tool available on sourceforge
 - added Swiss Ephemeris documentation in docs\sweph\
+
+2015-11-14 (build 44):
+- new data source Google Finance for stocks intraday charts
+- bugs correction with files opening and data source connection (input symbol verification)
 
 -------------------------------------------------------------------------------------
 Todo list;
