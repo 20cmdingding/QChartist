@@ -238,7 +238,7 @@ Articles in tools menu
 new drawing tools:
 - Clear button in order to clear all drawings
 - Hand draw
-- Draw sinusoïd
+- Draw sinusoÃ¯d
 - Draw logarithmic curve and change amplitude with trackbars
 You can undo figures with a right-click
 
