@@ -1125,6 +1125,7 @@ for edition with Vizacc HelpMaker authoring tool available on sourceforge
 2015-11-14 (build 44):
 - new data source Google Finance for stocks intraday charts
 - bugs correction with files opening and data source connection (input symbol verification)
+build 45: - correction of a bug in WineHQ where the screen does not refresh correctly (btnonclick(drawbox))
 
 -------------------------------------------------------------------------------------
 Todo list;

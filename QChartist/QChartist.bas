@@ -6631,7 +6631,7 @@ END SUB
 SUB justrefreshchart
     IF openedfilesnb > 0 THEN
         disablescrollmode
-        'btnOnClick(drwBox)
+        btnOnClick(drwBox) ' need to put this for WineHQ compatibility, else the screen does not update correctly (but this slows down computations)
     END IF
 END SUB
 
@@ -10188,7 +10188,7 @@ SUB refresh_chart()
     indicatorsform.Visible = 0
     IF openedfilesnb > 0 THEN
         disablescrollmode
-        'btnOnClick(drwBox)
+        btnOnClick(drwBox) ' need to put this for WineHQ compatibility, else the screen does not update correctly (but this slows down computations)
     END IF
 END SUB
 
