@@ -1117,6 +1117,11 @@ you can use realtime quotes thanks to perl scripts
 - new drawing tool triangle from center
 - new data source Stooq
 
+2015-11-02 (build 43):
+- enrichment of the QChartist.chm documentation and QChartist.sh5 added 
+for edition with Vizacc HelpMaker authoring tool available on sourceforge
+- added Swiss Ephemeris documentation in docs\sweph\
+
 -------------------------------------------------------------------------------------
 Todo list;
 
