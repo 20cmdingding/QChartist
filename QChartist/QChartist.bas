@@ -1692,6 +1692,7 @@ DECLARE SUB choosefile
 DECLARE SUB filesettingsfrmokclicked
 DECLARE SUB importfileauto(ifafilename AS STRING)
 DECLARE SUB importfileauto2(filenameauto AS STRING)
+DECLARE SUB importfileauto3(ifafilename AS STRING)
 DECLARE SUB signalsnd
 DECLARE SUB signalsndfrmclose
 DECLARE SUB dirdrivebtnclicked
@@ -1724,6 +1725,7 @@ DECLARE SUB dsokclick
 DECLARE SUB importfileyahoo()
 DECLARE SUB exportfileyahoo()
 DECLARE SUB importfilestooq()
+DECLARE SUB importfilegoogle()
 DECLARE SUB savegridtmp
 declare sub attribtf
 declare sub attribtfeditItemChanged
@@ -1792,6 +1794,21 @@ declare sub detect_timeframe
 declare sub addbars
 
 declare sub astrowheelsettingssub
+
+declare sub googlebusytimersub
+declare sub googlegetquotesub
+declare sub googlequotetimerstartsub
+dim googlebusytimer as qtimer
+googlebusytimer.enabled=0
+googlebusytimer.interval=1000
+googlebusytimer.ontimer=googlebusytimersub
+
+defstr googlegoingto=""
+
+dim googlegetquotetimer as qtimer
+googlegetquotetimer.enabled=0
+googlegetquotetimer.interval=3000
+googlegetquotetimer.ontimer=googlegetquotesub
 
 'From:  "Pascal Delcombel Wed Dec 11, 2002  4:45 pm
 ' Add / remove Windows font
@@ -7542,7 +7559,7 @@ END SUB
 
 CREATE datasourcefrm AS QFORM
     Caption = "Data source"
-    Height = 200
+    Height = 220
     Width = 300
     CREATE dssourcelbl AS QLABEL
         Caption = "Source:"
@@ -7551,6 +7568,7 @@ CREATE datasourcefrm AS QFORM
         Left = 50
         AddItems "Yahoo! Finance Internet"
         AddItems "Stooq"
+        AddItems "Google Finance"
         ItemIndex = 0
     END CREATE
     CREATE dssymbol AS QLABEL
@@ -7562,240 +7580,7 @@ CREATE datasourcefrm AS QFORM
         Left = 50
         Text = "YHOO"
     END CREATE
-    create dssymbolcombo as qcombobox
-        top=20
-        left=100
-additems "BASIC MATERIALS"
-additems "aa"
-additems "aal.l"
-additems "amec.l"
-additems "anto.l"
-additems "bas.de"
-additems "bg.l"
-additems "blt.l"
-additems "bp.l"
-additems "cvx"
-additems "dd"
-additems "fres.l"
-additems "glen.l"
-additems "jmat.l"
-additems "lin.de"
-additems "mos"
-additems "nbl"
-additems "pbr"
-additems "pfc.l"
-additems "pot"
-additems "rio.l"
-additems "rrs.l"
-additems "sdf.de"
-additems "tka.de"
-additems "tlw.l"
-additems "tx"
-additems "vale"
-additems "xom"
-additems "CONGLOMERATES"
-additems "mmm"
-additems "CONSUMER GOODS"
-additems "aapl"
-additems "abf.l"
-additems "ads.de"
-additems "bats.l"
-additems "bei.de"
-additems "bmw.de"
-additems "cch.l"
-additems "ccl.l"
-additems "cl"
-additems "con.de"
-additems "dai.de"
-additems "dge.l"
-additems "dps"
-additems "f"
-additems "gkn.l"
-additems "hen3.de"
-additems "hmc"
-additems "hog"
-additems "imt.l"
-additems "ko"
-additems "manu"
-additems "mndi.l"
-additems "nke"
-additems "pep"
-additems "pg"
-additems "rb.l"
-additems "rex.l"
-additems "rl"
-additems "sab.l"
-additems "sne"
-additems "stz"
-additems "tate.l"
-additems "tm"
-additems "tsla"
-additems "ulvr.l"
-additems "vow3.de"
-additems "FINANCIAL"
-additems "adm.l"
-additems "adn.l"
-additems "agnc"
-additems "alv.de"
-additems "av.l"
-additems "axp"
-additems "bac"
-additems "barc.l"
-additems "blnd.l"
-additems "btc"
-additems "c"
-additems "db"
-additems "db1.de"
-additems "hbc"
-additems "hl.l"
-additems "hmso.l"
-additems "jpm"
-additems "land.l"
-additems "lgen.l"
-additems "lloy.l"
-additems "lse.l"
-additems "ma"
-additems "muv2.de"
-additems "oml.l"
-additems "pru.l"
-additems "rbs.l"
-additems "rsa.l"
-additems "rsl.l"
-additems "san"
-additems "sdr.l"
-additems "sl.l"
-additems "stan.l"
-additems "trv"
-additems "v"
-additems "wu"
-additems "HEALTHCARE"
-additems "amgn"
-additems "azn.l"
-additems "bayn.de"
-additems "fme.de"
-additems "fre.de"
-additems "gsk.l"
-additems "jnj"
-additems "mrk"
-additems "pfe"
-additems "shp.l"
-additems "sn.l"
-additems "unh"
-additems "INDUSTRIAL GOODS"
-additems "ba"
-additems "cat"
-additems "cx"
-additems "ge"
-additems "hei.de"
-additems "imi.l"
-additems "lmt"
-additems "mggt.l"
-additems "mro.l"
-additems "psn.l"
-additems "rr.l"
-additems "sie.de"
-additems "smin.l"
-additems "tpk.l"
-additems "utx"
-additems "weir.l"
-additems "wos.l"
-additems "SERVICES"
-additems "agk.l"
-additems "aht.l"
-additems "amzn"
-additems "anf"
-additems "bab.l"
-additems "baba"
-additems "bnzl.l"
-additems "brby.l"
-additems "bsy.l"
-additems "car"
-additems "cpg.l"
-additems "cpi.l"
-additems "dis"
-additems "dpw.de"
-additems "ebay"
-additems "expn.l"
-additems "ezj.l"
-additems "fdx"
-additems "gfs.l"
-additems "gps"
-additems "hd"
-additems "iag.l"
-additems "itrk.l"
-additems "itv.l"
-additems "kgf.l"
-additems "lha.de"
-additems "lvs"
-additems "mcd"
-additems "mks.l"
-additems "mrw.l"
-additems "nflx"
-additems "nxt.l"
-additems "petm"
-additems "pson.l"
-additems "rel.l"
-additems "rmg.l"
-additems "sbry.l"
-additems "sbux"
-additems "spd.l"
-additems "tsco.l"
-additems "tv"
-additems "twx"
-additems "urbn"
-additems "wmh.l"
-additems "wmt"
-additems "wpp.l"
-additems "wtb.l"
-additems "TECHNOLOGY"
-additems "adbe"
-additems "adsk"
-additems "amx"
-additems "arm.l"
-additems "atvi"
-additems "bidu"
-additems "bt.l"
-additems "chkp"
-additems "csco"
-additems "dte.de"
-additems "ea"
-additems "fb"
-additems "fslr"
-additems "goog"
-additems "hpq"
-additems "ibm"
-additems "ifx.de"
-additems "intc"
-additems "king"
-additems "lnkd"
-additems "msft"
-additems "msi"
-additems "mu"
-additems "nok"
-additems "nvda"
-additems "orcl"
-additems "sap.de"
-additems "sndk"
-additems "t"
-additems "tef"
-additems "teo"
-additems "trip"
-additems "twtr"
-additems "vod"
-additems "vz"
-additems "wdc"
-additems "yhoo"
-additems "znga"
-additems "UTILITIES"
-additems "cna.l"
-additems "eoan.de"
-additems "ng.l"
-additems "rwe.de"
-additems "sse.l"
-additems "svt.l"
-additems "uu.l"
-onchange=dssymbolcombochange
-    end create
+   
     CREATE dsstartdate AS QLABEL
         Top = 40
         Caption = "Start date:"
@@ -7821,18 +7606,33 @@ onchange=dssymbolcombochange
     CREATE dstimeframe AS QCOMBOBOX
         Top = 80
         Left = 50
+        additems "5M"
+        additems "15M"
+        additems "30M"
+        additems "60M"
+        additems "240M"        
         AddItems "Daily"
         AddItems "Weekly"
         AddItems "Monthly"
-        ItemIndex = 0
+        ItemIndex = 5
     END CREATE
+    create googledaysbacklabel as qlabel
+    top=100
+    caption="Days back (Google):"
+    end create
+    create googledaysbackedit as qedit
+    top=100
+    left=100
+    text="30"
+    width=50
+    end create
     CREATE dsok AS QBUTTON
-        Top = 100
+        Top = 120
         Caption = "OK"
         OnClick = dsokclick
     END CREATE
     CREATE dsinfolbl AS QLABEL
-        Top = 130
+        Top = 150
         Caption = "For the full list of symbols, please visit:" + CHR$(10) + "http://eoddata.com/symbols.aspx"
     END CREATE
 END CREATE
@@ -7867,15 +7667,39 @@ End If
     DEFSTR url
 if dssource.itemindex=0 then url = "http://ichart.finance.yahoo.com/table.csv?s=" + UCASE$(dssymboledit.Text) + "&a=" + dsstartcalendarobjm + "&b=" + dsstartcalendarobjd + "&c=" + dsstartcalendarobjy + "&d=" + dsendcalendarobjm + "&e=" + dsendcalendarobjd + "&f=" + dsendcalendarobjy + "&g=" + LCASE$(LEFT$(dstimeframe.Item(dstimeframe.ItemIndex) , 1)) + "&ignore=.csv"
 if dssource.itemindex=1 then url = "http://stooq.com/q/d/l/?s=" + LCASE$(dssymboledit.Text) + "&d1="+dsstartcalendarobjy+dsstartcalendarobjm+dsstartcalendarobjd+"&d2="+dsendcalendarobjy+dsendcalendarobjm+dsendcalendarobjd+"&i="+ LCASE$(LEFT$(dstimeframe.Item(dstimeframe.ItemIndex) , 1))
+if dssource.itemindex=2 then 
+    googlegetquotesub
+    exit sub
+end if
 
     DIM dstf AS STRING
     SELECT CASE dstimeframe.ItemIndex
         CASE 0 :
-            dstf = "1440"
+            showmessage "Intraday timeframes are only available for Google Finance"
+            dsok.Enabled = 1
+            exit sub
         CASE 1 :
-            dstf = "10080"
+            showmessage "Intraday timeframes are only available for Google Finance"
+            dsok.Enabled = 1
+            exit sub
         CASE 2 :
-            dstf = "43200"
+            showmessage "Intraday timeframes are only available for Google Finance"
+            dsok.Enabled = 1
+            exit sub
+        case 3 :
+            showmessage "Intraday timeframes are only available for Google Finance"
+            dsok.Enabled = 1
+            exit sub
+        case 4 :
+            showmessage "Intraday timeframes are only available for Google Finance"
+            dsok.Enabled = 1
+            exit sub
+        case 5 :
+            dstf = "1440"
+        case 6 :
+            dstf = "10080"
+        case 7 :
+            dstf = "43200"     
     END SELECT
 
     DEFSTR outFileName = UCASE$(dssymboledit.Text) + dstf + ".tmp"
@@ -7886,9 +7710,23 @@ if dssource.itemindex=1 then url = "http://stooq.com/q/d/l/?s=" + LCASE$(dssymbo
         SHOWMESSAGE "Download Error : " & url
         dsok.Enabled = 1
         EXIT SUB
-    ELSE
+    ELSE    
         'PRINT "Download Finished & OK : " & URL
-        'showmessage "Download Finished & OK : " & URL
+        'showmessage "Download Finished & OK : " & URL  
+        dim filestream as qfilestream
+        defstr filecontentstr=""
+        filestream.open(outFileName,0)        
+        while not filestream.eof
+            filecontentstr=filecontentstr+filestream.readline
+        wend        
+        if val(barsdisplayed.text)>filestream.linecount-1 and len(filecontentstr)>7 then barsdisplayed.text=str$(filestream.linecount-1)
+        filestream.close
+        if len(filecontentstr)<8 then
+            showmessage "Invalid symbol"
+            dsok.enabled=1
+            exit sub
+        end if
+        if val(barsdisplayed.text)<1 then barsdisplayed.text="1"
         if dssource.itemindex=0 then importfileyahoo()
         if dssource.itemindex=1 then importfilestooq()
     END IF
@@ -10718,6 +10556,7 @@ SUB exportfileyahoo()
     
     DIM csvFile AS QFILESTREAM
     csvFile.open(SaveDialog.FileName , 65535) '65535 = fmCreate
+
     DIM csvi AS INTEGER
     DIM datecsv AS STRING
     DIM timecsv AS STRING
@@ -10760,6 +10599,7 @@ END SUB
 
 
 SUB importfileyahoo()
+
     DIM date AS STRING , time AS STRING
     DIM open AS STRING , high AS STRING , low AS STRING , close AS STRING , vol AS STRING
     DIM datepos AS INTEGER
@@ -10800,10 +10640,20 @@ SUB importfileyahoo()
     DIM dstf AS STRING
     SELECT CASE dstimeframe.ItemIndex
         CASE 0 :
-            dstf = "1440"
+            dstf = "5"
         CASE 1 :
-            dstf = "10080"
+            dstf = "15"
         CASE 2 :
+            dstf = "30"
+        case 3 :
+            dstf = "60"
+        case 4 :
+            dstf = "240"
+        case 5 :
+            dstf = "1440"
+        case 6 :
+            dstf = "10080"
+        case 7 :
             dstf = "43200"
     END SELECT
 
@@ -10848,7 +10698,7 @@ SUB importfileyahoo()
          file.writeline(yhooarrtmp(yincr2))
      next yincr2
      file.close
-    
+
     
     $ESCAPECHARS ON
     dim strfilename as string
@@ -10860,7 +10710,7 @@ SUB importfileyahoo()
     dim savmystr(0 to 100000) as string
     dim iinc as integer
     iinc=0 
-    
+
     dim reinitfseek as string:reinitfseek="0"
     'openedfilesnbstr=str$(openedfilesnb)
     mystr=varptr$(filegetalllines(varptr(strfilename),varptr(reinitfseek)))
@@ -10974,7 +10824,7 @@ SUB importfileyahoo()
 
     LOOP UNTIL j=strfilenamelines
     'file.close
-
+ 
     chartbars(displayedfile) = j
     chartbarsdisplayedfilestr=str$(chartbars(displayedfile)):displayedfilestr=str$(displayedfile):cpptmpfuncreturn=varptr$(setchartbars(varptr(chartbarsdisplayedfilestr),varptr(displayedfilestr)))
 
@@ -11009,7 +10859,7 @@ SUB importfileyahoo()
     Scrollchart.Position = chartbars(displayedfile)
     scrollchartpositionwait = 1
     chartstart = Scrollchart.Position - numbars
-    
+
     updatemixerlists
     logreverseedit.Text = logreverseedit.Text + DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb) + CHR$(10)
     writetolog(DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb))
@@ -11023,6 +10873,7 @@ SUB importfileyahoo()
     form2Edit7.Text = "7"
 
     exportfileyahoo()
+
     'delfile(varptr(strfilename))
     'importedfile(displayedfile)=MID$(importedfile(displayedfile) , 0 , LEN(importedfile(displayedfile)) - 4) + ".csv"
     'reimportfile()
@@ -11075,10 +10926,20 @@ SUB importfilestooq()
     DIM dstf AS STRING
     SELECT CASE dstimeframe.ItemIndex
         CASE 0 :
-            dstf = "1440"
+            dstf = "5"
         CASE 1 :
-            dstf = "10080"
+            dstf = "15"
         CASE 2 :
+            dstf = "30"
+        case 3 :
+            dstf = "60"
+        case 4 :
+            dstf = "240"
+        case 5 :
+            dstf = "1440"
+        case 6 :
+            dstf = "10080"
+        case 7 :
             dstf = "43200"
     END SELECT
 
@@ -11733,7 +11594,7 @@ SUB exportcollection()
 
 END SUB
 
-SUB importfileauto(ifafilename AS STRING)
+SUB importfileauto(ifafilename AS STRING)  ' use this sub to open the file in the same display nb (no openedfilesnb++)
 '    DIM date AS STRING , time AS STRING
 '    DIM open AS STRING , high AS STRING , low AS STRING , close AS STRING , vol AS STRING
 '    DIM datepos AS INTEGER
@@ -11954,7 +11815,7 @@ SUB importfileauto(ifafilename AS STRING)
     btnOnClick(drwBox)
 END SUB
 
-SUB importfileauto2(filenameauto AS STRING)
+SUB importfileauto2(filenameauto AS STRING) ' use this sub to open the file in a new display nb (openedfilesnb++)
 '    DIM date AS STRING , time AS STRING
 '    DIM open AS STRING , high AS STRING , low AS STRING , close AS STRING , vol AS STRING
 '    DIM datepos AS INTEGER
@@ -18012,10 +17873,6 @@ case "Dec": result="12"
 end select
 end function
 
-sub dssymbolcombochange
-dssymboledit.text=dssymbolcombo.item(dssymbolcombo.itemindex)
-end sub
-
 sub reimportfilesub
 importfileauto(importedfile(displayedfile))
 reimportfile()
@@ -18909,5 +18766,192 @@ specifytimeedit.Text=time
 btnOnClick(drwBox)
 
 end if
+
+end sub
+
+sub googlegetquotesub
+
+busystream.open("c:\qchartist\csv\google\isbusy.txt",fmcreate)
+busystream.writeline("1")
+busystream.close
+
+'dim pid as integer
+'pid=shell ("getcurrency.bat EUR USD",1)
+'goingto="readquote":busytimer.enabled=1
+
+defstr tmpdir=curdir$
+chdir "c:\qchartist\csv\google"
+
+dim pid as integer
+pid=shell ("getdata.bat "+str$(val(dstimeframe.item(dstimeframe.itemindex))*60)+" "+googledaysbackedit.text+" "+UCASE$(dssymboledit.Text),0)
+googlegoingto="googlereadquote":googlebusytimer.enabled=1
+
+chdir tmpdir
+
+end sub
+
+sub googlebusytimersub
+
+'defint pid
+dim googlebusystream as qfilestream
+googlebusystream.open("c:\qchartist\csv\google\isbusy.txt",0)
+defstr isbusy=""
+while not googlebusystream.eof
+isbusy=isbusy+googlebusystream.readline
+wend
+googlebusystream.close
+
+if val(isbusy)=0 then
+
+googlebusytimer.enabled=0
+select case googlegoingto
+
+case "googlereadquote"
+goto googlereadquote
+
+end select
+
+end if
+
+exit sub
+
+googlereadquote:
+dim filestream as qfilestream
+filestream.open("c:\qchartist\csv\google\connection_status.log",0)
+defstr filestr=""
+while not filestream.eof
+filestr=filestr+filestream.readline
+wend
+filestream.close
+'check if connection exists
+if like(filestr,"*80... connected*200 OK*")=0 then
+showmessage "Can't connect to Google Finance"
+dsok.enabled=1
+exit sub
+end if
+filestream.open("c:\qchartist\csv\google\Google_quotes.txt",0)
+filestr=""
+while not filestream.eof
+filestr=filestr+filestream.readline
+wend
+filestream.close
+if like(filestr,"*EXCHANGE*NASDAQ*")=1 then
+'showmessage "realtime"
+end if
+if like(filestr,"*a*")=0 then
+showmessage "Invalid symbol"
+dsok.enabled=1
+exit sub
+end if
+DIM dstf AS STRING
+    SELECT CASE dstimeframe.ItemIndex
+        CASE 0 :
+            dstf = "5"
+        CASE 1 :
+            dstf = "15"
+        CASE 2 :
+            dstf = "30"
+        case 3 :
+            dstf = "60"
+        case 4 :
+            dstf = "240"
+        case 5 :
+            dstf = "1440"
+        case 6 :
+            dstf = "10080"
+        case 7 :
+            dstf = "43200"
+    END SELECT
+    
+DEFSTR outFileName = UCASE$(dssymboledit.Text) + dstf + ".csv"
+defint lineloop=0
+
+filestream.open("c:\qchartist\csv\google\Google_quotes.txt",0)
+dim filestream2 as qfilestream
+filestream2.open("c:\qchartist\csv\"+outFileName,fmcreate)
+filestr=""
+defstr fileline=""
+
+while not filestream.eof
+
+fileline=filestream.readline
+lineloop++
+
+if lineloop>7 then
+ 
+    
+    if mid$(fileline,1,1)="a" then
+        defint comaposition=instr(fileline,",")
+        defint comaposition2=instr(comaposition+1,fileline,",")
+        defint comaposition3=instr(comaposition2+1,fileline,",")
+        defint comaposition4=instr(comaposition3+1,fileline,",")
+        defint comaposition5=instr(comaposition4+1,fileline,",")
+        defstr closestr=mid$(fileline,comaposition+1,comaposition2-comaposition-1)        
+        defstr highstr=mid$(fileline,comaposition2+1,comaposition3-comaposition2-1)
+        defstr lowstr=mid$(fileline,comaposition3+1,comaposition4-comaposition3-1)
+        defstr openstr=mid$(fileline,comaposition4+1,comaposition5-comaposition4-1)
+        defstr volumestr=mid$(fileline,comaposition5+1,len(fileline)-comaposition5-1)
+        defstr ut=mid$(fileline,2,comaposition-2)
+        defstr ft=varptr$(unix_time_to_date(varptr(ut)))
+        defstr year,month,day,hour,minute
+        year=mid$(ft,21,4)
+        month=mid$(ft,5,3)
+        day=mid$(ft,9,2)
+        hour=mid$(ft,12,2)
+        minute=mid$(ft,15,2)
+        ft=year+"-"+strtomonth(month)+"-"+day+","+hour+":"+minute
+        fileline=ft+","+openstr+","+highstr+","+lowstr+","+closestr+","+volumestr
+
+    else
+        if left$(fileline,8)<>"TIMEZONE" then
+        comaposition=instr(fileline,",")
+        comaposition2=instr(comaposition+1,fileline,",")
+        comaposition3=instr(comaposition2+1,fileline,",")
+        comaposition4=instr(comaposition3+1,fileline,",")
+        comaposition5=instr(comaposition4+1,fileline,",")
+        closestr=mid$(fileline,comaposition+1,comaposition2-comaposition-1)        
+        highstr=mid$(fileline,comaposition2+1,comaposition3-comaposition2-1)
+        lowstr=mid$(fileline,comaposition3+1,comaposition4-comaposition3-1)
+        openstr=mid$(fileline,comaposition4+1,comaposition5-comaposition4-1)
+        volumestr=mid$(fileline,comaposition5+1,len(fileline)-comaposition5-1)
+        defstr nb=mid$(fileline,1,comaposition-1)
+        defstr utn=Format$("%.8f",val(ut)+(val(dstf)*60)*val(nb))
+        ft=varptr$(unix_time_to_date(varptr(utn)))
+        year=mid$(ft,21,4)
+        month=mid$(ft,5,3)
+        day=mid$(ft,9,2)
+        hour=mid$(ft,12,2)
+        minute=mid$(ft,15,2)
+        ft=year+"-"+strtomonth(month)+"-"+day+","+hour+":"+minute
+        fileline=ft+","+openstr+","+highstr+","+lowstr+","+closestr+","+volumestr
+        end if
+
+    end if
+    if left$(fileline,8)<>"TIMEZONE" then filestream2.writeline(fileline)'filestr=filestr+fileline+chr$(10)
+
+end if
+wend
+
+filestream.close
+filestream2.close
+
+filestream.open("c:\qchartist\csv\"+UCASE$(dssymboledit.Text) + dstf + ".csv",0)
+if val(barsdisplayed.text)>filestream.linecount then barsdisplayed.text=str$(filestream.linecount)
+filestream.close
+
+'filestream.open("c:\qchartist\csv\"+outFileName,fmcreate)
+'filestream.writeline(filestr)
+'filestream.close
+
+'CHDIR homepath + "\csv"
+
+'importfilegoogle()
+importfileauto2("c:\qchartist\csv\"+UCASE$(dssymboledit.Text) + dstf + ".csv")
+'reimportfile()
+'exportfileyahoo()
+dsok.enabled=1
+goto endlabel
+
+endlabel:
 
 end sub
