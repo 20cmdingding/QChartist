@@ -311,8 +311,9 @@ int filegetlinecount(char* flnme )
 	std::string linestr (line);  
         if (linestr.size()>1) lineinc++;
       }
-      return lineinc;
       fclose ( file );
+      return lineinc;
+      
    }
    else
    {
@@ -2171,4 +2172,13 @@ char* ut_to_date(long unix_time)
 	char asctimechar[1000];
 	sprintf(asctimechar,"%s",asctime(gmtime(&t)));
 	return asctimechar;
+}
+
+char* current_time()
+{
+
+    long int t = static_cast<long int>(time(NULL));
+    char timechar[1000];
+    sprintf(timechar,"%i",t);
+    return timechar;
 }

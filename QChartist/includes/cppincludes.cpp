@@ -41,6 +41,7 @@
 // ''RQEXPORT function swe_houses_ex(parameters,hcusps,ascmc)
 // ''RQEXPORT function timebcpp(bar)
 // ''RQEXPORT function calculate_seconds_since_1_1_1970_cpp(parameters)
+// ''RQEXPORT function current_time()
 
 #include "includes\QChartist.cpp"
 #include "includes\swedll32.cpp"
