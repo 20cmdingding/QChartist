@@ -145,6 +145,8 @@ pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getcurrency.sh"+chr$(34),0)
 pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x currency"+chr$(34),0)
 pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstock.sh"+chr$(34),0)
 pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stock"+chr$(34),0)
+pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstockvol.sh"+chr$(34),0)
+pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stockvol"+chr$(34),0)
 chdir tmppath0
 end if
 
@@ -263,6 +265,7 @@ dim offsetstr as string
 dim displayedfilestr as string
 DIM indigrid() AS DOUBLE
 DIM open(0 TO 1000) AS DOUBLE , high(0 TO 1000) AS DOUBLE , low(0 TO 1000) AS DOUBLE , close(0 TO 1000) AS DOUBLE , volume(0 TO 1000) AS INTEGER, date(0 TO 1000) AS STRING, time(0 TO 1000) AS STRING, datetimeserial(0 TO 1000) AS double
+DIM open1(0 TO 1000) AS DOUBLE , high1(0 TO 1000) AS DOUBLE , low1(0 TO 1000) AS DOUBLE , close1(0 TO 1000) AS DOUBLE , volume1(0 TO 1000) AS INTEGER, date1(0 TO 1000) AS STRING, time1(0 TO 1000) AS STRING, datetimeserial1(0 TO 1000) AS double
 DIM open5(0 TO 1000) AS DOUBLE , high5(0 TO 1000) AS DOUBLE , low5(0 TO 1000) AS DOUBLE , close5(0 TO 1000) AS DOUBLE , volume5(0 TO 1000) AS INTEGER, date5(0 TO 1000) AS STRING, time5(0 TO 1000) AS STRING, datetimeserial5(0 TO 1000) AS double
 DIM open15(0 TO 1000) AS DOUBLE , high15(0 TO 1000) AS DOUBLE , low15(0 TO 1000) AS DOUBLE , close15(0 TO 1000) AS DOUBLE , volume15(0 TO 1000) AS INTEGER, date15(0 TO 1000) AS STRING, time15(0 TO 1000) AS STRING, datetimeserial15(0 TO 1000) AS double
 DIM open30(0 TO 1000) AS DOUBLE , high30(0 TO 1000) AS DOUBLE , low30(0 TO 1000) AS DOUBLE , close30(0 TO 1000) AS DOUBLE , volume30(0 TO 1000) AS INTEGER, date30(0 TO 1000) AS STRING, time30(0 TO 1000) AS STRING, datetimeserial30(0 TO 1000) AS double
@@ -1796,12 +1799,29 @@ declare sub addbars
 declare sub astrowheelsettingssub
 
 declare sub googlebusytimersub
+declare sub googlerealtimebusytimersub
 declare sub googlegetquotesub
 declare sub googlequotetimerstartsub
+declare function timeminute(seconds as double) as double
+declare function timehour(seconds as double) as double
+declare function timedayofweek(seconds as double) as double
+
 dim googlebusytimer as qtimer
 googlebusytimer.enabled=0
 googlebusytimer.interval=1000
 googlebusytimer.ontimer=googlebusytimersub
+
+declare sub googlereadlastquoteontimersub
+dim googlereadlastquotetimer as qtimer
+googlereadlastquotetimer.enabled=0
+googlereadlastquotetimer.interval=5000
+googlereadlastquotetimer.ontimer=googlereadlastquoteontimersub
+
+
+dim googlerealtimebusytimer as qtimer
+googlerealtimebusytimer.enabled=0
+googlerealtimebusytimer.interval=1000
+googlerealtimebusytimer.ontimer=googlerealtimebusytimersub
 
 defstr googlegoingto=""
 
@@ -1809,6 +1829,13 @@ dim googlegetquotetimer as qtimer
 googlegetquotetimer.enabled=0
 googlegetquotetimer.interval=3000
 googlegetquotetimer.ontimer=googlegetquotesub
+
+defint googlecurrenttimestamp
+defint googlereadlastquotetimestamp
+defint quotenexttimestamp
+defint filevoltmp=0
+defint filevol=0
+defint firstfilevol=1
 
 'From:  "Pascal Delcombel Wed Dec 11, 2002  4:45 pm
 ' Add / remove Windows font
@@ -1985,7 +2012,9 @@ TYPE qchart2 EXTENDS QCANVAS
                 'if j=2 then print str$(i+2)+" "+canvas.separateindicator1.Cell(j , i + 2)+" "+str$(sepindicolorhisto(j,i+2))
                 baroffset ++
                 locx = locx + barsize
+                doevents
             NEXT i
+            doevents
         NEXT j
 
     END SUB
@@ -5035,12 +5064,14 @@ SUB graphcursorpos2
         IF VAL(Grid.Cell(rowgridoffset + 4 , graphvi)) > graphvhigh THEN
             graphvhigh = VAL(Grid.Cell(rowgridoffset + 4 , graphvi))
         END IF
+        'doevents
     NEXT graphvi
     graphvlow = graphvhigh
     FOR graphvi = Scrollchart.Position - numbars + 1 TO Scrollchart.Position
         IF VAL(Grid.Cell(rowgridoffset + 5 , graphvi)) < graphvlow THEN
             graphvlow = VAL(Grid.Cell(rowgridoffset + 5 , graphvi))
         END IF
+        'doevents
     NEXT graphvi
 
     infotext2.Text = infotext2.Text + "Highest high: " + STR$(graphvhigh) + CHR$(10)
@@ -5051,12 +5082,14 @@ SUB graphcursorpos2
         IF VAL(Grid.Cell(rowgridoffset + 4 , graphvi)) > alltimehigh THEN
             alltimehigh = VAL(Grid.Cell(rowgridoffset + 4 , graphvi))
         END IF
+        'doevents
     NEXT graphvi
     alltimelow = alltimehigh
     FOR graphvi = 1 TO chartbars(displayedfile)
         IF VAL(Grid.Cell(rowgridoffset + 5 , graphvi)) < alltimelow THEN
             alltimelow = VAL(Grid.Cell(rowgridoffset + 5 , graphvi))
         END IF
+        'doevents
     NEXT graphvi
 
     infotext2.Text = infotext2.Text + "All time high: " + STR$(alltimehigh) + CHR$(10)
@@ -5162,7 +5195,8 @@ hour=mid$(cpptmpfuncreturn,12,2)
 minute=mid$(cpptmpfuncreturn,15,2)
     graphdateoncur =year + "-" + strtomonth(month) + "-" + day+" "+hour+":"+minute
     exit for
-end if    
+end if
+'doevents    
 next i
     ' ---------------------------------
     
@@ -7606,6 +7640,7 @@ CREATE datasourcefrm AS QFORM
     CREATE dstimeframe AS QCOMBOBOX
         Top = 80
         Left = 50
+        additems "1M"
         additems "5M"
         additems "15M"
         additems "30M"
@@ -7614,7 +7649,7 @@ CREATE datasourcefrm AS QFORM
         AddItems "Daily"
         AddItems "Weekly"
         AddItems "Monthly"
-        ItemIndex = 5
+        ItemIndex = 6
     END CREATE
     create googledaysbacklabel as qlabel
     top=100
@@ -7625,6 +7660,13 @@ CREATE datasourcefrm AS QFORM
     left=100
     text="30"
     width=50
+    end create
+    create googlerealtimecheckbox as qcheckbox
+    top=100
+    left=150
+    caption="Realtime (Google)"
+    width=120
+    checked=0
     end create
     CREATE dsok AS QBUTTON
         Top = 120
@@ -7695,10 +7737,14 @@ end if
             dsok.Enabled = 1
             exit sub
         case 5 :
-            dstf = "1440"
+            showmessage "Intraday timeframes are only available for Google Finance"
+            dsok.Enabled = 1
+            exit sub
         case 6 :
-            dstf = "10080"
+            dstf = "1440"
         case 7 :
+            dstf = "10080"
+        case 8 :
             dstf = "43200"     
     END SELECT
 
@@ -8831,6 +8877,7 @@ CREATE attribtfform AS QFORM
         Left = 50
         Top = 0
         Width = 70
+        AddItems "1"
         AddItems "5"
         AddItems "15"
         AddItems "30"
@@ -8840,6 +8887,11 @@ CREATE attribtfform AS QFORM
         AddItems "10080"
         AddItems "43200"
         OnChange = attribtfeditItemChanged
+    END CREATE
+    CREATE attribtfminuteslabel AS qlabel
+        Left = 120
+        Top = 0
+        Caption = "minutes"
     END CREATE
 END CREATE
 
@@ -8852,7 +8904,8 @@ sub writetf (dispfile as integer,tftowrite as integer)
  if ii<1 then ii=1
  
  select case tftowrite
-     case 5:
+ 
+     case 1:
                         'REDIM Open5(0 TO 0) AS DOUBLE
                         'REDIM high5(0 TO 0) AS DOUBLE
                         'REDIM low5(0 TO 0) AS DOUBLE
@@ -8874,6 +8927,51 @@ sub writetf (dispfile as integer,tftowrite as integer)
                         
                         o = 0
                         dim year as integer,month as integer,day as integer, hour as integer,minute as integer,second as integer
+
+                        FOR i = chartbars(displayedfile) TO ii STEP - 1
+                            date1(o) = Grid.Cell(rowgridoffset + 1 , i)
+                            time1(o) = Grid.Cell(rowgridoffset + 2 , i)
+                            Open1(o) = VAL(Grid.Cell(rowgridoffset + 3 , i))
+                            high1(o) = VAL(Grid.Cell(rowgridoffset + 4 , i))
+                            low1(o) = VAL(Grid.Cell(rowgridoffset + 5 , i))
+                            Close1(o) = VAL(Grid.Cell(rowgridoffset + 6 , i))
+                            volume1(o) = VAL(Grid.Cell(rowgridoffset + 7 , i))
+                            year = VAL(MID$(date1(o) , 0 , 4))
+                            month = VAL(MID$(date1(o) , 6 , 2))
+                            day = VAL(MID$(date1(o) , 9 , 2))
+                            hour = VAL(MID$(time1(o) , 0 , 2))
+                            minute = VAL(MID$(time1(o) , 4 , 2))
+                            second=0
+                            parameters=str$(year)+";"+str$(month)+";"+str$(day)+";"+str$(hour)+";"+str$(minute)+";"+str$(second)
+                            datetimeserial1(o)=val(varptr$(calculate_seconds_since_1_1_1970_cpp(varptr(parameters)))) 'DateSerial (year, month, day)
+                            'datetimeserial5(o)=datetimeserial5(o)*24*60*60
+                            'datetimeserial5(o)=datetimeserial5(o)+(hour*60*60)
+                            'datetimeserial5(o)=datetimeserial5(o)+(minute*60)
+                            o ++
+                        NEXT i
+ 
+     case 5:
+                        'REDIM Open5(0 TO 0) AS DOUBLE
+                        'REDIM high5(0 TO 0) AS DOUBLE
+                        'REDIM low5(0 TO 0) AS DOUBLE
+                        'REDIM Close5(0 TO 0) AS DOUBLE
+                        'REDIM volume5(0 TO 0) AS INTEGER
+                        'redim date5(0 TO 0) AS string
+                        'redim time5(0 TO 0) AS string
+                        'REDIM datetimeserial5(0 TO 0) AS double
+
+                        'REDIM Open5(1 TO 100) AS DOUBLE
+                        'REDIM high5(1 TO 100) AS DOUBLE
+                        'REDIM low5(1 TO 100) AS DOUBLE
+                        'REDIM Close5(1 TO 100) AS DOUBLE
+                        'REDIM volume5(1 TO 100) AS INTEGER
+                        'redim date5(1 TO 100) AS string
+                        'redim time5(1 TO 100) AS string
+                        'REDIM datetimeserial5(1 TO 100) AS double
+
+                        
+                        o = 0
+                        'dim year as integer,month as integer,day as integer, hour as integer,minute as integer,second as integer
 
                         FOR i = chartbars(displayedfile) TO ii STEP - 1
                             date5(o) = Grid.Cell(rowgridoffset + 1 , i)
@@ -10640,20 +10738,22 @@ SUB importfileyahoo()
     DIM dstf AS STRING
     SELECT CASE dstimeframe.ItemIndex
         CASE 0 :
-            dstf = "5"
+            dstf = "1"
         CASE 1 :
-            dstf = "15"
+            dstf = "5"
         CASE 2 :
+            dstf = "15"
+        CASE 3 :
             dstf = "30"
-        case 3 :
-            dstf = "60"
         case 4 :
-            dstf = "240"
+            dstf = "60"
         case 5 :
-            dstf = "1440"
+            dstf = "240"
         case 6 :
-            dstf = "10080"
+            dstf = "1440"
         case 7 :
+            dstf = "10080"
+        case 8 :
             dstf = "43200"
     END SELECT
 
@@ -10926,20 +11026,22 @@ SUB importfilestooq()
     DIM dstf AS STRING
     SELECT CASE dstimeframe.ItemIndex
         CASE 0 :
-            dstf = "5"
+            dstf = "1"
         CASE 1 :
-            dstf = "15"
+            dstf = "5"
         CASE 2 :
+            dstf = "15"
+        CASE 3 :
             dstf = "30"
-        case 3 :
-            dstf = "60"
         case 4 :
-            dstf = "240"
+            dstf = "60"
         case 5 :
-            dstf = "1440"
+            dstf = "240"
         case 6 :
-            dstf = "10080"
+            dstf = "1440"
         case 7 :
+            dstf = "10080"
+        case 8 :
             dstf = "43200"
     END SELECT
 
@@ -15747,36 +15849,36 @@ DIM jjj2 AS string :
 SELECT CASE VAL(mmm2)
 
         CASE 30 :        
-        attribtfcombo.itemindex=2
+        attribtfcombo.itemindex=3
         attribtfeditItemChanged
         writealive
         barsdisplayed.Text = "7"
             dispbarsok_click
             tfmult.Text = "48"
             tfmultok_click
-            attribtfcombo.itemindex=5
+            attribtfcombo.itemindex=6
         attribtfeditItemChanged
         writealive
             tfmult.Text = "336"
             tfmultok_click
-            attribtfcombo.itemindex=6
+            attribtfcombo.itemindex=7
         attribtfeditItemChanged
         writealive
 
         CASE 60 :
-        attribtfcombo.itemindex=3
+        attribtfcombo.itemindex=4
         attribtfeditItemChanged
         writealive
         barsdisplayed.Text = "7"
             dispbarsok_click
             tfmult.Text = "24"
             tfmultok_click
-            attribtfcombo.itemindex=5
+            attribtfcombo.itemindex=6
         attribtfeditItemChanged
         writealive
             tfmult.Text = "168"
             tfmultok_click
-            attribtfcombo.itemindex=6
+            attribtfcombo.itemindex=7
         attribtfeditItemChanged
         writealive
 
@@ -17030,6 +17132,33 @@ dim proxiarray(0 TO 1000) as double
 dim proxihighest as double,proxilowest as double
 
 select case timeframe
+
+    case 1:
+
+    proxihighest = 0
+    FOR i = 0 TO limit
+        proxiarray(i)=datetimeserial1(i)/datetimeserial
+        if proxiarray(i)>=1 then
+            proxiarray(i)=proxiarray(i)-1
+        else
+            proxiarray(i)=1-proxiarray(i)
+        end if
+        IF proxiarray(i) > proxihighest THEN
+                proxihighest = proxiarray(i)
+            END IF
+    NEXT i
+    proxilowest = proxihighest
+    FOR i = 0 TO limit
+            IF proxiarray(i) < proxilowest THEN
+                proxilowest = proxiarray(i)
+            END IF
+        NEXT i
+    FOR i = 0 TO limit
+            IF proxiarray(i)=proxilowest THEN
+                result=i
+                exit for
+            END IF
+        NEXT i
 
     case 5:
 
@@ -18783,8 +18912,31 @@ defstr tmpdir=curdir$
 chdir "c:\qchartist\csv\google"
 
 dim pid as integer
-pid=shell ("getdata.bat "+str$(val(dstimeframe.item(dstimeframe.itemindex))*60)+" "+googledaysbackedit.text+" "+UCASE$(dssymboledit.Text),0)
-googlegoingto="googlereadquote":googlebusytimer.enabled=1
+
+DIM dstf AS STRING
+    SELECT CASE dstimeframe.ItemIndex
+        CASE 0 :
+            dstf = "1"
+        CASE 1 :
+            dstf = "5"
+        CASE 2 :
+            dstf = "15"
+        CASE 3 :
+            dstf = "30"
+        case 4 :
+            dstf = "60"
+        case 5 :
+            dstf = "240"
+        case 6 :
+            dstf = "1440"
+        case 7 :
+            dstf = "10080"
+        case 8 :
+            dstf = "43200"
+    END SELECT
+
+pid=shell ("getdata.bat "+str$(val(dstf)*60)+" "+googledaysbackedit.text+" "+UCASE$(dssymboledit.Text),0)
+googlegoingto="googlereadquote":googlebusytimer.interval=1000:googlebusytimer.enabled=1
 
 chdir tmpdir
 
@@ -18794,7 +18946,8 @@ sub googlebusytimersub
 
 'defint pid
 dim googlebusystream as qfilestream
-googlebusystream.open("c:\qchartist\csv\google\isbusy.txt",0)
+if googlegoingto="googlereadquote" then googlebusystream.open("c:\qchartist\csv\google\isbusy.txt",0)
+if googlegoingto="googlereadlastquote" then googlebusystream.open("c:\qchartist\perl\scripts\isbusy.txt",0)
 defstr isbusy=""
 while not googlebusystream.eof
 isbusy=isbusy+googlebusystream.readline
@@ -18808,6 +18961,8 @@ select case googlegoingto
 
 case "googlereadquote"
 goto googlereadquote
+'case "googlereadlastquote"
+'goto googlereadlastquote
 
 end select
 
@@ -18816,6 +18971,94 @@ end if
 exit sub
 
 googlereadquote:
+DIM dstf AS STRING
+    SELECT CASE dstimeframe.ItemIndex
+        CASE 0 :
+            dstf = "1"
+        CASE 1 :
+            dstf = "5"
+        CASE 2 :
+            dstf = "15"
+        CASE 3 :
+            dstf = "30"
+        case 4 :
+            dstf = "60"
+        case 5 :
+            dstf = "240"
+        case 6 :
+            dstf = "1440"
+        case 7 :
+            dstf = "10080"
+        case 8 :
+            dstf = "43200"
+    END SELECT
+    
+defstr currentime00=varptr$(current_time())
+defstr ft00=varptr$(unix_time_to_date(varptr(currentime00)))
+defstr year00=mid$(ft00,21,4)
+defstr month00=mid$(ft00,5,3)
+defstr day00=mid$(ft00,9,2)
+defstr hour00=mid$(ft00,12,2)
+defstr minute00=mid$(ft00,15,2)    
+
+if val(hour00)<14 and googlerealtimecheckbox.checked=1 then
+showmessage "Market closed, realtime mode disabled"
+googlerealtimecheckbox.checked=0
+end if
+
+if val(hour00)=14 and googlerealtimecheckbox.checked=1 then
+if val(minute00)<31 then
+showmessage "Market closed, realtime mode disabled"
+googlerealtimecheckbox.checked=0
+end if
+end if
+
+if val(hour00)>=21 and googlerealtimecheckbox.checked=1 then
+showmessage "Market closed, realtime mode disabled"
+googlerealtimecheckbox.checked=0
+end if
+
+if val(dstf)<>1 and googlerealtimecheckbox.checked=1 then
+showmessage "Realtime mode only works for 1M timeframe until now. Please choose 1M instead."
+dsok.enabled=1
+exit sub
+end if
+
+if dstf="1" then    
+if val(mid$(time$,7,2))>10 and googlerealtimecheckbox.checked=1 then
+print "Waiting for synchronization, please wait for the next minute to come"
+googlegoingto="googlereadquote":googlebusytimer.enabled=1
+exit sub
+end if
+end if
+if dstf="5" then    
+if val(mid$(time$,7,2))>5 and val(mid$(time$,4,2)) mod 5<>0 and googlerealtimecheckbox.checked=1 then
+print "Waiting for synchronization, please wait for the next minute to come"
+googlegoingto="googlereadquote":googlebusytimer.enabled=1
+exit sub
+end if
+end if
+if dstf="15" then    
+if val(mid$(time$,7,2))>5 and val(mid$(time$,4,2)) mod 15<>0 and googlerealtimecheckbox.checked=1 then
+print "Waiting for synchronization, please wait for the next minute to come"
+googlegoingto="googlereadquote":googlebusytimer.enabled=1
+exit sub
+end if
+end if
+if dstf="30" then    
+if val(mid$(time$,7,2))>5 and val(mid$(time$,4,2)) mod 30<>0 and googlerealtimecheckbox.checked=1 then
+print "Waiting for synchronization, please wait for the next minute to come"
+googlegoingto="googlereadquote":googlebusytimer.enabled=1
+exit sub
+end if
+end if
+if dstf="60" then    
+if val(mid$(time$,7,2))>5 and val(mid$(time$,4,2))<>0 and googlerealtimecheckbox.checked=1 then
+print "Waiting for synchronization, please wait for the next minute to come"
+googlegoingto="googlereadquote":googlebusytimer.enabled=1
+exit sub
+end if
+end if
 dim filestream as qfilestream
 filestream.open("c:\qchartist\csv\google\connection_status.log",0)
 defstr filestr=""
@@ -18825,43 +19068,32 @@ wend
 filestream.close
 'check if connection exists
 if like(filestr,"*80... connected*200 OK*")=0 then
-showmessage "Can't connect to Google Finance"
+print "Can't connect to Google Finance"
+googlerealtimecheckbox.checked=0
 dsok.enabled=1
+'googlerealtimebusytimer.enabled=0
 exit sub
 end if
+
+googlecurrenttimestamp=val(varptr$(current_time())) 'val(Format$("%.8f",varptr$(current_time())))
+
 filestream.open("c:\qchartist\csv\google\Google_quotes.txt",0)
 filestr=""
 while not filestream.eof
 filestr=filestr+filestream.readline
+doevents
 wend
 filestream.close
 if like(filestr,"*EXCHANGE*NASDAQ*")=1 then
 'showmessage "realtime"
 end if
 if like(filestr,"*a*")=0 then
-showmessage "Invalid symbol"
+print "Invalid symbol"
 dsok.enabled=1
+'googlerealtimebusytimer.enabled=0
 exit sub
 end if
-DIM dstf AS STRING
-    SELECT CASE dstimeframe.ItemIndex
-        CASE 0 :
-            dstf = "5"
-        CASE 1 :
-            dstf = "15"
-        CASE 2 :
-            dstf = "30"
-        case 3 :
-            dstf = "60"
-        case 4 :
-            dstf = "240"
-        case 5 :
-            dstf = "1440"
-        case 6 :
-            dstf = "10080"
-        case 7 :
-            dstf = "43200"
-    END SELECT
+
     
 DEFSTR outFileName = UCASE$(dssymboledit.Text) + dstf + ".csv"
 defint lineloop=0
@@ -18915,7 +19147,7 @@ if lineloop>7 then
         openstr=mid$(fileline,comaposition4+1,comaposition5-comaposition4-1)
         volumestr=mid$(fileline,comaposition5+1,len(fileline)-comaposition5-1)
         defstr nb=mid$(fileline,1,comaposition-1)
-        defstr utn=Format$("%.8f",val(ut)+(val(dstf)*60)*val(nb))
+        defstr utn=Format$("%.8f",val(ut)+(1*60)*val(nb))
         ft=varptr$(unix_time_to_date(varptr(utn)))
         year=mid$(ft,21,4)
         month=mid$(ft,5,3)
@@ -18930,28 +19162,355 @@ if lineloop>7 then
     if left$(fileline,8)<>"TIMEZONE" then filestream2.writeline(fileline)'filestr=filestr+fileline+chr$(10)
 
 end if
+doevents
 wend
+
+if googlerealtimecheckbox.checked=1 then
+if val(minute)<val(mid$(time$,4,2)) then
+defstr nextutn=str$(val(utn)+60)
+defstr nextutn2=Format$("%.8f",val(nextutn))
+defstr nextft=varptr$(unix_time_to_date(varptr(nextutn2)))
+defstr nextyear=mid$(nextft,21,4)
+defstr nextmonth=mid$(nextft,5,3)
+defstr nextday=mid$(nextft,9,2)
+defstr nexthour=mid$(nextft,12,2)
+defstr nextminute=mid$(nextft,15,2)
+nextft=nextyear+"-"+strtomonth(nextmonth)+"-"+nextday+","+nexthour+":"+nextminute
+defstr nextfileline=nextft+","+closestr+","+closestr+","+closestr+","+closestr+","+"0"
+
+filestream2.writeline(nextfileline)
+end if
+end if
 
 filestream.close
 filestream2.close
 
+if val(minute)<val(mid$(time$,4,2)) then
+'defdbl quotenexttimestamp1=val(nextutn)
+'quotenexttimestamp1=timeminute(quotenexttimestamp1)
+'defdbl quotenexttimestamp2=quotenexttimestamp1/val(dstf)
+'quotenexttimestamp2=(floor(quotenexttimestamp2)+1)*val(dstf)
+'quotenexttimestamp2=quotenexttimestamp2-quotenexttimestamp1
+'quotenexttimestamp=quotenexttimestamp2*60+(val(utn)+60)
+quotenexttimestamp=val(nextutn)+60*val(dstf)
+else
+'quotenexttimestamp1=val(utn)
+'quotenexttimestamp1=timeminute(quotenexttimestamp1)
+'quotenexttimestamp2=quotenexttimestamp1/val(dstf)
+'quotenexttimestamp2=(floor(quotenexttimestamp2)+1)*val(dstf)
+'quotenexttimestamp2=quotenexttimestamp2-quotenexttimestamp1
+'quotenexttimestamp=quotenexttimestamp2*60+val(utn)
+quotenexttimestamp=val(utn)+60*val(dstf)
+end if
+
+'print utn
+'print str$(quotenexttimestamp)
+
 filestream.open("c:\qchartist\csv\"+UCASE$(dssymboledit.Text) + dstf + ".csv",0)
-if val(barsdisplayed.text)>filestream.linecount then barsdisplayed.text=str$(filestream.linecount)
+if val(barsdisplayed.text)>filestream.linecount and filestream.linecount>0 then barsdisplayed.text=str$(filestream.linecount)
+if filestream.linecount=0 then
+if googlerealtimecheckbox.checked=1 then
+filestream.close
+'googlereadlastquotetimestamp=val(varptr$(current_time()))
+firstfilevol=1
+googlegetquotesub
+print "no data"
+exit sub
+end if
+end if
 filestream.close
 
-'filestream.open("c:\qchartist\csv\"+outFileName,fmcreate)
-'filestream.writeline(filestr)
-'filestream.close
-
-'CHDIR homepath + "\csv"
-
-'importfilegoogle()
 importfileauto2("c:\qchartist\csv\"+UCASE$(dssymboledit.Text) + dstf + ".csv")
+'if googlerealtimebusytimer.enabled=1 then 
+'importfileauto("c:\qchartist\csv\"+UCASE$(dssymboledit.Text) + dstf + ".csv")
 'reimportfile()
-'exportfileyahoo()
-dsok.enabled=1
+'end if
+
+
+if googlerealtimecheckbox.checked=0 then
+    dsok.enabled=1
+else
+    googlebusytimer.interval=1000
+    '-----------------------------------------------------------------
+    busystream.open("c:\qchartist\perl\scripts\isbusy.txt",fmcreate)
+busystream.writeline("1")
+busystream.close
+
+defstr tmpdir=curdir$
+chdir "c:\qchartist\perl\scripts"
+
+dim pid as integer
+if like(platform,"*Wine*")=0 then pid=shell ("getstockvol.bat usa "+UCASE$(dssymboledit.Text),0)
+if like(platform,"*Wine*")=1 then pid=shell ("/bin/sh -c "+chr$(34)+"./getstockvol.sh usa "+UCASE$(dssymboledit.Text)+chr$(34),0)
+chdir tmpdir
+    '----------------------------------------------------------------
+    googlegoingto="googlereadlastquote"':googlebusytimer.enabled=1
+    googlereadlastquotetimer.enabled=1
+    'googlereadlastquotetimestamp=val(varptr$(current_time())):googlerealtimebusytimer.enabled=1
+end if
 goto endlabel
 
 endlabel:
+
+end sub
+
+sub googlereadlastquoteontimersub
+
+dim googlebusystream as qfilestream
+googlebusystream.open("c:\qchartist\perl\scripts\isbusy.txt",0)
+defstr isbusy=""
+while not googlebusystream.eof
+isbusy=isbusy+googlebusystream.readline
+wend
+googlebusystream.close
+
+'if val(isbusy)=1 then exit sub
+
+'googlereadlastquotetimestamp=val(varptr$(current_time()))
+
+dim filestream as qfilestream
+filestream.open("c:\qchartist\perl\scripts\quote.txt",0)
+defstr filestr=""
+while not filestream.eof
+filestr=filestr+filestream.readline
+wend
+filestream.close
+
+defstr filestr2=filestr
+filestr=mid$(filestr,1,instr(filestr,",")-1)
+
+if val(filestr)>0 then 
+filevol=val(mid$(filestr2,instr(filestr2,",")+1,len(filestr2)))
+else
+filevol=val(Grid.Cell(rowgridoffset + 7 , chartbars(displayedfile)))
+end if
+if firstfilevol=1 then
+firstfilevol=0
+filevoltmp=filevol
+end if
+defint volum=filevol-filevoltmp
+
+'check if connection exists
+if val(filestr)>0 then
+' ok
+else
+'print "Can't get quote, retrying next time"
+
+'googlerealtimecheckbox.checked=0
+'dsok.enabled=1
+'googlerealtimebusytimer.enabled=0
+
+'googlereadlastquotetimestamp=val(varptr$(current_time()))
+'firstfilevol=1
+'googlegetquotesub
+'exit sub
+
+filestr=Grid.Cell(rowgridoffset + 6 , chartbars(displayedfile))
+
+end if
+
+defint googlecurrenttimestamptmp=googlecurrenttimestamp
+googlecurrenttimestamp=val(varptr$(current_time())) 'val(Format$("%.8f",varptr$(current_time())))
+if googlecurrenttimestamp-googlecurrenttimestamptmp>30 then
+print "Connection lagging"
+'googlerealtimecheckbox.checked=0
+'dsok.enabled=1
+'googlerealtimebusytimer.enabled=0
+
+'googlereadlastquotetimestamp=val(varptr$(current_time()))
+'firstfilevol=1
+'googlegetquotesub
+'exit sub
+end if
+
+defstr dstf
+    SELECT CASE dstimeframe.ItemIndex
+        CASE 0 :
+            dstf = "1"
+        CASE 1 :
+            dstf = "5"
+        CASE 2 :
+            dstf = "15"
+        CASE 3 :
+            dstf = "30"
+        case 4 :
+            dstf = "60"
+        case 5 :
+            dstf = "240"
+        case 6 :
+            dstf = "1440"
+        case 7 :
+            dstf = "10080"
+        case 8 :
+            dstf = "43200"
+    END SELECT
+    
+defstr outFileName = UCASE$(dssymboledit.Text) + dstf + ".csv"
+
+'print str$(googlecurrenttimestamp)+" "+str$(quotenexttimestamp)
+
+if googlecurrenttimestamp<quotenexttimestamp then
+
+if val(filestr)>val(Grid.Cell(rowgridoffset + 4 , chartbars(displayedfile))) then Grid.Cell(rowgridoffset + 4 , chartbars(displayedfile))=filestr
+if val(filestr)<val(Grid.Cell(rowgridoffset + 5 , chartbars(displayedfile))) then Grid.Cell(rowgridoffset + 5 , chartbars(displayedfile))=filestr
+Grid.Cell(rowgridoffset + 6 , chartbars(displayedfile))=filestr
+Grid.Cell(rowgridoffset + 7 , chartbars(displayedfile))=str$(volum)
+
+exportfilename
+btnOnClick(drwBox)
+
+if googlerealtimecheckbox.checked=0 then
+    'googlerealtimebusytimer.enabled=0
+    googlereadlastquotetimer.enabled=0
+    dsok.enabled=1
+else
+
+    googlebusytimer.interval=1000
+    '-----------------------------------------
+    if val(isbusy)=0 then
+        busystream.open("c:\qchartist\perl\scripts\isbusy.txt",fmcreate)
+busystream.writeline("1")
+busystream.close
+
+
+
+defstr tmpdir=curdir$
+chdir "c:\qchartist\perl\scripts"
+
+
+if like(platform,"*Wine*")=0 then pid=shell ("getstockvol.bat usa "+UCASE$(dssymboledit.Text),0)
+if like(platform,"*Wine*")=1 then pid=shell ("/bin/sh -c "+chr$(34)+"./getstockvol.sh usa "+UCASE$(dssymboledit.Text)+chr$(34),0)
+
+chdir tmpdir
+end if
+    '------------------------------------------------
+    googlegoingto="googlereadlastquote"':googlebusytimer.enabled=1
+
+end if
+
+end if
+
+if googlecurrenttimestamp>=quotenexttimestamp then
+
+'if googlerealtimecheckbox.checked=1 then
+'googlereadlastquotetimestamp=val(varptr$(current_time()))
+'firstfilevol=1
+'googlegetquotesub
+'exit sub
+'end if
+
+defstr nextutn=str$(quotenexttimestamp)
+defstr nextutn2=Format$("%.8f",val(nextutn))
+defstr nextft=varptr$(unix_time_to_date(varptr(nextutn2)))
+defstr nextyear=mid$(nextft,21,4)
+defstr nextmonth=mid$(nextft,5,3)
+defstr nextday=mid$(nextft,9,2)
+defstr nexthour=mid$(nextft,12,2)
+defstr nextminute=mid$(nextft,15,2)
+
+quotenexttimestamp=quotenexttimestamp+60*val(dstf)
+
+Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)+1)=nextyear+"-"+strtomonth(nextmonth)+"-"+nextday
+Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)+1)=nexthour+":"+nextminute
+Grid.Cell(rowgridoffset + 3 , chartbars(displayedfile)+1)=filestr
+Grid.Cell(rowgridoffset + 4 , chartbars(displayedfile)+1)=filestr
+Grid.Cell(rowgridoffset + 5 , chartbars(displayedfile)+1)=filestr
+Grid.Cell(rowgridoffset + 6 , chartbars(displayedfile)+1)=filestr
+Grid.Cell(rowgridoffset + 7 , chartbars(displayedfile)+1)="0"
+
+chartbars(displayedfile) = chartbars(displayedfile)+1
+chartbarsdisplayedfilestr=str$(chartbars(displayedfile)):displayedfilestr=str$(displayedfile):cpptmpfuncreturn=varptr$(setchartbars(varptr(chartbarsdisplayedfilestr),varptr(displayedfilestr)))
+
+exportfilename
+
+Scrollchart.Max = chartbars(displayedfile)
+if Scrollchart.Position = chartbars(displayedfile)-1 then Scrollchart.Position = chartbars(displayedfile)
+chartstart = Scrollchart.Position - numbars
+
+btnOnClick(drwBox)
+    
+if googlerealtimecheckbox.checked=0 then
+'googlerealtimebusytimer.enabled=0
+googlereadlastquotetimer.enabled=0
+dsok.enabled=1
+else
+googlebusytimer.interval=1000
+'-----------------------------------------
+if val(isbusy)=0 then
+busystream.open("c:\qchartist\perl\scripts\isbusy.txt",fmcreate)
+busystream.writeline("1")
+busystream.close
+
+
+
+tmpdir=curdir$
+chdir "c:\qchartist\perl\scripts"
+
+
+if like(platform,"*Wine*")=0 then pid=shell ("getstockvol.bat usa "+UCASE$(dssymboledit.Text),0)
+if like(platform,"*Wine*")=1 then pid=shell ("/bin/sh -c "+chr$(34)+"./getstockvol.sh usa "+UCASE$(dssymboledit.Text)+chr$(34),0)
+
+chdir tmpdir
+end if
+'------------------------------------------------
+filevoltmp=filevol
+googlegoingto="googlereadlastquote"':googlebusytimer.enabled=1
+end if    
+
+end if 
+
+end sub
+
+'sub googlerealtimebusytimersub
+'
+'if googlereadlastquotetimestamp<val(varptr$(current_time()))-10 then 'googlecurrenttimestamp<val(varptr$(current_time()))-40 then
+'   
+'    if googlerealtimecheckbox.checked=1 then
+'        'googlereadlastquotetimestamp=val(varptr$(current_time()))
+'        'googlegetquotesub
+'
+'    else
+'        
+'        'googlerealtimecheckbox.checked=0
+'        'dsok.enabled=1
+'        'googlerealtimebusytimer.enabled=0
+'        'exit sub
+'    
+'    end if
+'    
+'end if
+
+'end sub
+
+function timeminute(seconds as double) as double
+
+defdbl inhours=seconds/60/60
+defdbl minutes=(inhours-floor(inhours))*60
+result=minutes
+
+end function
+
+function timehour(seconds as double) as double
+
+defdbl indays=seconds/60/60/24
+defdbl hours=(indays-floor(indays))*24
+result=hours
+      
+end function
+
+function timedayofweek(seconds as double) as double
+
+defstr mydate
+defstr secondsstr=seconds
+mydate=varptr$(unix_time_to_date(varptr(secondsstr)))
+defstr datestr=mid$(mydate,1,3)          
+
+if datestr="Mon" then result= 1
+if datestr="Tue" then result= 2
+if datestr="Wed" then result= 3
+if datestr="Thu" then result= 4
+if datestr="Fri" then result= 5
+if datestr="Sat" then result= 6
+if datestr="Sun" then result= 0
 
 end sub

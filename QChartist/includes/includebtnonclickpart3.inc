@@ -14,6 +14,7 @@ IF VAL(canvas.separateindicator1.Cell(2 , lbar)) > sepindivalmax THEN
 END IF
 
 END IF
+doevents
 NEXT i
 
 IF scrollmode = 0 THEN
@@ -812,7 +813,7 @@ IF scrollmode = 0 THEN
             graph.paintchart
 
         END IF
-
+        doevents
     NEXT drawi
 
 END IF

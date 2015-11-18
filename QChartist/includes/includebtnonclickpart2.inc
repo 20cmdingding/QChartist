@@ -23,14 +23,17 @@ IF scrollmode = 0 THEN
 
         FOR lo = 1 TO canvas.separateindicator1.RowCount STEP 2
             canvas.separateindicator1.Cell(lo , l) = STR$(l) 'Legend in Row 0 of Each Col
+            doevents
         NEXT lo
         FOR lo = 2 TO canvas.separateindicator1.RowCount STEP 2
             canvas.separateindicator1.Cell(lo , l) = STR$(0)
+            doevents
         NEXT lo
         
         defint histoincr
         for histoincr=0 to 100
         drawhisto(histoincr)=0
+        doevents
         next histoincr
         
     END IF

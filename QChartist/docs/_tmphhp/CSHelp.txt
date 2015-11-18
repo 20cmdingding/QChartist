@@ -1,0 +1,4 @@
+QChartist works perfectly under Ubuntu with Wine.
+Just copy QChartist into your ~/.wine/drive_c/QChartist 
+Run QChartist.exe with wine or run QTStart.sh in the console to recompile the source code.
+Before trying to run QTStart.sh you need to do this : chmod u+x QTStart.sh

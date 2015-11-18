@@ -453,7 +453,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
                             'datetimeserial(o)=datetimeserial(o)*24*60*60
                             'datetimeserial(o)=datetimeserial(o)+(hour*60*60)
                             'datetimeserial(o)=datetimeserial(o)+(minute*60) 
-                            o ++                                                                                                                                            
+                            o ++   
+                            doevents                                                                                                                                         
                         NEXT i
 
                     END IF
@@ -1702,14 +1703,17 @@ IF scrollmode = 0 THEN
 
         FOR lo = 1 TO canvas.separateindicator1.RowCount STEP 2
             canvas.separateindicator1.Cell(lo , l) = STR$(l) 'Legend in Row 0 of Each Col
+            doevents
         NEXT lo
         FOR lo = 2 TO canvas.separateindicator1.RowCount STEP 2
             canvas.separateindicator1.Cell(lo , l) = STR$(0)
+            doevents
         NEXT lo
         
         defint histoincr
         for histoincr=0 to 100
         drawhisto(histoincr)=0
+        doevents
         next histoincr
         
     END IF
@@ -2479,6 +2483,7 @@ IF VAL(canvas.separateindicator1.Cell(2 , lbar)) > sepindivalmax THEN
 END IF
 
 END IF
+doevents
 NEXT i
 
 IF scrollmode = 0 THEN
@@ -3277,7 +3282,7 @@ IF scrollmode = 0 THEN
             graph.paintchart
 
         END IF
-
+        doevents
     NEXT drawi
 
 END IF

@@ -1119,13 +1119,24 @@ you can use realtime quotes thanks to perl scripts
 
 2015-11-02 (build 43):
 - enrichment of the QChartist.chm documentation and QChartist.sh5 added 
-for edition with Vizacc HelpMaker authoring tool available on sourceforge
+for edition with Vizacc HelpMaker authoring tool available on sourceforge http://sourceforge.net/projects/helpmaker/
 - added Swiss Ephemeris documentation in docs\sweph\
 
 2015-11-14 (build 44):
 - new data source Google Finance for stocks intraday charts
 - bugs correction with files opening and data source connection (input symbol verification)
 build 45: - correction of a bug in WineHQ where the screen does not refresh correctly (btnonclick(drawbox))
+
+2015-11-15 (build 46):
+- programming realtime quotes for Google Finance intraday data
+2015-11-16 :
+- putting doevents in long loops in relation with the realtime refresh the way the GUI is less busy during computations
+- adding 1 minute timeframe
+2015-11-18 :
+- enrichment of QChartist.chm documentation
+- realtime quotes available for 1M timeframe with Google Finance for testing purposes (still very buggy)
+build 47 : adding some missing code for the realtime quotes to work with Wine
+build 48 : adding some missing code for the realtime quotes to work with Wine
 
 -------------------------------------------------------------------------------------
 Todo list;

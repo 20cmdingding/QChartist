@@ -1,0 +1,146 @@
+[OPTIONS]
+TITLE=QChartist
+Full-text search=Yes
+Display compile notes=YES
+Display compile progress=YES
+Compatibility=1.1
+Default Window=Main
+Language=0x409 English (United States)
+Default Font=Arial,8,0
+Compiled file=qchartist.chm
+Error Log file=qchartist.log
+Contents file=qchartist.hhc
+Index File=qchartist.hhk
+Default Topic=topic1.html
+
+[FILES]
+topic1.html
+topic2.html
+topic3.html
+datasource.html
+importcsv.html
+exportcsv.html
+attributetimeframe.html
+toolsettings.html
+showseparatecanvas.html
+objectslist.html
+astrowheelsettings.html
+chartopening.html
+linestudies.html
+averagerangeadr.html
+atrchannel.html
+bollingerbands.html
+bbhl.html
+bowels.html
+centerofgravity.html
+cogofrstl.html
+dinfibohigh.html
+enveloppes.html
+levels.html
+simplemovingaverage.html
+machanelsfiboenvmid.html
+murreymath.html
+planetarylines.html
+fibomachannels.html
+vegas.html
+rstl.html
+timeseriesforecast.html
+volatilitypivot.html
+volatilitystop.html
+waterlevel.html
+weeklypivot.html
+zigzag.html
+accelerator.html
+astroretrograde.html
+atr.html
+candleaverage.html
+declinationsystem.html
+ehlersfishertransform.html
+fftspectro.html
+forceindex.html
+gauquelinsector.html
+lss.html
+moneyflowindex.html
+planetscale.html
+rsi.html
+smfishertransform3nr.html
+spectrometer.html
+stepftvcprdl.html
+steprsi.html
+threedoscilator.html
+valuechart.html
+valuechartofatrchannels.html
+howtocreateanewindicator.html
+howtousemultitimeframeindicators.html
+theselectiontool.html
+indicators.html
+about.html
+displayedfile.html
+chartbars.html
+charttf.html
+importedfile.html
+openedfilesnb.html
+rowgridoffset.html
+grid.html
+date.html
+time.html
+open.html
+high.html
+low.html
+close.html
+volume.html
+date1.html
+time1.html
+open1.html
+high1.html
+low1.html
+close1.html
+volume1.html
+numbars.html
+bars.html
+graphvhigh.html
+graphvlow.html
+alltimehigh.html
+alltimelow.html
+btnonclickdrawbox.html
+reimportfile.html
+opena.html
+highta.html
+lowa.html
+closea.html
+datea.html
+timea.html
+volumea.html
+constants.html
+ibarshift.html
+ihighest.html
+ilowest.html
+timeb.html
+itimeb.html
+timeminute.html
+timehour.html
+timedayofweek.html
+mathmax.html
+mathmin.html
+idate.html
+itime.html
+iopen.html
+ihigh.html
+ilow.html
+iclose.html
+ivolume.html
+aboutqtgen.html
+aboutqtguard.html
+gettingstarted.html
+
+
+[WINDOWS]
+Main="Main","qchartist.hhc","qchartist.hhk","topic1.html","topic1.html", ,,,,0x061520,200, 0x00304E, [9, 9, 566, 600]  , 0x307e, , , , , , , , 0
+Popup="Popup","qchartist.hhc","qchartist.hhk","topic1.html","topic1.html", ,,,,0x061520,200, 0x00304E, [9, 9, 566, 600]  , 0x307e, , , , , , , , 0
+
+
+[MAP]
+#include qchartist.h
+
+[TEXT POPUPS]
+CSHelp.txt

@@ -453,7 +453,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
                             'datetimeserial(o)=datetimeserial(o)*24*60*60
                             'datetimeserial(o)=datetimeserial(o)+(hour*60*60)
                             'datetimeserial(o)=datetimeserial(o)+(minute*60) 
-                            o ++                                                                                                                                            
+                            o ++   
+                            doevents                                                                                                                                         
                         NEXT i
 
                     END IF

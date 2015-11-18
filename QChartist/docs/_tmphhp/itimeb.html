@@ -1,0 +1,29 @@
+<html><head>
+   <title>itimeb()</title>
+   <meta name="generator"  content="HelpMaker.net" >
+   <meta name="keywords"  content="Topic 3," ></head>
+<body bgcolor="FFFCEA" >
+<table width="100%"  border="0"  cellspacing="0"  cellpadding="2"  bgcolor="C0C0C0" >
+  <tr>
+    <td align="left" >
+      <div align="left" ></span><font face="Arial"  size="4" ><span style="font-size:14pt" >itimeb()</span></font><font color="#010101" ></font></div>
+
+    </td>
+    <td align="right" >
+      <font face="Arial"  size="2" >
+        <a href="timeb.html">Previous</a>&nbsp;<a href="topic1.html">Top</a>&nbsp;<a href="timeminute.html">Next</a>
+      </font>
+    </td>
+  </tr></table>
+<hr></span><font face="Arial" ><span style="font-size:12pt" >Returns Time value for the bar of specified symbol with timeframe and shift.</span></font><font color="#010101" ></font><br><div align="left" ><br></div><font color="#010101" ><div align="left" ></span></font><font face="Arial" ><span style="font-size:12pt" >long itimeb(int period, // timeframe</span></font><font color="#010101" ></font></div><div align="left" ></span><font face="Arial" ><span style="font-size:12pt" >int bar // shift</span></font><font color="#010101" ></font></div><div align="left" ></span><font face="Arial" ><span style="font-size:12pt" >);</span></font><font color="#010101" ></font></div><div align="left" ><br><font color="#010101" ></font></div></span><font face="Arial" ><span style="font-size:12pt" >Parameters</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >period</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >[in] Timeframe. It can be any of </span></font><a href="constants.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>PERIOD_</u></span></font></a></span><font face="Arial" ><span style="font-size:12pt" > enumeration values.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >bar</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >[in] Index of the value taken from the indicator buffer (shift relative to the 
+current bar the given amount of periods ago).</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >Returned value</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >Time value for the bar of specified symbol with timeframe and shift.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >Note</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >For the current chart, the information about open bar times is in the timea[] 
+predefined array.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >Example:</span></font><font color="#010101" ></font><br><table width="624"  cellpadding="3"  cellspacing="0"  style="border-collapse: collapse; border: none" >
+    <tr>
+    <td valign="middle"  width="618" >
+    <div align="left" ></span><font face="Arial" ><span style="font-size:12pt" >Printf(&quot;Current bar for USDCHF H1: &quot;,itimeb(PERIOD_H1,0),&quot;, &quot;, 
+    iopen(PERIOD_H1,0),&quot;, &quot;,<br>
+    ihigh(PERIOD_H1,0),&quot;, &quot;, ilow(PERIOD_H1,0),&quot;, &quot;,<br>
+    iclose(PERIOD_H1,0),&quot;, &quot;, ivolume(PERIOD_H1,0));</span></font><font color="#010101" ></font></div>
+    </td></tr></table><br><font color="#010101" ></font><br><div align="left" ><font color="#010101" ></font></div>
+
+</body></html>

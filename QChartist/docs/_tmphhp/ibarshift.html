@@ -1,0 +1,29 @@
+<html><head>
+   <title>ibarshift()</title>
+   <meta name="generator"  content="HelpMaker.net" >
+   <meta name="keywords"  content="Topic 3," ></head>
+<body bgcolor="FFFCEA" >
+<table width="100%"  border="0"  cellspacing="0"  cellpadding="2"  bgcolor="C0C0C0" >
+  <tr>
+    <td align="left" >
+      <div align="left" ></span><font face="Arial"  color="#010101"  size="4" ><span style="font-size:14pt" >ibarshift()</span></font><font color="#010101" ></font></div>
+
+    </td>
+    <td align="right" >
+      <font face="Arial"  size="2" >
+        <a href="constants.html">Previous</a>&nbsp;<a href="topic1.html">Top</a>&nbsp;<a href="ihighest.html">Next</a>
+      </font>
+    </td>
+  </tr></table>
+<hr><div align="left" ></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >The function returns bar shift with the open time specified.</span></font><font color="#010101" ></font></div><div align="left" ></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >int ibarshift (int timeframe, // timeframe</span></font><font color="#010101" ></font></div><div align="left" ></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >long datetimeserial, // time</span></font><font color="#010101" ></font></div><div align="left" ></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >int limit, // bars back</span></font><font color="#010101" ></font></div><div align="left" ></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >bool exact=0 // mode</span></font><font color="#010101" ></font></div><div align="left" ></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >);</span></font><font color="#010101" ></font></div><div align="left" ><br><font color="#010101" ></font></div></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >Parameters</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >timeframe</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >[in] Timeframe. It can be any of </span></font><a href="constants.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>PERIOD_</u></span></font></a></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" > enumeration values.</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >datetimeserial</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >[in] Value to find (bar's open unix time).</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >limit</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >[in] Limit the search to the specified number of bars back</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >exact=0</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >[in] Return mode when bar not found (0 : ibarshift returns nearest, 1 : ibarshift 
+returns -1).</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >Returned value</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >Bar shift with the open time specified. If the bar having the specified open 
+time is missing, the function will return -1 or the nearest bar shift depending 
+on the exact.</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >Example:</span></font><font color="#010101" ></font><br><table width="624"  cellpadding="3"  cellspacing="0"  style="border-collapse: collapse; border: none" >
+    <tr>
+    <td valign="middle"  width="618" >
+    <div align="left" ></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >long some_time=timeb[5];<br>
+    int shift=ibarshift(PERIOD_D1,some_time);<br>
+    Printf(&quot;shift of bar with open time &quot;,some_time,&quot; is &quot;,shift);</span></font><font color="#010101" ></font></div>
+    </td></tr></table><br><font color="#010101" ></font><br><div align="left" ><font color="#010101" ></font></div>
+
+</body></html>

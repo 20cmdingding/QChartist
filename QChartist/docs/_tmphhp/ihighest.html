@@ -1,0 +1,32 @@
+<html><head>
+   <title>ihighest()</title>
+   <meta name="generator"  content="HelpMaker.net" >
+   <meta name="keywords"  content="Topic 3," ></head>
+<body bgcolor="FFFCEA" >
+<table width="100%"  border="0"  cellspacing="0"  cellpadding="2"  bgcolor="C0C0C0" >
+  <tr>
+    <td align="left" >
+      <div align="left" ></span><font face="Arial"  color="#010101"  size="4" ><span style="font-size:14pt" >ihighest()</span></font><font color="#010101" ></font></div>
+
+    </td>
+    <td align="right" >
+      <font face="Arial"  size="2" >
+        <a href="ibarshift.html">Previous</a>&nbsp;<a href="topic1.html">Top</a>&nbsp;<a href="ilowest.html">Next</a>
+      </font>
+    </td>
+  </tr></table>
+<hr></span><font face="Arial" ><span style="font-size:12pt" >Returns the shift of the maximum value over a specific number of bars 
+depending on type.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >int ihighest(int timeframe, // timeframe</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >int type, // timeseries</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >int count, // count</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >int start=0 // start</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >);</span></font><font color="#010101" ></font><br><br><br><font color="#010101" ></span></font><font face="Arial" ><span style="font-size:12pt" >Parameters</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >timeframe</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >[in] Timeframe. It can be any of </span></font><a href="constants.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>PERIOD_</u></span></font></a></span><font face="Arial" ><span style="font-size:12pt" > enumeration values.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >type</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >[in] Series array identifier. It can be any of the </span></font><a href="constants.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>MODE_</u></span></font></a></span><font face="Arial" ><span style="font-size:12pt" > enumeration values.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >count=WHOLE_ARRAY</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >[in] Number of bars (in direction from the start bar to the back one) on which 
+the search is carried out.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >start=0</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >[in] Shift showing the bar, relative to the current bar, that the data should be 
+taken from.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >Returned value</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >The shift of the maximum value over a specific number of bars or -1 if error.</span></font><font color="#010101" ></font><br></span><font face="Arial" ><span style="font-size:12pt" >Example:</span></font><font color="#010101" ></font><br><table width="624"  cellpadding="3"  cellspacing="0"  style="border-collapse: collapse; border: none" >
+    <tr>
+    <td valign="middle"  width="618" >
+    <div align="left" ></span><font face="Arial" ><span style="font-size:12pt" >double val;<br>
+    //--- calculating the highest value on the 20 consecutive bars in the range<br>
+    //--- from the 4th to the 23rd index inclusive on the current chart<br>
+    int val_index=[ihighest(1440,MODE_HIGH,20,4)];<br>
+    if(val_index!=-1) val=lowa[val_index];<br>
+    else Printf(&quot;Error in call ihighest.&quot;);</span></font><font color="#010101" ></font></div>
+    </td></tr></table><br><br><font color="#010101" ></font><font color="#010101" ></font><br>
+
+</body></html>

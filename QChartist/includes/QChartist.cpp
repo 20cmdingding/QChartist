@@ -56,6 +56,7 @@ double mathmax(double,double);
 double mathmin(double,double);
 long itimeb(int,int);
 char* ut_to_date(long);
+void DoEvents();
 
 typedef boost::array<char*,5000> arrayofchars;
 typedef boost::array<double,5000> arrayofdoubles;
@@ -64,6 +65,7 @@ typedef boost::array<long,5000> arrayoflongs;
 boost::multi_array<char*, 2> static grid(boost::extents[281][10000]);
 boost::multi_array<char*, 2> static gridtmp(boost::extents[281][10000]);
 static arrayofchars datea;
+static arrayofchars date1;
 static arrayofchars date5;
 static arrayofchars date15;
 static arrayofchars date30;
@@ -73,6 +75,7 @@ static arrayofchars date1440;
 static arrayofchars date10080;
 static arrayofchars date43200;
 static arrayofchars timea;
+static arrayofchars time1;
 static arrayofchars time5;
 static arrayofchars time15;
 static arrayofchars time30;
@@ -82,6 +85,7 @@ static arrayofchars time1440;
 static arrayofchars time10080;
 static arrayofchars time43200;
 static arrayofdoubles opena;
+static arrayofdoubles open1;
 static arrayofdoubles open5;
 static arrayofdoubles open15;
 static arrayofdoubles open30;
@@ -91,6 +95,7 @@ static arrayofdoubles open1440;
 static arrayofdoubles open10080;
 static arrayofdoubles open43200;
 static arrayofdoubles higha;
+static arrayofdoubles high1;
 static arrayofdoubles high5;
 static arrayofdoubles high15;
 static arrayofdoubles high30;
@@ -100,6 +105,7 @@ static arrayofdoubles high1440;
 static arrayofdoubles high10080;
 static arrayofdoubles high43200;
 static arrayofdoubles lowa;
+static arrayofdoubles low1;
 static arrayofdoubles low5;
 static arrayofdoubles low15;
 static arrayofdoubles low30;
@@ -109,6 +115,7 @@ static arrayofdoubles low1440;
 static arrayofdoubles low10080;
 static arrayofdoubles low43200;
 static arrayofdoubles closea;
+static arrayofdoubles close1;
 static arrayofdoubles close5;
 static arrayofdoubles close15;
 static arrayofdoubles close30;
@@ -118,6 +125,7 @@ static arrayofdoubles close1440;
 static arrayofdoubles close10080;
 static arrayofdoubles close43200;
 static arrayofints volumea; 
+static arrayofints volume1;
 static arrayofints volume5;
 static arrayofints volume15;
 static arrayofints volume30;
@@ -127,6 +135,7 @@ static arrayofints volume1440;
 static arrayofints volume10080;
 static arrayofints volume43200;
 static arrayoflongs datetimeserial; 
+static arrayoflongs datetimeserial1;
 static arrayoflongs datetimeserial5;
 static arrayoflongs datetimeserial15;
 static arrayoflongs datetimeserial30;
@@ -483,6 +492,7 @@ if (ii<1) ii=1;
                             //datetimeserial[o]=datetimeserial[o]+(hour*60*60);
                             //datetimeserial[o]=datetimeserial[o]+(minute*60);                           
                             o++;
+				DoEvents();
                         }
 return 0;                        
 }
@@ -987,6 +997,43 @@ char* writetfcpp (char* tftowrite)
 
  switch (tftowriteint)
  {
+     
+     case 1:
+
+
+                        
+                        o = 0;                        
+
+                        for (i = chartbars[displayedfile];i>=ii;i--) {
+                            date1[o] = grid[rowgridoffset + 1][i];
+                            time1[o] = grid[rowgridoffset + 2][i];
+                            open1[o] = atof(grid[rowgridoffset + 3][i]);
+                            high1[o] = atof(grid[rowgridoffset + 4][i]);
+                            low1[o] = atof(grid[rowgridoffset + 5][i]);
+                            close1[o] = atof(grid[rowgridoffset + 6][i]);
+                            volume1[o] = atoi(grid[rowgridoffset + 7][i]);
+                            std::string dateastr (date1[o]);
+                            std::string timeastr (time1[o]);
+                            std::string yearstr = dateastr.substr (0,4);
+                            std::string monthstr = dateastr.substr (5,2);
+                            std::string daystr = dateastr.substr (8,2);
+                            std::string hourstr = timeastr.substr (0,2);
+                            std::string minutestr = timeastr.substr (3,2);
+                            year=atol(yearstr.c_str());                                                                             
+                            month=atol(monthstr.c_str());                            
+                            day=atol(daystr.c_str());                            
+                            hour=atoi(hourstr.c_str());                            
+                            minute=atoi(minutestr.c_str());
+                second=0;
+                datetimeserial1[o]=calculate_seconds_since_1_1_1970(year,month,day,hour,minute,second); //dateserial (year, month, day);
+                            //datetimeserial5[o]=dateserial (year, month, day);
+                            //datetimeserial5[o]=datetimeserial5[o]*24*60*60;
+                            //datetimeserial5[o]=datetimeserial5[o]+(hour*60*60);
+                            //datetimeserial5[o]=datetimeserial5[o]+(minute*60);
+                            o ++;
+                        }
+                        break;
+     
      case 5:
 
 
@@ -1274,6 +1321,9 @@ char* writetfcpp (char* tftowrite)
 char* idate(int timeframe,int shift)
 {
 switch (timeframe) {
+    case 1:
+    return  date1[shift];
+    break;
     case 5:
     return  date5[shift];
     break;
@@ -1305,6 +1355,9 @@ return 0;
 char* itime(int timeframe,int shift)
 {
 switch (timeframe) {
+    case 1:
+    return  time1[shift];
+    break;
     case 5:
     return  time5[shift];
     break;
@@ -1336,6 +1389,9 @@ return 0;
 double iopen(int timeframe,int shift)
 {
 switch (timeframe) {
+    case 1:
+    return  open1[shift];
+    break;
     case 5:
     return  open5[shift];
     break;
@@ -1367,6 +1423,9 @@ return 0;
 double ihigh(int timeframe,int shift)
 {
 switch (timeframe) {
+    case 1:
+    return  high1[shift];
+    break;
     case 5:
     return  high5[shift];
     break;
@@ -1398,6 +1457,9 @@ return 0;
 double ilow(int timeframe,int shift)
 {
 switch (timeframe) {
+    case 1:
+    return  low1[shift];
+    break;
     case 5:
     return  low5[shift];
     break;
@@ -1429,6 +1491,9 @@ return 0;
 double iclose(int timeframe,int shift)
 {
 switch (timeframe) {
+    case 1:
+    return  close1[shift];
+    break;
     case 5:
     return  close5[shift];
     break;
@@ -1460,6 +1525,9 @@ return 0;
 int ivolume(int timeframe,int shift)
 {
 switch (timeframe) {
+    case 1:
+    return  volume1[shift];
+    break;
     case 5:
     return  volume5[shift];
     break;
@@ -1491,6 +1559,9 @@ return 0;
 long idatetimeserial(int timeframe,int shift)
 {
 switch (timeframe) {
+    case 1:
+    return  datetimeserial1[shift];
+    break;
     case 5:
     return  datetimeserial5[shift];
     break;
@@ -1916,6 +1987,12 @@ std::string dateastr;
 std::string timeastr;
 switch (period)
 {
+
+case 1:
+dateastr= (date1[bar]);
+timeastr= (time1[bar]);
+break;    
+    
 case 5:
 dateastr= (date5[bar]);
 timeastr= (time5[bar]);
@@ -2181,4 +2258,29 @@ char* current_time()
     char timechar[1000];
     sprintf(timechar,"%i",t);
     return timechar;
+}
+
+void DoEvents()
+{
+    MSG msg;
+    BOOL result;
+
+    while ( ::PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE ) )
+    {
+        result = ::GetMessage(&msg, NULL, 0, 0);
+        if (result == 0) // WM_QUIT
+        {                
+            ::PostQuitMessage(msg.wParam);
+            break;
+        }
+        else if (result == -1)
+        {
+             // Handle errors/exit application, etc.
+        }
+        else 
+        {
+            ::TranslateMessage(&msg);
+            :: DispatchMessage(&msg);
+        }
+    }
 }

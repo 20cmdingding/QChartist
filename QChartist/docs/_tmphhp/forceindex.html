@@ -1,0 +1,46 @@
+<html><head>
+   <title>Force Index</title>
+   <meta name="generator"  content="HelpMaker.net" >
+   <meta name="keywords"  content="Topic 3," ></head>
+<body bgcolor="FFFCEA" >
+<table width="100%"  border="0"  cellspacing="0"  cellpadding="2"  bgcolor="C0C0C0" >
+  <tr>
+    <td align="left" >
+      <div align="left" ></span><font face="Arial"  size="4" ><span style="font-size:14pt" >Force Index</span></font><font color="#010101" ></font></div>
+
+    </td>
+    <td align="right" >
+      <font face="Arial"  size="2" >
+        <a href="fftspectro.html">Previous</a>&nbsp;<a href="topic1.html">Top</a>&nbsp;<a href="gauquelinsector.html">Next</a>
+      </font>
+    </td>
+  </tr></table>
+<hr></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" ><b>Force Index</b></span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >Force Index Technical Indicator was developed by Alexander Elder. This 
+index measures the Bulls Power at each increase, and the Bulls Power at 
+each decrease. It connects the basic elements of market information: price 
+trend, its drops, and volumes of transactions. This index can be used as it is, 
+but it is better to approximate it with the help of </span></font><a href="ug_ind_moving_average.htm.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>Moving Average</u></span></font></a></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >. 
+Approximation with the help a short moving average (the author proposes to 
+use 2 intervals) contributes to finding the best opportunity to open and close 
+positions. If the approximations is made with long moving average (period 
+13), the index shows the trends and their changes.</span></font><font color="#010101" ></font><br><p style="margin-left:13mm; margin-right:0mm; text-indent:-6mm; " ></span><font face="Symbol"  color="#010101" ><span style="font-size:12pt" >&middot;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><font face="Arial"  color="#010101" ><span style="font-size:12pt" >It is better to buy when the forces become minus (fall below zero) in 
+the period of indicator increasing tendency;</span></font><font color="#010101" ></font><br><p style="margin-left:13mm; margin-right:0mm; text-indent:-6mm; " ></span><font face="Symbol"  color="#010101" ><span style="font-size:12pt" >&middot;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><font face="Arial"  color="#010101" ><span style="font-size:12pt" >The force index signalizes the continuation of the increasing tendency 
+when it increases to the new peak;</span></font><font color="#010101" ></font><br><p style="margin-left:13mm; margin-right:0mm; text-indent:-6mm; " ></span><font face="Symbol"  color="#010101" ><span style="font-size:12pt" >&middot;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><font face="Arial"  color="#010101" ><span style="font-size:12pt" >The signal to sell comes when the index becomes positive during the 
+decreasing tendency;</span></font><font color="#010101" ></font><br><p style="margin-left:13mm; margin-right:0mm; text-indent:-6mm; " ></span><font face="Symbol"  color="#010101" ><span style="font-size:12pt" >&middot;&nbsp;&nbsp;&nbsp;&nbsp;</span></font><font face="Arial"  color="#010101" ><span style="font-size:12pt" >The force index signalizes the Bears Power and continuation of the 
+decreasing tendency when the index falls to the new trough;</span></font><font color="#010101" ></font><br><p style="margin-left:13mm; margin-right:0mm; text-indent:-6mm; " ></span><font face="Symbol"  color="#010101" ><span style="font-size:12pt" >&middot;&nbsp;</span></font><font face="Arial"  color="#010101" ><span style="font-size:12pt" >If price changes do not correlate to the corresponding changes in 
+volume, the force indicator stays on one level, which tells you the trend 
+is going to change soon.</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" ><b>Calculation</b></span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >The force of every market movement is characterized by its direction, scale 
+and volume. If the closing price of the current bar is higher than the preceding 
+bar, the force is positive. If the current closing price if lower than the 
+preceding one, the force is negative. The greater the difference in prices is, 
+the greater the force is. The greater the transaction volume is, the greater the 
+force is.</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" >FORCE INDEX (i) = VOLUME (i) * ((MA (ApPRICE, N, i) - MA (ApPRICE, N, i-
+1))</span></font><font color="#010101" ></font><br></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >where: <br>
+FORCE INDEX (i) &mdash; Force Index of the current bar;<br>
+VOLUME (i) &mdash; volume of the current bar;<br>
+MA (ApPRICE, N, i) &mdash; any </span></font><a href="ug_ind_moving_average.htm.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>Moving Average</u></span></font></a></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" > of the current bar for N period:<br></span></font><a href="ug_ind_moving_average.htm.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>Simple</u></span></font></a></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >, </span></font><a href="ug_ind_moving_average.htm.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>Exponential</u></span></font></a></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >, </span></font><a href="ug_ind_moving_average.htm.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>Weighted</u></span></font></a></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" > or </span></font><a href="ug_ind_moving_average.htm.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>Smoothed</u></span></font></a></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" >;<br>
+ApPRICE &mdash; applied price;<br>
+N &mdash; period of the smoothing;<br>
+MA (ApPRICE, N, i-1) &mdash; any </span></font><a href="ug_ind_moving_average.htm.html"></span><font face="Arial"  color="#0000ff" ><span style="font-size:12pt" ><u>Moving Average</u></span></font></a></span><font face="Arial"  color="#010101" ><span style="font-size:12pt" > of the previous bar. </span></font><font color="#010101" ></font><br><div align="left" ><font color="#010101" ></font></div>
+
+</body></html>
