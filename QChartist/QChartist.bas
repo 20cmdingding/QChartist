@@ -19185,6 +19185,7 @@ end if
 filestream.close
 filestream2.close
 
+if googlerealtimecheckbox.checked=1 then
 if val(minute)<val(mid$(time$,4,2)) then
 'defdbl quotenexttimestamp1=val(nextutn)
 'quotenexttimestamp1=timeminute(quotenexttimestamp1)
@@ -19201,6 +19202,7 @@ else
 'quotenexttimestamp2=quotenexttimestamp2-quotenexttimestamp1
 'quotenexttimestamp=quotenexttimestamp2*60+val(utn)
 quotenexttimestamp=val(utn)+60*val(dstf)
+end if
 end if
 
 'print utn

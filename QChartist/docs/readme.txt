@@ -1138,6 +1138,9 @@ build 45: - correction of a bug in WineHQ where the screen does not refresh corr
 build 47 : adding some missing code for the realtime quotes to work with Wine
 build 48 : adding some missing code for the realtime quotes to work with Wine
 
+2015-11-25 (build 49):
+- correction of a bug when loading Google finance historical data
+
 -------------------------------------------------------------------------------------
 Todo list;
 
