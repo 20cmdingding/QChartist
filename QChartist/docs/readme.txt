@@ -1140,6 +1140,17 @@ build 48 : adding some missing code for the realtime quotes to work with Wine
 
 2015-11-25 (build 49):
 - correction of a bug when loading Google finance historical data
+- website added in the ? menu
+
+2015-11-28 (build 50):
+- added gshareinvest online login and trading and module. With this new module you can trade stocks with bitcoins
+and manage your portfolio online. The module shows your account info and your orders with their value in realtime.
+You can also send orders and perform buy and sell operations.
+First register for a free account at http://www.gshareinvest.com/register.php
+Fund your account with bitcoins. Then login to your trading account in the menu File > Login
+The team of QChartist is not affiliated with gshareinvest.com and does not endorse any responsability
+regarding your registration with gshareinvest. This is a third party service. Use it
+at your own risks.
 
 -------------------------------------------------------------------------------------
 Todo list;

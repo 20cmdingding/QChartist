@@ -128,6 +128,7 @@ $include "includes\Venus_Header.bas"
 $include "includes\sweph.inc"
 $include "includes\fftlib.inc"
 $Include "includes\ShellRedir.Inc"
+$Include "includes\qprogress.Inc"
 
 declare sub ShellRedirCallBack (Text As String)
 
@@ -148,7 +149,18 @@ pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stock"+chr$(34),0)
 pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstockvol.sh"+chr$(34),0)
 pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stockvol"+chr$(34),0)
 chdir tmppath0
+tmppath0=curdir$
+chdir "c:\qchartist\gshareinvest"
+'defint pid
+pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstock.sh"+chr$(34),0)
+pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstock2.sh"+chr$(34),0)
+pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stock"+chr$(34),0)
+chdir tmppath0
 end if
+
+' --------------- gshareinvest portfolio -------------------
+$Include "gshareinvest\login.bas"
+' ---------------------------------------------------------
 
 ' ------------------------ Text to speech variables----------------
 DIM rtn2 AS LONG, counter AS LONG
@@ -1753,7 +1765,8 @@ DECLARE FUNCTION FGetFileHTTP_URLDownloadToFile LIB "urlmon" ALIAS "URLDownloadT
     (ByVal pCaller AS LONG , ByRef szURL AS STRING , ByRef szFileName AS STRING , _
     ByVal dwReserved AS LONG , ByVal lpfnCB AS LONG) AS LONG
     
-declare sub whatsnewsub    
+declare sub whatsnewsub  
+declare sub websitesub  
 
 FUNCTION GetFileHTTP(URL AS STRING , toFile AS STRING) AS LONG
     DEFSTR sURL , sToFile
@@ -1805,6 +1818,7 @@ declare sub googlequotetimerstartsub
 declare function timeminute(seconds as double) as double
 declare function timehour(seconds as double) as double
 declare function timedayofweek(seconds as double) as double
+declare sub loginsub
 
 dim googlebusytimer as qtimer
 googlebusytimer.enabled=0
@@ -6488,6 +6502,10 @@ MenuItem(menui).Caption = "Data source"
 MenuItem(menui).OnClick = datasource
 FileMenu.AddItems(MenuItem(menui))
 menui ++
+MenuItem(menui).Caption = "Login"
+MenuItem(menui).OnClick = loginsub
+FileMenu.AddItems(MenuItem(menui))
+menui ++
 MenuItem(menui).Caption = "Import CSV"
 MenuItem(menui).OnClick = importcsv
 FileMenu.AddItems(MenuItem(menui))
@@ -6655,6 +6673,10 @@ AboutMenu.AddItems(MenuItem5(menui5))
 menui5 ++
 MenuItem5(menui5).Caption = "What's new"
 MenuItem5(menui5).OnClick = whatsnewsub
+AboutMenu.AddItems(MenuItem5(menui5))
+menui5 ++
+MenuItem5(menui5).Caption = "Website"
+MenuItem5(menui5).OnClick = websitesub
 AboutMenu.AddItems(MenuItem5(menui5))
 
 SUB findbar
@@ -19515,4 +19537,14 @@ if datestr="Fri" then result= 5
 if datestr="Sat" then result= 6
 if datestr="Sun" then result= 0
 
+end sub
+
+sub websitesub  
+
+ShellExecute 0, "open", "http://www.qchartist.net", "", "", 1
+
+end sub
+
+sub loginsub
+loginform.visible=1
 end sub

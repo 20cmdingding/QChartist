@@ -1,0 +1,2 @@
+curl -b cookies.txt -c cookies.txt -o open_order_result.html -d "invoice_number=%1&symbol=%2&quantity=%3&source_of_funds=1&confirm_btn=" http://www.gshareinvest.com/account.php?place_an_order
+echo 0 > isbusyopenorder.txt
