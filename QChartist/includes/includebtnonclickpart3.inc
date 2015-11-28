@@ -14,7 +14,7 @@ IF VAL(canvas.separateindicator1.Cell(2 , lbar)) > sepindivalmax THEN
 END IF
 
 END IF
-doevents
+'doevents
 NEXT i
 
 IF scrollmode = 0 THEN

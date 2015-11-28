@@ -1152,6 +1152,8 @@ The team of QChartist is not affiliated with gshareinvest.com and does not endor
 regarding your registration with gshareinvest. This is a third party service. Use it
 at your own risks.
 
+build 51 : commented some doevents in includes files incbtnonclickpart3 and qchart inc else the scroll chart bugs under wine
+
 -------------------------------------------------------------------------------------
 Todo list;
 

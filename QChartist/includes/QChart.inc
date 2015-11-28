@@ -495,15 +495,15 @@ TYPE QChart EXTENDS QCANVAS
                 .Series(i).HatchStyle = hsSolid
                 .Series(i).LineStyle = lsSolid
                 .Series(i).LineWidth = 1
-                doevents
+                'doevents
             NEXT
 
             FOR i = 0 TO .DATA.ColCount  'Clear any residual data from last call
                 FOR j = 0 TO .DATA.RowCount
                     .DATA.Cell(i , j) = ""
-                    doevents
+                    'doevents
                 NEXT
-                doevents
+                'doevents
             NEXT
 
             .MainTitle.Text = ""
@@ -873,7 +873,7 @@ TYPE QChart EXTENDS QCANVAS
                     .Series(i).Color = RGB(Grey , Grey , Grey)
                 END IF
                 IF .BW = TRUE THEN .Series(i).Color = i  '0
-                doevents
+                'doevents
             NEXT
         END WITH
     END SUB
@@ -928,7 +928,7 @@ TYPE QChart EXTENDS QCANVAS
                     x1 = .XAxis.Ori + .XAxis.TicIntvl * i
                     x2 = x1
                     .Buffer.Line(x1 , y1 , x2 , y2 , .GridColor)
-                    doevents
+                    'doevents
                 NEXT
                 IF .ChartType = ctXY AND .XAxis.MnrTics = TRUE THEN
                     y1 = .YAxis.Ori - .XAxis.TicLen / 2
@@ -938,9 +938,9 @@ TYPE QChart EXTENDS QCANVAS
                             x1 = .XAxis.Ori + .XAxis.TicIntvl * i + .XAxis.TicIntvl / 5 * j
                             x2 = x1
                             .Buffer.Line(x1 , y1 , x2 , y2 , .GridColor)
-                            doevents
+                            'doevents
                         NEXT
-                        doevents
+                        'doevents
                     NEXT
                 END IF
             ELSEIF .XAxis.LogScale = TRUE THEN  'draw log grid lines
@@ -949,9 +949,9 @@ TYPE QChart EXTENDS QCANVAS
                         x1 = .XAxis.Ori + (.Log10(10^i * j) - .XAxis.Min) * .XAxis.ScaleFactor
                         x2 = x1
                         .Buffer.Line(x1 , y1 , x2 , y2 , .GridColor)
-                        doevents
+                        'doevents
                     NEXT j
-                    doevents
+                    'doevents
                 NEXT i
                 .Buffer.Line(.XAxis.Ori + .XAxis.LEN , y1 , .XAxis.Ori + .XAxis.LEN , y2 , .GridColor)
 
@@ -979,7 +979,7 @@ TYPE QChart EXTENDS QCANVAS
                     y2 = y1
                     '.Buffer.Line (x1,y1,x2,y2,.GridColor)     ' horizontal grid lines
                     .Buffer.Line(x1 , y1 , .XAxis.Ori + .YAxis.TicLen , y2 , .GridColor) 'y axis tics
-                    doevents
+                    'doevents
                 NEXT
                 IF .YAxis.MnrTics = TRUE THEN
                     x1 = .XAxis.Ori - .YAxis.TicLen / 2
@@ -989,9 +989,9 @@ TYPE QChart EXTENDS QCANVAS
                             y1 = .YAxis.Ori - .YAxis.TicIntvl * i - .YAxis.TicIntvl / 5 * j
                             y2 = y1
                             .Buffer.Line(x1 , y1 , x2 , y2 , .GridColor)
-                            doevents
+                            'doevents
                         NEXT
-                        doevents
+                        'doevents
                     NEXT
                 END IF
 
@@ -1003,9 +1003,9 @@ TYPE QChart EXTENDS QCANVAS
                         y1 = .YAxis.Ori - (.Log10(10^i * j) - .YAxis.Min) * .YAxis.ScaleFactor
                         y2 = y1
                         .Buffer.Line(x1 , y1 , x2 , y2 , .GridColor)
-                        doevents
+                        'doevents
                     NEXT j
-                    doevents
+                    'doevents
                 NEXT i
                 .Buffer.Line(x1 , .YAxis.Ori - .YAxis.LEN , x2 , .YAxis.Ori - .YAxis.LEN , .GridColor)
 
@@ -1091,7 +1091,7 @@ TYPE QChart EXTENDS QCANVAS
                 .Buffer.TextOut(.YTitle.Left , .YTitle.Top , MID$(.YTitle.Text , i , 1) , _
                     .AxisFont.Color , .bgColor)
                 .YTitle.Top = .YTitle.Top + .Buffer.TextHeight(.YTitle.Text)
-                doevents
+                'doevents
             NEXT i
 
         END WITH
@@ -1121,7 +1121,7 @@ TYPE QChart EXTENDS QCANVAS
                         FOR i = 0 TO .XAxis.Div
                             TicVal = .XAxis.Min + .XAxis.STEP * i
                             LabelLen = LabelLen + .Buffer.TextWidth(FORMAT$("%-4.4g" , TicVal))
-                            doevents
+                            'doevents
                         NEXT
 
                         FOR i = 0 TO .XAxis.Div
@@ -1143,7 +1143,7 @@ TYPE QChart EXTENDS QCANVAS
                                 IF i MOD 2 = 0 THEN .Buffer.TextOut(.AxisLbl.Left , .AxisLbl.Top , _
                                     RTRIM$(.AxisLbl.Text) , .Buffer.Font.Color , .bgColor)
                             END IF
-                            doevents
+                            'doevents
                         NEXT
                     END IF
 
@@ -1154,7 +1154,7 @@ TYPE QChart EXTENDS QCANVAS
                         LabelLen = 0  'Get the total length of all labels
                         FOR i = 0 TO .DATA.ColCount
                             LabelLen = LabelLen + .Buffer.TextWidth(.DATA.Cell(i , 0))
-                            doevents
+                            'doevents
                         NEXT i
 
                         FOR i = 1 TO .DATA.ColCount STEP 32			
@@ -1170,7 +1170,7 @@ TYPE QChart EXTENDS QCANVAS
                             END IF
                             .Buffer.TextOut(.AxisLbl.Left , .AxisLbl.Top , RTRIM$(.AxisLbl.Text) , _
                                 .Buffer.Font.Color , .bgColor)                                
-                            doevents
+                            'doevents
 			NEXT i
 if scrollmode=0 then            
 defint ii=0
@@ -1188,7 +1188,7 @@ deflng mypixelpos=.XAxis.Ori + (i - 1) * .Xaxis.TicIntvl
 timechartpos(ii,0)=myunixdate
 timechartpos(ii,1)=mypixelpos
 ii++
-doevents
+'doevents
                         NEXT i
 end if                        
                     END IF
@@ -1205,7 +1205,7 @@ end if
                         LabelLen = 0  'Get the total length of all labels
                         FOR i = 0 TO .DATA.RowCount
                             LabelLen = LabelLen + .Buffer.TextWidth(.DATA.Cell(0 , i))
-                            doevents
+                            'doevents
                         NEXT i
 
                         FOR i = 0 TO .DATA.RowCount
@@ -1231,7 +1231,7 @@ end if
                             END IF
                             .Buffer.TextOut(.AxisLbl.Left , .AxisLbl.Top , RTRIM$(.AxisLbl.Text) , _
                                 .Buffer.Font.Color , .bgColor)
-                            doevents
+                            'doevents
                         NEXT i
                     END IF
             END SELECT
@@ -1271,7 +1271,7 @@ pricechartpos(1,0)=.YAxis.Max
 pricechartpos(1,1)=.YAxis.Ori - .YAxis.TicIntvl * i
 end if
 end if
-                    doevents
+                    'doevents
 
                 NEXT
             END IF
@@ -1399,7 +1399,7 @@ end if
                             .Buffer.TextOut(x2 - .Buffer.TextWidth("I") , .Legend.Top , RTRIM$(.Legend.Text) , _
                                 .LegendFont.Color , .bgColor)
                         END IF
-                        doevents
+                        'doevents
                     NEXT
 
                 CASE ELSE  'Below works for all other charts
@@ -1444,7 +1444,7 @@ end if
                             .Buffer.TextOut(x2 + 2 , .Legend.Top , RTRIM$(.Legend.Text) , _
                                 .LegendFont.Color , .bgColor)
                         END IF
-                        doevents
+                        'doevents
 
                     NEXT
 
@@ -1947,7 +1947,7 @@ end if
                         '.OldBrush = SelectObject(.Buffer.Handle, .hBrush)
                         'Rectangle (.Buffer.Handle,x1,y1+1,x2+1,y2-2)
                         'DeleteObject(SelectObject(.Buffer.Handle, .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i
 
                 CASE 1 :
@@ -2007,7 +2007,7 @@ end if
                         '.OldBrush = SelectObject(.Buffer.Handle, .hBrush)
                         ''Rectangle (.Buffer.Handle,x1,y1+1,x2+1,y2-2)
                         'DeleteObject(SelectObject(.Buffer.Handle, .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i
 
                 CASE 2 :
@@ -2073,7 +2073,7 @@ end if
                         '.OldBrush = SelectObject(.Buffer.Handle, .hBrush)
                         ''Rectangle (.Buffer.Handle,x1,y1+1,x2+1,y2-2)
                         'DeleteObject(SelectObject(.Buffer.Handle, .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i
 
                 CASE 3 :
@@ -2132,7 +2132,7 @@ end if
                         '.OldBrush = SelectObject(.Buffer.Handle, .hBrush)
                         'Rectangle (.Buffer.Handle,x1,y1+1,x2+1,y2-2)
                         'DeleteObject(SelectObject(.Buffer.Handle, .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i
 
                 CASE 4 :
@@ -2201,7 +2201,7 @@ end if
                         '.OldBrush = SelectObject(.Buffer.Handle, .hBrush)
                         ''Rectangle (.Buffer.Handle,x1,y1+1,x2+1,y2-2)
                         'DeleteObject(SelectObject(.Buffer.Handle, .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i
 
                 CASE 5 :
@@ -2276,7 +2276,7 @@ end if
                         '.OldBrush = SelectObject(.Buffer.Handle, .hBrush)
                         ''Rectangle (.Buffer.Handle,x1,y1+1,x2+1,y2-2)
                         'DeleteObject(SelectObject(.Buffer.Handle, .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i
 
                 CASE 6 :
@@ -2346,7 +2346,7 @@ end if
                         '.OldBrush = SelectObject(.Buffer.Handle, .hBrush)
                         ''Rectangle (.Buffer.Handle,x1,y1+1,x2+1,y2-2)
                         'DeleteObject(SelectObject(.Buffer.Handle, .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i
 
                 CASE 7 :
@@ -2416,7 +2416,7 @@ end if
                         '.OldBrush = SelectObject(.Buffer.Handle, .hBrush)
                         ''Rectangle (.Buffer.Handle,x1,y1+1,x2+1,y2-2)
                         'DeleteObject(SelectObject(.Buffer.Handle, .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i
 
                     DIM angle AS DOUBLE , cs AS DOUBLE , sn AS DOUBLE , c AS DOUBLE
@@ -2451,7 +2451,7 @@ end if
                         END IF
 
                         i ++
-                        doevents
+                        'doevents
                     NEXT angle
 
                     i = 1
@@ -2472,7 +2472,7 @@ end if
                         END IF
 
                         i ++
-                        doevents
+                        'doevents
                     NEXT angle
 
                     i = 1
@@ -2493,7 +2493,7 @@ end if
                         END IF
 
                         i ++
-                        doevents
+                        'doevents
                     NEXT angle
 
                     i = 1
@@ -2519,7 +2519,7 @@ end if
                         END IF
 
                         i ++
-                        doevents
+                        'doevents
                     NEXT angle
 
                     cs = c * COS(angle)
@@ -2533,7 +2533,7 @@ end if
                         .buffer.Pset(x7 + cs , y7 - sn , pencolor)
                         .buffer.Pset(x7 - cs , y7 - sn , pencolor)
                         'end if
-                        doevents
+                        'doevents
                     NEXT angle
 
                     .buffer.Pset(x7 , y7 , pencolor)
@@ -2626,7 +2626,7 @@ end if
                              astrowheelmarketbar=i                                
                                 EXIT FOR
                             END IF
-                            doevents
+                            'doevents
                      NEXT i
                      
                      if datefound=0 then usedquote="0"
@@ -2669,7 +2669,7 @@ end if
                         .OldBrush = SelectObject(.Buffer.Handle , .hBrush)
 
                         DeleteObject(SelectObject(.Buffer.Handle , .OldBrush))
-                        doevents
+                        'doevents
                     NEXT i                                        
 
                     ' Drawing price wheel
@@ -2687,7 +2687,7 @@ end if
                         .buffer.Pset(x7 - cs , y7 + sn , black)
                         .buffer.Pset(x7 + cs , y7 - sn , black)
                         .buffer.Pset(x7 - cs , y7 - sn , black)
-                        doevents
+                        'doevents
                     NEXT angle
                     
                     ' drawing price graduations
@@ -2708,7 +2708,7 @@ end if
                     gradticky2=y7 - SIN(graddeg * rad) * (c+40) - 8
                     pricew=pricew0+graddeg/360*val(pointsper360degedit.text)
                     .Buffer.TextOut(gradtickx2 , gradticky2 , Format$("%.4f", pricew) , black , plotareacolor)
-                    doevents
+                    'doevents
                     next graddeg
                     
                     
@@ -2731,7 +2731,7 @@ end if
                         .buffer.Pset(x7 - cs , y7 + sn , black)
                         .buffer.Pset(x7 + cs , y7 - sn , black)
                         .buffer.Pset(x7 - cs , y7 - sn , black)
-                        doevents
+                        'doevents
                     NEXT angle                                        
                     
                     c = (pricechartpos(0,1)-pricechartpos(1,1))/2*0.68 ' Radius
@@ -2744,7 +2744,7 @@ end if
                         .buffer.Pset(x7 - cs , y7 + sn , black)
                         .buffer.Pset(x7 + cs , y7 - sn , black)
                         .buffer.Pset(x7 - cs , y7 - sn , black)
-                        doevents
+                        'doevents
                     NEXT angle
                     
                     ' drawing degrees graduations and symbols
@@ -2792,7 +2792,7 @@ end if
                     case 330:
                     .Buffer.TextOut(gradtickx2 , gradticky2 , "L" , black , plotareacolor)
                     end select
-                    doevents
+                    'doevents
                     next graddeg
                                                             
                     .buffer.font=.arialfont
@@ -2815,7 +2815,7 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , orange)
                         .buffer.Pset(planetposx + cs , planetposy - sn , orange)
                         .buffer.Pset(planetposx - cs , planetposy - sn , orange)
-                        doevents
+                        'doevents
                     NEXT angle                    
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
@@ -2834,9 +2834,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , pink)
                         .buffer.Pset(planetposx + cs , planetposy - sn , pink)
                         .buffer.Pset(planetposx - cs , planetposy - sn , pink)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
@@ -2854,9 +2854,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , blue)
                         .buffer.Pset(planetposx + cs , planetposy - sn , blue)
                         .buffer.Pset(planetposx - cs , planetposy - sn , blue)
-                        doevents
+                        'doevents
                     NEXT angle
-                    doevents                    
+                    'doevents                    
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
@@ -2874,9 +2874,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , red)
                         .buffer.Pset(planetposx + cs , planetposy - sn , red)
                         .buffer.Pset(planetposx - cs , planetposy - sn , red)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
@@ -2894,9 +2894,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , olive)
                         .buffer.Pset(planetposx + cs , planetposy - sn , olive)
                         .buffer.Pset(planetposx - cs , planetposy - sn , olive)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
@@ -2914,9 +2914,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , gray)
                         .buffer.Pset(planetposx + cs , planetposy - sn , gray)
                         .buffer.Pset(planetposx - cs , planetposy - sn , gray)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
@@ -2934,9 +2934,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , lightblue)
                         .buffer.Pset(planetposx + cs , planetposy - sn , lightblue)
                         .buffer.Pset(planetposx - cs , planetposy - sn , lightblue)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
@@ -2954,9 +2954,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , purple)
                         .buffer.Pset(planetposx + cs , planetposy - sn , purple)
                         .buffer.Pset(planetposx - cs , planetposy - sn , purple)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
@@ -2974,9 +2974,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , black)
                         .buffer.Pset(planetposx + cs , planetposy - sn , black)
                         .buffer.Pset(planetposx - cs , planetposy - sn , black)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
@@ -2995,9 +2995,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , green)
                         .buffer.Pset(planetposx + cs , planetposy - sn , green)
                         .buffer.Pset(planetposx - cs , planetposy - sn , green)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     
                     ' drawing midheaven                     
@@ -3013,9 +3013,9 @@ end if
                         .buffer.Pset(planetposx - cs , planetposy + sn , white)
                         .buffer.Pset(planetposx + cs , planetposy - sn , white)
                         .buffer.Pset(planetposx - cs , planetposy - sn , white)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next cc
                     
                     ' drawing graduations                    
@@ -3025,7 +3025,7 @@ end if
                     gradticky1=y7 - SIN(graddeg * rad) * c
                     gradticky2=y7 - SIN(graddeg * rad) * (c3)
                     .Buffer.Line(gradtickx1,gradticky1,gradtickx2,gradticky2, black)
-                    doevents
+                    'doevents
                     next graddeg
                     
                     ' Drawing central yellow dot (the sun)
@@ -3037,9 +3037,9 @@ end if
                         .buffer.Pset(x7 - cs , y7 + sn , yellow)
                         .buffer.Pset(x7 + cs , y7 - sn , yellow)
                         .buffer.Pset(x7 - cs , y7 - sn , yellow)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     
                     ' Drawing legend
@@ -3055,9 +3055,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , yellow)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , yellow)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , yellow)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Sun" , black , plotareacolor)
@@ -3071,9 +3071,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , orange)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , orange)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , orange)
-                        doevents
+                        'doevents
                     NEXT angle
-                    doevents                    
+                    'doevents                    
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Mercury" , black , plotareacolor)
@@ -3087,9 +3087,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , pink)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , pink)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , pink)
-                        doevents
+                        'doevents
                     NEXT angle       
-                    doevents             
+                    'doevents             
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Venus" , black , plotareacolor)
@@ -3103,9 +3103,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , blue)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , blue)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , blue)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Earth" , black , plotareacolor)
@@ -3119,9 +3119,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , red)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , red)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , red)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Mars" , black , plotareacolor)
@@ -3135,9 +3135,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , olive)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , olive)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , olive)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Jupiter" , black , plotareacolor)
@@ -3151,9 +3151,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , gray)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , gray)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , gray)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Saturn" , black , plotareacolor)
@@ -3167,9 +3167,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , lightblue)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , lightblue)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , lightblue)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Uranus" , black , plotareacolor)
@@ -3183,9 +3183,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , purple)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , purple)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , purple)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Neptune" , black , plotareacolor)
@@ -3199,9 +3199,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , black)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , black)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , black)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Pluto" , black , plotareacolor)
@@ -3215,9 +3215,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , Green)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , Green)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , Green)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Ascendant" , black , plotareacolor)
@@ -3231,9 +3231,9 @@ end if
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx + sn , White)
                         .buffer.Pset(legendmargin + cs , pricechartpos(1,1)+incrpx - sn , White)
                         .buffer.Pset(legendmargin - cs , pricechartpos(1,1)+incrpx - sn , White)
-                        doevents
+                        'doevents
                     NEXT angle  
-                    doevents                  
+                    'doevents                  
                     next c
                     incrpx=incrpx-5
                     .Buffer.TextOut(legendmargin+10 , pricechartpos(1,1)+incrpx , "Midheaven" , black , plotareacolor)
