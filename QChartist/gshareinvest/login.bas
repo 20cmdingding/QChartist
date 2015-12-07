@@ -27,11 +27,24 @@ declare sub busytimercloseordersub
 declare sub logoutsub
 declare sub busytimerlogoutsub
 declare sub gshareinvest_register_sub
+declare sub showportfoliosub
+
+' ---------------- functions
+declare function gsi_isconnected() as integer
+declare function gsi_login(username as string,password as string) as integer
+declare function gsi_logout() as integer
+declare function gsi_order_buy(symbol as string,quantity as integer) as integer
+declare function gsi_order_sell(order_id as integer) as integer
+' ----------------------------------
 
 defint accountincr=0
 defint openedpositionsnb=0
 defint openedpositionsnbincr=0
 defstr tmppathgsi
+defstr last_opened_order_id
+defint gsi_quiet=0
+defint last_response_order_close
+defint trying_to_connect=0
 
 dim accounttimer as qtimer
 accounttimer.enabled=0
@@ -152,7 +165,8 @@ end create
 
 create loginbtn as qbutton
 top=65
-left=30
+left=10
+width=50
 caption="Login"
 onclick=loginsub
 
@@ -160,9 +174,19 @@ end create
 
 create logoutbtn as qbutton
 top=65
-left=115
+left=70
+width=50
 caption="Logout"
 onclick=logoutsub
+enabled=0
+end create
+
+create showportfoliobtn as qbutton
+top=65
+left=130
+width=80
+caption="Show portfolio"
+onclick=showportfoliosub
 enabled=0
 end create
 
@@ -209,6 +233,7 @@ top=300
 left=50
 
 end create
+
 'onshow=showportfoliosub
 end create
 
@@ -568,7 +593,7 @@ wend
 busystream.close
 
 if val(isbusy)=0 then
-
+trying_to_connect=1
 busystream.open("c:\qchartist\gshareinvest\isbusy.txt",fmopenwrite)
 busystream.writeline("1")
 busystream.close
@@ -649,6 +674,7 @@ busytimerlogout.enabled=0
 loginstatuslabel.caption="Disconnected"
 loginprogress.value=0
 loginbtn.enabled=1
+showportfoliobtn.enabled=0
 accountbusy=0
 PLAYWAV "c:\qchartist\gshareinvest\sounds\disconnect.wav", SND_ASYNC
 
@@ -823,18 +849,22 @@ loginstatuslabel.caption="Connected"
 PLAYWAV "c:\qchartist\gshareinvest\sounds\connect.wav", SND_ASYNC
 busy(0)
 loginbtn.enabled=0
-showportfoliosub
+if gsi_quiet=0 then showportfoliosub
+showportfoliobtn.enabled=1
 loginbtn.enabled=0
 loginprogress.value=100
 accounttimer.enabled=1
 pfquotetimer.enabled=1
+trying_to_connect=0
 else
 loginstatuslabel.caption="Unable to connect"
 PLAYWAV "c:\qchartist\gshareinvest\sounds\timeout.wav", SND_ASYNC
 loginbtn.enabled=1
+showportfoliobtn.enabled=0
 busy(0)
 logoutbtn.enabled=0
 loginprogress.value=0
+trying_to_connect=0
 end if
 
 goto busytimerloginsubend
@@ -966,9 +996,13 @@ wend
 filestream.close
 
 if like(filestr2,"*Order sent, thank you !*")=1 then
-showmessage "Order sent"
+last_opened_order_id=mid$(filestr2,instr(filestr2,"Order #")+7,instr(instr(filestr2,"Order #")+7,filestr2,"<")-1)
+PLAYWAV "c:\qchartist\gshareinvest\sounds\ok.wav", SND_ASYNC
+if gsi_quiet=0 then showmessage "Order sent"
 else
-showmessage "Error"
+last_opened_order_id="0"
+PLAYWAV "c:\qchartist\gshareinvest\sounds\timeout.wav", SND_ASYNC
+if gsi_quiet=0 then showmessage "Error"
 end if
 
 openedpositionsnbincr=0
@@ -1107,9 +1141,13 @@ wend
 filestream.close
 
 if like(filestr2,"*Order sent, thank you !*")=1 then
-showmessage "Order sent"
+last_response_order_close=1
+PLAYWAV "c:\qchartist\gshareinvest\sounds\ok.wav", SND_ASYNC
+if gsi_quiet=0 then showmessage "Order sent"
 else
-showmessage "Error"
+last_response_order_close=0
+PLAYWAV "c:\qchartist\gshareinvest\sounds\timeout.wav", SND_ASYNC
+if gsi_quiet=0 then showmessage "Error"
 end if
 
 openedpositionsnbincr=0
@@ -1805,5 +1843,7 @@ sub gshareinvest_register_sub
 ShellExecute 0, "open", "http://www.gshareinvest.com/register.php", "", "", 1
 
 end sub
+
+$include "c:\qchartist\gshareinvest\functions.bas"
 
 'loginform.showmodal    

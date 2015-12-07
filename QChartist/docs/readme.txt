@@ -1154,6 +1154,22 @@ at your own risks.
 
 build 51 : commented some doevents in includes files incbtnonclickpart3 and qchart inc else the scroll chart bugs under wine
 
+2015-12-02:
+- added trading functions for gshareinvest login.bas client: 
+gsi_isconnected() as integer : return 1 if the client is connected else return 0
+function gsi_login(username as string,password as string) as integer : connects the client and return 1 if connected else return 0
+function gsi_logout() as integer : logout user from client account
+function gsi_order_buy(symbol as string,quantity as integer) as integer : send a buy order and return its order id # (return 0 if failed)
+function gsi_order_sell(order_id as integer) as integer : send a sell order and return 1 if sent, 0 if failed to send order
+(all these functions are done quietly without showing forms and messages)
+
+2015-12-06:
+- continuing to code realtime quotes
+- drawing last price on chart when realtime quotes is enabled
+
+2015-12-07:
+- free realtime quotes with Google Finance is functional (build 52)
+
 -------------------------------------------------------------------------------------
 Todo list;
 

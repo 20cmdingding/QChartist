@@ -3284,6 +3284,18 @@ IF scrollmode = 0 THEN
         END IF
         doevents
     NEXT drawi
+    
+IF (googlerealtimecheckbox.checked=1) THEN
+
+            graph.bufcntreset
+            graph.savebuffertmp
+
+            graph.drawp(33 , 0 , 0 , 0 , 0 , 0 , 0)
+
+            graph.savebuffertmp
+            graph.paintchart
+
+        END IF    
 
 END IF
 

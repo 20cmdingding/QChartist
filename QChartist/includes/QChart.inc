@@ -1925,6 +1925,10 @@ end if
                         .OldBrush = SelectObject(.Buffer.Handle , .hBrush)
 
                         Rectangle(.Buffer.Handle , x1 , y1 , x2+1 , y2)
+                        if i=.DATA.ColCount then 
+                        lastpricey=y2
+                        lastpricex=x2+1
+                        end if
                         DeleteObject(SelectObject(.Buffer.Handle , .OldBrush))
 
                         '--- Draw Median Line
@@ -5581,6 +5585,20 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
         END WITH
         
     END SUB
+    
+    private :
+    SUB drawlastprice()
+    
+        WITH QChart
+            .ClearBuffer
+            .buffer.BMP = .buffertmpz.BMP            
+            .Buffer.Line(0 , lastpricey , lastpricex , lastpricey , pencolor)
+            .Buffer.TextOut(0 , lastpricey , Grid.Cell(rowgridoffset + 6 , chartbars(displayedfile)) , pencolor , &hffffff)
+            .buffertmp.BMP = .buffer.BMP
+            .PaintChart            
+        END WITH
+        
+    END SUB
 
     '------------------------------------------------------------------------------------------
     PRIVATE :
@@ -5843,7 +5861,9 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
                 CASE 31 :
                     .drawsqr2(x2 , y2 , x3 , y3)
                 CASE 32 :
-                    .drawtri2(x2 , y2 , x3 , y3)        
+                    .drawtri2(x2 , y2 , x3 , y3)
+                CASE 33 :
+                    .drawlastprice()
             END SELECT
         END WITH
     END SUB

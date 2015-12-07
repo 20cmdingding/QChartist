@@ -1,11 +1,14 @@
---2015-11-14 11:37:18--  http://www.google.com/finance/getprices?i=0&p=30d&f=d,o,h,l,c,v&df=cpct&q=YHOO
-Resolving www.google.com... 77.153.128.90, 77.153.128.89, 77.153.128.91, ...
-Connecting to www.google.com|77.153.128.90|:80... connected.
+--2015-12-07 16:20:48--  http://www.google.com/finance/getprices?i=60&p=30d&f=d,o,h,l,c,v&df=cpct&q=MSFT
+Resolving www.google.com... 77.154.221.186, 77.154.221.180, 77.154.221.183, ...
+Connecting to www.google.com|77.154.221.186|:80... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: unspecified [text/plain]
 Saving to: `Google_quotes.txt'
 
-     0K .                                                      2.58M=0s
+     0K .......... .......... .......... .......... ..........  452K
+    50K .......... .......... .......... .......... ..........  833K
+   100K .......... .......... .......... .......... ..........  458K
+   150K .......... .......... ..                                187M=0.3s
 
-2015-11-14 11:37:18 (2.58 MB/s) - `Google_quotes.txt' saved [1243]
+2015-12-07 16:20:49 (614 KB/s) - `Google_quotes.txt' saved [176141]
 

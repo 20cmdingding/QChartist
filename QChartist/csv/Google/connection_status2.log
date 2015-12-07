@@ -1,0 +1,12 @@
+--2015-12-07 16:20:48--  http://www.google.com/finance/getprices?i=300&p=30d&f=d,o,h,l,c,v&df=cpct&q=MSFT
+Resolving www.google.com... 77.154.221.186, 77.154.221.180, 77.154.221.183, ...
+Connecting to www.google.com|77.154.221.186|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/plain]
+Saving to: `Google_quotes2.txt'
+
+     0K .......... .......... .......... .......... ..........  526K
+    50K .......... .......... ........                         1.31M=0.1s
+
+2015-12-07 16:20:48 (678 KB/s) - `Google_quotes2.txt' saved [80888]
+
