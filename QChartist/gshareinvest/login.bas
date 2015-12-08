@@ -1350,6 +1350,11 @@ filestream.close
 if len(filestr)>0 then
 
 defint i
+defstr year0,month0,day0,hours0,minutes0,seconds0 
+defdbl myunixtime  
+defstr myunixtimestr
+defstr year,month,day,hour,minute,second
+defstr $mydate
 
 for i=1 to 100
 
@@ -1377,6 +1382,7 @@ instrbegin=instr(filestr,"open_price_id")+15
 instrend=instr(instr(filestr,"open_price_id")+15,filestr,"</td>")
 defstr open_price=mid$(filestr,instrbegin,instrend-instrbegin)
 portfolioordersgrid.cell(3,i)=open_price
+orderbuydb.Cell(1 , i) =open_price
 
 instrbegin=instr(filestr,"invested_id")+13
 instrend=instr(instr(filestr,"invested_id")+13,filestr,"</td>")
@@ -1387,11 +1393,21 @@ instrbegin=instr(filestr,"buy_processed_date_id")+23
 instrend=instr(instr(filestr,"buy_processed_date_id")+23,filestr,"</td>")
 defstr buy_processed_date=mid$(filestr,instrbegin,instrend-instrbegin)
 portfolioordersgrid.cell(5,i)=buy_processed_date
+year0=mid$(buy_processed_date,1,4)
+month0=mid$(buy_processed_date,6,2)
+day0=mid$(buy_processed_date,9,2)
+hours0=mid$(buy_processed_date,12,2)
+hours0=str$(val(hours0)+7) ' Google Finance market postponement of +7 hours from gshareinvest orders server
+minutes0=mid$(buy_processed_date,15,2)
+seconds0=mid$(buy_processed_date,18,2)
+$mydate=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+seconds0
+orderbuydb.Cell(3 , i) =varptr$(date_to_unix_time(varptr($mydate)))
 
 instrbegin=instr(filestr,"close_price_id")+16
 instrend=instr(instr(filestr,"close_price_id")+16,filestr,"</td>")
 defstr close_price=mid$(filestr,instrbegin,instrend-instrbegin)
 portfolioordersgrid.cell(6,i)=close_price
+orderselldb.Cell(1 , i) =close_price
 
 instrbegin=instr(filestr,"profit_id")+11
 instrend=instr(instr(filestr,"profit_id")+11,filestr,"</td>")
@@ -1402,6 +1418,15 @@ instrbegin=instr(filestr,"sell_processed_date_id")+24
 instrend=instr(instr(filestr,"sell_processed_date_id")+24,filestr,"</td>")
 defstr sell_processed_date=mid$(filestr,instrbegin,instrend-instrbegin)
 portfolioordersgrid.cell(8,i)=sell_processed_date
+year0=mid$(sell_processed_date,1,4)
+month0=mid$(sell_processed_date,6,2)
+day0=mid$(sell_processed_date,9,2)
+hours0=mid$(sell_processed_date,12,2)
+hours0=str$(val(hours0)+7) ' Google Finance market postponement of +7 hours from gshareinvest orders server
+minutes0=mid$(sell_processed_date,15,2)
+seconds0=mid$(sell_processed_date,18,2)
+$mydate=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+seconds0
+orderselldb.Cell(3 , i) =varptr$(date_to_unix_time(varptr($mydate)))
 
 instrbegin=instr(filestr,"status_id")+11
 instrend=instr(instr(filestr,"status_id")+11,filestr,"</td>")

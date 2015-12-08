@@ -1170,6 +1170,13 @@ function gsi_order_sell(order_id as integer) as integer : send a sell order and 
 2015-12-07:
 - free realtime quotes with Google Finance is functional (build 52)
 
+2015-12-08 (build 53):
+- data source system improved (added Yahoo Finance daily tf real time)
+real time quotes debugged
+- date of the aiming tool centered
+- gshareinvest orders are drawn on charts with a green rectangle for buy and red rectangle for sell
+These rectangles are added in objects lists
+
 -------------------------------------------------------------------------------------
 Todo list;
 

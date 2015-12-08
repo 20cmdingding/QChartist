@@ -813,6 +813,56 @@ IF scrollmode = 0 THEN
             graph.paintchart
 
         END IF
+        
+        IF (VAL(orderbuydb.Cell(3 , drawi)) >= graphserialdatebegin AND VAL(orderbuydb.Cell(3 , drawi)) <= graphserialdateend+charttf(displayedfile)*60) AND _            
+            (VAL(orderbuydb.Cell(1 , drawi)) >= pricechartpos(0,0) AND VAL(orderbuydb.Cell(1 , drawi)) <= pricechartpos(1,0)) THEN
+
+            graph.bufcntreset
+            graph.savebuffertmp
+                       
+            for i=0 to 1000
+            if VAL(orderbuydb.Cell(3 , drawi))>=timechartpos(i,0) and VAL(orderbuydb.Cell(3 , drawi))<=timechartpos(i+1,0)+charttf(displayedfile)*60 then
+            mytimeratio=(VAL(orderbuydb.Cell(3 , drawi))-timechartpos(i,0))/(timechartpos(i+1,0)-timechartpos(i,0))
+            defint draworderbuyx1=timechartpos(i,1)+round((timechartpos(i+1,1)-timechartpos(i,1))*mytimeratio)
+            exit for
+            end if
+            next i            
+            
+            mypriceratio=(VAL(orderbuydb.Cell(1 , drawi))-pricechartpos(0,0))/(pricechartpos(1,0)-pricechartpos(0,0))
+            defint draworderbuyy1=pricechartpos(0,1)-round((pricechartpos(0,1)-pricechartpos(1,1))*mypriceratio)            
+
+            graph.drawp(34 , draworderbuyx1 , draworderbuyy1 , 0 , 0 , 0 , 0)
+
+            graph.savebuffertmp
+            graph.paintchart
+
+        END IF
+        
+        IF (VAL(orderselldb.Cell(3 , drawi)) >= graphserialdatebegin AND VAL(orderselldb.Cell(3 , drawi)) <= graphserialdateend+charttf(displayedfile)*60) AND _            
+            (VAL(orderselldb.Cell(1 , drawi)) >= pricechartpos(0,0) AND VAL(orderselldb.Cell(1 , drawi)) <= pricechartpos(1,0)) THEN
+
+            graph.bufcntreset
+            graph.savebuffertmp
+                       
+            for i=0 to 1000
+            if VAL(orderselldb.Cell(3 , drawi))>=timechartpos(i,0) and VAL(orderselldb.Cell(3 , drawi))<=timechartpos(i+1,0)+charttf(displayedfile)*60 then
+            mytimeratio=(VAL(orderselldb.Cell(3 , drawi))-timechartpos(i,0))/(timechartpos(i+1,0)-timechartpos(i,0))
+            defint drawordersellx1=timechartpos(i,1)+round((timechartpos(i+1,1)-timechartpos(i,1))*mytimeratio)
+            exit for
+            end if
+            next i            
+            
+            mypriceratio=(VAL(orderselldb.Cell(1 , drawi))-pricechartpos(0,0))/(pricechartpos(1,0)-pricechartpos(0,0))
+            defint draworderselly1=pricechartpos(0,1)-round((pricechartpos(0,1)-pricechartpos(1,1))*mypriceratio)            
+
+            graph.drawp(35 , drawordersellx1 , draworderselly1 , 0 , 0 , 0 , 0)
+
+            graph.savebuffertmp
+            graph.paintchart
+
+        END IF
+        
+        
         doevents
     NEXT drawi
     

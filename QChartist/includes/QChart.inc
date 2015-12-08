@@ -4294,7 +4294,7 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
             'LineTo(.Buffer.handle,x2,y3)
             graphcursorpos2
             .Buffer.Line(x3 , 0 , x3 , graph.Height , pencolor)
-            .Buffer.TextOut(x3 , graphvspace + 45 , graphdateoncur , pencolor , &hffffff)
+            .Buffer.TextOut(x3 - 45 , graphvspace + 45 , graphdateoncur , pencolor , &hffffff)
             .Buffer.Line(0 , y3 , graph.Width , y3 , pencolor)
             .Buffer.TextOut(0 , y3 , STR$(graphpriceoncur) , pencolor , &hffffff)
             .buffertmp.BMP = .buffer.BMP
@@ -5599,6 +5599,50 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
         END WITH
         
     END SUB
+    
+    private :
+    SUB draworderbuy(xb , yb , xc , yc)
+    
+        DEFSNG x2 , y2 , x3 , y3
+        x2 = xb
+        y2 = yb
+        x3 = xc
+        y3 = yc
+
+        WITH QChart
+            .ClearBuffer
+            .buffer.BMP = .buffertmpz.BMP                                                                  
+                                                      
+            
+            .buffer.fillrect(x2-3,y2-3,x2+3,y2+3,green)
+                                   
+            .buffertmp.BMP = .buffer.BMP
+            .PaintChart
+        END WITH
+        
+    END SUB
+    
+    private :
+    SUB drawordersell(xb , yb , xc , yc)
+    
+        DEFSNG x2 , y2 , x3 , y3
+        x2 = xb
+        y2 = yb
+        x3 = xc
+        y3 = yc
+
+        WITH QChart
+            .ClearBuffer
+            .buffer.BMP = .buffertmpz.BMP                                                                  
+                                                      
+            
+            .buffer.fillrect(x2-3,y2-3,x2+3,y2+3,red)
+                                   
+            .buffertmp.BMP = .buffer.BMP
+            .PaintChart
+        END WITH
+        
+    END SUB
 
     '------------------------------------------------------------------------------------------
     PRIVATE :
@@ -5864,6 +5908,10 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
                     .drawtri2(x2 , y2 , x3 , y3)
                 CASE 33 :
                     .drawlastprice()
+                CASE 34 :
+                    .draworderbuy(x2 , y2 , 0 , 0)
+                CASE 35 :
+                    .drawordersell(x2 , y2 , 0 , 0)
             END SELECT
         END WITH
     END SUB
