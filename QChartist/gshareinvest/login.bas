@@ -17,6 +17,7 @@ declare sub orderslistsub
 declare sub openedorderslistsub
 declare sub closedorderslistsub
 declare sub clearopenedordersfields
+declare sub clearallfields
 declare sub showorderformsub
 declare sub ordergetpricesub
 declare sub openordersendsub
@@ -727,6 +728,8 @@ filestr=filestr+filestream.readline
 wend
 filestream.close
 
+kill "c:\qchartist\gshareinvest\form.html"
+
 defint portionloc=instr(filestr,chr$(34)+"salt"+chr$(34))
 defstr portion=mid$(filestr,portionloc+14,len(filestr))
 portionloc=instr(portion,chr$(34))
@@ -808,6 +811,9 @@ filestr2=filestr2+filestream.readline
 wend
 filestream.close
 
+kill "c:\qchartist\gshareinvest\encrypt.html"
+kill "c:\qchartist\gshareinvest\encrypted.html"
+
 portionloc=instr(filestr2,"encrypted pass:"+chr$(34))
 portion=mid$(filestr2,portionloc+16,len(filestr2))
 portionloc=instr(portion,chr$(34))
@@ -844,11 +850,14 @@ filestr3=filestr3+filestream.readline
 wend
 filestream.close
 
+kill "c:\qchartist\gshareinvest\account.html"
+
 if like(filestr3,"*Welcome "+usernameloginedit.text+"*")=1 then
 loginstatuslabel.caption="Connected"
 PLAYWAV "c:\qchartist\gshareinvest\sounds\connect.wav", SND_ASYNC
 busy(0)
 loginbtn.enabled=0
+clearallfields
 if gsi_quiet=0 then showportfoliosub
 showportfoliobtn.enabled=1
 loginbtn.enabled=0
@@ -1288,6 +1297,8 @@ filestr=filestr+filestream.readline
 wend
 filestream.close
 
+kill "c:\qchartist\gshareinvest\account_balance.html"
+
 if len(filestr)>0 then
 
 defint instrbegin=instr(filestr,"total_deposits_id")+19
@@ -1346,6 +1357,8 @@ while not filestream.eof
 filestr=filestr+filestream.readline
 wend
 filestream.close
+
+kill "c:\qchartist\gshareinvest\orders_list.html"
 
 if len(filestr)>0 then
 
@@ -1489,6 +1502,8 @@ filestr=filestr+filestream.readline
 wend
 filestream.close
 
+kill "c:\qchartist\gshareinvest\closed_orders_list.html"
+
 if len(filestr)>0 then
 
 defint i
@@ -1616,6 +1631,8 @@ while not filestream.eof
 filestr=filestr+filestream.readline
 wend
 filestream.close
+
+kill "c:\qchartist\gshareinvest\opened_orders_list.html"
 
 if len(filestr)>0 then
 
@@ -1830,6 +1847,28 @@ next i
 sumamountinvlabel.caption=""
 sumprofitlabel.caption=""
 sumdifflabel.caption=""
+end sub
+
+sub clearallfields
+defint i=0,j=0
+for i=0 to 12
+for j=1 to 100
+portfolioopenedordersgrid.cell(i,j)=""
+portfolioclosedordersgrid.cell(i,j)=""
+portfolioordersgrid.cell(i,j)=""
+portfoliobalancegrid.cell(i,j)=""
+next j
+next i
+sumamountinvlabel.caption=""
+sumprofitlabel.caption=""
+sumdifflabel.caption=""
+sumamountinvclosedorderslabel.caption=""
+sumprofitclosedorderslabel.caption=""
+sumdiffclosedorderslabel.caption=""
+kill "c:\qchartist\gshareinvest\orders_list.html"
+kill "c:\qchartist\gshareinvest\closed_orders_list.html"
+kill "c:\qchartist\gshareinvest\opened_orders_list.html"
+kill "c:\qchartist\gshareinvest\account_balance.html"
 end sub
 
 sub showorderformsub

@@ -1177,6 +1177,9 @@ real time quotes debugged
 - gshareinvest orders are drawn on charts with a green rectangle for buy and red rectangle for sell
 These rectangles are added in objects lists
 
+2015-12-09 (build 54):
+- added cleaning fields and deleting sensible data with gshareinvest login
+
 -------------------------------------------------------------------------------------
 Todo list;
 
