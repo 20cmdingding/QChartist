@@ -641,6 +641,14 @@ defint astrowheelmarketbar=0
 defint lastpricey
 defint lastpricex
 
+dim useindiCheckedtmp as integer
+
+declare sub enablegetchartbtnsub
+dim getcharttimer as qtimer
+getcharttimer.enabled=0
+getcharttimer.interval=30000
+getcharttimer.ontimer=enablegetchartbtnsub
+
 ' ------------------ End of variables declaration ------------------------------
 
 DECLARE SUB moveplanetred
@@ -1832,6 +1840,19 @@ declare function timehour(seconds as double) as double
 declare function timedayofweek(seconds as double) as double
 declare sub loginsub
 declare sub googlerefreshrateeditchangesub
+
+declare sub showsymbolslist
+declare sub loadsymbolslistsub
+declare sub markettypecombochangesub
+declare sub searchsymbolslistbtnsub
+declare sub searchnextsymbolslistbtnsub
+declare sub updatesymbolslistbtnsub
+declare sub reloadsymbolslistbtnsub
+declare sub restoredefaultdatabtnsub
+declare sub selectsymbolslistbtnsub
+declare sub loadsymbolslistbtnsub
+declare sub symbolslistboxonclicksub
+declare sub symbolslistboxondblclicksub
 
 dim googlebusytimer as qtimer
 googlebusytimer.enabled=0
@@ -7674,6 +7695,135 @@ SUB filesettings
     filesettingsfrm.Visible = 1
 END SUB
 
+create symbolslistform as qform
+caption="Symbols list"
+center
+height=360
+width=360
+visible=0
+onshow=loadsymbolslistsub
+
+create markettypecombo as qcombobox
+left=10
+top=10
+width=200
+additems "AMEX"
+additems "COMMODITIES_ENERGY"
+additems "COMMODITIES_GRAINS"
+additems "COMMODITIES_METALS"
+additems "COMMODITIES_SOFTS"
+additems "CURRENCIES"
+additems "CURRENCY_FUTURES"
+additems "CURRENCY_INDICES"
+additems "DAX_stocks"
+additems "dji_stocks"
+additems "German_stocks"
+additems "Hungarian_stocks"
+additems "INDICES_ASIA"
+additems "INDICES_EUROPE"
+additems "INDICES_AMERICA"
+additems "INDICES_FUTURES_AMERICA"
+additems "INDICES_FUTURES_ASIA"
+additems "INDICES_FUTURES_EUROPE"
+additems "INDICES_OTHERS"
+additems "Japan_ETFs_stocks"
+additems "Japan_stocks"
+additems "MDAX_stocks"
+additems "NASDAQ"
+additems "nasdaq_stocks"
+additems "Nasdaq100_stocks"
+additems "Nikkei225_stocks"
+additems "nyse_mkt_stocks"
+additems "nyse_stocks"
+additems "Polish_stocks"
+additems "sp500_stocks"
+additems "TOPIX30_stocks"
+additems "UK_ETFs_stocks"
+additems "UK_stocks"
+additems "UK100_stocks"
+additems "US_ETFs_stocks"
+additems "us_stocks"
+additems "WIG30_stocks"
+itemindex=0
+onchange=markettypecombochangesub
+end create
+
+create reloadsymbolslistbtn as qbutton
+left=markettypecombo.left+markettypecombo.width+10
+top=10
+height=20
+caption="Reload list"
+onclick=reloadsymbolslistbtnsub
+end create
+
+create symbolslistbox as qlistbox
+
+top=30
+left=10
+height=200
+width=300
+onclick=symbolslistboxonclicksub
+ondblclick=symbolslistboxondblclicksub
+
+end create
+
+create selectsymbolslistbtn as qbutton
+top=symbolslistbox.top+symbolslistbox.height+10
+left=10
+caption="Select symbol"
+onclick=selectsymbolslistbtnsub
+end create
+
+create loadsymbolslistbtn as qbutton
+top=symbolslistbox.top+symbolslistbox.height+10
+left=selectsymbolslistbtn.left+selectsymbolslistbtn.width+10
+width=230
+caption="Load symbol with current data source settings"
+onclick=loadsymbolslistbtnsub
+end create
+
+create searchsymbolslistlabel as qlabel
+top=selectsymbolslistbtn.top+selectsymbolslistbtn.height+10
+left=10
+caption="Find:"
+end create
+
+create searchsymbolslistedit as qedit
+top=searchsymbolslistlabel.top
+left=50
+end create
+
+create searchsymbolslistbtn as qbutton
+top=searchsymbolslistedit.top
+left=180
+caption="FIND"
+onclick=searchsymbolslistbtnsub
+end create
+
+create searchnextsymbolslistbtn as qbutton
+top=searchsymbolslistedit.top
+left=260
+caption="FIND NEXT"
+onclick=searchnextsymbolslistbtnsub
+end create
+
+create updatesymbolslistbtn as qbutton
+top=searchnextsymbolslistbtn.top+30
+left=10
+width=100
+caption="Update symbols list"
+onclick=updatesymbolslistbtnsub
+end create
+
+create restoredefaultdatabtn as qbutton
+top=updatesymbolslistbtn.top
+left=updatesymbolslistbtn.left+updatesymbolslistbtn.width+10
+width=100
+caption="Restore default data"
+onclick=restoredefaultdatabtnsub
+end create
+
+end create
 
 CREATE datasourcefrm AS QFORM
     Caption = "Data source"
@@ -7698,7 +7848,12 @@ CREATE datasourcefrm AS QFORM
         Left = 50
         Text = "YHOO"
     END CREATE
-   
+    create dssymbollistshow as qbutton
+        top=20
+        left=180
+        caption="Symbols list"
+        onclick=showsymbolslist
+    end create   
     CREATE dsstartdate AS QLABEL
         Top = 40
         Caption = "Start date:"
@@ -7779,6 +7934,8 @@ SUB datasource
 END SUB
 
 SUB dsokclick
+    useindiCheckedtmp=0
+    if useindi.Checked=1 then useindiCheckedtmp=1
     useindi.Checked = 0
     'InetIsOffline returns 0 if you're connected
     DEFINT A
@@ -7849,7 +8006,8 @@ SUB dsokclick
     DEFSTR outFileName = UCASE$(dssymboledit.Text) + dstf + ".tmp"
 
     CHDIR homepath + "\csv"
-
+    
+    getcharttimer.enabled=1
     IF GetFileHTTP(url , outFileName) THEN
         SHOWMESSAGE "Download Error : " & url
         dsok.Enabled = 1
@@ -11087,6 +11245,10 @@ SUB importfileyahoo()
     'writetolog(DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb))
     dim impfdispfcsv as string:impfdispfcsv=MID$(importedfile(displayedfile) , 0 , LEN(importedfile(displayedfile)) - 4) + ".csv"
     cpptmpfuncreturn=varptr$(filegetlinesarray(varptr(impfdispfcsv)))
+    if useindiCheckedtmp=1 then
+    useindi.checked=1
+    btnOnClick(drwBox)
+    end if
     dsok.Enabled = 1
 END SUB
 
@@ -11353,6 +11515,10 @@ SUB importfilestooq()
     'writetolog(DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb))
     dim impfdispfcsv as string:impfdispfcsv=MID$(importedfile(displayedfile) , 0 , LEN(importedfile(displayedfile)) - 4) + ".csv"
     cpptmpfuncreturn=varptr$(filegetlinesarray(varptr(impfdispfcsv)))
+    if useindiCheckedtmp=1 then
+    useindi.checked=1
+    btnOnClick(drwBox)
+    end if
     dsok.Enabled = 1
 END SUB
 
@@ -20119,4 +20285,107 @@ end sub
 
 sub googlerefreshrateeditchangesub
 googlereadlastquotetimer.interval=val(googlerefreshrateedit.text)
+end sub
+
+sub loadsymbolslistsub
+symbolslistbox.clear
+dim filestream as qfilestream
+filestream.Open("c:\qchartist\qsymbols\"+markettypecombo.item(markettypecombo.itemindex)+".txt" , 0)
+defstr filestr = ""
+WHILE NOT filestream.eof
+    filestr = filestream.ReadLine
+    symbolslistbox.additems mid$(filestr,1,instr(filestr,",")-1)+" | "+mid$(filestr,instr(filestr,",")+1,len(filestr))
+WEND
+filestream.Close 
+end sub
+
+sub markettypecombochangesub
+loadsymbolslistsub
+end sub
+
+sub searchsymbolslistbtnsub
+defint i
+defstr searchsymbolsliststr="*"+searchsymbolslistedit.text+"*"
+for i=0 to symbolslistbox.itemcount-1
+if like(lcase$(symbolslistbox.item(i)),lcase$(searchsymbolsliststr))=1 then
+symbolslistbox.itemindex=i
+exit for
+end if
+doevents
+next i
+end sub
+
+sub searchnextsymbolslistbtnsub
+defint i
+defstr searchsymbolsliststr="*"+searchsymbolslistedit.text+"*"
+for i=symbolslistbox.itemindex+1 to symbolslistbox.itemcount-1
+if like(lcase$(symbolslistbox.item(i)),lcase$(searchsymbolsliststr))=1 then
+symbolslistbox.itemindex=i
+exit for
+end if
+doevents
+next i
+end sub
+
+sub updatesymbolslistbtnsub
+run "c:\qchartist\qsymbols\qsymbols.exe"
+end sub
+
+sub reloadsymbolslistbtnsub
+loadsymbolslistsub
+end sub
+
+sub restoredefaultdatabtnsub
+IF MessageDlg("Restoring default data will overwrite current data. Are you sure?", mtWarning, mbYes OR mbNo, 0) = mrYes THEN
+    defint pid
+    pid=shell("c:\qchartist\qsymbols\restore_default_data.bat",0)
+END IF
+end sub
+
+sub selectsymbolslistbtnsub
+dssymboledit.text=mid$(symbolslistbox.item(symbolslistbox.itemindex),1,instr(symbolslistbox.item(symbolslistbox.itemindex)," |")-1)
+if markettypecombo.item(markettypecombo.itemindex)="AMEX" or markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+dssource.itemindex=0
+else
+dssource.itemindex=1
+end if
+datasourcefrm.visible=1
+setfocus(datasourcefrm.handle)
+end sub
+
+sub loadsymbolslistbtnsub
+dssymboledit.text=mid$(symbolslistbox.item(symbolslistbox.itemindex),1,instr(symbolslistbox.item(symbolslistbox.itemindex)," |")-1)
+if markettypecombo.item(markettypecombo.itemindex)="AMEX" or markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+dssource.itemindex=0
+else
+dssource.itemindex=1
+end if
+if dsok.enabled=1 then
+barsdisplayed.text="333"
+dsokclick
+end if
+end sub
+
+sub showsymbolslist
+symbolslistform.visible=1
+setfocus(symbolslistform.handle)
+end sub
+
+sub symbolslistboxonclicksub
+dssymboledit.text=mid$(symbolslistbox.item(symbolslistbox.itemindex),1,instr(symbolslistbox.item(symbolslistbox.itemindex)," |")-1)
+if markettypecombo.item(markettypecombo.itemindex)="AMEX" or markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+dssource.itemindex=0
+else
+dssource.itemindex=1
+end if
+end sub
+
+sub symbolslistboxondblclicksub
+loadsymbolslistbtnsub
+end sub
+
+sub enablegetchartbtnsub
+getcharttimer.enabled=0
+dsok.enabled=1
+if useindiCheckedtmp=1 then useindi.checked=1
 end sub

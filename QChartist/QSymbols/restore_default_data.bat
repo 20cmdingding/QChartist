@@ -1,0 +1,1 @@
+copy /y c:\qchartist\qsymbols\default\*.txt c:\qchartist\qsymbols\

@@ -1180,6 +1180,11 @@ These rectangles are added in objects lists
 2015-12-09 (build 54):
 - added cleaning fields and deleting sensible data with gshareinvest login
 
+2015-12-17 (build 55):
+- added symbols lists in Data source the way to be able to choose auctions to view
+- added update symbols script from eoddata.com and stooq.com
+- data source debugged
+
 -------------------------------------------------------------------------------------
 Todo list;
 
