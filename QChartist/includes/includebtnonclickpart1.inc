@@ -479,6 +479,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
 
                 bars = chartbars(displayedfile)
                 barsstr=str$(bars):cpptmpfuncreturn=varptr$(setbars(varptr(barsstr)))
+                numbars_first=chartbars(displayedfile)-scrollchart.position+numbars-1
+                numbars_last=chartbars(displayedfile)-scrollchart.position
 
                 FOR i = chartstart TO chartstart + .DATA.ColCount  'for each col
                     l ++

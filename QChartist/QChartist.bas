@@ -251,6 +251,7 @@ DIM MailStep AS INTEGER  'Which step have we got to do next?
 'Used in SUB TimerExpired.
 
 DIM numbars AS INTEGER
+defint numbars_first,numbars_last
 DIM valmin AS DOUBLE
 DIM valmax AS DOUBLE
 DIM chartstart AS INTEGER
@@ -7961,7 +7962,7 @@ SUB dsokclick
     IF dssource.ItemIndex = 0 THEN url = "http://ichart.finance.yahoo.com/table.csv?s=" + UCASE$(dssymboledit.Text) + "&a=" + dsstartcalendarobjm + "&b=" + dsstartcalendarobjd + "&c=" + dsstartcalendarobjy + "&d=" + dsendcalendarobjm + "&e=" + dsendcalendarobjd + "&f=" + dsendcalendarobjy + "&g=" + LCASE$(LEFT$(dstimeframe.Item(dstimeframe.ItemIndex) , 1)) + "&ignore=.csv"
     IF dssource.ItemIndex = 1 THEN url = "http://stooq.com/q/d/l/?s=" + LCASE$(dssymboledit.Text) + "&d1=" + dsstartcalendarobjy + dsstartcalendarobjm + dsstartcalendarobjd + "&d2=" + dsendcalendarobjy + dsendcalendarobjm + dsendcalendarobjd + "&i=" + LCASE$(LEFT$(dstimeframe.Item(dstimeframe.ItemIndex) , 1))
     IF dssource.ItemIndex = 2 THEN
-        getcharttimer.enabled=1
+        IF googlerealtimecheckbox.Checked = 0 THEN getcharttimer.enabled=1
         googlegetquotesub
         EXIT SUB
     END IF

@@ -1191,6 +1191,10 @@ These rectangles are added in objects lists
 - QSymbols improved
 - enrichment of the QChartist.chm documentation
 
+- added variables numbars_first and numbars_last (see chm documentation for more info)
+- data source debugged
+- build 57
+
 -------------------------------------------------------------------------------------
 Todo list;
 
