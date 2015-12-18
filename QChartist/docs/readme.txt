@@ -1185,6 +1185,12 @@ These rectangles are added in objects lists
 - added update symbols script from eoddata.com and stooq.com
 - data source debugged
 
+- data source improved
+
+2015-12-18 (build 56):
+- QSymbols improved
+- enrichment of the QChartist.chm documentation
+
 -------------------------------------------------------------------------------------
 Todo list;
 

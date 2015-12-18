@@ -1,4 +1,4 @@
-$apptype console
+$apptype gui
 $typecheck on
 
 chdir "c:\qchartist\qsymbols"

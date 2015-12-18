@@ -7961,6 +7961,7 @@ SUB dsokclick
     IF dssource.ItemIndex = 0 THEN url = "http://ichart.finance.yahoo.com/table.csv?s=" + UCASE$(dssymboledit.Text) + "&a=" + dsstartcalendarobjm + "&b=" + dsstartcalendarobjd + "&c=" + dsstartcalendarobjy + "&d=" + dsendcalendarobjm + "&e=" + dsendcalendarobjd + "&f=" + dsendcalendarobjy + "&g=" + LCASE$(LEFT$(dstimeframe.Item(dstimeframe.ItemIndex) , 1)) + "&ignore=.csv"
     IF dssource.ItemIndex = 1 THEN url = "http://stooq.com/q/d/l/?s=" + LCASE$(dssymboledit.Text) + "&d1=" + dsstartcalendarobjy + dsstartcalendarobjm + dsstartcalendarobjd + "&d2=" + dsendcalendarobjy + dsendcalendarobjm + dsendcalendarobjd + "&i=" + LCASE$(LEFT$(dstimeframe.Item(dstimeframe.ItemIndex) , 1))
     IF dssource.ItemIndex = 2 THEN
+        getcharttimer.enabled=1
         googlegetquotesub
         EXIT SUB
     END IF
@@ -19550,6 +19551,7 @@ SUB googlebusytimersub
     END IF
     IF like(filestr , "*a*") = 0 THEN
         PRINT "Invalid symbol"
+        if useindiCheckedtmp=1 then useindi.checked=1
         dsok.Enabled = 1
         'googlerealtimebusytimer.enabled=0
         EXIT SUB
@@ -19976,6 +19978,10 @@ SUB googlebusytimersub
     timclock.Enabled = 0
 
     IF googlerealtimecheckbox.Checked = 0 THEN
+        if useindiCheckedtmp=1 then
+        useindi.checked=1
+        btnOnClick(drwBox)
+        end if
         dsok.Enabled = 1
     ELSE
         googlebusytimer.Interval = 1000
@@ -20356,7 +20362,7 @@ end sub
 sub loadsymbolslistbtnsub
 dssymboledit.text=mid$(symbolslistbox.item(symbolslistbox.itemindex),1,instr(symbolslistbox.item(symbolslistbox.itemindex)," |")-1)
 if markettypecombo.item(markettypecombo.itemindex)="AMEX" or markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
-dssource.itemindex=0
+if dssource.itemindex<>0 and dssource.itemindex<>2 then dssource.itemindex=0
 else
 dssource.itemindex=1
 end if
@@ -20374,7 +20380,7 @@ end sub
 sub symbolslistboxonclicksub
 dssymboledit.text=mid$(symbolslistbox.item(symbolslistbox.itemindex),1,instr(symbolslistbox.item(symbolslistbox.itemindex)," |")-1)
 if markettypecombo.item(markettypecombo.itemindex)="AMEX" or markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
-dssource.itemindex=0
+if dssource.itemindex<>0 and dssource.itemindex<>2 then dssource.itemindex=0
 else
 dssource.itemindex=1
 end if
