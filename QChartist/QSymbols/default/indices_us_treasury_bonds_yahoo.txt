@@ -1,0 +1,4 @@
+^IRX,13-Week Bill
+^FVX,5-Year Note
+^TNX,10-Year Note
+^TYX,30-Year Bond

@@ -1,0 +1,5 @@
+^GSPC,500 Index
+^OEX,100 Index
+^MID,400 MidCap
+^SML,600 SmallCap
+^SPSUPX,1500 SuperComp

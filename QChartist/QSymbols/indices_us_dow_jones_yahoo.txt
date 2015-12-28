@@ -1,0 +1,4 @@
+^DJI,30 Industrials
+^DJA,65 Composite
+^DJU,15 Utilities
+^DJT,20 Transportation

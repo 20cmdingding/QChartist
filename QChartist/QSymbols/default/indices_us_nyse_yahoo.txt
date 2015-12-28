@@ -1,0 +1,6 @@
+^NYA,Composite
+^PSE,Pacific Exchange Technology
+^NYI,NYSE International 100
+^NYY,NYSE TMT
+^NY,NYSE US 100
+^NYL,NYSE World Leaders

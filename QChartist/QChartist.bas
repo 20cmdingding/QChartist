@@ -1434,6 +1434,7 @@ create astrowheelsettingsform as qform
     top=marketpostponementlab2.top+20
     width=300
     left=0
+    height=50
     create openedchartpriceradio as qradiobutton
     caption="Use price of the opened chart for the specified date time"
     width=300
@@ -1451,9 +1452,15 @@ create astrowheelsettingsform as qform
     top=20
     left=specifypriceradio.left+specifypriceradio.width
     width=80
+    end create    
     end create
-    end create
-    
+
+create astrowheelheliogeocombo as qcombobox
+    top=pricesource.top+60
+    additems "Heliocentric"
+    additems "Geocentric"
+    itemindex=0
+    end create    
     
 end create
 
@@ -1895,6 +1902,7 @@ FontFileName = "c:\qchartist\fonts\astro.ttf"
 AddFontResource(FontFileName)
 
 declare function get_helio_longitude(planet as integer,year as string,month as string,day as string,hour as string) as string
+declare function get_geo_longitude(planet as integer,year as string,month as string,day as string,hour as string) as string
 declare function get_ascmc(lat2 as double,lon2 as double,year as string,month as string,day as string,hour as string,ascormc as string) as string
 
 ' End of functions declaration
@@ -7709,6 +7717,7 @@ left=10
 top=10
 width=200
 additems "AMEX"
+additems "CAC_yahoo"
 additems "COMMODITIES_ENERGY"
 additems "COMMODITIES_GRAINS"
 additems "COMMODITIES_METALS"
@@ -7727,6 +7736,17 @@ additems "INDICES_FUTURES_AMERICA"
 additems "INDICES_FUTURES_ASIA"
 additems "INDICES_FUTURES_EUROPE"
 additems "INDICES_OTHERS"
+additems "indices_fr_paris_yahoo"
+additems "indices_us_dow_jones_yahoo"
+additems "indices_us_nasdaq_yahoo"
+additems "indices_us_nyse_yahoo"
+additems "indices_us_other_yahoo"
+additems "indices_us_sp_yahoo"
+additems "indices_us_treasury_bonds_yahoo"
+additems "indices_world_africa-middle_east_yahoo"
+additems "indices_world_america_yahoo"
+additems "indices_world_asia-pacific_yahoo"
+additems "indices_world_europe_yahoo"
 additems "Japan_ETFs_stocks"
 additems "Japan_stocks"
 additems "MDAX_stocks"
@@ -18788,6 +18808,177 @@ function get_helio_longitude(planet as integer,year as string,month as string,da
     'swe_close
 End function
 
+function get_geo_longitude(planet as integer,year as string,month as string,day as string,hour as string) as string
+   
+    Dim x(6) As Double
+    Dim x2(6) As Double
+    Dim cusp(13) As Double
+    Dim ascmc(10) As Double
+    Dim attr(20) As Double
+    Dim tret(20) As Double
+    Dim geopos(10) As Double
+    Dim geoposx(10) As Double
+    Dim xnasc(6) As Double
+    Dim xndsc(6) As Double
+    Dim xperi(6) As Double
+    Dim xaphe(6) As Double
+    Dim cal As Byte
+    Dim o As orient
+    Dim ss As String * 16
+    cal = 103  ' g for gregorian calendar
+    swephout.clear
+    defdbl h = ihour + imin / 60
+    'olen = LenB(ss)
+    geopos(0) = lon
+    geopos(1) = lat
+    geopos(2) = 0
+    
+ ' the next two functions do the same job, converting a calendar date
+ ' into a Julian day number
+ ' swe_date_conversion() checks for legal dates while swe_julday() handles
+ ' even illegal things like 45 Januar etc.
+
+    defstr iyearstr,imonthstr,idaystr,hstr
+    iyearstr=year 'str$(iyear)
+    imonthstr=month 'str$(imonth)
+    idaystr=day 'str$(iday)
+    hstr=hour 'str$(h)
+    parameters=iyearstr+";"+imonthstr+";"+idaystr+";"+hstr+";1"
+    defstr tjd_utstr=varptr$(swe_julday(varptr(parameters)))
+    tjd_ut=val(tjd_utstr)
+            
+    parameters=iyearstr+";"+imonthstr+";"+idaystr+";"+hstr+";g;"+tjd_utstr
+    defstr retvalstr=varptr$(swe_date_conversion(varptr(parameters)))
+    deflng retval = val(retvalstr)
+
+    If retval <> 0 Then
+        showmessage "Illegal Date"
+        Exit Sub
+    End If        
+    
+    'If et_flag.checked=1 Then
+     defdbl tjd_et = tjd_ut
+     defstr tjd_etstr=str$(tjd_et)
+     tjd_ut = tjd_et - val(varptr$(swe_deltat(varptr(tjd_etstr))))
+    'Else    
+    ' tjd_et = tjd_ut + val(varptr$(swe_deltat(varptr(tjd_utstr))))
+    'End If    
+    
+    defdbl t2 = tjd_ut - 2415018.5
+    If t2 < 0 Then
+      t2 = t2
+    End If
+    
+    defstr tjd_ut_formated=Format$("%.8f", tjd_ut)
+    defstr tjd_et_formated=Format$("%.8f", tjd_et)   
+    
+    defstr ut$
+    
+    'If is_equal(varptr(tjd_ut_formated),varptr(tjd_et_formated))=1 Then
+    'If val(tjd_ut_formated)=val(tjd_et_formated) Then
+    If tjd_ut=tjd_et Then
+      ut$ = ""
+      
+    Else
+      'ut$ = "  UT=" + Format(tjd_ut)
+      ut$ = "  UT=" + tjd_ut_formated
+    End If    
+ 
+    'swephout.text=swephout.text+"ET="+tjd_et_formated+" "+ ut$ + chr$(10)
+
+    'defint planet
+     'For planet = SE_SUN To SE_PLUTO_PICKERING
+        deflng iflag = SEFLG_SPEED + SEFLG_SWIEPH
+        'If bary_flag.checked = 1 Then
+        '    iflag = iflag + SEFLG_BARYCTR
+        'End If
+        'If hel_flag.checked = 1 Then
+            'iflag = iflag + SEFLG_HELCTR
+        'End If
+        'If is_j2000.checked = 1 Then
+        '    iflag = iflag + SEFLG_J2000
+        'End If
+        'If Not is_apparent.checked = 1 Then
+        '   iflag = iflag + SEFLG_TRUEPOS
+        'End If
+        'If is_sidereal.checked = 1 Then
+        '   iflag = iflag + SEFLG_SIDEREAL
+        '   'a = swe_set_sid_mode(SEFLG_SIDM_FAGAN_BRADLEY, 0, 0)
+        'End If
+        defstr serr$ = String$(255, 0)
+        defstr plnam$ = String$(20, 0)
+        tjd_etstr=str$(tjd_et)
+        defstr planetstr=str$(planet)
+        defstr iflagstr=str$(iflag)
+        defstr x0str=str$(x(0))
+        parameters=tjd_etstr+";"+planetstr+";"+iflagstr
+        defdbl ret_flag = val(varptr$(swe_calc(varptr(parameters),varptr(x(0)),varptr(serr$))))        
+
+        serr$ = set_strlen(serr$)
+        If ret_flag <> iflag And Len(serr$) > 0 Then
+            swephout.text=swephout.text+"swe_calc reports: "+ serr$+chr$(10)
+        End If
+
+        parameters=planetstr+";"
+        cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(parameters),varptr(plnam$)))
+
+        plnam$ = set_strlen(plnam$)
+        plnam$ = Left$(plnam$, 10)
+        'swephout.text=swephout.text+ plnam$+" "+ outdeg3(x(0))+" "+ outdeg(x(1))+"  "+ str$(x(2))+chr$(10)
+        'swephout.text=swephout.text+ plnam$+" "+ str$(x(0)* 0.017453)+" "+ str$(x(1)* 0.017453)+"  "+ str$(x(2))+chr$(10)
+        result=str$(x(0))
+
+        'If planet = SE_VESTA Then
+        '  If add_hypo.checked = 0 Then Exit For
+        '  planet = SE_CUPIDO    ' skip undefined planet numbers
+        '  swephout.text=swephout.text+ ""
+        'End If
+        'serr$ = String(255, 0)
+        'retflag = swe_nod_aps_ut(tjd_ut, planet, iflag, 0, xnasc(0), xndsc(0), xperi(0), xaphe(0), serr$)
+        'fMainForm.out.Print "  node", outdeg3(xnasc(0)), outdeg(xnasc(1)); "  ", xnasc(2)
+        'serr$ = String(255, 0)
+        'retflag = swe_rise_trans(tjd_ut, planet, "", 0, SE_CALC_RISE, geopos(0), 0, 0, tret(0), serr$)
+        'fMainForm.out.Print "  rise", tret(0)
+     'Next planet
+     ' if something was entered in the fixed star field, it is computed
+'     If Len(starname) > 0 Then
+'       serr$ = String$(255, "0")
+'       starname = starname + String$(40, "0")  ' make it at least 40 bytes
+'       'ret_flag = swe_fixstar(starname, tjd_et, iflag, x(0), serr$)
+'       serr$ = set_strlen(serr$)
+'       starname = set_strlen(starname)
+'       If ret_flag < 0 Then
+'         swephout.text=swephout.text+ "swe_fixstar() reports: "+ serr$
+'       Else
+'       swephout.text=swephout.text+ starname+" "+ outdeg3(x(0))+" "+ outdeg(x(1))+ "  "+ x(2)
+'       End If
+'     End If
+     ' now come the houses
+'     If with_houses.checked=1 Then
+'       swephout.text=swephout.text+ ""
+'       'ret_flag = swe_houses_ex(tjd_ut, iflag, lat, lon, Asc("P"), cusp(0), ascmc(0))
+'       defint i
+'     For i = 1 To 12
+'        ' x(0) = cusp(i)
+'        ' x(1) = 0
+'        swephout.text=swephout.text+ "House "+" "+ i+" "+ outdeg3(cusp(i)) ' outdeg3(x(1)),
+'        If i Mod 3 = 0 Then swephout.text=swephout.text+ ""
+'       Next i
+'     End If
+     'serr$ = String(255, 0)
+     'ret_flag = swe_sol_eclipse_when_glob(tjd_ut, SEFLG_SWIEPH, 0, tret(0), 0, serr$)
+     'serr$ = String(255, 0)
+     'ret_flag = swe_sol_eclipse_where(tret(0), SEFLG_SWIEPH, geoposx(0), attr(0), serr$)
+     'fMainForm.out.Print "eclipse "; ret_flag, tret(0), outdeg3(geoposx(0)), outdeg3(geopos(1)),
+     'serr$ = String(255, 0)
+     'ret_flag = swe_rise_trans(tjd_ut, SE_MOON, "", SEFLG_SWIEPH, SE_CALC_RISE, geopos(0), 1013.25, 10, tret(0), serr$)
+     'fMainForm.out.Print "next rise of Moon "; ret_flag, tret(0), 'outdeg3(geoposx(0)), outdeg3(geopos(1)),
+     'serr$ = String(255, 0)
+     'retc = swe_time_equ(tjd_ut, tret(0), serr$)
+     'fMainForm.out.Print " te", tret(0)
+    'swe_close
+End function
+
 function get_ascmc(lat2 as double,lon2 as double,year as string,month as string,day as string,hour as string,ascormc as string) as string
    
     Dim x(6) As Double
@@ -20351,9 +20542,57 @@ end sub
 
 sub selectsymbolslistbtnsub
 dssymboledit.text=mid$(symbolslistbox.item(symbolslistbox.itemindex),1,instr(symbolslistbox.item(symbolslistbox.itemindex)," |")-1)
-if markettypecombo.item(markettypecombo.itemindex)="AMEX" or markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+if markettypecombo.item(markettypecombo.itemindex)="AMEX" or _
+markettypecombo.item(markettypecombo.itemindex)="CAC_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_fr_paris_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_dow_jones_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_nasdaq_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_nyse_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_other_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_sp_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_treasury_bonds_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_africa-middle_east_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_america_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_asia-pacific_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_europe_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
 dssource.itemindex=0
-else
+end if
+if markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_ENERGY" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_GRAINS" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_METALS" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_SOFTS" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCIES" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCY_FUTURES" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCY_INDICES" or _
+markettypecombo.item(markettypecombo.itemindex)="DAX_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="dji_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="German_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Hungarian_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_ASIA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_EUROPE" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_AMERICA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_AMERICA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_ASIA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_EUROPE" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_OTHERS" or _
+markettypecombo.item(markettypecombo.itemindex)="Japan_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Japan_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="MDAX_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nasdaq_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Nasdaq100_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Nikkei225_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nyse_mkt_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nyse_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Polish_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="sp500_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="TOPIX30_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK100_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="US_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="us_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="WIG30_stocks" then
 dssource.itemindex=1
 end if
 datasourcefrm.visible=1
@@ -20362,9 +20601,57 @@ end sub
 
 sub loadsymbolslistbtnsub
 dssymboledit.text=mid$(symbolslistbox.item(symbolslistbox.itemindex),1,instr(symbolslistbox.item(symbolslistbox.itemindex)," |")-1)
-if markettypecombo.item(markettypecombo.itemindex)="AMEX" or markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+if markettypecombo.item(markettypecombo.itemindex)="AMEX" or _
+markettypecombo.item(markettypecombo.itemindex)="CAC_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_fr_paris_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_dow_jones_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_nasdaq_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_nyse_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_other_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_sp_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_treasury_bonds_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_africa-middle_east_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_america_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_asia-pacific_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_europe_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
 if dssource.itemindex<>0 and dssource.itemindex<>2 then dssource.itemindex=0
-else
+end if
+if markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_ENERGY" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_GRAINS" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_METALS" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_SOFTS" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCIES" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCY_FUTURES" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCY_INDICES" or _
+markettypecombo.item(markettypecombo.itemindex)="DAX_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="dji_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="German_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Hungarian_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_ASIA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_EUROPE" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_AMERICA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_AMERICA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_ASIA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_EUROPE" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_OTHERS" or _
+markettypecombo.item(markettypecombo.itemindex)="Japan_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Japan_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="MDAX_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nasdaq_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Nasdaq100_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Nikkei225_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nyse_mkt_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nyse_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Polish_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="sp500_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="TOPIX30_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK100_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="US_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="us_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="WIG30_stocks" then
 dssource.itemindex=1
 end if
 if dsok.enabled=1 then
@@ -20380,9 +20667,57 @@ end sub
 
 sub symbolslistboxonclicksub
 dssymboledit.text=mid$(symbolslistbox.item(symbolslistbox.itemindex),1,instr(symbolslistbox.item(symbolslistbox.itemindex)," |")-1)
-if markettypecombo.item(markettypecombo.itemindex)="AMEX" or markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+if markettypecombo.item(markettypecombo.itemindex)="AMEX" or _
+markettypecombo.item(markettypecombo.itemindex)="CAC_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_fr_paris_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_dow_jones_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_nasdaq_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_nyse_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_other_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_sp_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_us_treasury_bonds_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_africa-middle_east_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_america_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_asia-pacific_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="indices_world_europe_yahoo" or _
+markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
 if dssource.itemindex<>0 and dssource.itemindex<>2 then dssource.itemindex=0
-else
+end if
+if markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_ENERGY" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_GRAINS" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_METALS" or _
+markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_SOFTS" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCIES" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCY_FUTURES" or _
+markettypecombo.item(markettypecombo.itemindex)="CURRENCY_INDICES" or _
+markettypecombo.item(markettypecombo.itemindex)="DAX_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="dji_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="German_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Hungarian_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_ASIA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_EUROPE" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_AMERICA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_AMERICA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_ASIA" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_FUTURES_EUROPE" or _
+markettypecombo.item(markettypecombo.itemindex)="INDICES_OTHERS" or _
+markettypecombo.item(markettypecombo.itemindex)="Japan_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Japan_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="MDAX_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nasdaq_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Nasdaq100_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Nikkei225_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nyse_mkt_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="nyse_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="Polish_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="sp500_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="TOPIX30_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="UK100_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="US_ETFs_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="us_stocks" or _
+markettypecombo.item(markettypecombo.itemindex)="WIG30_stocks" then
 dssource.itemindex=1
 end if
 end sub

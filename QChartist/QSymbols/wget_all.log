@@ -1,13 +1,12 @@
---2015-12-17 15:51:59--  http://stooq.com/t/?i=522&v=0&l=3
-Resolving stooq.com... 178.32.86.89
-Connecting to stooq.com|178.32.86.89|:80... connected.
+--2015-12-23 14:28:00--  http://finance.yahoo.com/q/cp?s=%5ESBF250&alpha=Z
+Resolving finance.yahoo.com... 217.12.1.156, 217.12.1.155
+Connecting to finance.yahoo.com|217.12.1.156|:80... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: unspecified [text/html]
 Saving to: `page.txt'
 
-     0K .......... .......... .......... .......... ..........  255K
-    50K .......... .......... .......... .......... ..........  942K
-   100K .......... .                                           1.85M=0.3s
+     0K .......... .......... .......... .......... ..........  140K
+    50K                                                         360K=0.4s
 
-2015-12-17 15:52:00 (436 KB/s) - `page.txt' saved [113706]
+2015-12-23 14:28:00 (141 KB/s) - `page.txt' saved [52121]
 

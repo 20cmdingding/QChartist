@@ -1,0 +1,5 @@
+^BVSP,Bovespa
+^MXX,IPC
+^MERV,MerVal
+^GSPC,500 Index
+^GSPTSE,S&P TSX Composite

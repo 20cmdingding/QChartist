@@ -1,0 +1,346 @@
+﻿AB.PA,AB Science S.A.
+ABCA.PA,ABC Arbitrage SA
+ABIO.PA,Albioma
+AC.PA,Accor S.A.
+ACA.PA,Credit Agricole S.A.
+ACAN.PA,Acanthe Developpement
+ADI.PA,Audika Groupe Société Anonyme
+ADOC.PA,Adocia Société Anonyme
+ADP.PA,Aéroports de Paris Société Anonyme
+AF.PA,Air France-KLM SA
+AFO.PA,Afone S.A.
+AI.PA,Air Liquide SA
+AIR.PA,AIRBUS GROUP
+AKA.PA,Akka Technologies
+AKE.PA,Arkema S.A.
+ALHIO.PA,HIOLLE INDUSTRIES
+ALO.PA,Alstom SA
+ALP.PA,ADLPartner
+ALT.PA,Altran Technologies S.A.
+ALU.PA,Alcatel-Lucent
+AN.PA,Societe d'Edition de Canal Plus S.A.
+ANF.PA,ANF Immobilier
+APAM.PA,APERAM REG.
+APR.PA,April Société Anonyme
+AREVA.PA,AREVA SA
+ARG.PA,Argan SA
+ASK.PA,ASK S.A.
+ASP.PA,AST Groupe
+ASY.PA,Assystem SA
+ATA.PA,Atari société anonyme
+ATE.PA,Alten SA
+ATEME.PA,ATEME SA
+ATI.PA,Actia Group
+ATO.PA,Atos SE
+AUB.PA,Aubay Société Anonyme
+AURE.PA,Aurea SA
+AURS.PA,Aures Technologies S.A.
+AVF.PA,Advenis SA
+AVQ.PA,Avanquest SA
+AVT.PA,Avenir Telecom S.A.
+AWOX.PA,AwoX S.A.
+AXW.PA,Axway Software S.A.
+BB.PA,Societe BIC SA
+BELI.PA,Le Bélier Societe Anonyme
+BEN.PA,Bénéteau S.A.
+BI.PA,Gascogne SA
+BIG.PA,BigBen Interactive
+BIL.PA,DALENYS
+BIM.PA,bioMérieux S.A.
+BLC.PA,Bastide le Confort Medical SA
+BLUE.PA,Blue Solutions Societe anonyme
+BN.PA,Danone
+BND.PA,Business &amp; Decision SA
+BNP.PA,BNP Paribas SA
+BOI.PA,Boiron SA
+BOL.PA,Bollore
+BON.PA,Bonduelle SA
+BSD.PA,Bourse Direct Société Anonyme
+BUI.PA,Barbara Bui
+BVD.PA,Marie Brizard Wine &amp; Spirits SA
+BVI.PA,Bureau Veritas SA
+CA.PA,Carrefour SA
+CAFO.PA,Centrale d'Achat Française pour l'Outre-Mer Société Anonyme
+CAP.PA,Cap Gemini S.A.
+CAPLI.PA,Groupe Capelli
+CAS.PA,CAST
+CATG.PA,CATANA GROUP
+CBSM.PA,Societe Centrale des Bois et Scieries de la Manche SA
+CDA.PA,Compagnie des Alpes SA
+CEN.PA,Groupe CRIT SA
+CGD.PA,Cegid Group SA
+CGG.PA,CGG
+CGM.PA,Cegedim SA
+CGR.PA,CeGeREAL SA.
+CIB.PA,Cibox Inter@ctive
+CNP.PA,CNP Assurances Société anonyme
+CO.PA,Casino, Guichard-Perrachon Société Anonyme
+COFA.PA,Coface SA
+COH.PA,Coheris Société Anonyme
+COX.PA,Nicox SA
+CRI.PA,Chargeurs SA
+CS.PA,AXA Group
+CTRG.PA,Catering International &amp; Services SA
+DBG.PA,Derichebourg
+DBT.PA,Encres Dubuit
+DBV.PA,DBV Technologies S.A.
+DEC.PA,JCDecaux SA
+DEXB.PA,DEXIA
+DG.PA,VINCI S.A.
+DGM.PA,Diagnostic Medical Systems S.A.
+DIM.PA,Sartorius Stedim Biotech S.A.
+DLT.PA,Dalet S.A.
+DLTA.PA,Delta Plus Group
+DNX.PA,DNXCorp SE
+DPT.PA,S.T.Dupont Société Anonyme
+DSY.PA,Dassault Systemes SA
+DVT.PA,Devoteam S.A.
+ECASA.PA,ECA SA
+ECP.PA,EuropaCorp
+EDEN.PA,Edenred SA
+EDF.PA,Electricite de France SA
+EDL.PA,Euro Disney SCA
+EEM.PA,Electricité et Eaux de Madagascar Société anonyme
+EI.PA,Essilor International SA
+EKI.PA,Ekinops SA
+ELE.PA,Euler Hermes Group SA
+ELIOR.PA,Elior
+EMG.PA,Euromedis Groupe
+EN.PA,Bouygues SA
+ENX.PA,Euronext N.V.
+EO.PA,Faurecia S.A.
+EOS.PA,ACTEOS S.A.
+EOSI.PA,EOS imaging SA
+ERA.PA,Eramet SA
+ERF.PA,Eurofins Scientific SA
+ERYP.PA,Erytech Pharma Société Anonyme
+ES.PA,Esso S.A.F.
+ESI.PA,ESI Group SA
+ETL.PA,Eutelsat Communications Société Anonyme
+EUR.PA,Euro Ressources SA
+EXE.PA,Exel Industries Société Anonyme
+FALG.PA,Fermentalg Société Anonyme
+FDPA.PA,FONCIERE DE PARIS 
+FDR.PA,Fonciere des Regions
+FEM.PA,auFeminin.com
+FGR.PA,Eiffage SA
+FII.PA,Lisi SA
+FLE.PA,Fleury Michon SA
+FLO.PA,Groupe Flo SA
+FNAC.PA,Groupe Fnac Société Anonyme
+FP.PA,TOTAL S.A.
+FPG.PA,Union Technologies Informatique Group S.A.
+FPN.PA,Foncière Paris Nord
+FR.PA,Valeo SA
+GBB.PA,Bourbon
+GBT.PA,Guerbet SA
+GEA.PA,Grenobloise d'Electronique et d'Automatismes SA
+GENP.PA,Stallergenes S.A.
+GENX.PA,Generix SA
+GET.PA,Groupe Eurotunnel SA
+GFC.PA,Gecina SA
+GFI.PA,GFI Informatique S.A.
+GFT.PA,GameLoft S.E.
+GID.PA,Egide SA
+GLE.PA,Societe Generale Group
+GLO.PA,GL Events
+GND.PA,Norbert Dentressangle S.A.
+GNFT.PA,GENFIT
+GOE.PA,Groupe Gorgé SA
+GPE.PA,Groupe Pizzorno Environnement
+GSZ.PA,ENGIE SA
+GTCL.PA,Genticel S.A.
+GTO.PA,GEMALTO
+GTT.PA,Gaztransport &amp; Technigaz S.A.
+GUI.PA,Guillemot Corporation Société Anonyme
+GV.PA,Genomic Vision, S.A.
+HAV.PA,Havas
+HBW.PA,Hubwoo
+HCO.PA,High Co. SA
+HF.PA,H.F. Company Société Anonyme
+HIM.PA,Hi-Media S.A.
+HO.PA,Thales SA
+ICAD.PA,Icade S.A.
+IDL.PA,ID Logistics Group SA
+IGE.PA,IGE+XAO Group
+ILD.PA,Iliad SA
+IML.PA,Affine R.E.
+IMPL.PA,Implanet S.A.
+INF.PA,Infotel SA
+ING.PA,Ingenico Group
+INN.PA,Innelec Multimédia SA
+INSD.PA,INSIDE Secure
+IPH.PA,Innate Pharma S.A.
+IPN.PA,Ipsen S.A.
+IPS.PA,Ipsos SA
+ITE.PA,Itesoft SA
+ITL.PA,IT Link
+ITP.PA,InterParfums SA
+ITS.PA,ITS Group
+JCQ.PA,JACQUET METAL 
+JXR.PA,Archos SA
+KER.PA,Kering SA
+KEY.PA,Keyrus Société Anonyme
+KN.PA,Natixis
+KORI.PA,Korian SA
+LACR.PA,Lacroix SA
+LAN.PA,Lanson-BCC
+LAT.PA,LatÃ©coÃ¨re S.A.
+LCO.PA,Solucom SA
+LDL.PA,LDLC.com SA
+LEX.PA,Lexibook - Linguistic Electronic System Société anonyme
+LEY.PA,Faiveley Transport S.A.
+LG.PA,Lafarge S.A.
+LI.PA,Klepierre SA
+LIN.PA,Linedata Services SA
+LNA.PA,Le Noble-Age
+LNC.PA,Les Nouveaux Constructeurs SA
+LOCAL.PA,Solocal Group SA
+LPE.PA,Groupe Laurent-Perrier
+LR.PA,Legrand SA
+LSS.PA,Lectra SA
+LTA.PA,Altamir Ord
+LTE.PA,Valtech SA
+MAGIS.PA,Ymagis Société Anonyme
+MAN.PA,Manutan International SA
+MAU.PA,N/A
+MC.PA,LVMH Moët Hennessy Louis Vuitton SA
+MCLC.PA,MECELEC S.A.
+MCPHY.PA,McPhy Energy SA
+MED.PA,Medasys SA
+MEMS.PA,MEMSCAP S.A.
+MERY.PA,Mercialys S.A.
+METEX.PA,Metabolic Explorer S.A.
+MF.PA,Wendel
+MFC.PA,Maisons France Confort
+MFG.PA,Montaigne Fashion Group
+MGIC.PA,MGI Coutier SA
+MKEA.PA,Mauna Kea Technologies SAS
+ML.PA,Compagnie Generale DES Etablissements Michelin SCA
+MMB.PA,Lagardere SCA
+MMT.PA,Métropole Télévision SA
+MND.PA,MND Group Société Anonyme
+MON.PA,Montupet SA
+MPI.PA,MPI Société Anonyme
+MRB.PA,Mr. Bricolage SA
+MRN.PA,Mersen S.A.
+MT.PA,ARCELORMITTAL REG
+MTU.PA,Manitou BF SA
+MUN.PA,Micropole SA
+NANO.PA,Nanobiotix SA
+NEO.PA,Neopost S.A.
+NEX.PA,Nexans  Société Anonyme
+NK.PA,Imerys SA
+NRG.PA,NRJ Group Société Anonyme
+NRO.PA,Neurones SA
+NRX.PA,Naturex Société Anonyme
+NTG.PA,Netgem SA
+NUM.PA,Numericable-SFR
+NXI.PA,Nexity
+NXTV.PA,NextRadioTV SA
+OLG.PA,Olympique Lyonnais Groupe SA
+ONXEO.PA,ONXEO
+OPN.PA,Groupe Open
+OR.PA,L'Oreal SA
+ORA.PA,Orange
+ORAP.PA,Orapi
+ORC.PA,Orco Property Group SA
+OREGE.PA,OREGE
+ORP.PA,ORPEA Société Anonyme
+OSI.PA,Ausy SA
+PAR.PA,Paref SA
+PARP.PA,Groupe Partouche SA
+PARRO.PA,Parrot S.A.
+PCA.PA,Produits Chimiques Auxiliaires et de Synthese SA
+PERR.PA,Gerard Perrier Industrie Société Anonyme
+PHA.PA,Pharmagest Interactive Societe Anonyme
+PIG.PA,Haulotte Group Société Anonyme
+PIX.PA,Pixium Vision SA
+POM.PA,Compagnie Plastic Omnium SA
+PRC.PA,Artprice.com
+PREC.PA,Precia SA
+PROL.PA,Prologue Société Anonyme
+PSB.PA,PSB Industries
+PUB.PA,Publicis Groupe SA
+PUS.PA,Hopscotch Global PR Group
+PVL.PA,Plastiques du Val de Loire
+QUA.PA,Quantel
+RCF.PA,Teleperformance S.A.
+RCO.PA,Rémy Cointreau SA
+RF.PA,Eurazeo
+RI.PA,Pernod-Ricard SA
+RIB.PA,Riber S.A.
+RIN.PA,Vilmorin &amp; Cie, SA
+RMS.PA,Hermès International Société en commandite par actions
+RNO.PA,Renault SA
+ROSA.PA,MedTech Société Anonyme
+RUI.PA,Rubis
+RX.PA,Recylex S.A.
+RXL.PA,Rexel SA
+SAF.PA,Safran SA
+SAFT.PA,Saft Groupe S.A.
+SAN.PA,Sanofi
+SBT.PA,Oeneo Société Anonyme
+SCHP.PA,Séché Environnement SA
+SCR.PA,SCOR SE
+SDG.PA,Synergie SA
+SEFER.PA,SergeFerrari Group SA
+SEQ.PA,Sequana S.A.
+SESG.PA,SES, S.A.
+SESL.PA,Store Electronic Systems Société Anonyme
+SEV.PA,Suez Environnement Company SA
+SFT.PA,Soft Computing
+SGO.PA,Compagnie de Saint-Gobain S.A.
+SII.PA,SII (Société pour l'Informatique Industrielle) Société Anonyme
+SIPH.PA,Société Internationale de Plantations d'Hévéas Société Anonyme
+SK.PA,SEB SA
+SMTPC.PA,Société Marseillaise du Tunnel Prado Carénage
+SOG.PA,Sogeclair SA
+SOI.PA,Soitec S.A.
+SOLB.PA,SOLVAY
+SOP.PA,Sopra Steria Group
+SPI.PA,Spir Communication
+SQI.PA,SQLi
+SSI.PA,SuperSonic Imagine SA
+STF.PA,Stef SA
+STM.PA,STMicroelectronics NV
+STNT.PA,STENTYS Société anonyme
+SU.PA,Schneider Electric SE
+SW.PA,Sodexo S.A.
+SWP.PA,Sword Group SE
+SX.PA,CS Communication &amp; Systemes SA
+TCH.PA,Technicolor SA
+TEC.PA,Technip SA
+TEO.PA,FUTUREN S.A.
+TER.PA,Terreïs (France)
+TES.PA,Tessi SA
+TFF.PA,TFF Group
+TFI.PA,TF1 Group
+THEP.PA,Thermador Groupe Société Anonyme
+TKTT.PA,Tarkett S.A.
+TNG.PA,Transgene SA
+TOU.PA,Toupargel Groupe SA
+TOUP.PA,Touax SCA
+TRI.PA,Trigano Société Anonyme
+TVLY.PA,Tivoly S.A.
+TXCL.PA,TxCell S.A.
+UBI.PA,Ubisoft Entertainment SA
+UDIS.PA,U10 SA
+UFF.PA,Union Financiere de France Banque SA
+UG.PA,Peugeot S.A.
+UL.PA,UNIBAIL-RODAMCO
+VAC.PA,Pierre &amp; Vacances SA
+VCT.PA,Vicat SA
+VET.PA,Vet'Affaires SA
+VETO.PA,Vétoquinol SA
+VIAD.PA,Viadeo S.A.
+VIE.PA,Veolia Environnement S.A.
+VIRP.PA,Virbac SA
+VIV.PA,Vivendi SA
+VK.PA,Vallourec SA
+VLA.PA,VALNEVA 
+VMMA.PA,Herige
+VRAP.PA,Vranken Pommery Monopole
+XIL.PA,Xilam Animation
+ZC.PA,Zodiac Aerospace
+ZIF.PA,Zublin Immobiliere France

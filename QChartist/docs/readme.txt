@@ -1195,6 +1195,13 @@ These rectangles are added in objects lists
 - data source debugged
 - build 57
 
+2015-12-23:
+- QSymbols and data source enriched
+
+2015-12-28:
+- Added heliocentric/geocentric choice for astro wheel settings
+build 58
+
 -------------------------------------------------------------------------------------
 Todo list;
 

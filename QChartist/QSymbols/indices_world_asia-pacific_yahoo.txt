@@ -1,0 +1,11 @@
+^AORD,All Ordinaries
+^BSESN,BSE 30
+^HSI,Hang Seng
+^JKSE,Jakarta Composite Index
+^KLSE,KLSE Composite
+^NZ50,NZSE 50
+^N225,Nikkei 225
+^NSEI,S&P CNX NIFTY
+^KS11,Seoul Composite
+000001.SS,SSE Composite Index
+^STI,Straits Times

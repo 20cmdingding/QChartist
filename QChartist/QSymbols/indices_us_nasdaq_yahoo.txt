@@ -1,0 +1,11 @@
+^IXIC,Composite
+^NDX,Nasdaq 100
+^NBI,Biotech
+^IXK,Computers
+^IXID,Industrials
+^IXIS,Insurance
+^IXBK,Banks
+^IXUT,Telecommunications
+^IXFN,Financials
+^IXF,Financials 100
+^IXTR,Transportation

@@ -2807,9 +2807,11 @@ end if
                     defint cc                    
                     defdbl planetdeg
                     
-                    planetdeg=val(get_helio_longitude(SE_MERCURY,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetdeg=val(get_helio_longitude(SE_MERCURY,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetdeg=val(get_geo_longitude(SE_MERCURY,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.1) + x7
-                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.1)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.1)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.3)
                                         
                     for cc=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
@@ -2823,12 +2825,14 @@ end if
                     NEXT angle                    
                     next cc
                     planetposx2=COS(planetdeg * rad) * c + x7
-                    planetposy2=y7 - SIN(planetdeg * rad) * c
+                    planetposy2=y7 - SIN(planetdeg * rad) * c 
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,orange)
                     
-                    planetdeg=val(get_helio_longitude(SE_VENUS,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetdeg=val(get_helio_longitude(SE_VENUS,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetdeg=val(get_geo_longitude(SE_VENUS,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.2) + x7
-                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.2)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.2)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.1)
                                         
                     for cc=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
@@ -2846,6 +2850,7 @@ end if
                     planetposy2=y7 - SIN(planetdeg * rad) * c
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,pink)
                     
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then 
                     planetdeg=val(get_helio_longitude(SE_EARTH,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.3) + x7
                     planetposy=y7 - SIN(planetdeg * rad) * (c*0.3)
@@ -2865,10 +2870,35 @@ end if
                     planetposx2=COS(planetdeg * rad) * c + x7
                     planetposy2=y7 - SIN(planetdeg * rad) * c
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,blue)
+                    end if
                     
-                    planetdeg=val(get_helio_longitude(SE_MARS,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then 
+                    planetdeg=val(get_geo_longitude(SE_SUN,newyear,newmonth,newday,str$(newhourconv)))                    
+                    planetposx=COS(planetdeg * rad) * (c*0.3) + x7
+                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.5)
+                                        
+                    for cc=0 to 2                                                          
+                    FOR angle = 0 TO 1.57 STEP 0.001
+                        cs = cc * COS(angle)
+                        sn = cc * SIN(angle)
+                        .buffer.Pset(planetposx + cs , planetposy + sn , yellow)
+                        .buffer.Pset(planetposx - cs , planetposy + sn , yellow)
+                        .buffer.Pset(planetposx + cs , planetposy - sn , yellow)
+                        .buffer.Pset(planetposx - cs , planetposy - sn , yellow)
+                        'doevents
+                    NEXT angle
+                    'doevents                    
+                    next cc
+                    planetposx2=COS(planetdeg * rad) * c + x7
+                    planetposy2=y7 - SIN(planetdeg * rad) * c
+                    .buffer.line(planetposx,planetposy,planetposx2,planetposy2,yellow)
+                    end if
+                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetdeg=val(get_helio_longitude(SE_MARS,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetdeg=val(get_geo_longitude(SE_MARS,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.4) + x7
-                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.4)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.4)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.2)
                                         
                     for cc=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
@@ -2886,9 +2916,11 @@ end if
                     planetposy2=y7 - SIN(planetdeg * rad) * c
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,red)
                     
-                    planetdeg=val(get_helio_longitude(SE_JUPITER,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetdeg=val(get_helio_longitude(SE_JUPITER,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetdeg=val(get_geo_longitude(SE_JUPITER,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.5) + x7
-                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.5)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.5)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.4)
                                         
                     for cc=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
@@ -2906,9 +2938,11 @@ end if
                     planetposy2=y7 - SIN(planetdeg * rad) * c
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,olive)
                     
-                    planetdeg=val(get_helio_longitude(SE_SATURN,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetdeg=val(get_helio_longitude(SE_SATURN,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetdeg=val(get_geo_longitude(SE_SATURN,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.6) + x7
-                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.6)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.6)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.6)
                                         
                     for cc=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
@@ -2926,9 +2960,11 @@ end if
                     planetposy2=y7 - SIN(planetdeg * rad) * c
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,gray)
                     
-                    planetdeg=val(get_helio_longitude(SE_URANUS,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetdeg=val(get_helio_longitude(SE_URANUS,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetdeg=val(get_geo_longitude(SE_URANUS,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.7) + x7
-                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.7)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.7)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.7)
                                         
                     for cc=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
@@ -2946,9 +2982,11 @@ end if
                     planetposy2=y7 - SIN(planetdeg * rad) * c
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,lightblue)
                     
-                    planetdeg=val(get_helio_longitude(SE_NEPTUNE,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetdeg=val(get_helio_longitude(SE_NEPTUNE,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetdeg=val(get_geo_longitude(SE_NEPTUNE,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.8) + x7
-                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.8)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.8)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.8)
                                         
                     for cc=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
@@ -2966,9 +3004,11 @@ end if
                     planetposy2=y7 - SIN(planetdeg * rad) * c
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,purple)
                     
-                    planetdeg=val(get_helio_longitude(SE_PLUTO,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetdeg=val(get_helio_longitude(SE_PLUTO,newyear,newmonth,newday,str$(newhourconv)))                    
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetdeg=val(get_geo_longitude(SE_PLUTO,newyear,newmonth,newday,str$(newhourconv)))                    
                     planetposx=COS(planetdeg * rad) * (c*0.9) + x7
-                    planetposy=y7 - SIN(planetdeg * rad) * (c*0.9)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.9)
+                    if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then planetposy=y7 - SIN(planetdeg * rad) * (c*0.9)
                                         
                     for cc=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
@@ -2987,7 +3027,7 @@ end if
                     .buffer.line(planetposx,planetposy,planetposx2,planetposy2,black)                                        
                     
                     ' drawing ascendant                     
-                    planetdeg=val(get_ascmc(val(latitudeedit.text),val(longitudeedit.text),newyear,newmonth,newday,str$(newhourconv),"asc"))
+                    planetdeg=val(get_ascmc(val(latitudeedit.text),val(longitudeedit.text),newyear,newmonth,newday,str$(newhourconv),"asc"))                   
                     planetposx=COS(planetdeg * rad) * (c*0.95) + x7
                     planetposy=y7 - SIN(planetdeg * rad) * (c*0.95)
                                         
@@ -3005,7 +3045,7 @@ end if
                     next cc
                     
                     ' drawing midheaven                     
-                    planetdeg=val(get_ascmc(val(latitudeedit.text),val(longitudeedit.text),newyear,newmonth,newday,str$(newhourconv),"mc"))
+                    planetdeg=val(get_ascmc(val(latitudeedit.text),val(longitudeedit.text),newyear,newmonth,newday,str$(newhourconv),"mc"))                    
                     planetposx=COS(planetdeg * rad) * (c*0.95) + x7
                     planetposy=y7 - SIN(planetdeg * rad) * (c*0.95)
                                         
@@ -3032,15 +3072,23 @@ end if
                     'doevents
                     next graddeg
                     
-                    ' Drawing central yellow dot (the sun)
+                    ' Drawing central dot (the sun or earth)
                     for c=0 to 2                                                          
                     FOR angle = 0 TO 1.57 STEP 0.001
                         cs = c * COS(angle)
                         sn = c * SIN(angle)
+                        if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Heliocentric" then 
                         .buffer.Pset(x7 + cs , y7 + sn , yellow)
                         .buffer.Pset(x7 - cs , y7 + sn , yellow)
                         .buffer.Pset(x7 + cs , y7 - sn , yellow)
                         .buffer.Pset(x7 - cs , y7 - sn , yellow)
+                        end if
+                        if astrowheelheliogeocombo.item(astrowheelheliogeocombo.itemindex)="Geocentric" then 
+                        .buffer.Pset(x7 + cs , y7 + sn , blue)
+                        .buffer.Pset(x7 - cs , y7 + sn , blue)
+                        .buffer.Pset(x7 + cs , y7 - sn , blue)
+                        .buffer.Pset(x7 - cs , y7 - sn , blue)
+                        end if
                         'doevents
                     NEXT angle  
                     'doevents                  

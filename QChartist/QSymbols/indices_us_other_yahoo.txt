@@ -1,0 +1,8 @@
+^XAX,AMEX Composite
+^IIX,AMEX Internet
+^NWX,AMEX Networking
+^XMI,Major Market
+^RUA,Russell 3000
+^RUT,Russell 2000
+^DWC,Wilshire 5000 TOT
+^BATSK,BATS 1000 Index

@@ -1,4 +1,4 @@
-$apptype gui
+$apptype gui 'console
 $typecheck on
 
 chdir "c:\qchartist\qsymbols"
@@ -96,6 +96,14 @@ DIM longcmdfile AS QFILESTREAM
 defstr loadingstatuslabel
 symbolslistbox.clear
 savestatusrichedit.text=""
+defstr busystr,pagestr
+defint tableloc,endtableloc
+defstr tablestr,tablestrtmp
+defint tablelineloc,cellloc,symbolloc,nameloc
+defstr symbolstr,namestr
+defint istableend
+
+'goto cac
 
 ' Nasdaq
 bar.value = 0
@@ -125,7 +133,7 @@ pid = SHELL("get_page.bat" , 1)
 
 do
 filestream.Open("isbusy.txt" , 0)
-defstr busystr = ""
+busystr = ""
 WHILE NOT filestream.eof
     busystr = busystr + filestream.ReadLine
 WEND
@@ -135,19 +143,14 @@ doevents
 loop until val(busystr)=0
 
 filestream.Open("page.txt" , 0)
-defstr pagestr = ""
+pagestr = ""
 WHILE NOT filestream.eof
     pagestr = pagestr + filestream.ReadLine
 WEND
 filestream.Close 
 
-defint tableloc,endtableloc
-defstr tablestr,tablestrtmp
 tableloc=instr(pagestr,"<TR><TH>Code</TH><TH>Name</TH>")
 tablestr=mid$(pagestr,tableloc+3,len(pagestr))
-defint tablelineloc,cellloc,symbolloc,nameloc
-defstr symbolstr,namestr
-defint istableend
 
 istableend=0
 filestream.Open("nasdaq.txt" , 2)
@@ -2266,6 +2269,96 @@ bar.value = 100*pagenb/val(lastpagenbstr)
 doevents
 loop until pagenb=val(lastpagenbstr)
 savestatusrichedit.text=savestatusrichedit.text+"- All Hungarian Stocks symbols and names saved to Hungarian_stocks.txt"+chr$(10)
+
+' CAC
+'cac:
+bar.value = 0
+loadingstatuslabel="Loading CAC symbols"
+symbolslistbox.additems "-= CAC SYMBOL,NAME =-"
+symbolslistbox.additems ""
+
+filestream.Open("cac_yahoo.txt" , 65535)
+filestream.close
+
+ascletter=64
+
+do
+ascletter++
+letter=chr$(ascletter)
+statuslabel.caption=loadingstatuslabel+" with letter "+letter
+
+filestream.Open("isbusy.txt" , fmOpenWrite)
+filestream.WriteLine("1")
+filestream.Close    
+
+longcmdfile.Open("get_page.bat" , 65535)
+longcmdfile.WriteLine("wget.exe -e robots=off -w 1 --max-redirect 1 --tries=1 --timeout=15 --dns-timeout=15 --connect-timeout=15 --read-timeout=15 --no-http-keep-alive --no-cookies -o wget_all.log --output-document=page.txt "+chr$(34)+"http://finance.yahoo.com/q/cp?s=^SBF250&alpha="+letter+chr$(34))
+longcmdfile.WriteLine("echo 0 > isbusy.txt")
+longcmdfile.Close
+pid = SHELL("get_page.bat" , 1)
+
+do
+filestream.Open("isbusy.txt" , 0)
+busystr = ""
+WHILE NOT filestream.eof
+    busystr = busystr + filestream.ReadLine
+WEND
+filestream.Close    
+sleep 1
+doevents
+loop until val(busystr)=0
+
+filestream.Open("page.txt" , 0)
+pagestr = ""
+WHILE NOT filestream.eof
+    pagestr = pagestr + filestream.ReadLine
+WEND
+filestream.Close 
+
+'defint tableloc,endtableloc
+'defstr tablestr,tablestrtmp
+tableloc=instr(pagestr,"Symbol</th>")
+tablestr=mid$(pagestr,tableloc,len(pagestr))
+'defint tablelineloc,cellloc,symbolloc,nameloc
+'defstr symbolstr,namestr
+'defint istableend
+
+istableend=0
+filestream.Open("cac_yahoo.txt" , 2)
+filestream.position=filestream.size
+do
+tablelineloc=instr(tablestr,"<tr")
+tablestr=mid$(tablestr,tablelineloc+3,len(tablestr))
+cellloc=instr(tablestr,"<td")
+tablestr=mid$(tablestr,cellloc+3,len(tablestr))
+symbolloc=instr(tablestr,">")
+tablestr=mid$(tablestr,symbolloc+1,len(tablestr))
+symbolloc=instr(tablestr,">")
+tablestr=mid$(tablestr,symbolloc+1,len(tablestr))
+symbolloc=instr(tablestr,">")
+tablestr=mid$(tablestr,symbolloc+1,len(tablestr))
+symbolstr=mid$(tablestr,1,instr(tablestr,"<")-1)
+cellloc=instr(tablestr,"<td")
+tablestr=mid$(tablestr,cellloc+3,len(tablestr))
+cellloc=instr(tablestr,">")
+tablestr=mid$(tablestr,cellloc+1,len(tablestr))
+namestr=mid$(tablestr,1,instr(tablestr,"</td>")-1)
+filestream.writeline (symbolstr+","+namestr)
+symbolslistbox.additems symbolstr+","+namestr
+symbolslistbox.itemindex=symbolslistbox.itemcount-1
+tablelineloc=instr(tablestr,"<tr")
+endtableloc=instr(tablestr,"</table>")
+if tablelineloc=0 then istableend=1
+if tablelineloc>0 then
+if endtableloc<tablelineloc then istableend=1
+end if
+doevents
+loop until istableend=1
+filestream.close
+bar.value = 100*(27-(91-ascletter))/26
+doevents
+loop until letter="Z"
+savestatusrichedit.text=savestatusrichedit.text+"- All CAC symbols and names saved to cac_yahoo.txt"+chr$(10)
 
 ' finishing
 msglabel.caption="Update successfully done, you can close the program."
