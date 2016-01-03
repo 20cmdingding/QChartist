@@ -1,0 +1,38 @@
+declare sub hideplanetary_speedform
+
+CREATE planetary_speedform as qform
+
+    Center
+    Caption = "Settings for: Planetary Speed"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create planetary_speed_planet as qcombobox
+	top=0
+	left=0
+	additems "Earth"
+	additems "Moon"
+	additems "Mars"
+	additems "Venus"
+	additems "Saturn"
+	additems "Neptune"
+	additems "Pluto"
+	additems "Jupiter"
+	additems "Uranus"
+	additems "Mercury"
+	itemindex=9
+end create
+
+    create planetary_speedbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideplanetary_speedform
+    end create
+
+END CREATE
+
+sub hideplanetary_speedform
+    planetary_speedform.visible=0
+end sub

@@ -1,0 +1,65 @@
+declare sub hidesynodic_cycleform
+
+CREATE synodic_cycleform as qform
+
+    Center
+    Caption = "Settings for: Synodic Cycle"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create synodic_cycle_planet as qcombobox
+	top=0
+	left=0
+	additems "Moon"
+	additems "Mars"
+	additems "Venus"
+	additems "Saturn"
+	additems "Neptune"
+	additems "Pluto"
+	additems "Jupiter"
+	additems "Uranus"
+	additems "Mercury"
+	itemindex=8
+end create
+
+create synodic_cycle_invert_checkbox as qcheckbox
+top=20
+caption="Invert"
+checked=1
+end create
+
+create synodic_cycle_offset_label as qlabel
+top=40
+caption="Offset:"
+end create
+
+create synodic_cycle_offset_edit as qedit
+top=40
+left=synodic_cycle_offset_label.left+synodic_cycle_offset_label.width+10
+text="1000"
+end create
+
+create synodic_cycle_ratio_label as qlabel
+top=60
+caption="Ratio:"
+end create
+
+create synodic_cycle_ratio_edit as qedit
+top=60
+left=synodic_cycle_ratio_label.left+synodic_cycle_ratio_label.width+10
+text="1000"
+end create
+
+    create synodic_cyclebtnok as qbutton
+        left=0
+        top=80
+        caption="OK"
+        onclick=hidesynodic_cycleform
+    end create
+
+END CREATE
+
+sub hidesynodic_cycleform
+    synodic_cycleform.visible=0
+end sub

@@ -1,0 +1,18 @@
+'------------------------- Synodic Cycle -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+synodic_cycle
+end if
+
+barsback=numbars '<--- can also be something like VAL(synodic_cyclebarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(synodic_cyclebuffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Synodic Cycle -------------------------------------------------

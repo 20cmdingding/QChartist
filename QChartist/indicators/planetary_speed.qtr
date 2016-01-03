@@ -1,0 +1,21 @@
+'------------------------- Planetary Speed -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+planetary_speed
+end if
+
+barsback=numbars '<--- can also be something like VAL(planetary_speedbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=blue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(planetary_speedbuffer(offset))
+    drawid=drawid+2
+    sepindicolor(drawid)=yellow '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(planetary_speed_sun_buffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Planetary Speed -------------------------------------------------

@@ -19,6 +19,10 @@ if ibar>=lastbar-barsback then
     bufnamestr="lowerbandbuffer"
     .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
     drawid=drawid+2
+    indicolor(drawid)=purple '<--- replace with your color
+    bufnamestr="mabuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
 end if
 
 end if

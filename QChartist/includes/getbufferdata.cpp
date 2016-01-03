@@ -7,7 +7,8 @@ strncpy(offsett, offset, 1000);
 static char convbuf[1000];
 if (strcmp(buffernamee,"bandsmovingbuffer")==0) { sprintf(convbuf,"%f",bandsmovingbuffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"bandsupperbuffer")==0) { sprintf(convbuf,"%f",bandsupperbuffer[atoi(offsett)]);return convbuf; }
-if (strcmp(buffernamee,"bandslowerbuffer")==0) { sprintf(convbuf,"%f",bandslowerbuffer[atoi(offsett)]);return convbuf; }                                                 
+if (strcmp(buffernamee,"bandslowerbuffer")==0) { sprintf(convbuf,"%f",bandslowerbuffer[atoi(offsett)]);return convbuf; } 
+if (strcmp(buffernamee,"mabuffer")==0) { sprintf(convbuf,"%f",mabuffer[atoi(offsett)]);return convbuf; }                                                
 if (strcmp(buffernamee,"upperbandbuffer")==0) { sprintf(convbuf,"%f",upperbandbuffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"lowerbandbuffer")==0) { sprintf(convbuf,"%f",lowerbandbuffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"zigzagbuffer")==0) { sprintf(convbuf,"%f",zigzagbuffer[atoi(offsett)]);return convbuf; }

@@ -198,7 +198,8 @@ int i;
          value=closea[end.bar+i1];
          dvalue+=b;
          deviation=fabs(value-dvalue);
-         if(maxdev<=deviation) maxdev=deviation; } */  
+         if(maxdev<=deviation) maxdev=deviation; 
+	 } */  
 //Linear regression trendline
       //ObjectDelete(period+"m "+LR.length+" TL");
       Linearregressiontrendline.assign(0);
@@ -209,7 +210,7 @@ int i;
       double step=range/(startbar-endbar);
       for (int j=startbar-1;j>endbar;j--)
             {
-            Linearregressiontrendline[j]=Linearregressiontrendline[j+1]+step;
+            Linearregressiontrendline[j]=Linearregressiontrendline[j+1]+step;				
             }
       //ObjectSet(period+"m "+LR.length+" TL",OBJPROP_COLOR,Orange);
       //ObjectSet(period+"m "+LR.length+" TL",OBJPROP_WIDTH,2);
@@ -243,7 +244,7 @@ low3Buffer[i]=meanBuffer[i]-(stdchannel3*stddev);//max.dev;
          vo[Bars-i]=0.0;   
          vh[Bars-i]=0.0;   
          vb[Bars-i]=0.0;   
-         vc[Bars-i]=0.0;            
+         vc[Bars-i]=0.0; 	 		           
          }
       }
       */
@@ -302,7 +303,7 @@ low3Buffer[i]=meanBuffer[i]-(stdchannel3*stddev);//max.dev;
       if (vb<l4) ptb=vb;
       if (vb<l3 && vb>l4) pmb=vb;   
       */ 
-      i--;        
+      i--;	 	       
       }
 
 // Fisher Transform
@@ -357,7 +358,7 @@ limit=500;
       smax1=smax0;
 
       steplevelup[shift]=80;
-      stepleveldn[shift]=20;
+      stepleveldn[shift]=20;		
      }       
 
 return(0);

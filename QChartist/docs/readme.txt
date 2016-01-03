@@ -1202,6 +1202,15 @@ These rectangles are added in objects lists
 - Added heliocentric/geocentric choice for astro wheel settings
 build 58
 
+2016-01-02:
+- added Mercury synodic cycle indicator
+- added indicators descriptions
+
+2016-01-03:
+- added Planetary Speed indicator
+- QChartist chm documentation enriched
+- build 59
+
 -------------------------------------------------------------------------------------
 Todo list;
 
