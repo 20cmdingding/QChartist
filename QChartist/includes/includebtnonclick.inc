@@ -479,6 +479,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
 
                 bars = chartbars(displayedfile)
                 barsstr=str$(bars):cpptmpfuncreturn=varptr$(setbars(varptr(barsstr)))
+                numbars_first=chartbars(displayedfile)-scrollchart.position+numbars-1
+                numbars_last=chartbars(displayedfile)-scrollchart.position
 
                 FOR i = chartstart TO chartstart + .DATA.ColCount  'for each col
                     l ++
@@ -744,6 +746,10 @@ if ibar>=lastbar-barsback then
     bufnamestr="lowerbandbuffer"
     .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
     drawid=drawid+2
+    indicolor(drawid)=purple '<--- replace with your color
+    bufnamestr="mabuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
 end if
 
 end if
@@ -948,6 +954,27 @@ end if
 
 end if
 '------------------------- End Enveloppes -------------------------------------------------
+'------------------------- Jupiter - Saturn cycle -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+jupiter_saturn_cycle
+end if
+
+barsback=numbars '<--- can also be something like VAL(jupiter_saturn_cyclebarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+defint incrj
+for incrj=0 to 12
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(jupiter_saturn_cyclebuffer(incrj,offset))
+    drawid=drawid+2
+next incrj
+end if
+
+end if
+'------------------------- End Jupiter - Saturn cycle -------------------------------------------------
 '------------------------- Levels -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
@@ -1460,6 +1487,24 @@ end if
 
 end if
 '------------------------- End Fibo MA Channels -------------------------------------------------
+'------------------------- Synodic Cycle -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+synodic_cycle
+end if
+
+barsback=numbars '<--- can also be something like VAL(synodic_cyclebarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(synodic_cyclebuffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Synodic Cycle -------------------------------------------------
 '------------------------- Time Series Forecast -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
@@ -2127,6 +2172,27 @@ indiid++
                     end if                                  
 
         '------------------------- End Money Flow Index -------------------------------------------------
+'------------------------- Planetary Speed -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+planetary_speed
+end if
+
+barsback=numbars '<--- can also be something like VAL(planetary_speedbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=blue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(planetary_speedbuffer(offset))
+    drawid=drawid+2
+    sepindicolor(drawid)=yellow '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(planetary_speed_sun_buffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Planetary Speed -------------------------------------------------
 '------------------------- planets_scale -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
