@@ -1211,6 +1211,11 @@ build 58
 - QChartist chm documentation enriched
 - build 59
 
+2016-01-04:
+- new indicator Jupiter - Saturn cycle
+- chm documentation enriched
+- build 60
+
 -------------------------------------------------------------------------------------
 Todo list;
 

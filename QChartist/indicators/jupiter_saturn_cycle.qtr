@@ -1,0 +1,21 @@
+'------------------------- Jupiter - Saturn cycle -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+jupiter_saturn_cycle
+end if
+
+barsback=numbars '<--- can also be something like VAL(jupiter_saturn_cyclebarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+defint incrj
+for incrj=0 to 12
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(jupiter_saturn_cyclebuffer(incrj,offset))
+    drawid=drawid+2
+next incrj
+end if
+
+end if
+'------------------------- End Jupiter - Saturn cycle -------------------------------------------------

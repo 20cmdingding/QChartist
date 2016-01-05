@@ -1,0 +1,55 @@
+declare sub hidejupiter_saturn_cycleform
+
+CREATE jupiter_saturn_cycleform as qform
+
+    Center
+    Caption = "Settings for: Jupiter - Saturn cycle"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create jupiter_saturn_cycle_invert_checkbox as qcheckbox
+top=0
+caption="Invert"
+end create
+
+create jupiter_saturn_cycle_offset_label as qlabel
+top=20
+caption="Offset (360 multiple):"
+end create
+
+create jupiter_saturn_cycle_offset_edit as qedit
+top=20
+left=jupiter_saturn_cycle_offset_label.left+jupiter_saturn_cycle_offset_label.width+10
+text="0"
+end create
+
+create jupiter_saturn_cycle_heliogeo as qcombobox
+top=40
+additems "Geocentric"
+itemindex=0
+end create
+
+create jupiter_saturn_cycle_ratio_label as qlabel
+top=60
+caption="Ratio:"
+end create
+
+create jupiter_saturn_cycle_ratio_edit as qedit
+top=60
+left=jupiter_saturn_cycle_ratio_label.left+jupiter_saturn_cycle_ratio_label.width+10
+text="1"
+end create
+
+    create jupiter_saturn_cyclebtnok as qbutton
+        left=0
+        top=80
+        caption="OK"
+        onclick=hidejupiter_saturn_cycleform
+    end create
+
+END CREATE
+
+sub hidejupiter_saturn_cycleform
+    jupiter_saturn_cycleform.visible=0
+end sub
