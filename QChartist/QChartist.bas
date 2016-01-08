@@ -7765,6 +7765,7 @@ additems "UK100_stocks"
 additems "US_ETFs_stocks"
 additems "us_stocks"
 additems "WIG30_stocks"
+additems "custom_list"
 itemindex=0
 onchange=markettypecombochangesub
 end create
@@ -20555,7 +20556,8 @@ markettypecombo.item(markettypecombo.itemindex)="indices_world_africa-middle_eas
 markettypecombo.item(markettypecombo.itemindex)="indices_world_america_yahoo" or _
 markettypecombo.item(markettypecombo.itemindex)="indices_world_asia-pacific_yahoo" or _
 markettypecombo.item(markettypecombo.itemindex)="indices_world_europe_yahoo" or _
-markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+markettypecombo.item(markettypecombo.itemindex)="NASDAQ" or _
+markettypecombo.item(markettypecombo.itemindex)="custom_list" then
 dssource.itemindex=0
 end if
 if markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_ENERGY" or _
@@ -20614,7 +20616,8 @@ markettypecombo.item(markettypecombo.itemindex)="indices_world_africa-middle_eas
 markettypecombo.item(markettypecombo.itemindex)="indices_world_america_yahoo" or _
 markettypecombo.item(markettypecombo.itemindex)="indices_world_asia-pacific_yahoo" or _
 markettypecombo.item(markettypecombo.itemindex)="indices_world_europe_yahoo" or _
-markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+markettypecombo.item(markettypecombo.itemindex)="NASDAQ" or _
+markettypecombo.item(markettypecombo.itemindex)="custom_list" then
 if dssource.itemindex<>0 and dssource.itemindex<>2 then dssource.itemindex=0
 end if
 if markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_ENERGY" or _
@@ -20680,7 +20683,8 @@ markettypecombo.item(markettypecombo.itemindex)="indices_world_africa-middle_eas
 markettypecombo.item(markettypecombo.itemindex)="indices_world_america_yahoo" or _
 markettypecombo.item(markettypecombo.itemindex)="indices_world_asia-pacific_yahoo" or _
 markettypecombo.item(markettypecombo.itemindex)="indices_world_europe_yahoo" or _
-markettypecombo.item(markettypecombo.itemindex)="NASDAQ" then
+markettypecombo.item(markettypecombo.itemindex)="NASDAQ" or _
+markettypecombo.item(markettypecombo.itemindex)="custom_list" then
 if dssource.itemindex<>0 and dssource.itemindex<>2 then dssource.itemindex=0
 end if
 if markettypecombo.item(markettypecombo.itemindex)="COMMODITIES_ENERGY" or _
