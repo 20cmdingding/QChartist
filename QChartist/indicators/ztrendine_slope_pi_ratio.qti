@@ -1,0 +1,47 @@
+declare sub ztrendine_slope_pi_ratio ' This line of code must stay here
+dim ztrendine_slope_pi_ratiobuffer(0 to 100,0 to 1000) as double ' This line of code must stay here.
+dim zztspr(0 to 1000) as double
+
+sub ztrendine_slope_pi_ratio
+' Put your indicator RapidQ code here
+defstr barsbackstr2=str$(numbars)
+defstr extdepthstr2=ztsprextdepthedit.text
+cpptmpfuncreturn=varptr$(zigzagcpp(varptr(barsbackstr2),varptr(extdepthstr2)))
+dim i as integer
+dim j as integer
+defint incrr=-1
+defstr istr
+defstr bufnamestr2="zigzagbuffer"
+
+' reset buffers
+for i=numbars_first to numbars_last step -1
+for j=0 to 100
+ztrendine_slope_pi_ratiobuffer(j,i)=0
+next j
+next i
+
+for i=numbars_first to numbars_last step -1
+istr=str$(i)
+zztspr(i)=val(varptr$(getbufferdata(varptr(bufnamestr2),varptr(istr))))
+if zztspr(i)=low(i) then
+incrr++
+for j=i to numbars_last step -1
+ztrendine_slope_pi_ratiobuffer(incrr,j)=low(i)+(i-j)*rqpi/val(piratioedit.text)
+next j
+incrr++
+for j=i to numbars_last step -1
+ztrendine_slope_pi_ratiobuffer(incrr,j)=low(i)-(i-j)*rqpi/val(piratioedit.text)
+next j
+end if
+if zztspr(i)=high(i) then
+incrr++
+for j=i to numbars_last step -1
+ztrendine_slope_pi_ratiobuffer(incrr,j)=high(i)+(i-j)*rqpi/val(piratioedit.text)
+next j
+incrr++
+for j=i to numbars_last step -1
+ztrendine_slope_pi_ratiobuffer(incrr,j)=high(i)-(i-j)*rqpi/val(piratioedit.text)
+next j
+end if
+next i
+end sub

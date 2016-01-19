@@ -63,50 +63,56 @@ zigzagform.visible=1
 case 30
 zigzagcppform.visible=1
 case 31
-Acceleratorform.visible=1
+ztrendine_slope_pi_ratioform.visible=1
 case 32
-astro_retrogradeform.visible=1
+Acceleratorform.visible=1
 case 33
-atrform.visible=1
+astro_retrogradeform.visible=1
 case 34
-CandleAvgform.visible=1
+atrform.visible=1
 case 35
-declination_systemform.visible=1
+CandleAvgform.visible=1
 case 36
-Ehlersfishertransformform.visible=1
+CoronaSwingPositionform.visible=1
 case 37
-fftspectroform.visible=1
+declination_systemform.visible=1
 case 38
-ForceIndexform.visible=1
+Ehlersfishertransformform.visible=1
 case 39
-Gauquelin_sectorform.visible=1
+energyform.visible=1
 case 40
-IVolumeform.visible=1
+fftspectroform.visible=1
 case 41
-LSSform.visible=1
+ForceIndexform.visible=1
 case 42
-mfiform.visible=1
+Gauquelin_sectorform.visible=1
 case 43
-planetary_speedform.visible=1
+IVolumeform.visible=1
 case 44
-planets_scaleform.visible=1
+LSSform.visible=1
 case 45
-pricecloseform.visible=1
+mfiform.visible=1
 case 46
-rsiform.visible=1
+planetary_speedform.visible=1
 case 47
-smFisherTransform3nrform.visible=1
+planets_scaleform.visible=1
 case 48
-spectrometerform.visible=1
+pricecloseform.visible=1
 case 49
-stepftvcprdlform.visible=1
+rsiform.visible=1
 case 50
-steprsiform.visible=1
+smFisherTransform3nrform.visible=1
 case 51
-threeD_Oscilatorform.visible=1
+spectrometerform.visible=1
 case 52
-valuechartform.visible=1
+stepftvcprdlform.visible=1
 case 53
+steprsiform.visible=1
+case 54
+threeD_Oscilatorform.visible=1
+case 55
+valuechartform.visible=1
+case 56
 vcatrcform.visible=1
 end select
 end sub

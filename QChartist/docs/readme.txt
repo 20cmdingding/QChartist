@@ -1223,16 +1223,34 @@ build 58
 2016-01-08:
 - build 62
 
+2016-01-17:
+- Moon added to the astro wheel
+- Astro wheel debugged
+- gshareinvest disabled but code still here (can be useful in the future)
+- added swe_set_topo_and_swe_calc function
+- astro wheel geocentric uses swe_set_topo_and_swe_calc :
+uses latitude, longitude and altitude set in astro wheel settings (just the moon shows small
+differences when the topo position is changed. Of course asc and mc show big differences.
+Differences with other planets are too small to be visible on the wheel.)
+- added cities with latitude,longitute,altitude,timezone presets in data wheel settings
+
+2016-01-18:
+- new indicator ztrendine_slope_pi_ratio
+- descriptions added to indicators
+- chm documentation enriched
+- new indicator CoronaSwingPosition
+
+2016-01-19:
+- new indicator energy
+- build 63
+
 -------------------------------------------------------------------------------------
-Todo list;
+Todo list:
 
 For the separate canvas:
 - Show y axis values
-- Show aiming tool when mouse wheel clicked
 - Show SQ9 and 144
 - Show cycle lines
-- Show Andrews pitchforks
-- When click on the mouse wheel again, remove aiming
 - Beeing able to use the selection tool with objects
 
 Beeing able to:
@@ -1243,39 +1261,15 @@ Beeing able to:
 - rotate,flip,reverse,change dimensions,color of objects with the selection tool
 - save and load templates
 - overlay charts
-- use log scale: done
 - draw golden spiral
 - draw Archimed spiral
 - change the line width and style of tools and indicators
 - add additional separate canvas and choose indicator destination
-- use keyboard shortcuts done
-- Send emails automatically: done
+- use keyboard shortcuts done but need to improve
 --------------------------------------------------------------------------------------
 
-Installation guide for QChartist trading system
------------------------------------------------
-
-What do i need ? 
-- A PC or a laptop compatible with Ubuntu (At least 1.6 GHz CPU with 1 Go RAM recommanded)
-- Ubuntu CD-ROM burnt from the ISO file
-- An MT4 demo account with Oanda broker
-- An internet connection (LAN recommanded)
-
-Installation steps:
-- Turn on your computer, insert the Ubuntu CD-ROM, boot from CD-ROM and install it on your hard drive
-- Boot your computer on the installed Ubuntu
-- Login into your Ubuntu session with your login and password
-- Connect your ethernet cable and try if internet is working, else you need to install the ubuntu lan driver
-	If you need to install the lan driver, identify your network card : open the terminal and type: lspci
-	Use another computer which is connected to the Internet and search on Google for your network card driver for Ubuntu
-- Install wine and setup wine for use with mfc40 and mfc42 dlls
-- Install MetaTrader 4 and setup it for use with your demo account at Oanda
-- Copy the indicators for your MT4 and restart MT4
-
-
 Any contributions to the programmation of this software will be welcomed and greatly appreciated.
-When you bring something new to the development of this software, please let us know by
-uploading your modified version with your sources codes on the forum website: http://www.qchartist.net
+When you bring something new to the development of this software, please upload it on GitHub.
 
 As QChartist is a free GPL software, this is in the hope that many contributors will improve it.
 Thank you for supporting us!

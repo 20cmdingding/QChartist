@@ -1,0 +1,21 @@
+'------------------------- ztrendine_slope_pi_ratio -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+ztrendine_slope_pi_ratio
+end if
+
+barsback=numbars '<--- can also be something like VAL(ztrendine_slope_pi_ratiobarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+defint incrjj
+for incrjj=0 to 100
+    indicolor(drawid)=lightblue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(ztrendine_slope_pi_ratiobuffer(incrjj,offset))
+    drawid=drawid+2
+next incrjj
+end if
+
+end if
+'------------------------- End ztrendine_slope_pi_ratio -------------------------------------------------

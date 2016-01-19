@@ -39,6 +39,7 @@
 // ''RQEXPORT function swe_house_pos(parameters,xpin,serr)
 // ''RQEXPORT function swe_houses(parameters,hcusps,ascmc)
 // ''RQEXPORT function swe_houses_ex(parameters,hcusps,ascmc)
+// ''RQEXPORT function swe_set_topo_and_swe_calc(parameters,x,serr)
 // ''RQEXPORT function timebcpp(bar)
 // ''RQEXPORT function calculate_seconds_since_1_1_1970_cpp(parameters)
 // ''RQEXPORT function current_time()
@@ -131,5 +132,9 @@
 
 // ''RQEXPORT function Murrey_Math(barsbackstr)
 #include "indicators\Murrey_Math.cpp"
+
+
+// ''RQEXPORT function CoronaSwingPosition(periodstr)
+#include "indicators\CoronaSwingPosition.cpp"
 
 #include "includes\getbufferdata.cpp"

@@ -1723,6 +1723,27 @@ end if
 
 end if
 '------------------------- End ZigZag cpp -------------------------------------------------
+'------------------------- ztrendine_slope_pi_ratio -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+ztrendine_slope_pi_ratio
+end if
+
+barsback=numbars '<--- can also be something like VAL(ztrendine_slope_pi_ratiobarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+defint incrjj
+for incrjj=0 to 100
+    indicolor(drawid)=lightblue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(ztrendine_slope_pi_ratiobuffer(incrjj,offset))
+    drawid=drawid+2
+next incrjj
+end if
+
+end if
+'------------------------- End ztrendine_slope_pi_ratio -------------------------------------------------
 '-================================= End indicators area ========================================-
 END IF
 
@@ -1895,6 +1916,26 @@ end if
 
 end if
 '------------------------- End Candle Average -------------------------------------------------
+'------------------------- CoronaSwingPosition -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+defstr timeframestr=CoronaSwingPositioncurrenttfedit.text
+cpptmpfuncreturn=varptr$(CoronaSwingPosition(varptr(timeframestr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(CoronaSwingPositionbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    bufnamestr="CoronaSwingPositionbuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End CoronaSwingPosition -------------------------------------------------
 '------------------------- declination_system -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
@@ -1946,6 +1987,24 @@ end if
 
 end if
 '------------------------- End Ehlers fisher transform -------------------------------------------------
+'------------------------- energy -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+energy
+end if
+
+barsback=numbars '<--- can also be something like VAL(energybarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(energybuffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End energy -------------------------------------------------
 '------------------------- fftspectro -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then

@@ -150,19 +150,20 @@ pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stock"+chr$(34),0)
 pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstockvol.sh"+chr$(34),0)
 pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stockvol"+chr$(34),0)
 chdir tmppath0
-tmppath0=curdir$
-chdir "c:\qchartist\gshareinvest"
-'defint pid
-pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstock.sh"+chr$(34),0)
-pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstock2.sh"+chr$(34),0)
-pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stock"+chr$(34),0)
-chdir tmppath0
+' ------- Useless -------
+'tmppath0=curdir$
+'chdir "c:\qchartist\gshareinvest"
+'pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstock.sh"+chr$(34),0)
+'pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x getstock2.sh"+chr$(34),0)
+'pid=shell ("/bin/sh -c "+chr$(34)+"chmod u+x stock"+chr$(34),0)
+'chdir tmppath0
+' -----------------------
 end if
 
 DIM orderbuydb AS QSTRINGGRID
 DIM orderselldb AS QSTRINGGRID
 ' --------------- gshareinvest portfolio -------------------
-$Include "gshareinvest\login.bas"
+' $Include "gshareinvest\login.bas" ' Useless
 ' ---------------------------------------------------------
 
 ' ------------------------ Text to speech variables----------------
@@ -1025,8 +1026,7 @@ END SUB
 
 CREATE sq144form AS QFORM
 
-    Center
-    Caption = "Settings for: SQ144"
+        Caption = "Settings for: SQ144"
     Visible = 0
 
     Top = 586
@@ -1252,6 +1252,8 @@ declare sub getquoteonoffbutonclick
 declare sub previousbarbuttonclick
 declare sub nextbarbuttonclick
 
+declare sub citytopocombochange
+
 create astrowheelsettingsform as qform
 
     height=600
@@ -1281,6 +1283,140 @@ create astrowheelsettingsform as qform
     left=latitudelab.left+latitudelab.width
     end create
     
+    create citytopocombo as qcombobox
+    left=latitudeedit.left+latitudeedit.width+20    
+    top=40
+    additems "Choose a city"
+additems "Accra,  Ghana"
+additems "Ankara,  Turkey"
+additems "Athens, Greece"
+additems "Atlanta, USA"
+additems "Baghdad, Iraq"
+additems "Baku/Sumqayit, Azerbaijan"
+additems "Baltimore, USA"
+additems "Bangalore, India"
+additems "Bangkok, Thailand"
+additems "Barcelona, Spain"
+additems "Beijing, China"
+additems "Beirut, Lebanon"
+additems "Belo Horizonte, Brazil"
+additems "Berlin, Germany"
+additems "Birmingham, UK"
+additems "Bogota, Colombia"
+additems "Boston, USA"
+additems "Brasilia, Brazil"
+additems "Brisbane, Australia"
+additems "Brussels, Belgium"
+additems "Budapest, Hungary"
+additems "Buenos Aires, Argentina"
+additems "Cairo, Egypt"
+additems "Campinas, Brazil"
+additems "Cape Town, South Africa"
+additems "Chennai, India"
+additems "Chicago, USA"
+additems "Cincinnati, USA"
+additems "Cleveland, USA"
+additems "Cologne/Bonn, Germany"
+additems "Copenhagen, Denmark"
+additems "Curitiba, Brazil"
+additems "Dalian, China"
+additems "Dallas/Fort Worth, USA"
+additems "Damman , Saudi Arabia"
+additems "Delhi, India"
+additems "Denver, USA"
+additems "Detroit, USA"
+additems "Dubai, UAE"
+additems "Durban, South Africa"
+additems "Essen/Düsseldorf, Germany"
+additems "Fortaleza, Brazil"
+additems "Frankfurt, Germany"
+additems "Fukuoka, Japan"
+additems "Guadalajara, Mexico"
+additems "Hamburg, Germany"
+additems "Harare, Zimbabwe"
+additems "Ho Chi Minh City, Vietnam"
+additems "Houston, USA"
+additems "Hyderabad, India"
+additems "Istanbul, Turkey"
+additems "Jakarta, Indonesia"
+additems "Jeddah, Saudi Arabia"
+additems "Johannesburg/East Rand, South Africa"
+additems "Karachi, Pakistan"
+additems "Katowice, Poland"
+additems "Khartoum, Sudan"
+additems "Kinshasa, Congo"
+additems "Kolkata, India"
+additems "Kuala Lumpur, Malaysia"
+additems "Kuwait, Kuwait"
+additems "Lagos, Nigeria"
+additems "Lahore, Pakistan"
+additems "Lima, Peru"
+additems "Lisbon, Portugal"
+additems "London, UK"
+additems "Los Angeles, USA"
+additems "Madrid, Spain"
+additems "Manchester, UK"
+additems "Manila, Philippines"
+additems "Melbourne, Australia"
+additems "Mexico City, Mexico"
+additems "Miami, USA"
+additems "Milan, Italy"
+additems "Minneapolis/St. Paul, USA"
+additems "Monterey, Mexico"
+additems "Montreal., Canada"
+additems "Moscow, Russia"
+additems "Mumbai, India"
+additems "Munich, Germany"
+additems "Nagoya, Japan"
+additems "Naples, Italy"
+additems "New York Metro, USA"
+additems "Osaka/Kobe/Kyoto, Japan"
+additems "Paris, France"
+additems "Philadelphia, USA"
+additems "Phoenix/Mesa, USA"
+additems "Pittsburgh, USA"
+additems "Portland, USA"
+additems "Porto Alegre, Brazil"
+additems "Pretoria, South Africa"
+additems "Recife, Brazil"
+additems "Rio de Janeiro, Brazil"
+additems "Riverside/San Bernardino, USA"
+additems "Riyadh, Saudi Arabia"
+additems "Rome, Italy"
+additems "San Diego, USA"
+additems "San Francisco/Oakland , USA"
+additems "San Jose, USA"
+additems "San Juan, Puerto Rico"
+additems "Santiago, Chile"
+additems "Sao Paulo, Brazil"
+additems "Sapporo, Japan"
+additems "Seattle, USA"
+additems "Seoul/Incheon, South Korea"
+additems "Shanghai, China"
+additems "Shenyang, China"
+additems "Shenzhen, China"
+additems "Singapore, Singapore"
+additems "St Petersburg, Russia"
+additems "St. Louis, USA"
+additems "Strasbourg, France"
+additems "Sydney, Australia"
+additems "Taichung, Taiwan"
+additems "Taipei, Taiwan"
+additems "Tampa/St. Petersburg, USA"
+additems "Tashkent, Uzbekistan"
+additems "Tehran, Iran"
+additems "Tel Aviv, Israel"
+additems "Tianjin, China"
+additems "Tokyo/Yokohama, Japan"
+additems "Toronto, Canada"
+additems "Vancouver, Canada"
+additems "Vienna, Austria"
+additems "Warsaw, Poland"
+additems "Washington, USA"    
+itemindex=0
+    onchange=citytopocombochange
+    end create
+    
     create longitudelab as qlabel
     caption="Longitude in degrees:"
     top=60
@@ -1293,39 +1429,51 @@ create astrowheelsettingsform as qform
     left=longitudelab.left+longitudelab.width
     end create
     
+    create altitudelab as qlabel
+    caption="Altitude in meters:"
+    top=80
+    left=0
+    end create
+    
+    create altitudeedit as qedit
+    text="400"
+    top=80
+    left=altitudelab.left+altitudelab.width
+    end create
+    
     create timezonelab as qlabel
     caption="Timezone:"
-    top=80
+    top=100
     left=0
     end create
     
     create timezoneedit as qedit
     text="-1"
-    top=80
+    top=100
     left=timezonelab.left+timezonelab.width
     end create
     
     create summertime as qcheckbox
     caption="Summer time"
-    top=80
+    top=100
     left=timezoneedit.left+timezoneedit.width
     end create
     
     create symbollab as qlabel
     caption="Symbol:"
-    top=100
+    top=120
     left=0
     end create
     
     create symboledit as qedit
     text="EURUSD"
-    top=100
+    top=120
     left=symbollab.left+symbollab.width
     end create
     
     create symboltypegroupbox as qgroupbox
     left=symboledit.left+symboledit.width
-    top=100
+    top=120
     width=200
     create currencytype as qradiobutton
     caption="Currency"
@@ -1340,7 +1488,7 @@ create astrowheelsettingsform as qform
     end create  
     
     create placecombobox as qcombobox
-    top=100
+    top=120
     left=380
     additems "australia","dwsfunds","fidelity","tiaacref","troweprice","europe","canada","usa","nyse","nasdaq","uk_unit_trusts","vanguard","vwd"
     itemindex=7
@@ -1348,39 +1496,39 @@ create astrowheelsettingsform as qform
     
     create symbolrefreshintervallab as qlabel
     caption="Refresh every ? ms:"
-    top=120
+    top=140
     left=0
     end create
     
     create symbolrefreshintervaledit as qedit
     text="10000"
-    top=120
+    top=140
     left=symbolrefreshintervallab.left+symbolrefreshintervallab.width
     onchange=symbolrefreshintervaleditonchange
     end create
     
     create getquoteonofflab as qlabel
     caption="Realtime price-time:"
-    top=140
+    top=160
     left=0
     end create
      
     create getquoteonoffbut as qbutton
     caption="Start"
-    top=140
+    top=160
     left=getquoteonofflab.left+getquoteonofflab.width
     onclick=getquoteonoffbutonclick
     end create
     
     create specifydatelab as qlabel
     caption="Market date:"
-    top=160
+    top=180
     left=0
     end create            
     
     CREATE specifydatecal AS qcalendar
         loadcal(DATE$)
-        top=180
+        top=200
         left=0
     END CREATE
     
@@ -1846,7 +1994,7 @@ declare sub googlequotetimerstartsub
 declare function timeminute(seconds as double) as double
 declare function timehour(seconds as double) as double
 declare function timedayofweek(seconds as double) as double
-declare sub loginsub
+' declare sub loginsub ' Useless
 declare sub googlerefreshrateeditchangesub
 
 declare sub showsymbolslist
@@ -1902,7 +2050,7 @@ FontFileName = "c:\qchartist\fonts\astro.ttf"
 AddFontResource(FontFileName)
 
 declare function get_helio_longitude(planet as integer,year as string,month as string,day as string,hour as string) as string
-declare function get_geo_longitude(planet as integer,year as string,month as string,day as string,hour as string) as string
+declare function get_geo_longitude(lat2 as double,lon2 as double,alt2 as double,planet as integer,year as string,month as string,day as string,hour as string) as string
 declare function get_ascmc(lat2 as double,lon2 as double,year as string,month as string,day as string,hour as string,ascormc as string) as string
 
 ' End of functions declaration
@@ -6545,10 +6693,12 @@ MenuItem(menui).Caption = "Data source"
 MenuItem(menui).OnClick = datasource
 FileMenu.AddItems(MenuItem(menui))
 menui ++
-MenuItem(menui).Caption = "Login"
-MenuItem(menui).OnClick = loginsub
-FileMenu.AddItems(MenuItem(menui))
-menui ++
+' ---- Useless -------------------
+'MenuItem(menui).Caption = "Login"
+'MenuItem(menui).OnClick = loginsub
+'FileMenu.AddItems(MenuItem(menui))
+'menui ++
+' --------------------------------
 MenuItem(menui).Caption = "Import CSV"
 MenuItem(menui).OnClick = importcsv
 FileMenu.AddItems(MenuItem(menui))
@@ -18809,7 +18959,7 @@ function get_helio_longitude(planet as integer,year as string,month as string,da
     'swe_close
 End function
 
-function get_geo_longitude(planet as integer,year as string,month as string,day as string,hour as string) as string
+function get_geo_longitude(lat2 as double,lon2 as double,alt2 as double,planet as integer,year as string,month as string,day as string,hour as string) as string
    
     Dim x(6) As Double
     Dim x2(6) As Double
@@ -18833,6 +18983,9 @@ function get_geo_longitude(planet as integer,year as string,month as string,day 
     geopos(0) = lon
     geopos(1) = lat
     geopos(2) = 0
+    defstr latstr=str$(lat2)
+    defstr lonstr=str$(lon2)
+    defstr altstr=str$(alt2)        
     
  ' the next two functions do the same job, converting a calendar date
  ' into a Julian day number
@@ -18885,11 +19038,11 @@ function get_geo_longitude(planet as integer,year as string,month as string,day 
       ut$ = "  UT=" + tjd_ut_formated
     End If    
  
-    'swephout.text=swephout.text+"ET="+tjd_et_formated+" "+ ut$ + chr$(10)
+    'swephout.text=swephout.text+"ET="+tjd_et_formated+" "+ ut$ + chr$(10)    
 
     'defint planet
      'For planet = SE_SUN To SE_PLUTO_PICKERING
-        deflng iflag = SEFLG_SPEED + SEFLG_SWIEPH
+        deflng iflag = SEFLG_SPEED + SEFLG_SWIEPH + SEFLG_TOPOCTR
         'If bary_flag.checked = 1 Then
         '    iflag = iflag + SEFLG_BARYCTR
         'End If
@@ -18912,8 +19065,8 @@ function get_geo_longitude(planet as integer,year as string,month as string,day 
         defstr planetstr=str$(planet)
         defstr iflagstr=str$(iflag)
         defstr x0str=str$(x(0))
-        parameters=tjd_etstr+";"+planetstr+";"+iflagstr
-        defdbl ret_flag = val(varptr$(swe_calc(varptr(parameters),varptr(x(0)),varptr(serr$))))        
+        parameters=lonstr+";"+latstr+";"+altstr+";"+tjd_etstr+";"+planetstr+";"+iflagstr
+        defdbl ret_flag = val(varptr$(swe_set_topo_and_swe_calc(varptr(parameters),varptr(x(0)),varptr(serr$))))        
 
         serr$ = set_strlen(serr$)
         If ret_flag <> iflag And Len(serr$) > 0 Then
@@ -20478,9 +20631,11 @@ ShellExecute 0, "open", "http://www.qchartist.net", "", "", 1
 
 end sub
 
-sub loginsub
-loginform.visible=1
-end sub
+' --- Useless ---
+'sub loginsub
+'loginform.visible=1
+'end sub
+' ---------------
 
 sub googlerefreshrateeditchangesub
 googlereadlastquotetimer.interval=val(googlerefreshrateedit.text)
@@ -20734,4 +20889,642 @@ sub enablegetchartbtnsub
 getcharttimer.enabled=0
 dsok.enabled=1
 if useindiCheckedtmp=1 then useindi.checked=1
+end sub
+
+sub citytopocombochange
+select case citytopocombo.item(citytopocombo.itemindex)
+case "Accra,  Ghana"
+latitudeedit.text="5.614223"
+longitudeedit.text="-0.196336"
+altitudeedit.text="23"
+timezoneedit.text="0"
+case "Ankara,  Turkey"
+latitudeedit.text="39.925533"
+longitudeedit.text="32.866287"
+altitudeedit.text="876"
+timezoneedit.text="-2"
+case "Athens, Greece"
+latitudeedit.text="38.004566"
+longitudeedit.text="23.716091"
+altitudeedit.text="49"
+timezoneedit.text="-2"
+case "Atlanta, USA"
+latitudeedit.text="33.753746"
+longitudeedit.text="-84.386330"
+altitudeedit.text="313"
+timezoneedit.text="+5"
+case "Baghdad, Iraq"
+latitudeedit.text="33.312805"
+longitudeedit.text="44.361488"
+altitudeedit.text="39"
+timezoneedit.text="-3"
+case "Baku/Sumqayit, Azerbaijan"
+latitudeedit.text="40.409264"
+longitudeedit.text="49.867092"
+altitudeedit.text="24"
+timezoneedit.text="-4"
+case "Baltimore, USA"
+latitudeedit.text="39.299236"
+longitudeedit.text="-76.609383"
+altitudeedit.text="14"
+timezoneedit.text="+5"
+case "Bangalore, India"
+latitudeedit.text="12.972442"
+longitudeedit.text="77.580643"
+altitudeedit.text="924"
+timezoneedit.text="-5.5"
+case "Bangkok, Thailand"
+latitudeedit.text="13.736717"
+longitudeedit.text="100.523186"
+altitudeedit.text="8"
+timezoneedit.text="-7"
+case "Barcelona, Spain"
+latitudeedit.text="41.390205"
+longitudeedit.text="2.154007"
+altitudeedit.text="36"
+timezoneedit.text="-1"
+case "Beijing, China"
+latitudeedit.text="39.913818"
+longitudeedit.text="116.363625"
+altitudeedit.text="48"
+timezoneedit.text="-8"
+case "Beirut, Lebanon"
+latitudeedit.text="33.888630"
+longitudeedit.text="35.495480"
+altitudeedit.text="100"
+timezoneedit.text="-2"
+case "Belo Horizonte, Brazil"
+latitudeedit.text="-19.912998"
+longitudeedit.text="-43.940933"
+altitudeedit.text="847"
+timezoneedit.text="+2"
+case "Berlin, Germany"
+latitudeedit.text="52.520008"
+longitudeedit.text="13.404954"
+altitudeedit.text="37"
+timezoneedit.text="-1"
+case "Birmingham, UK"
+latitudeedit.text="52.489471"
+longitudeedit.text="-1.898575"
+altitudeedit.text="120"
+timezoneedit.text="0"
+case "Bogota, Colombia"
+latitudeedit.text="4.624335"
+longitudeedit.text="-74.063644"
+altitudeedit.text="2612"
+timezoneedit.text="+5"
+case "Boston, USA"
+latitudeedit.text="42.364758"
+longitudeedit.text="-71.067421"
+altitudeedit.text="8"
+timezoneedit.text="+5"
+case "Brasilia, Brazil"
+latitudeedit.text="-15.7797200"
+longitudeedit.text="-47.9297200"
+altitudeedit.text="1136"
+timezoneedit.text="+2"
+case "Brisbane, Australia"
+latitudeedit.text="-27.470125"
+longitudeedit.text="153.021072"
+altitudeedit.text="28"
+timezoneedit.text="-10"
+case "Brussels, Belgium"
+latitudeedit.text="50.8504500"
+longitudeedit.text="4.3487800"
+altitudeedit.text="28"
+timezoneedit.text="-1"
+case "Budapest, Hungary"
+latitudeedit.text="47.506851"
+longitudeedit.text="19.045776"
+altitudeedit.text="106"
+timezoneedit.text="-1"
+case "Buenos Aires, Argentina"
+latitudeedit.text="-34.603722"
+longitudeedit.text="-58.381592"
+altitudeedit.text="30"
+timezoneedit.text="+3"
+case "Cairo, Egypt"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Campinas, Brazil"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Cape Town, South Africa"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Chennai, India"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Chicago, USA"
+latitudeedit.text="41.881832"
+longitudeedit.text="-87.623177"
+altitudeedit.text="179"
+timezoneedit.text="+6"
+case "Cincinnati, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Cleveland, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Cologne/Bonn, Germany"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Copenhagen, Denmark"
+latitudeedit.text="55.676098"
+longitudeedit.text="12.568337"
+altitudeedit.text="7"
+timezoneedit.text="-1"
+case "Curitiba, Brazil"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Dalian, China"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Dallas/Fort Worth, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Damman , Saudi Arabia"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Delhi, India"
+latitudeedit.text="28.644800"
+longitudeedit.text="77.216721"
+altitudeedit.text="222"
+timezoneedit.text="-5.5"
+case "Denver, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Detroit, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Dubai, UAE"
+latitudeedit.text="25.276987"
+longitudeedit.text="55.296249"
+altitudeedit.text="0"
+timezoneedit.text="-4"
+case "Durban, South Africa"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Essen/Düsseldorf, Germany"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Fortaleza, Brazil"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Frankfurt, Germany"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Fukuoka, Japan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Guadalajara, Mexico"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Hamburg, Germany"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Harare, Zimbabwe"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Ho Chi Minh City, Vietnam"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Houston, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Hyderabad, India"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Istanbul, Turkey"
+latitudeedit.text="41.015137"
+longitudeedit.text="28.979530"
+altitudeedit.text="7"
+timezoneedit.text="-2"
+case "Jakarta, Indonesia"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Jeddah, Saudi Arabia"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Johannesburg/East Rand, South Africa"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Karachi, Pakistan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Katowice, Poland"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Khartoum, Sudan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Kinshasa, Congo"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Kolkata, India"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Kuala Lumpur, Malaysia"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Kuwait, Kuwait"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Lagos, Nigeria"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Lahore, Pakistan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Lima, Peru"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Lisbon, Portugal"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "London, UK"
+latitudeedit.text="51.5085300"
+longitudeedit.text="-0.1257400"
+altitudeedit.text="20"
+timezoneedit.text="0"
+case "Los Angeles, USA"
+latitudeedit.text="34.052235"
+longitudeedit.text="-118.243683"
+altitudeedit.text="87"
+timezoneedit.text="+8"
+case "Madrid, Spain"
+latitudeedit.text="40.416775"
+longitudeedit.text="-3.703790"
+altitudeedit.text="648"
+timezoneedit.text="-1"
+case "Manchester, UK"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Manila, Philippines"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Melbourne, Australia"
+latitudeedit.text="-37.663712"
+longitudeedit.text="144.844788"
+altitudeedit.text="124"
+timezoneedit.text="-11"
+case "Mexico City, Mexico"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Miami, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Milan, Italy"
+latitudeedit.text="45.467560"
+longitudeedit.text="9.189398"
+altitudeedit.text="123"
+timezoneedit.text="-1"
+case "Minneapolis/St. Paul, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Monterey, Mexico"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Montreal., Canada"
+latitudeedit.text="45.516136"
+longitudeedit.text="-73.656830"
+altitudeedit.text="43"
+timezoneedit.text="+5"
+case "Moscow, Russia"
+latitudeedit.text="55.751244"
+longitudeedit.text="37.618423"
+altitudeedit.text="151"
+timezoneedit.text="-3"
+case "Mumbai, India"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Munich, Germany"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Nagoya, Japan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Naples, Italy"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "New York Metro, USA"
+latitudeedit.text="40.730610"
+longitudeedit.text="-73.935242"
+altitudeedit.text="7"
+timezoneedit.text="+5"
+case "Osaka/Kobe/Kyoto, Japan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Paris, France"
+latitudeedit.text="48.864716"
+longitudeedit.text="2.349014"
+altitudeedit.text="36"
+timezoneedit.text="-1"
+case "Philadelphia, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Phoenix/Mesa, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Pittsburgh, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Portland, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Porto Alegre, Brazil"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Pretoria, South Africa"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Recife, Brazil"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Rio de Janeiro, Brazil"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Riverside/San Bernardino, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Riyadh, Saudi Arabia"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Rome, Italy"
+latitudeedit.text="41.890251"
+longitudeedit.text="12.492373"
+altitudeedit.text="23"
+timezoneedit.text="-1"
+case "San Diego, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "San Francisco/Oakland , USA"
+latitudeedit.text="37.733795"
+longitudeedit.text="-122.446747"
+altitudeedit.text="133"
+timezoneedit.text="+8"
+case "San Jose, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "San Juan, Puerto Rico"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+end select ' case nb limit reached, need to open a new select case else it crashs
+
+select case citytopocombo.item(citytopocombo.itemindex)
+case "Santiago, Chile"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Sao Paulo, Brazil"
+latitudeedit.text="-23.533773"
+longitudeedit.text="-46.625290"
+altitudeedit.text="729"
+timezoneedit.text="+2"
+case "Sapporo, Japan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Seattle, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Seoul/Incheon, South Korea"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Shanghai, China"
+latitudeedit.text="31.188940"
+longitudeedit.text="121.437508"
+altitudeedit.text="20"
+timezoneedit.text="-8"
+case "Shenyang, China"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Shenzhen, China"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Singapore, Singapore"
+latitudeedit.text="1.290270"
+longitudeedit.text="103.851959"
+altitudeedit.text="8"
+timezoneedit.text="-8"
+case "St Petersburg, Russia"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "St. Louis, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Strasbourg, France"
+latitudeedit.text="48.5839200"
+longitudeedit.text="7.7455300"
+altitudeedit.text="147"
+timezoneedit.text="-1"
+case "Sydney, Australia"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Taichung, Taiwan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Taipei, Taiwan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Tampa/St. Petersburg, USA"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Tashkent, Uzbekistan"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Tehran, Iran"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Tel Aviv, Israel"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Tianjin, China"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Tokyo/Yokohama, Japan"
+latitudeedit.text="35.652832"
+longitudeedit.text="139.839478"
+altitudeedit.text="5"
+timezoneedit.text="-9"
+case "Toronto, Canada"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Vancouver, Canada"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Vienna, Austria"
+latitudeedit.text=""
+longitudeedit.text=""
+altitudeedit.text=""
+timezoneedit.text=""
+case "Warsaw, Poland"
+latitudeedit.text="52.237049"
+longitudeedit.text="21.017532"
+altitudeedit.text="111"
+timezoneedit.text="-1"
+case "Washington, USA"
+latitudeedit.text="47.751076"
+longitudeedit.text="-120.740135"
+altitudeedit.text="615"
+timezoneedit.text="+5"
+end select
 end sub

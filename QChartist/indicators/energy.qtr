@@ -1,0 +1,18 @@
+'------------------------- energy -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+energy
+end if
+
+barsback=numbars '<--- can also be something like VAL(energybarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightblue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(energybuffer(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End energy -------------------------------------------------

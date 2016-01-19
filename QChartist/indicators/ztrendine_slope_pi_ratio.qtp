@@ -1,0 +1,42 @@
+declare sub hideztrendine_slope_pi_ratioform
+
+CREATE ztrendine_slope_pi_ratioform as qform
+
+    Center
+    Caption = "Settings for: ztrendine_slope_pi_ratio"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create piratiolabel as qlabel
+top=0
+caption="PI ratio: PI/"
+end create
+create piratioedit as qedit
+top=0
+left=piratiolabel.left+piratiolabel.width
+text="6"
+end create
+
+create ztsprextdepthlab as qlabel
+caption="extdepth:"
+top=20
+end create
+create ztsprextdepthedit as qedit
+left=100
+text="12"
+top=20
+end create
+
+    create ztrendine_slope_pi_ratiobtnok as qbutton
+        left=0
+        top=40
+        caption="OK"
+        onclick=hideztrendine_slope_pi_ratioform
+    end create
+
+END CREATE
+
+sub hideztrendine_slope_pi_ratioform
+    ztrendine_slope_pi_ratioform.visible=0
+end sub

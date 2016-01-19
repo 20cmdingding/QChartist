@@ -15,6 +15,7 @@ typedef double (*swe_sidtimeFunc)(double);
 typedef double (*swe_house_posFunc)(double,double,double,int,double&,char*);
 typedef int (*swe_housesFunc)(double,double,double,int,double&,double&);
 typedef int (*swe_houses_exFunc)(double,int,double,double,int,double&,double&);
+typedef int (*swe_set_topoFunc)(double,double,double);
 
 char* swe_julday(char* parameters)
 {
@@ -677,4 +678,113 @@ if (hInstLibrary)
 	}
 
 	return 0;
+}
+
+char* swe_set_topo_and_swe_calc(char* parameters,double& x,char* serr)
+{
+static char parameterss[1000];
+strncpy(parameterss, parameters, 1000);
+
+// Parameters decomposition
+double geolon;
+double geolat;
+double altitude;
+double tjd;
+int ipl;
+int iflag;
+
+char * writable;
+
+std::string linestr (parameterss);  
+          
+std::size_t found = linestr.find(";");        
+std::string geolonstr = linestr.substr (0,found);
+writable = new char[geolonstr.size() + 1];
+std::copy(geolonstr.begin(), geolonstr.end(), writable);
+writable[geolonstr.size()] = '\0'; // don't forget the terminating 0           
+geolon=atof(writable);
+
+linestr.assign(linestr.begin()+found+1,linestr.end());
+found = linestr.find(";");
+std::string geolatstr = linestr.substr (0,found);
+writable = new char[geolatstr.size() + 1];
+std::copy(geolatstr.begin(), geolatstr.end(), writable);
+writable[geolatstr.size()] = '\0'; // don't forget the terminating 0
+geolat=atof(writable);
+
+linestr.assign(linestr.begin()+found+1,linestr.end());
+found = linestr.find(";");
+std::string altitudestr = linestr.substr (0,found);
+writable = new char[altitudestr.size() + 1];
+std::copy(altitudestr.begin(), altitudestr.end(), writable);
+writable[altitudestr.size()] = '\0'; // don't forget the terminating 0
+altitude=atof(writable);
+
+linestr.assign(linestr.begin()+found+1,linestr.end()); 
+found = linestr.find(";");   
+std::string tjdstr = linestr.substr (0,found);
+writable = new char[tjdstr.size() + 1];
+std::copy(tjdstr.begin(), tjdstr.end(), writable);
+writable[tjdstr.size()] = '\0'; // don't forget the terminating 0           
+tjd=atof(writable);
+
+linestr.assign(linestr.begin()+found+1,linestr.end());
+found = linestr.find(";");
+std::string iplstr = linestr.substr (0,found);
+writable = new char[iplstr.size() + 1];
+std::copy(iplstr.begin(), iplstr.end(), writable);
+writable[iplstr.size()] = '\0'; // don't forget the terminating 0
+ipl=atoi(writable);
+
+linestr.assign(linestr.begin()+found+1,linestr.end());
+found = linestr.find(";");
+std::string iflagstr = linestr.substr (0,found);
+writable = new char[iflagstr.size() + 1];
+std::copy(iflagstr.begin(), iflagstr.end(), writable);
+writable[iflagstr.size()] = '\0'; // don't forget the terminating 0
+iflag=atoi(writable);
+
+// Typedef functions to hold what is in the DLL
+swe_set_topoFunc _swe_set_topoFunc;
+swe_calcFunc _swe_calcFunc;
+
+// The Instance of the DLL.
+// LoadLibrary used to load a DLL
+HINSTANCE hInstLibrary = LoadLibrary("C:\\qchartist\\includes\\swedll32.dll");
+
+if (hInstLibrary)
+    {
+
+    // Our DLL is loaded and ready to go.
+
+    // Set up our function pointers.
+    _swe_set_topoFunc = (swe_set_topoFunc)GetProcAddress(hInstLibrary, "_swe_set_topo@24");
+    _swe_calcFunc = (swe_calcFunc)GetProcAddress(hInstLibrary, "_swe_calc@24");
+
+        // Check if _AddFunc is currently holding a function, if not don't run it.
+        if (_swe_set_topoFunc)
+        {   
+            //sprintf(debugmsg,"%f",_swe_juldayFunc(year,month,day,hour,gregflg));MessageBox( NULL, debugmsg,"Debug",MB_OK); //use this where you need to debug the program
+            sprintf(debugmsg,"%i",_swe_set_topoFunc(geolon,geolat,altitude));
+            //return debugmsg;
+        }
+        
+        // Check if _AddFunc is currently holding a function, if not don't run it.
+        if (_swe_calcFunc)
+        {   
+            //sprintf(debugmsg,"%i",_swe_date_conversionFunc(year,month,day,utime,cal,tjd));MessageBox( NULL, debugmsg,"Debug",MB_OK); //use this where you need to debug the program           
+            sprintf(debugmsg,"%i",_swe_calcFunc(tjd,ipl,iflag,x,serr));
+            return debugmsg;
+        }
+        
+    // We're done with the DLL so we need to release it from memory.
+    FreeLibrary(hInstLibrary);
+    }
+    else
+    {
+        // Our DLL failed to load!
+        sprintf(debugmsg,"%s","DLL Failed To Load!");MessageBox( NULL, debugmsg,"Debug",MB_OK); //use this where you need to debug the program
+    }
+
+    return 0;
 }
