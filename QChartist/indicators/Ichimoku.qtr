@@ -1,0 +1,44 @@
+'------------------------- Ichimoku -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=Ichimokuperiodedit.text
+cpptmpfuncreturn=varptr$(Ichimoku(varptr(periodstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(Ichimokubarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="Tenkan_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="Kijun_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="SpanA_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="SpanB_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="Chinkou_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="SpanA2_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="SpanB2_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Ichimoku -------------------------------------------------

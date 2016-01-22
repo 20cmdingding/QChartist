@@ -5,6 +5,8 @@ IF l = 1 THEN
     sepindivalmax = VAL(canvas.separateindicator1.Cell(2 , lbar))
 END IF
 
+if i<=chartstart + .DATA.ColCount then
+
 IF VAL(canvas.separateindicator1.Cell(2 , lbar)) < sepindivalmin THEN
     sepindivalmin = VAL(canvas.separateindicator1.Cell(2 , lbar))
 END IF
@@ -12,6 +14,8 @@ END IF
 IF VAL(canvas.separateindicator1.Cell(2 , lbar)) > sepindivalmax THEN
     sepindivalmax = VAL(canvas.separateindicator1.Cell(2 , lbar))
 END IF
+
+end if
 
 END IF
 'doevents

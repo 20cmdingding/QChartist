@@ -482,7 +482,7 @@ SUB btnOnClick(SENDER AS QBUTTON)
                 numbars_first=chartbars(displayedfile)-scrollchart.position+numbars-1
                 numbars_last=chartbars(displayedfile)-scrollchart.position
 
-                FOR i = chartstart TO chartstart + .DATA.ColCount  'for each col
+                FOR i = chartstart TO chartstart + .DATA.ColCount + val(generalsettingsfuturebarsedit.text)  'for each col
                     l ++
 
                     .Series(l).AutoColor = FALSE

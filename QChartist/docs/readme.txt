@@ -1243,6 +1243,18 @@ Differences with other planets are too small to be visible on the wheel.)
 2016-01-19:
 - new indicator energy
 - build 63
+- energy indicator modified
+
+2016-01-21:
+- chm documentation enriched
+
+2016-01-22:
+- Added tools settings form
+Possibility to view indicators buffers for future bars (with an index<0 ;
+0 is the index of the current bar)
+- New indicator Ichimoku (you can view the future drawing by
+changing future bars numbers in the tools settings form)
+- build 64
 
 -------------------------------------------------------------------------------------
 Todo list:

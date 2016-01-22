@@ -27,92 +27,94 @@ Din_fibo_highform.visible=1
 case 12
 envelopform.visible=1
 case 13
-jupiter_saturn_cycleform.visible=1
+Ichimokuform.visible=1
 case 14
-Levelsform.visible=1
+jupiter_saturn_cycleform.visible=1
 case 15
-maform.visible=1
+Levelsform.visible=1
 case 16
-MA_Chanels_FiboEnv_Midform.visible=1
+maform.visible=1
 case 17
-Murrey_Mathform.visible=1
+MA_Chanels_FiboEnv_Midform.visible=1
 case 18
-Planetary_linesform.visible=1
+Murrey_Mathform.visible=1
 case 19
-priceclose1440form.visible=1
+Planetary_linesform.visible=1
 case 20
-RSTLform.visible=1
+priceclose1440form.visible=1
 case 21
-smafiboform.visible=1
+RSTLform.visible=1
 case 22
-synodic_cycleform.visible=1
+smafiboform.visible=1
 case 23
-TSFform.visible=1
+synodic_cycleform.visible=1
 case 24
-vegascform.visible=1
+TSFform.visible=1
 case 25
-VolatilityPivotform.visible=1
+vegascform.visible=1
 case 26
-VolatilityStopform.visible=1
+VolatilityPivotform.visible=1
 case 27
-waterlevelcppform.visible=1
+VolatilityStopform.visible=1
 case 28
-weeklypivotcppform.visible=1
+waterlevelcppform.visible=1
 case 29
-zigzagform.visible=1
+weeklypivotcppform.visible=1
 case 30
-zigzagcppform.visible=1
+zigzagform.visible=1
 case 31
-ztrendine_slope_pi_ratioform.visible=1
+zigzagcppform.visible=1
 case 32
-Acceleratorform.visible=1
+ztrendine_slope_pi_ratioform.visible=1
 case 33
-astro_retrogradeform.visible=1
+Acceleratorform.visible=1
 case 34
-atrform.visible=1
+astro_retrogradeform.visible=1
 case 35
-CandleAvgform.visible=1
+atrform.visible=1
 case 36
-CoronaSwingPositionform.visible=1
+CandleAvgform.visible=1
 case 37
-declination_systemform.visible=1
+CoronaSwingPositionform.visible=1
 case 38
-Ehlersfishertransformform.visible=1
+declination_systemform.visible=1
 case 39
-energyform.visible=1
+Ehlersfishertransformform.visible=1
 case 40
-fftspectroform.visible=1
+energyform.visible=1
 case 41
-ForceIndexform.visible=1
+fftspectroform.visible=1
 case 42
-Gauquelin_sectorform.visible=1
+ForceIndexform.visible=1
 case 43
-IVolumeform.visible=1
+Gauquelin_sectorform.visible=1
 case 44
-LSSform.visible=1
+IVolumeform.visible=1
 case 45
-mfiform.visible=1
+LSSform.visible=1
 case 46
-planetary_speedform.visible=1
+mfiform.visible=1
 case 47
-planets_scaleform.visible=1
+planetary_speedform.visible=1
 case 48
-pricecloseform.visible=1
+planets_scaleform.visible=1
 case 49
-rsiform.visible=1
+pricecloseform.visible=1
 case 50
-smFisherTransform3nrform.visible=1
+rsiform.visible=1
 case 51
-spectrometerform.visible=1
+smFisherTransform3nrform.visible=1
 case 52
-stepftvcprdlform.visible=1
+spectrometerform.visible=1
 case 53
-steprsiform.visible=1
+stepftvcprdlform.visible=1
 case 54
-threeD_Oscilatorform.visible=1
+steprsiform.visible=1
 case 55
-valuechartform.visible=1
+threeD_Oscilatorform.visible=1
 case 56
+valuechartform.visible=1
+case 57
 vcatrcform.visible=1
 end select
 end sub

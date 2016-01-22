@@ -137,4 +137,8 @@
 // ''RQEXPORT function CoronaSwingPosition(periodstr)
 #include "indicators\CoronaSwingPosition.cpp"
 
+
+// ''RQEXPORT function Ichimoku(periodstr)
+#include "indicators\Ichimoku.cpp"
+
 #include "includes\getbufferdata.cpp"

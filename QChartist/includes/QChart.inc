@@ -1149,7 +1149,7 @@ TYPE QChart EXTENDS QCANVAS
 
                 CASE ctBox  'Labels in Row 0 of of each Col
                     IF .XAxis.Labeled = TRUE THEN
-                        .XAxis.TicIntvl = .XAxis.LEN / .DATA.ColCount
+                        .XAxis.TicIntvl = .XAxis.LEN / (.DATA.ColCount + val(generalsettingsfuturebarsedit.text))
 
                         LabelLen = 0  'Get the total length of all labels
                         FOR i = 0 TO .DATA.ColCount
@@ -1863,7 +1863,7 @@ end if
                     EXIT SUB
                 END IF
                 .SetSeries
-                .Xaxis.Div = .DATA.ColCount
+                .Xaxis.Div = .DATA.ColCount + val(generalsettingsfuturebarsedit.text)
                 .XAxis.DrawZero = FALSE  'No Values on the X
                 .DrawAxes
                 .DrawTitles
@@ -1874,7 +1874,7 @@ end if
 
         WITH QChart
 
-	    XIntvl = .XAxis.LEN / .DATA.ColCount
+	    XIntvl = .XAxis.LEN / (.DATA.ColCount + val(generalsettingsfuturebarsedit.text))
             LinWidth = XIntvl * .75            
             BoxWidth = LinWidth * .75 
 
@@ -3465,7 +3465,7 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
                 FOR i = 2 TO .DATA_INDI.ColCount STEP 2
                     .hPen = CreatePen(.Series(i \ 2).LineStyle , .Series(i \ 2).LineWidth , indicolor(i)) '.Series(i\2).Color)
                     .OldPen = SelectObject(.Buffer.Handle , .hPen)
-                    FOR j = 1 TO .DATA_INDI.RowCount - 1
+                    FOR j = 1 TO .DATA_INDI.RowCount - 1 + val(generalsettingsfuturebarsedit.text)
 
                         IF .DATA_INDI.Cell(i - 1 , j) = .Missing OR .DATA_INDI.Cell(i - 1 , j + 1) = .Missing _  'If data missing
                             THEN GOTO NoPlotXYLn

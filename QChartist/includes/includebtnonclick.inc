@@ -482,7 +482,7 @@ SUB btnOnClick(SENDER AS QBUTTON)
                 numbars_first=chartbars(displayedfile)-scrollchart.position+numbars-1
                 numbars_last=chartbars(displayedfile)-scrollchart.position
 
-                FOR i = chartstart TO chartstart + .DATA.ColCount  'for each col
+                FOR i = chartstart TO chartstart + .DATA.ColCount + val(generalsettingsfuturebarsedit.text)  'for each col
                     l ++
 
                     .Series(l).AutoColor = FALSE
@@ -954,6 +954,50 @@ end if
 
 end if
 '------------------------- End Enveloppes -------------------------------------------------
+'------------------------- Ichimoku -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=Ichimokuperiodedit.text
+cpptmpfuncreturn=varptr$(Ichimoku(varptr(periodstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(Ichimokubarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="Tenkan_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="Kijun_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="SpanA_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="SpanB_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=green '<--- replace with your color
+    bufnamestr="Chinkou_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="SpanA2_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="SpanB2_Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Ichimoku -------------------------------------------------
 '------------------------- Jupiter - Saturn cycle -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
@@ -1752,6 +1796,8 @@ IF l = 1 THEN
     valmax = VAL(Grid.Cell(rowgridoffset + 4 , i))
 END IF
 
+if i<=chartstart + .DATA.ColCount then
+
 IF VAL(Grid.Cell(rowgridoffset + 5 , i)) < valmin THEN
     valmin = VAL(Grid.Cell(rowgridoffset + 5 , i))
 END IF
@@ -1759,6 +1805,8 @@ END IF
 IF VAL(Grid.Cell(rowgridoffset + 4 , i)) > valmax THEN
     valmax = VAL(Grid.Cell(rowgridoffset + 4 , i))
 END IF
+
+end if
 
 
 '-==================================== Separate indicators area ==============================-
@@ -2599,6 +2647,8 @@ IF l = 1 THEN
     sepindivalmax = VAL(canvas.separateindicator1.Cell(2 , lbar))
 END IF
 
+if i<=chartstart + .DATA.ColCount then
+
 IF VAL(canvas.separateindicator1.Cell(2 , lbar)) < sepindivalmin THEN
     sepindivalmin = VAL(canvas.separateindicator1.Cell(2 , lbar))
 END IF
@@ -2606,6 +2656,8 @@ END IF
 IF VAL(canvas.separateindicator1.Cell(2 , lbar)) > sepindivalmax THEN
     sepindivalmax = VAL(canvas.separateindicator1.Cell(2 , lbar))
 END IF
+
+end if
 
 END IF
 'doevents

@@ -63,6 +63,7 @@ double   FuzzWidth = 0.2;
 
 char* CoronaSwingPosition (char* timeframe)
 {
+
     static char timeframee[1000];
     strncpy(timeframee, timeframe, 1000);
     TimeFrame=atoi(timeframee);

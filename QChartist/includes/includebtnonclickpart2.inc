@@ -6,6 +6,8 @@ IF l = 1 THEN
     valmax = VAL(Grid.Cell(rowgridoffset + 4 , i))
 END IF
 
+if i<=chartstart + .DATA.ColCount then
+
 IF VAL(Grid.Cell(rowgridoffset + 5 , i)) < valmin THEN
     valmin = VAL(Grid.Cell(rowgridoffset + 5 , i))
 END IF
@@ -13,6 +15,8 @@ END IF
 IF VAL(Grid.Cell(rowgridoffset + 4 , i)) > valmax THEN
     valmax = VAL(Grid.Cell(rowgridoffset + 4 , i))
 END IF
+
+end if
 
 
 '-==================================== Separate indicators area ==============================-

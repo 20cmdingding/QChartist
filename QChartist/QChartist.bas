@@ -1612,6 +1612,21 @@ create astrowheelheliogeocombo as qcombobox
     
 end create
 
+CREATE generalsettingsfrm AS QFORM
+    Height = 300    
+    Visible = 0
+    create generalsettingsfuturebarslabel as qlabel
+    top=0
+    left=0
+    caption="Future bars to show:"
+    end create
+    create generalsettingsfuturebarsedit as qedit
+    top=0
+    left=generalsettingsfuturebarslabel.left+generalsettingsfuturebarslabel.width
+    text="0"
+    end create
+END CREATE
+
 $INCLUDE "includes\QChart.inc"
 '$Include "includes\Qcolordialog.inc"
 '$RESOURCE zoommore AS "images\zoommore.bmp"
@@ -1891,7 +1906,7 @@ DECLARE SUB writealive
 DECLARE SUB writealive2
 DECLARE SUB barsdisplayedchange
 DECLARE SUB cntbarseditchange
-DECLARE SUB toolssettings
+DECLARE SUB generalsettings
 DECLARE SUB beginauto
 DECLARE SUB beginexitsignal
 DECLARE SUB fdown(button AS LONG , x AS LONG , y AS LONG , shift AS INTEGER)
@@ -2166,7 +2181,7 @@ TYPE qchart2 EXTENDS QCANVAS
         END IF
 
         DIM barsize AS DOUBLE
-        barsize = canvas.Width / barsdisplayed2
+        barsize = canvas.Width / (barsdisplayed2 + val(generalsettingsfuturebarsedit.text))
 
         DIM graphratio AS DOUBLE
         graphratio = canvas.Height / graphyaxisheight
@@ -2185,7 +2200,7 @@ TYPE qchart2 EXTENDS QCANVAS
 
         FOR j = 2 TO canvas.separateindicator1.RowCount STEP 2
             locx = 0
-            FOR i = 0 TO barsdisplayed2-2
+            FOR i = 0 TO barsdisplayed2-2 + val(generalsettingsfuturebarsedit.text)
                 closevalue = VAL(canvas.separateindicator1.Cell(j , i+1))
                 closevalue2 = VAL(canvas.separateindicator1.Cell(j , i + 2))
                 IF axistypecomboitemindex = 1 THEN
@@ -4635,16 +4650,16 @@ CREATE frmMain AS QFORMEX
 
         CREATE ToolsMenu AS QMENUITEM
             Caption = "&Tools"
-            CREATE automenu AS QMENUITEM
-                Caption = "&Automation"
-                CREATE autosubmenu AS QMENUITEM
-                    Caption = "Follow mode"
-                    OnClick = followmode
-                END CREATE
-            END CREATE
-            CREATE tsettingsmenu AS QMENUITEM
-                Caption = "&Settings..."
-                OnClick = toolssettings
+            'CREATE automenu AS QMENUITEM
+             '   Caption = "&Automation"
+             '   CREATE autosubmenu AS QMENUITEM
+             '       Caption = "Follow mode"
+             '       OnClick = followmode
+             '   END CREATE
+            'END CREATE
+            CREATE generalsettingsmenu AS QMENUITEM
+                Caption = "&Settings"
+                OnClick = generalsettings
             END CREATE
         END CREATE
 
@@ -21527,4 +21542,8 @@ longitudeedit.text="-120.740135"
 altitudeedit.text="615"
 timezoneedit.text="+5"
 end select
+end sub
+
+sub generalsettings
+generalsettingsfrm.visible=1
 end sub

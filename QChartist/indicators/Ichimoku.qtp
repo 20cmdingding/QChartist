@@ -1,0 +1,34 @@
+declare sub hideIchimokuform
+
+CREATE Ichimokuform as qform
+
+    Center
+    Caption = "Settings for: Ichimoku"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Ichimokuperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create Ichimokuperiodedit as qedit
+        left=Ichimokuperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create Ichimokubtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideIchimokuform
+    end create
+
+END CREATE
+
+sub hideIchimokuform
+    Ichimokuform.visible=0
+end sub

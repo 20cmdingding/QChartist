@@ -67,6 +67,7 @@ char* bandssmacpp(char* period)
         sum=sum-closea[p+bandsperiod-1];
         p--;
                  }
+
 return 0;  
 }
 

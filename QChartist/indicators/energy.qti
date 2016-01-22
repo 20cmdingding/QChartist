@@ -4,7 +4,17 @@ dim energybuffer(0 to 1000) as double ' This line of code must stay here.
 sub energy
 ' Put your indicator RapidQ code here
 dim i as integer
+dim energydbl as double
 for i=numbars_first to numbars_last step -1
-energybuffer(i)=(high(i)-low(i))*sqr(volume(i))
+energydbl=high(i)-low(i)
+if close(i)>open(i) then
+energydbl=energydbl+(open(i)-low(i))+(high(i)-close(i))
+elseif close(i)<open(i) then
+energydbl=energydbl+(high(i)-open(i))+(close(i)-low(i))
+else
+energydbl=energydbl+(high(i)-low(i))
+end if
+energybuffer(i)=energydbl*sqr(volume(i))
+'energybuffer(i)=(high(i)-low(i))*sqr(volume(i))
 next i
 end sub
