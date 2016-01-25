@@ -344,6 +344,7 @@ SUB btnOnClick(SENDER AS QBUTTON)
             pricescaleplusbtn.visible=1
             pricescaleminusbtn.visible=1
             addbarsbtn.visible=1
+            shiftchartbtn.visible=1
 
             IF showcanvas = 1 THEN
                 'visible switch from 0 to 1 is necessary because of a "bug"

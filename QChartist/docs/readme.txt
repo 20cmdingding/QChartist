@@ -1256,6 +1256,16 @@ Possibility to view indicators buffers for future bars (with an index<0 ;
 changing future bars numbers in the tools settings form)
 - build 64
 
+2016-01-23:
+- chm documentation enriched
+- added button to shift the end of the chart from the right side (this allows to show indicators
+buffers with index<0)
+
+2016-01-25:
+- added colors variables for use with indicators buffers
+- chm documentation enriched
+-build 65
+
 -------------------------------------------------------------------------------------
 Todo list:
 

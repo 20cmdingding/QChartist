@@ -352,24 +352,154 @@ Font.Size = 10
 DIM red AS INTEGER , orange AS INTEGER , yellow AS INTEGER , green AS INTEGER , blue AS INTEGER , lightblue AS INTEGER , purple AS INTEGER , _
     gray AS INTEGER , black AS INTEGER , pink AS INTEGER , olive AS INTEGER , aqua AS INTEGER , crimson AS INTEGER , gold AS INTEGER , _
     white AS INTEGER , mediumseagreen AS INTEGER , lightgray AS INTEGER , sweetblue AS INTEGER
+defint darkgreen,darkslategray,teal,navy,maroon,indigo,midnightblue,darkblue,darkolivegreen,saddlebrown,forestgreen,olivedrab,_
+seagreen,darkgoldenrod,darkslateblue,sienna,mediumblue,brown,darkturquoise,dimgray,lightseagreen,darkviolet,firebrick,_
+mediumvioletred,chocolate,steelblue,goldenrod,mediumspringgreen,lawngreen,cadetblue,darkorchid,yellowgreen,_
+limegreen,orangered,darkorange,chartreuse,lime,springgreen,_
+deepskyblue,magenta,slategray,peru,blueviolet,_
+lightslategray,deeppink,mediumturquoise,dodgerblue,turquoise,royalblue,slateblue,darkkhaki,_
+indianred,mediumorchid,greenyellow,mediumaquamarine,darkseagreen,tomato,rosybrown,orchid,_
+mediumpurple,palevioletred,coral,cornflowerblue,darkgray,sandybrown,mediumslateblue,clrtan,_
+darksalmon,burlywood,hotpink,salmon,violet,lightcoral,skyblue,lightsalmon,_
+plum,khaki,lightgreen,aquamarine,silver,lightskyblue,lightsteelblue,_
+palegreen,thistle,powderblue,palegoldenrod,paleturquoise,wheat,navajowhite,_
+moccasin,lightpink,gainsboro,peachpuff,bisque,lightgoldenrod,blanchedalmond,_
+lemonchiffon,beige,antiquewhite,papayawhip,cornsilk,lightyellow,lightcyan,linen,_
+lavender,mistyrose,oldlace,whitesmoke,seashell,ivory,honeydew,aliceblue,_
+lavenderblush,mintcream,snow    
 red = RGB(255 , 0 , 0)
-orange = RGB(255 , 128 , 0)
+orange = RGB(255 , 165 , 0)
 yellow = RGB(255 , 255 , 0)
-green = RGB(0 , 255 , 0)
+green = RGB(1 , 128 , 0)
 blue = RGB(0 , 0 , 255)
-lightblue = RGB(128 , 128 , 255)
-purple = RGB(128 , 0 , 255)
+lightblue = RGB(173 , 216 , 230)
+purple = RGB(128 , 0 , 128)
 gray = RGB(128 , 128 , 128)
 black = RGB(0 , 0 , 0)
 pink = RGB(255 , 192 , 203)
-olive = RGB(0 , 128 , 64)
+olive = RGB(128 , 128 , 0)
 aqua = RGB(0 , 255 , 255)
 crimson = RGB(220 , 20 , 60)
 gold = RGB(255 , 215 , 0)
 white = RGB(255 , 255 , 255)
-lightgray = RGB(208 , 208 , 208)
+lightgray = RGB(240 , 248 , 255)
 sweetblue = RGB(166 , 166 , 210)
 mediumseagreen = RGB(60 , 179 , 113)
+darkgreen=RGB(0,64,0)
+darkslategray=RGB(48,61,139)
+teal=RGB(0,128,128)
+navy=RGB(0,0,128)
+maroon=RGB(128,0,0)
+indigo=RGB(75,0,130)
+midnightblue=RGB(25,25,112)
+darkblue=RGB(0,0,139)
+darkolivegreen=RGB(85,107,47)
+saddlebrown=RGB(139,69,19)
+forestgreen=RGB(34,139,34)
+olivedrab=RGB(107,142,35)
+seagreen=RGB(46,139,87)
+darkgoldenrod=RGB(184,134,11)
+darkslateblue=RGB(72,61,139)
+sienna=RGB(160,82,45)
+mediumblue=RGB(0,0,205)
+brown=RGB(165,42,42)
+darkturquoise=RGB(0,206,209)
+dimgray=RGB(105,105,105)
+lightseagreen=RGB(32,178,170)
+darkviolet=RGB(148,0,211)
+firebrick=RGB(178,34,34)
+mediumvioletred=RGB(199,21,133)
+chocolate=RGB(210,105,30)
+steelblue=RGB(70,130,180)
+goldenrod=RGB(218,165,32)
+mediumspringgreen=RGB(0,250,154)
+lawngreen=RGB(124,152,0)
+cadetblue=RGB(95,158,160)
+darkorchid=RGB(153,50,204)
+yellowgreen=RGB(154,205,50)
+limegreen=RGB(50,205,50)
+orangered=RGB(255,69,0)
+darkorange=RGB(255,140,0)
+chartreuse=RGB(127,255,0)
+lime=RGB(0,255,0)
+springgreen=RGB(0,255,127)
+deepskyblue=RGB(0,191,255)
+magenta=RGB(255,0,255)
+slategray=RGB(112,128,128)
+peru=RGB(205,133,63)
+blueviolet=RGB(138,43,226)
+lightslategray=RGB(119,136,153)
+deeppink=RGB(255,20,147)
+mediumturquoise=RGB(72,209,204)
+dodgerblue=RGB(30,144,255)
+turquoise=RGB(64,224,208)
+royalblue=RGB(65,105,225)
+slateblue=RGB(106,90,205)
+darkkhaki=RGB(189,183,107)
+indianred=RGB(205,92,92)
+mediumorchid=RGB(186,85,211)
+greenyellow=RGB(173,255,47)
+mediumaquamarine=RGB(102,205,170)
+darkseagreen=RGB(143,188,143)
+tomato=RGB(255,99,71)
+rosybrown=RGB(188,143,143)
+orchid=RGB(218,112,214)
+mediumpurple=RGB(147,112,219)
+palevioletred=RGB(219,112,147)
+coral=RGB(255,127,80)
+cornflowerblue=RGB(100,149,237)
+darkgray=RGB(169,169,169)
+sandybrown=RGB(244,164,96)
+mediumslateblue=RGB(123,104,238)
+clrtan=RGB(210,180,140)
+darksalmon=RGB(233,150,122)
+burlywood=RGB(222,184,135)
+hotpink=RGB(255,105,180)
+salmon=RGB(250,128,114)
+violet=RGB(238,130,238)
+lightcoral=RGB(240,128,128)
+skyblue=RGB(135,206,235)
+lightsalmon=RGB(255,160,122)
+plum=RGB(221,160,221)
+khaki=RGB(240,230,140)
+lightgreen=RGB(144,238,144)
+aquamarine=RGB(127,255,212)
+silver=RGB(192,192,192)
+lightskyblue=RGB(135,206,250)
+lightsteelblue=RGB(176,196,222)
+palegreen=RGB(152,251,152)
+thistle=RGB(216,191,216)
+powderblue=RGB(176,224,230)
+palegoldenrod=RGB(238,232,170)
+paleturquoise=RGB(175,238,238)
+wheat=RGB(245,222,179)
+navajowhite=RGB(255,222,173)
+moccasin=RGB(255,228,181)
+lightpink=RGB(255,182,193)
+gainsboro=RGB(220,220,220)
+peachpuff=RGB(255,218,185)
+bisque=RGB(255,228,196)
+lightgoldenrod=RGB(238,220,130)
+blanchedalmond=RGB(255,235,205)
+lemonchiffon=RGB(255,250,205)
+beige=RGB(245,245,220)
+antiquewhite=RGB(250,235,215)
+papayawhip=RGB(255,239,213)
+cornsilk=RGB(255,248,220)
+lightyellow=RGB(255,255,224)
+lightcyan=RGB(224,255,255)
+linen=RGB(250,240,230)
+lavender=RGB(230,230,250)
+mistyrose=RGB(255,228,225)
+oldlace=RGB(253,245,230)
+whitesmoke=RGB(245,245,245)
+seashell=RGB(255,245,238)
+ivory=RGB(255,255,240)
+honeydew=RGB(240,255,240)
+aliceblue=RGB(240,248,255)
+lavenderblush=RGB(255,240,245)
+mintcream=RGB(245,255,250)
+snow=RGB(255,250,250)
 DIM textcolor AS INTEGER
 textcolor = blue
 DIM sepindicolor(1 TO 100) AS INTEGER
@@ -1670,6 +1800,7 @@ $RESOURCE iconpolyg AS "images\polygone.bmp"
 $RESOURCE pricescaleplus AS "images\pricescaleplus.bmp"
 $RESOURCE pricescaleminus AS "images\pricescaleminus.bmp"
 $RESOURCE iconaddbars AS "images\addbars.bmp"
+$RESOURCE iconshiftchart AS "images\shift.bmp"
 
 DIM colordlg AS qcolordialog
 colordlg.Style = cdFullOpen
@@ -1999,6 +2130,7 @@ declare Sub Year_Change()
 
 declare sub detect_timeframe
 declare sub addbars
+declare sub shiftchart
 
 declare sub astrowheelsettingssub
 
@@ -4627,6 +4759,20 @@ CREATE frmMain AS QFORMEX
                 OnClick = addbars
                 BMPHandle = iconaddbars
                 Cursor = 2
+    END CREATE
+    
+    CREATE shiftchartbtn AS qcoolbtn
+                visible=0
+                Left = Graph.Left - 30
+                Top = Graph.Top + 15 + 20 + 20 + 20
+                Height = 20
+                width=20
+                Hint = "Shift the end of the chart from the right side"
+                ShowHint = 1
+                OnClick = shiftchart
+                BMPHandle = iconshiftchart
+                Cursor = 2
+                flat=1
     END CREATE
 
 
@@ -8710,6 +8856,10 @@ SUB closedispcanvas_click()
         .Left = Graph.Left - 30
         .Top = Graph.Top + 15 + 20+20
     END WITH
+    WITH shiftchartbtn
+        .Left = Graph.Left - 30
+        .Top = Graph.Top + 15 + 20+20+20
+    END WITH
     split.Top = Graph.Height + 70
     split.Left = Graph.Left
     split.Width = Graph.Width
@@ -8780,6 +8930,7 @@ SUB closedispchart_click()
         pricescaleplusbtn.visible=0
         pricescaleminusbtn.visible=0
         addbarsbtn.visible=0
+        shiftchartbtn.visible=0
         'sepindizoommore.visible=0
         'sepindizoomless.visible=0
         'sepindiheight.visible=1
@@ -8885,6 +9036,7 @@ SUB closedispchart_click()
         pricescaleplusbtn.visible=0
         pricescaleminusbtn.visible=0
         addbarsbtn.visible=0
+        shiftchartbtn.visible=0
         'sepindizoommore.visible=0
         'sepindizoomless.visible=0
         'sepindiheight.visible=0
@@ -9130,6 +9282,11 @@ SUB setup()
     with addbarsbtn
         .Left = Graph.Left - 30
         .Top = Graph.Top + 15 + 20+20
+    end with
+    
+    with shiftchartbtn
+        .Left = Graph.Left - 30
+        .Top = Graph.Top + 15 + 20+20+20
     end with
 
     'Plus anything else that needs doing in your form resize
@@ -21546,4 +21703,17 @@ end sub
 
 sub generalsettings
 generalsettingsfrm.visible=1
+end sub
+
+sub shiftchart
+if val(generalsettingsfuturebarsedit.text)>0 then
+generalsettingsfuturebarsedit.text="0"
+btnOnClick(drwBox)
+exit sub
+end if
+if val(generalsettingsfuturebarsedit.text)=0 then
+generalsettingsfuturebarsedit.text="50"
+btnOnClick(drwBox)
+exit sub
+end if
 end sub
