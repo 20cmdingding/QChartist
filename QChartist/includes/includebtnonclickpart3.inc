@@ -1,5 +1,7 @@
 '-==================================== End Separate indicators area ==============================-
 
+drawidseparatecanvas=drawid
+
 IF l = 1 THEN
     sepindivalmin = VAL(canvas.separateindicator1.Cell(2 , lbar))
     sepindivalmax = VAL(canvas.separateindicator1.Cell(2 , lbar))

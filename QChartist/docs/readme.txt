@@ -1266,6 +1266,10 @@ buffers with index<0)
 - chm documentation enriched
 -build 65
 
+2016-01-26:
+- code optimization : now indicators are loaded and drawn faster on the chart.
+- build 66
+
 -------------------------------------------------------------------------------------
 Todo list:
 

@@ -482,7 +482,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
                 barsstr=str$(bars):cpptmpfuncreturn=varptr$(setbars(varptr(barsstr)))
                 numbars_first=chartbars(displayedfile)-scrollchart.position+numbars-1
                 numbars_last=chartbars(displayedfile)-scrollchart.position
-
+                        
+                
                 FOR i = chartstart TO chartstart + .DATA.ColCount + val(generalsettingsfuturebarsedit.text)  'for each col
                     l ++
 
@@ -537,15 +538,15 @@ SUB btnOnClick(SENDER AS QBUTTON)
                         dim barsbackstr as string
                         dim curtfstr as string
 			dim tfbasestr as string
-                        IF useindi.Checked = 1 THEN
+                        'IF useindi.Checked = 1 THEN
                             DIM lo AS INTEGER
-                            FOR lo = 1 TO .Data_Indi.RowCount STEP 2
-                                .Data_Indi.Cell(lo , l) = STR$(l) 'Legend in Row 0 of Each Col
-                            NEXT lo
-                            FOR lo = 2 TO .Data_Indi.RowCount STEP 2
-                                .Data_Indi.Cell(lo , l) = STR$(0)
-                            NEXT lo
-                        END IF
+                            'FOR lo = 1 TO .Data_Indi.RowCount STEP 2
+                            '    .Data_Indi.Cell(lo , l) = STR$(l) 'Legend in Row 0 of Each Col
+                            'NEXT lo
+                            'FOR lo = 2 TO .Data_Indi.RowCount STEP 2
+                            '    .Data_Indi.Cell(lo , l) = STR$(0)
+                            'NEXT lo
+                        'END IF
 
                         DIM drawid AS INTEGER
                         drawid = 2
@@ -1792,6 +1793,8 @@ end if
 '-================================= End indicators area ========================================-
 END IF
 
+drawidmaincanvas=drawid
+
 IF l = 1 THEN
     valmin = VAL(Grid.Cell(rowgridoffset + 5 , i))
     valmax = VAL(Grid.Cell(rowgridoffset + 4 , i))
@@ -1809,27 +1812,28 @@ END IF
 
 end if
 
-
 '-==================================== Separate indicators area ==============================-
 
 
 IF scrollmode = 0 THEN
     IF useindi.Checked = 1 THEN
 
-        FOR lo = 1 TO canvas.separateindicator1.RowCount STEP 2
-            canvas.separateindicator1.Cell(lo , l) = STR$(l) 'Legend in Row 0 of Each Col
-            doevents
-        NEXT lo
-        FOR lo = 2 TO canvas.separateindicator1.RowCount STEP 2
-            canvas.separateindicator1.Cell(lo , l) = STR$(0)
-            doevents
-        NEXT lo
+        'FOR lo = 1 TO canvas.separateindicator1.RowCount STEP 2
+        '    canvas.separateindicator1.Cell(lo , l) = STR$(l) 'Legend in Row 0 of Each Col
+        '    doevents
+        'NEXT lo
+        'FOR lo = 2 TO canvas.separateindicator1.RowCount STEP 2
+        '    canvas.separateindicator1.Cell(lo , l) = STR$(0)
+        '    doevents
+        'NEXT lo
         
-        defint histoincr
-        for histoincr=0 to 100
-        drawhisto(histoincr)=0
-        doevents
-        next histoincr
+        if i = chartstart then
+            defint histoincr
+            for histoincr=0 to 100
+            drawhisto(histoincr)=0
+            doevents
+            next histoincr
+        end if
         
     END IF
 
@@ -2642,6 +2646,8 @@ indiid++
 
         '------------------------- End Value Chart of ATR Channels  ------------------------------------------------- 
 '-==================================== End Separate indicators area ==============================-
+
+drawidseparatecanvas=drawid
 
 IF l = 1 THEN
     sepindivalmin = VAL(canvas.separateindicator1.Cell(2 , lbar))

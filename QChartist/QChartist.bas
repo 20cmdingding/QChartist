@@ -775,6 +775,9 @@ defint lastpricex
 
 dim useindiCheckedtmp as integer
 
+DIM drawidmaincanvas AS INTEGER
+DIM drawidseparatecanvas AS INTEGER
+
 declare sub enablegetchartbtnsub
 dim getcharttimer as qtimer
 getcharttimer.enabled=0
@@ -2330,7 +2333,8 @@ TYPE qchart2 EXTENDS QCANVAS
         DIM closevalue AS DOUBLE
         DIM closevalue2 AS DOUBLE
 
-        FOR j = 2 TO canvas.separateindicator1.RowCount STEP 2
+        'FOR j = 2 TO canvas.separateindicator1.RowCount STEP 2
+        FOR j = 2 TO drawidseparatecanvas STEP 2
             locx = 0
             FOR i = 0 TO barsdisplayed2-2 + val(generalsettingsfuturebarsedit.text)
                 closevalue = VAL(canvas.separateindicator1.Cell(j , i+1))
@@ -2364,6 +2368,8 @@ TYPE qchart2 EXTENDS QCANVAS
                 'if j=2 then print str$(i+2)+" "+canvas.separateindicator1.Cell(j , i + 2)+" "+str$(sepindicolorhisto(j,i+2))
                 baroffset ++
                 locx = locx + barsize
+                canvas.separateindicator1.Cell(j , i+1)=""
+
                 doevents
             NEXT i
             doevents

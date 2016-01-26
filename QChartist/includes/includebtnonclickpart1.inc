@@ -482,7 +482,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
                 barsstr=str$(bars):cpptmpfuncreturn=varptr$(setbars(varptr(barsstr)))
                 numbars_first=chartbars(displayedfile)-scrollchart.position+numbars-1
                 numbars_last=chartbars(displayedfile)-scrollchart.position
-
+                        
+                
                 FOR i = chartstart TO chartstart + .DATA.ColCount + val(generalsettingsfuturebarsedit.text)  'for each col
                     l ++
 
@@ -537,15 +538,15 @@ SUB btnOnClick(SENDER AS QBUTTON)
                         dim barsbackstr as string
                         dim curtfstr as string
 			dim tfbasestr as string
-                        IF useindi.Checked = 1 THEN
+                        'IF useindi.Checked = 1 THEN
                             DIM lo AS INTEGER
-                            FOR lo = 1 TO .Data_Indi.RowCount STEP 2
-                                .Data_Indi.Cell(lo , l) = STR$(l) 'Legend in Row 0 of Each Col
-                            NEXT lo
-                            FOR lo = 2 TO .Data_Indi.RowCount STEP 2
-                                .Data_Indi.Cell(lo , l) = STR$(0)
-                            NEXT lo
-                        END IF
+                            'FOR lo = 1 TO .Data_Indi.RowCount STEP 2
+                            '    .Data_Indi.Cell(lo , l) = STR$(l) 'Legend in Row 0 of Each Col
+                            'NEXT lo
+                            'FOR lo = 2 TO .Data_Indi.RowCount STEP 2
+                            '    .Data_Indi.Cell(lo , l) = STR$(0)
+                            'NEXT lo
+                        'END IF
 
                         DIM drawid AS INTEGER
                         drawid = 2

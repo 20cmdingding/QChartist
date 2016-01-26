@@ -3462,21 +3462,27 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
 
                 SetBkColor(.Buffer.Handle , .PlotAreaColor)
 
-                FOR i = 2 TO .DATA_INDI.ColCount STEP 2
+                'FOR i = 2 TO .DATA_INDI.ColCount STEP 2
+                FOR i = 2 TO drawidmaincanvas STEP 2
                     .hPen = CreatePen(.Series(i \ 2).LineStyle , .Series(i \ 2).LineWidth , indicolor(i)) '.Series(i\2).Color)
                     .OldPen = SelectObject(.Buffer.Handle , .hPen)
                     FOR j = 1 TO .DATA_INDI.RowCount - 1 + val(generalsettingsfuturebarsedit.text)
 
-                        IF .DATA_INDI.Cell(i - 1 , j) = .Missing OR .DATA_INDI.Cell(i - 1 , j + 1) = .Missing _  'If data missing
-                            THEN GOTO NoPlotXYLn
-                        IF .DATA_INDI.Cell(i , j) = .Missing OR .DATA_INDI.Cell(i , j + 1) = .Missing _
-                            THEN GOTO NoPlotXYLn
+                        'IF .DATA_INDI.Cell(i - 1 , j) = .Missing OR .DATA_INDI.Cell(i - 1 , j + 1) = .Missing _  'If data missing
+                        '    THEN GOTO NoPlotXYLn
+                        'IF .DATA_INDI.Cell(i , j) = .Missing OR .DATA_INDI.Cell(i , j + 1) = .Missing _
+                        '    THEN GOTO NoPlotXYLn
+
                         IF .XAxis.LogScale = FALSE THEN
-                            x1 = [VAL(.DATA_INDI.Cell(i - 1 , j)) - .XAxis.Min] * .XAxis.ScaleFactor
-                            x2 = [VAL(.DATA_INDI.Cell(i - 1 , j + 1)) - .XAxis.Min] * .XAxis.ScaleFactor
+                            'x1 = [VAL(.DATA_INDI.Cell(i - 1 , j)) - .XAxis.Min] * .XAxis.ScaleFactor
+                            'x2 = [VAL(.DATA_INDI.Cell(i - 1 , j + 1)) - .XAxis.Min] * .XAxis.ScaleFactor
+                            x1 = [j - .XAxis.Min] * .XAxis.ScaleFactor
+                            x2 = [j + 1 - .XAxis.Min] * .XAxis.ScaleFactor
                         ELSE
-                            x1 = [.Log10(VAL(.DATA_INDI.Cell(i - 1 , j))) - .XAxis.Min] * .XAxis.ScaleFactor
-                            x2 = [.Log10(VAL(.DATA_INDI.Cell(i - 1 , j + 1))) - .XAxis.Min] * .XAxis.ScaleFactor
+                            'x1 = [.Log10(VAL(.DATA_INDI.Cell(i - 1 , j))) - .XAxis.Min] * .XAxis.ScaleFactor
+                            'x2 = [.Log10(VAL(.DATA_INDI.Cell(i - 1 , j + 1))) - .XAxis.Min] * .XAxis.ScaleFactor
+                            x1 = [.Log10(j) - .XAxis.Min] * .XAxis.ScaleFactor
+                            x2 = [.Log10(j + 1) - .XAxis.Min] * .XAxis.ScaleFactor
                         END IF
 
                         IF .YAxis.LogScale = FALSE THEN
@@ -3495,8 +3501,9 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
                         '--- Use API to draw lines
                         'MoveToEx(.Buffer.handle,x1,y1,0)
                         'LineTo(.Buffer.handle,x2,y2)
-                        .Buffer.Line(x1 , y1 , x2 , y2 , indicolor(i))
-
+                        .Buffer.Line(x1 , y1 , x2 , y2 , indicolor(i))                                                                        
+                        .DATA_INDI.Cell(i , j)=""
+                        
                         NoPlotXYLn :
                         doevents
                     NEXT j
