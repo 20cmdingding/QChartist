@@ -20,9 +20,16 @@ CREATE balance_point_fiboform as qform
         text="240"
     end create
 
+create balance_point_fiboautotf as qcheckbox
+        top=20
+        caption="Autodetect current timeframe"
+	width=200
+	checked=1
+    end create
+
     create balance_point_fibobtnok as qbutton
         left=0
-        top=20
+        top=40
         caption="OK"
         onclick=hidebalance_point_fiboform
     end create

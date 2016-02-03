@@ -3,8 +3,9 @@ indiid++
 if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
-defstr timeframestr=CoronaSwingPositioncurrenttfedit.text
-cpptmpfuncreturn=varptr$(CoronaSwingPosition(varptr(timeframestr)))
+if CoronaSwingPositionautotf.checked=0 then curtfstr=CoronaSwingPositioncurrenttfedit.text
+if CoronaSwingPositionautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(CoronaSwingPosition(varptr(curtfstr)))
 end if
 
 barsback=numbars '<--- can also be something like VAL(CoronaSwingPositionbarsbackedit.text)

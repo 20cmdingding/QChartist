@@ -3,7 +3,8 @@ indiid++
 if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
-curtfstr=balance_point_fibocurtfedit.text
+if balance_point_fiboautotf.checked=0 then curtfstr=balance_point_fibocurtfedit.text
+if balance_point_fiboautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(balance_point_fibo(varptr(curtfstr)))
 end if
 

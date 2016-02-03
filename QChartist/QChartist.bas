@@ -162,6 +162,7 @@ end if
 
 DIM orderbuydb AS QSTRINGGRID
 DIM orderselldb AS QSTRINGGRID
+dim textlabelsdb as qstringgrid
 ' --------------- gshareinvest portfolio -------------------
 ' $Include "gshareinvest\login.bas" ' Useless
 ' ---------------------------------------------------------
@@ -587,6 +588,7 @@ DIM pitchforkoffset AS INTEGER
 dim sq9foffset AS INTEGER
 'DIM orderbuyoffset AS INTEGER
 'DIM orderselloffset AS INTEGER
+dim textlabelsoffset as integer
 
 DIM i AS INTEGER , n AS INTEGER
 DIM useindi AS QCHECKBOX
@@ -682,6 +684,7 @@ ellipseoffset = 0
 pitchforkoffset = 0
 'orderbuyoffset=0
 'orderselloffset=0
+textlabelsoffset=0
 
 
 DIM firstclickgraphprice AS DOUBLE
@@ -7094,7 +7097,8 @@ objecttypecombo.Parent = objectslistfrm
 objecttypecombo.Width = 150
 objecttypecombo.AddItems "Choose an object" , "Trendlines" , "Fibonacci fans" , "Fibonacci retracements" , "Parallel lines" , _
     "Horizontal lines" , "Vertical lines" , "Squares" , "Equilateral triangles" , "Circles" , "Crosses" , "Inverse circles" , "Texts" , "Aimings" , _
-    "Sinusoids" , "Logarithmic curves" , "Exponential curves" , "Ellipses", "Pentagrams", "SQ9Fs","Squares2","Triangles2","Buy orders","Sell orders"
+    "Sinusoids" , "Logarithmic curves" , "Exponential curves" , "Ellipses", "Pentagrams", "SQ9Fs","Squares2","Triangles2","Buy orders","Sell orders",_
+    "Text labels"
 objecttypecombo.ItemIndex = 0
 objecttypecombo.OnChange = objecttypecombochange
 
@@ -7291,7 +7295,15 @@ SUB delallobjdbclick
                 FOR delallj = 1 TO orderselldb.ColCount - 1
                     orderselldb.Cell(delallj , delalli) = ""
                 NEXT delallj
-            NEXT delalli    
+            NEXT delalli  
+            
+        CASE 24 :
+            FOR delalli = 1 TO textlabelsdb.RowCount - 1
+                FOR delallj = 1 TO textlabelsdb.ColCount - 1
+                    textlabelsdb.Cell(delallj , delalli) = ""
+                NEXT delallj
+            NEXT delalli
+            textlabelsoffset=0  
 
     END SELECT
 END SUB
@@ -7449,7 +7461,14 @@ SUB delrowobjdbclick
             orderbuydb.deleterow(orderbuydb.Row)
             
         CASE 23 :
-            orderselldb.deleterow(orderselldb.Row)     
+            orderselldb.deleterow(orderselldb.Row)
+            
+        CASE 24 :
+            textlabelsdb.deleterow(textlabelsdb.Row)
+            textlabelsoffset --
+            IF textlabelsoffset < 0 THEN
+                textlabelsoffset = 0
+            END IF     
 
     END SELECT
 END SUB
@@ -7482,6 +7501,7 @@ SUB hideallobjectsdb
     sq9fdb.visible=0
     orderbuydb.visible=0
     orderselldb.visible=0
+    textlabelsdb.visible=0
 END SUB
 
 
@@ -7578,7 +7598,11 @@ SUB objecttypecombochange
          
         CASE 23 :
             hideallobjectsdb
-            orderselldb.Visible = 1        
+            orderselldb.Visible = 1
+            
+        CASE 24 :
+            hideallobjectsdb
+            textlabelsdb.Visible = 1        
 
     END SELECT
 
@@ -7816,6 +7840,19 @@ orderselldb.Cell(2 , 0) = ""
 orderselldb.Cell(3 , 0) = "Unix time 1"
 orderselldb.Cell(4 , 0) = ""
 orderselldb.RowCount = 100
+
+textlabelsdb.Parent = objectslistfrm
+textlabelsdb.Top = 50
+textlabelsdb.AddOptions(goEditing , goThumbTracking ,)
+textlabelsdb.Width = objectslistfrm.Width - 30
+textlabelsdb.colcount=7
+textlabelsdb.Cell(1 , 0) = "Price 1"
+textlabelsdb.Cell(2 , 0) = "Unix time 1"
+textlabelsdb.Cell(3 , 0) = "Text"
+textlabelsdb.Cell(4 , 0) = "Color"
+textlabelsdb.Cell(5 , 0) = "Label name"
+textlabelsdb.Cell(6 , 0) = "BG Color"
+textlabelsdb.RowCount = 100
 
 SUB objectslistfrmresize
 
@@ -8815,7 +8852,8 @@ SUB dispchartnbchanged()
     Scrollchart.Max = chartbars(displayedfile)
     Scrollchart.Position = chartbars(displayedfile)
     updatemixerlists
-    btnOnClick(drwBox)
+    detect_timeframe
+    btnOnClick(drwBox)    
     say "Display chart number: "+str$(dispchartnb.ItemIndex + 1)
 END SUB
 
@@ -11598,8 +11636,9 @@ SUB importfileyahoo()
     cpptmpfuncreturn=varptr$(filegetlinesarray(varptr(impfdispfcsv)))
     if useindiCheckedtmp=1 then
     useindi.checked=1
+    detect_timeframe
     btnOnClick(drwBox)
-    end if
+    end if    
     dsok.Enabled = 1
 END SUB
 
@@ -11868,8 +11907,9 @@ SUB importfilestooq()
     cpptmpfuncreturn=varptr$(filegetlinesarray(varptr(impfdispfcsv)))
     if useindiCheckedtmp=1 then
     useindi.checked=1
+    detect_timeframe
     btnOnClick(drwBox)
-    end if
+    end if    
     dsok.Enabled = 1
 END SUB
 
@@ -12259,8 +12299,8 @@ SUB importfile()
 
     logreverseedit.Text = logreverseedit.Text + DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb) + CHR$(10)
     writetolog(DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb))    
-    btnOnClick(drwBox)
     detect_timeframe
+    btnOnClick(drwBox)    
 END SUB
 
 
@@ -12759,8 +12799,8 @@ cpptmpfuncreturn=varptr$(filegetlinesarray(varptr(strfilename)))
     'bgimg.visible=0
     logreverseedit.Text = logreverseedit.Text + DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb) + CHR$(10)
     writetolog(DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb))
-    btnOnClick(drwBox)
     detect_timeframe
+    btnOnClick(drwBox)    
 END SUB
 
 SUB importfile1m(filenameauto AS STRING) ' use this sub to open the file in a new display nb (openedfilesnb++)
@@ -15622,6 +15662,12 @@ SUB DetPos
         END IF
         IF textbtn.Flat = 1 THEN
             Graph.buffer.TextOut(firstclickgraphx , firstclickgraphy , drawtxt , textcolor , &hffffff)
+            textlabelsoffset ++
+            textlabelsdb.Cell(1 , textlabelsoffset) = STR$(firstclickgraphprice)
+            textlabelsdb.Cell(2 , textlabelsoffset) = Format$("%12.0f", firstclickgraphtime)
+            textlabelsdb.Cell(3 , textlabelsoffset) = drawtxt
+            textlabelsdb.Cell(4 , textlabelsoffset) = str$(textcolor)
+            textlabelsdb.Cell(6 , textlabelsoffset) = str$(white)
             graphclick = 0
             graphclicktimer.Enabled = 0
         END IF
@@ -19604,6 +19650,18 @@ displayedfilestr=str$(displayedfile):defstr charttfdisplayedfilestr=str$(charttf
 writetf(displayedfile,charttf(displayedfile))
 defstr tftowritestr=str$(charttf(displayedfile)):cpptmpfuncreturn=varptr$(writetfcpp(varptr(tftowritestr)))
 
+if charttf(displayedfile)<>1 and _
+charttf(displayedfile)<>5 and _
+charttf(displayedfile)<>15 and _
+charttf(displayedfile)<>30 and _
+charttf(displayedfile)<>60 and _
+charttf(displayedfile)<>240 and _
+charttf(displayedfile)<>1440 and _
+charttf(displayedfile)<>10080 and _
+charttf(displayedfile)<>43200 then
+print "Warning: uncommon timeframe detected: unable to attribute a timeframe"
+end if
+
 end sub
 
 sub addbars
@@ -20504,8 +20562,9 @@ SUB googlebusytimersub
     IF googlerealtimecheckbox.Checked = 0 THEN
         if useindiCheckedtmp=1 then
         useindi.checked=1
+        detect_timeframe
         btnOnClick(drwBox)
-        end if
+        end if        
         dsok.Enabled = 1
     ELSE
         googlebusytimer.Interval = 1000

@@ -4,7 +4,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=Din_fibo_highperiodedit.text
-curtfstr=Din_fibo_highcurtfedit.text
+if Din_fibo_highautotf.checked=0 then curtfstr=Din_fibo_highcurtfedit.text
+if Din_fibo_highautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(dinfibohighcpp(varptr(curtfstr)))
 end if
 

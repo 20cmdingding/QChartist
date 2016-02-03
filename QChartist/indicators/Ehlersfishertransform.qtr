@@ -4,7 +4,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=Ehlersfishertransformperiodedit.text
-curtfstr=Ehlersfishertransformcurtfedit.text
+if Ehlersfishertransformautotf.checked=0 then curtfstr=Ehlersfishertransformcurtfedit.text
+if Ehlersfishertransformautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(Ehlersfishertransform(varptr(periodstr),varptr(curtfstr)))
 end if
 

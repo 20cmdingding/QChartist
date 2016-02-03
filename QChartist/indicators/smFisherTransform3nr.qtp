@@ -32,9 +32,16 @@ create smFisherTransform3nrcurtflab as qlabel
         text="60"
     end create
 
+create smFisherTransform3nrautotf as qcheckbox
+        top=40
+        caption="Autodetect current timeframe"
+	width=200
+	checked=1
+    end create
+
     create smFisherTransform3nrbtnok as qbutton
         left=0
-        top=40
+        top=60
         caption="OK"
         onclick=hidesmFisherTransform3nrform
     end create

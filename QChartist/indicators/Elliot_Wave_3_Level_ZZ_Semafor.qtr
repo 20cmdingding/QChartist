@@ -1,0 +1,153 @@
+'------------------------- Elliot_Wave_3_Level_ZZ_Semafor -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+if Elliot_Wave_3_Level_ZZ_Semaforautotf.checked=0 then curtfstr=Elliot_Wave_3_Level_ZZ_Semaforcurtfedit.text
+if Elliot_Wave_3_Level_ZZ_Semaforautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(Elliot_Wave_3_Level_ZZ_Semafor(varptr(curtfstr)))
+defint delalli,delallj
+	    FOR delalli = 1 TO 1000 - 1
+                    if textlabelsdb.Cell(5 , delalli) = "elliot wave" then			
+			textlabelsdb.deleterow(delalli)
+			textlabelsoffset--
+			if textlabelsoffset<0 then textlabelsoffset=0
+		    end if
+            NEXT delalli
+textlabelsdb.RowCount = 100
+defstr year0,month0,day0,hours0,minutes0,$mydate0
+end if
+
+barsback=numbars '<--- can also be something like VAL(Elliot_Wave_3_Level_ZZ_Semaforbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=chocolate '<--- replace with your color
+    bufnamestr="FP_BuferUp"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "1"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(chocolate)
+end if
+    drawid=drawid+2
+    
+indicolor(drawid)=chocolate '<--- replace with your color
+    bufnamestr="FP_BuferDn"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "1"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(chocolate)
+end if
+    drawid=drawid+2
+
+indicolor(drawid)=mediumvioletred '<--- replace with your color
+    bufnamestr="NP_BuferUp"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "2"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(mediumvioletred)
+end if
+    drawid=drawid+2
+
+indicolor(drawid)=mediumvioletred '<--- replace with your color
+    bufnamestr="NP_BuferDn"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "2"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(mediumvioletred)
+end if
+    drawid=drawid+2
+
+indicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="HP_BuferUp"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "3"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(black)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(yellow)
+end if
+    drawid=drawid+2
+
+indicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="HP_BuferDn"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "3"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(black)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(yellow)
+end if
+    drawid=drawid+2
+
+end if
+
+end if
+'------------------------- End Elliot_Wave_3_Level_ZZ_Semafor -------------------------------------------------

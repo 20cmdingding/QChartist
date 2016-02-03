@@ -1270,6 +1270,19 @@ buffers with index<0)
 - code optimization : now indicators are loaded and drawn faster on the chart.
 - build 66
 
+2016-01-31:
+- added logarithmic scale for the polar chart
+
+2016-02-02:
+- added indicator Elliot_Wave_3_Level_ZZ_Semafor
+- added persistent text labels in objects list
+- optimization of the timeframe autodetection
+
+2016-02-03:
+- optimization of the timeframe autodetection and indicators
+- chm documentation enriched
+- build 67
+
 -------------------------------------------------------------------------------------
 Todo list:
 

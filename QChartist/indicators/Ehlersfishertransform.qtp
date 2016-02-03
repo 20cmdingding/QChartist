@@ -32,9 +32,16 @@ CREATE Ehlersfishertransformform as qform
         text="60"
     end create
 
+create Ehlersfishertransformautotf as qcheckbox
+        top=40
+        caption="Autodetect current timeframe"
+	width=200
+	checked=1
+    end create
+
     create Ehlersfishertransformbtnok as qbutton
         left=0
-        top=40
+        top=60
         caption="OK"
         onclick=hideEhlersfishertransformform
     end create

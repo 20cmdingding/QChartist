@@ -4,7 +4,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=spectrometerperiodedit.text
-curtfstr=spectrometercurtfedit.text
+if spectrometerautotf.checked=0 then curtfstr=spectrometercurtfedit.text
+if spectrometerautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(spectrometer(varptr(periodstr),varptr(curtfstr)))
 end if
 

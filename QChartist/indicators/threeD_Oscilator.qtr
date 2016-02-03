@@ -4,7 +4,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=threeD_Oscilatorperiodedit.text
-curtfstr=threeD_Oscilatorcurtfedit.text
+if threeD_Oscilatorautotf.checked=0 then curtfstr=threeD_Oscilatorcurtfedit.text
+if threeD_Oscilatorautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(threeD_Oscilator(varptr(periodstr),varptr(curtfstr)))
 end if
 

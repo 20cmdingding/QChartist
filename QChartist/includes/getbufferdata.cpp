@@ -118,5 +118,11 @@ if (strcmp(buffernamee,"SpanB_Buffer")==0) { sprintf(convbuf,"%f",SpanB_Buffer[a
 if (strcmp(buffernamee,"Chinkou_Buffer")==0) { sprintf(convbuf,"%f",Chinkou_Buffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"SpanA2_Buffer")==0) { sprintf(convbuf,"%f",SpanA2_Buffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"SpanB2_Buffer")==0) { sprintf(convbuf,"%f",SpanB2_Buffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"FP_BuferUp")==0) { sprintf(convbuf,"%f",FP_BuferUp[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"FP_BuferDn")==0) { sprintf(convbuf,"%f",FP_BuferDn[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"NP_BuferUp")==0) { sprintf(convbuf,"%f",NP_BuferUp[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"NP_BuferDn")==0) { sprintf(convbuf,"%f",NP_BuferDn[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"HP_BuferUp")==0) { sprintf(convbuf,"%f",HP_BuferUp[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"HP_BuferDn")==0) { sprintf(convbuf,"%f",HP_BuferDn[atoi(offsett)]);return convbuf; }
 return 0;
 }

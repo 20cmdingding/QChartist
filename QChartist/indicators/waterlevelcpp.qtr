@@ -4,7 +4,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=waterlevelcppperiodedit.text
-curtfstr=waterlevelcppcurtfedit.text
+if waterlevelcppautotf.checked=0 then curtfstr=waterlevelcppcurtfedit.text
+if waterlevelcppautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(initwaterlevelcpp(varptr(curtfstr)))
 cpptmpfuncreturn=varptr$(waterlevelcpp(varptr(periodstr),varptr(curtfstr)))
 end if

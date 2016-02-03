@@ -868,6 +868,30 @@ IF scrollmode = 0 THEN
 
         END IF
         
+        IF (VAL(textlabelsdb.Cell(2 , drawi)) >= graphserialdatebegin AND VAL(textlabelsdb.Cell(2 , drawi)) <= graphserialdateend+charttf(displayedfile)*60) AND _            
+            (VAL(textlabelsdb.Cell(1 , drawi)) >= pricechartpos(0,0) AND VAL(textlabelsdb.Cell(1 , drawi)) <= pricechartpos(1,0)) THEN
+
+            graph.bufcntreset
+            graph.savebuffertmp
+                       
+            for i=0 to 1000
+            if VAL(textlabelsdb.Cell(2 , drawi))>=timechartpos(i,0) and VAL(textlabelsdb.Cell(2 , drawi))<=timechartpos(i+1,0)+charttf(displayedfile)*60 then
+            mytimeratio=(VAL(textlabelsdb.Cell(2 , drawi))-timechartpos(i,0))/(timechartpos(i+1,0)-timechartpos(i,0))
+            defint drawtextlabelsx1=timechartpos(i,1)+round((timechartpos(i+1,1)-timechartpos(i,1))*mytimeratio)
+            exit for
+            end if
+            next i            
+            
+            mypriceratio=(VAL(textlabelsdb.Cell(1 , drawi))-pricechartpos(0,0))/(pricechartpos(1,0)-pricechartpos(0,0))
+            defint drawtextlabelsy1=pricechartpos(0,1)-round((pricechartpos(0,1)-pricechartpos(1,1))*mypriceratio)            
+
+            Graph.buffer.TextOut(drawtextlabelsx1 , drawtextlabelsy1 , textlabelsdb.Cell(3 , drawi) , val(textlabelsdb.Cell(4 , drawi)) , val(textlabelsdb.Cell(6 , drawi)))
+
+            graph.savebuffertmp
+            graph.paintchart
+
+        END IF
+        
         
         doevents
     NEXT drawi

@@ -4,7 +4,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=MA_Chanels_FiboEnv_Midperiodedit.text
-curtfstr=MA_Chanels_FiboEnv_Midcurtfedit.text
+if MA_Chanels_FiboEnv_Midautotf.checked=0 then curtfstr=MA_Chanels_FiboEnv_Midcurtfedit.text
+if MA_Chanels_FiboEnv_Midautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(MA_Chanels_FiboEnv_Mid(varptr(periodstr),varptr(curtfstr)))
 end if
 

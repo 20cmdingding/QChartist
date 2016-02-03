@@ -32,9 +32,16 @@ create threeD_Oscilatorcurtflab as qlabel
         text="60"
     end create
 
+create threeD_Oscilatorautotf as qcheckbox
+        top=40
+        caption="Autodetect current timeframe"
+	width=200
+	checked=1
+    end create
+
     create threeD_Oscilatorbtnok as qbutton
         left=0
-        top=20
+        top=60
         caption="OK"
         onclick=hidethreeD_Oscilatorform
     end create

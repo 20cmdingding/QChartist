@@ -32,9 +32,16 @@ create Din_fibo_highcurtflab as qlabel
         text="60"
     end create
 
+create Din_fibo_highautotf as qcheckbox
+        top=40
+        caption="Autodetect current timeframe"
+	width=200
+	checked=1
+    end create
+
     create Din_fibo_highbtnok as qbutton
         left=0
-        top=40
+        top=60
         caption="OK"
         onclick=hideDin_fibo_highform
     end create

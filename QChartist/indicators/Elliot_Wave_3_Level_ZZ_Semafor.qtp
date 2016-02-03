@@ -1,0 +1,41 @@
+declare sub hideElliot_Wave_3_Level_ZZ_Semaforform
+
+CREATE Elliot_Wave_3_Level_ZZ_Semaforform as qform
+
+    Center
+    Caption = "Settings for: Elliot_Wave_3_Level_ZZ_Semafor"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Elliot_Wave_3_Level_ZZ_Semaforcurtflab as qlabel
+        left=0
+        top=0
+        caption="Current timeframe:"
+    end create
+
+    create Elliot_Wave_3_Level_ZZ_Semaforcurtfedit as qedit
+        left=Elliot_Wave_3_Level_ZZ_Semaforcurtflab.width+100
+        top=0
+        text="1440"
+    end create
+
+    create Elliot_Wave_3_Level_ZZ_Semaforautotf as qcheckbox
+        top=20
+        caption="Autodetect current timeframe"
+	width=200
+	checked=1
+    end create
+
+    create Elliot_Wave_3_Level_ZZ_Semaforbtnok as qbutton
+        left=0
+        top=40
+        caption="OK"
+        onclick=hideElliot_Wave_3_Level_ZZ_Semaforform
+    end create
+
+END CREATE
+
+sub hideElliot_Wave_3_Level_ZZ_Semaforform
+    Elliot_Wave_3_Level_ZZ_Semaforform.visible=0
+end sub

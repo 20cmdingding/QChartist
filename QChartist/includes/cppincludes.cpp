@@ -141,4 +141,8 @@
 // ''RQEXPORT function Ichimoku(periodstr)
 #include "indicators\Ichimoku.cpp"
 
+
+// ''RQEXPORT function Elliot_Wave_3_Level_ZZ_Semafor(periodstr)
+#include "indicators\Elliot_Wave_3_Level_ZZ_Semafor.cpp"
+
 #include "includes\getbufferdata.cpp"

@@ -624,7 +624,8 @@ indiid++
 if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
-curtfstr=balance_point_fibocurtfedit.text
+if balance_point_fiboautotf.checked=0 then curtfstr=balance_point_fibocurtfedit.text
+if balance_point_fiboautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(balance_point_fibo(varptr(curtfstr)))
 end if
 
@@ -913,7 +914,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=Din_fibo_highperiodedit.text
-curtfstr=Din_fibo_highcurtfedit.text
+if Din_fibo_highautotf.checked=0 then curtfstr=Din_fibo_highcurtfedit.text
+if Din_fibo_highautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(dinfibohighcpp(varptr(curtfstr)))
 end if
 
@@ -932,6 +934,159 @@ end if
 
 end if
 '------------------------- End Din fibo high cpp -------------------------------------------------
+'------------------------- Elliot_Wave_3_Level_ZZ_Semafor -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+if Elliot_Wave_3_Level_ZZ_Semaforautotf.checked=0 then curtfstr=Elliot_Wave_3_Level_ZZ_Semaforcurtfedit.text
+if Elliot_Wave_3_Level_ZZ_Semaforautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(Elliot_Wave_3_Level_ZZ_Semafor(varptr(curtfstr)))
+defint delalli,delallj
+	    FOR delalli = 1 TO 1000 - 1
+                    if textlabelsdb.Cell(5 , delalli) = "elliot wave" then			
+			textlabelsdb.deleterow(delalli)
+			textlabelsoffset--
+			if textlabelsoffset<0 then textlabelsoffset=0
+		    end if
+            NEXT delalli
+textlabelsdb.RowCount = 100
+defstr year0,month0,day0,hours0,minutes0,$mydate0
+end if
+
+barsback=numbars '<--- can also be something like VAL(Elliot_Wave_3_Level_ZZ_Semaforbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=chocolate '<--- replace with your color
+    bufnamestr="FP_BuferUp"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "1"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(chocolate)
+end if
+    drawid=drawid+2
+    
+indicolor(drawid)=chocolate '<--- replace with your color
+    bufnamestr="FP_BuferDn"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "1"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(chocolate)
+end if
+    drawid=drawid+2
+
+indicolor(drawid)=mediumvioletred '<--- replace with your color
+    bufnamestr="NP_BuferUp"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "2"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(mediumvioletred)
+end if
+    drawid=drawid+2
+
+indicolor(drawid)=mediumvioletred '<--- replace with your color
+    bufnamestr="NP_BuferDn"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "2"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(mediumvioletred)
+end if
+    drawid=drawid+2
+
+indicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="HP_BuferUp"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "3"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(black)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(yellow)
+end if
+    drawid=drawid+2
+
+indicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="HP_BuferDn"
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+textlabelsoffset++
+textlabelsdb.Cell(1 , textlabelsoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+textlabelsdb.Cell(2 , textlabelsoffset) = cpptmpfuncreturn
+textlabelsdb.Cell(3 , textlabelsoffset) = "3"
+textlabelsdb.Cell(4 , textlabelsoffset) = str$(black)
+textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
+textlabelsdb.Cell(6 , textlabelsoffset) = str$(yellow)
+end if
+    drawid=drawid+2
+
+end if
+
+end if
+'------------------------- End Elliot_Wave_3_Level_ZZ_Semafor -------------------------------------------------
 '------------------------- Enveloppes -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
@@ -1105,7 +1260,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=MA_Chanels_FiboEnv_Midperiodedit.text
-curtfstr=MA_Chanels_FiboEnv_Midcurtfedit.text
+if MA_Chanels_FiboEnv_Midautotf.checked=0 then curtfstr=MA_Chanels_FiboEnv_Midcurtfedit.text
+if MA_Chanels_FiboEnv_Midautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(MA_Chanels_FiboEnv_Mid(varptr(periodstr),varptr(curtfstr)))
 end if
 
@@ -1642,7 +1798,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=waterlevelcppperiodedit.text
-curtfstr=waterlevelcppcurtfedit.text
+if waterlevelcppautotf.checked=0 then curtfstr=waterlevelcppcurtfedit.text
+if waterlevelcppautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(initwaterlevelcpp(varptr(curtfstr)))
 cpptmpfuncreturn=varptr$(waterlevelcpp(varptr(periodstr),varptr(curtfstr)))
 end if
@@ -1974,8 +2131,9 @@ indiid++
 if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
-defstr timeframestr=CoronaSwingPositioncurrenttfedit.text
-cpptmpfuncreturn=varptr$(CoronaSwingPosition(varptr(timeframestr)))
+if CoronaSwingPositionautotf.checked=0 then curtfstr=CoronaSwingPositioncurrenttfedit.text
+if CoronaSwingPositionautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(CoronaSwingPosition(varptr(curtfstr)))
 end if
 
 barsback=numbars '<--- can also be something like VAL(CoronaSwingPositionbarsbackedit.text)
@@ -2013,7 +2171,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=Ehlersfishertransformperiodedit.text
-curtfstr=Ehlersfishertransformcurtfedit.text
+if Ehlersfishertransformautotf.checked=0 then curtfstr=Ehlersfishertransformcurtfedit.text
+if Ehlersfishertransformautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(Ehlersfishertransform(varptr(periodstr),varptr(curtfstr)))
 end if
 
@@ -2393,7 +2552,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=smFisherTransform3nrperiodedit.text
-curtfstr=smFisherTransform3nrcurtfedit.text
+if smFisherTransform3nrautotf.checked=0 then curtfstr=smFisherTransform3nrcurtfedit.text
+if smFisherTransform3nrautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(smFisherTransform3nr(varptr(periodstr),varptr(curtfstr)))
 end if
 
@@ -2414,7 +2574,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=spectrometerperiodedit.text
-curtfstr=spectrometercurtfedit.text
+if spectrometerautotf.checked=0 then curtfstr=spectrometercurtfedit.text
+if spectrometerautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(spectrometer(varptr(periodstr),varptr(curtfstr)))
 end if
 
@@ -2534,7 +2695,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=threeD_Oscilatorperiodedit.text
-curtfstr=threeD_Oscilatorcurtfedit.text
+if threeD_Oscilatorautotf.checked=0 then curtfstr=threeD_Oscilatorcurtfedit.text
+if threeD_Oscilatorautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(threeD_Oscilator(varptr(periodstr),varptr(curtfstr)))
 end if
 
@@ -3509,6 +3671,30 @@ IF scrollmode = 0 THEN
             defint draworderselly1=pricechartpos(0,1)-round((pricechartpos(0,1)-pricechartpos(1,1))*mypriceratio)            
 
             graph.drawp(35 , drawordersellx1 , draworderselly1 , 0 , 0 , 0 , 0)
+
+            graph.savebuffertmp
+            graph.paintchart
+
+        END IF
+        
+        IF (VAL(textlabelsdb.Cell(2 , drawi)) >= graphserialdatebegin AND VAL(textlabelsdb.Cell(2 , drawi)) <= graphserialdateend+charttf(displayedfile)*60) AND _            
+            (VAL(textlabelsdb.Cell(1 , drawi)) >= pricechartpos(0,0) AND VAL(textlabelsdb.Cell(1 , drawi)) <= pricechartpos(1,0)) THEN
+
+            graph.bufcntreset
+            graph.savebuffertmp
+                       
+            for i=0 to 1000
+            if VAL(textlabelsdb.Cell(2 , drawi))>=timechartpos(i,0) and VAL(textlabelsdb.Cell(2 , drawi))<=timechartpos(i+1,0)+charttf(displayedfile)*60 then
+            mytimeratio=(VAL(textlabelsdb.Cell(2 , drawi))-timechartpos(i,0))/(timechartpos(i+1,0)-timechartpos(i,0))
+            defint drawtextlabelsx1=timechartpos(i,1)+round((timechartpos(i+1,1)-timechartpos(i,1))*mytimeratio)
+            exit for
+            end if
+            next i            
+            
+            mypriceratio=(VAL(textlabelsdb.Cell(1 , drawi))-pricechartpos(0,0))/(pricechartpos(1,0)-pricechartpos(0,0))
+            defint drawtextlabelsy1=pricechartpos(0,1)-round((pricechartpos(0,1)-pricechartpos(1,1))*mypriceratio)            
+
+            Graph.buffer.TextOut(drawtextlabelsx1 , drawtextlabelsy1 , textlabelsdb.Cell(3 , drawi) , val(textlabelsdb.Cell(4 , drawi)) , val(textlabelsdb.Cell(6 , drawi)))
 
             graph.savebuffertmp
             graph.paintchart

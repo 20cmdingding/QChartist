@@ -10,6 +10,7 @@
 #include <algorithm>    // std::copy
 #include <boost/array.hpp>
 #include <boost/multi_array.hpp>
+#include <boost/lexical_cast.hpp>
 //#include <cassert>
 #include <iterator>
 #define _POSIX_SOURCE

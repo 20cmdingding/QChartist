@@ -4,7 +4,8 @@ if indicatorslistsel.item(indiid)="x" then
 
 if lbar=1 then
 periodstr=smFisherTransform3nrperiodedit.text
-curtfstr=smFisherTransform3nrcurtfedit.text
+if smFisherTransform3nrautotf.checked=0 then curtfstr=smFisherTransform3nrcurtfedit.text
+if smFisherTransform3nrautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(smFisherTransform3nr(varptr(periodstr),varptr(curtfstr)))
 end if
 

@@ -2442,7 +2442,11 @@ end if
                         IF (angle >= 1.57 AND angle < 3.14) THEN
                             'close1 = VAL(.Data.Cell(i-.Data.ColCount/4-1,4))
                             'ratio=(close1-graphvlow)/graphpricespace
-                            close1 = .YAxis.Ori - [VAL(.DATA.Cell(i - .DATA.ColCount / 4 - 1 , 4)) - .YAxis.Min] * .YAxis.ScaleFactor + 1
+                            IF .YAxis.LogScale = FALSE THEN
+			    close1 = .YAxis.Ori - [VAL(.DATA.Cell(i - .DATA.ColCount / 4 - 1 , 4)) - .YAxis.Min] * .YAxis.ScaleFactor + 1
+			    ELSE
+			    close1 = .YAxis.Ori - [.Log10(VAL(.DATA.Cell(i - .DATA.ColCount / 4 - 1 , 4))) - .Log10(graphvlow)] * (.YAxis.LEN / (.Log10(graphvhigh) - .Log10(graphvlow)) ) + 1
+			    END IF
                             ratio = (graphvspace - (close1 - graphvbegin)) / graphvspace
                             cs = c * ratio * COS(angle)
                             sn = c * ratio * SIN(angle)
@@ -2465,7 +2469,11 @@ end if
                         IF (angle >= 1.57 AND angle < 3.14) THEN
                             'close1 = VAL(.Data.Cell(i-.Data.ColCount/4-1,4))
                             'ratio=(close1-graphvlow)/graphpricespace
+                            IF .YAxis.LogScale = FALSE THEN
                             close1 = .YAxis.Ori - [VAL(.DATA.Cell(i - .DATA.ColCount / 4 - 1 , 4)) - .YAxis.Min] * .YAxis.ScaleFactor + 1
+			    ELSE
+                            close1 = .YAxis.Ori - [.Log10(VAL(.DATA.Cell(i - .DATA.ColCount / 4 - 1 , 4))) - .Log10(graphvlow)] * (.YAxis.LEN / (.Log10(graphvhigh) - .Log10(graphvlow)) ) + 1
+			    END IF
                             ratio = (graphvspace - (close1 - graphvbegin)) / graphvspace
                             cs = c * ratio * COS(angle)
                             sn = c * ratio * SIN(angle)
@@ -2486,7 +2494,11 @@ end if
                         IF (angle >= 0 AND angle < 1.57) THEN
                             'close1 = VAL(.Data.Cell(i-.Data.ColCount/4-1,4))
                             'ratio=(close1-graphvlow)/graphpricespace
+                            IF .YAxis.LogScale = FALSE THEN
                             close1 = .YAxis.Ori - [VAL(.DATA.Cell(i - .DATA.ColCount / 4 - 1 , 4)) - .YAxis.Min] * .YAxis.ScaleFactor + 1
+			    ELSE
+                            close1 = .YAxis.Ori - [.Log10(VAL(.DATA.Cell(i - .DATA.ColCount / 4 - 1 , 4))) - .Log10(graphvlow)] * (.YAxis.LEN / (.Log10(graphvhigh) - .Log10(graphvlow)) ) + 1
+			    END IF
                             ratio = (graphvspace - (close1 - graphvbegin)) / graphvspace
                             cs = c * ratio * COS(angle)
                             sn = c * ratio * SIN(angle)
@@ -2507,7 +2519,11 @@ end if
                         IF (angle >= 0 AND angle < 1.57) THEN
                             'close1 = VAL(.Data.Cell(i+.Data.ColCount*0.75-1,4))
                             'ratio=(close1-graphvlow)/graphpricespace
+                            IF .YAxis.LogScale = FALSE THEN
                             close1 = .YAxis.Ori - [VAL(.DATA.Cell(i + .DATA.ColCount * 0.75 - 1 , 4)) - .YAxis.Min] * .YAxis.ScaleFactor + 1
+			    ELSE
+                            close1 = .YAxis.Ori - [.Log10(VAL(.DATA.Cell(i + .DATA.ColCount * 0.75 - 1 , 4))) - .Log10(graphvlow)] * (.YAxis.LEN / (.Log10(graphvhigh) - .Log10(graphvlow)) ) + 1
+			    END IF
                             ratio = (graphvspace - (close1 - graphvbegin)) / graphvspace
                             cs = c * ratio * COS(angle)
                             sn = c * ratio * SIN(angle)
