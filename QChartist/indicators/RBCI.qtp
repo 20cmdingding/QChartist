@@ -1,0 +1,34 @@
+declare sub hideRBCIform
+
+CREATE RBCIform as qform
+
+    Center
+    Caption = "Settings for: RBCI"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create RBCIperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create RBCIperiodedit as qedit
+        left=RBCIperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create RBCIbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideRBCIform
+    end create
+
+END CREATE
+
+sub hideRBCIform
+    RBCIform.visible=0
+end sub

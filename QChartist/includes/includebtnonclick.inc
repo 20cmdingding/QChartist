@@ -2515,6 +2515,26 @@ indiid++
                     end if                                  
 
         '------------------------- End Close Price -------------------------------------------------
+'------------------------- RBCI -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=RBCIperiodedit.text
+cpptmpfuncreturn=varptr$(RBCI(varptr(periodstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(RBCIbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="RBCIbuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End RBCI -------------------------------------------------
 '------------------------- Relative Strength Index -------------------------------------------------
 indiid++
          
@@ -2715,6 +2735,27 @@ end if
 
 end if
 '------------------------- End threeD Oscilator -------------------------------------------------
+'------------------------- TSCD -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+if TSCDautotf.checked=0 then curtfstr=TSCDcurtfedit.text
+if TSCDautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(TSCD(varptr(curtfstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(TSCDbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=red '<--- replace with your color
+    bufnamestr="TSCDbuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End TSCD -------------------------------------------------
 '------------------------- Value Chart -------------------------------------------------
 indiid++
          

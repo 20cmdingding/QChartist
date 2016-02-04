@@ -145,4 +145,12 @@
 // ''RQEXPORT function Elliot_Wave_3_Level_ZZ_Semafor(periodstr)
 #include "indicators\Elliot_Wave_3_Level_ZZ_Semafor.cpp"
 
+
+// ''RQEXPORT function RBCI(periodstr)
+#include "indicators\RBCI.cpp"
+
+
+// ''RQEXPORT function TSCD(periodstr)
+#include "indicators\TSCD.cpp"
+
 #include "includes\getbufferdata.cpp"

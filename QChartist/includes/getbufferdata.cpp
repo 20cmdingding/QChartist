@@ -124,5 +124,7 @@ if (strcmp(buffernamee,"NP_BuferUp")==0) { sprintf(convbuf,"%f",NP_BuferUp[atoi(
 if (strcmp(buffernamee,"NP_BuferDn")==0) { sprintf(convbuf,"%f",NP_BuferDn[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"HP_BuferUp")==0) { sprintf(convbuf,"%f",HP_BuferUp[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"HP_BuferDn")==0) { sprintf(convbuf,"%f",HP_BuferDn[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"RBCIbuffer")==0) { sprintf(convbuf,"%f",RBCIbuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"TSCDbuffer")==0) { sprintf(convbuf,"%f",TSCDbuffer[atoi(offsett)]);return convbuf; }
 return 0;
 }

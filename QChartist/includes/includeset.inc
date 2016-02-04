@@ -103,20 +103,24 @@ planets_scaleform.visible=1
 case 50
 pricecloseform.visible=1
 case 51
-rsiform.visible=1
+RBCIform.visible=1
 case 52
-smFisherTransform3nrform.visible=1
+rsiform.visible=1
 case 53
-spectrometerform.visible=1
+smFisherTransform3nrform.visible=1
 case 54
-stepftvcprdlform.visible=1
+spectrometerform.visible=1
 case 55
-steprsiform.visible=1
+stepftvcprdlform.visible=1
 case 56
-threeD_Oscilatorform.visible=1
+steprsiform.visible=1
 case 57
-valuechartform.visible=1
+threeD_Oscilatorform.visible=1
 case 58
+TSCDform.visible=1
+case 59
+valuechartform.visible=1
+case 60
 vcatrcform.visible=1
 end select
 end sub

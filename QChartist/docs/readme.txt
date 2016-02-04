@@ -1283,6 +1283,13 @@ buffers with index<0)
 - chm documentation enriched
 - build 67
 
+2016-02-04:
+- new indicator RBCI
+- new C++ function imaonarray
+- new indicator TSCD
+- chm documentation enriched
+- build 68
+
 -------------------------------------------------------------------------------------
 Todo list:
 

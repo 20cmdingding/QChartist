@@ -65,6 +65,9 @@ typedef boost::array<int,5000> arrayofints;
 typedef boost::array<long,5000> arrayoflongs;
 boost::multi_array<char*, 2> static grid(boost::extents[281][10000]);
 boost::multi_array<char*, 2> static gridtmp(boost::extents[281][10000]);
+
+double imaonarray(arrayofdoubles&,int,int,int,int,int);
+
 static arrayofchars datea;
 static arrayofchars date1;
 static arrayofchars date5;
@@ -2284,4 +2287,39 @@ void DoEvents()
             :: DispatchMessage(&msg);
         }
     }
+}
+
+double imaonarray(arrayofdoubles& array,int total,int period,int ma_shift,int ma_method,int shift)
+{
+
+switch(ma_method)
+     {
+      case 0 : 
+      // SMA
+      double sum;
+    int per;
+    sum=0;
+    int i;int p;
+    p=total;
+    if (p<period) p=period;
+    per=period;
+
+    for (i=1;i<=per-1;i++) {
+        sum=sum+array[p];
+        p--;
+                           }
+    while (p>=0) {
+        sum=sum+array[p];
+        if (p==shift+ma_shift) { return sum/per; break; }
+        sum=sum-array[p+per-1];
+        p--;
+                 }
+      break;
+      case 1 : /*ema not implemented yet*/ break;
+      case 2 : /*smma not implemented yet*/ break;
+      case 3 : /*lwma not implemented yet*/ break;
+     }
+
+    
+return 0;
 }
