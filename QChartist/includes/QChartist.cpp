@@ -163,7 +163,7 @@ static int rowgridoffset=0;
 static int openedfilesnb=0;
 static int bars;  
 static arrayofchars importedfile; 
-static int cntbarsedit=1000;  
+static int cntbarsedit=2000;  
 const int PERIOD_M1=1;
 const int PERIOD_M5=5;
 const int PERIOD_M15=15;
@@ -644,6 +644,14 @@ char* setbars (char* barsint)
 static char barsintt[1000];
 strncpy(barsintt, barsint, 1000);
 bars=atoi(barsintt);
+return 0;
+}
+
+char* setcntbarsedit (char* barsint)
+{  
+static char barsintt[1000];
+strncpy(barsintt, barsint, 1000);
+cntbarsedit=atoi(barsintt);
 return 0;
 }
 

@@ -722,6 +722,7 @@ dim showdescindopened as integer
 showdescindopened=0
 dim hidedescindmsgbox as integer
 dim cntbarseditstr as string
+defstr setcntbarseditstr
 dim barsstr as string
 dim tfmultstr as string
 dim lastpointofsymetryx as integer
@@ -8551,7 +8552,11 @@ IF ini.exist THEN
         mtpathexitedit.Text = ini.get("csvpathexit" , "")
     END IF
     IF ini.get("barsdisplayed" , "") <> "" THEN barsdisplayed.Text = ini.get("barsdisplayed" , "")
-    IF ini.get("countedbars" , "") <> "" THEN cntbarsedit.Text = ini.get("countedbars" , "")
+    IF ini.get("countedbars" , "") <> "" THEN 
+    cntbarsedit.Text = ini.get("countedbars" , "")
+    if val(cntbarsedit.Text)>1000 then cntbarsedit.Text="1000"
+    setcntbarseditstr=cntbarsedit.Text:cpptmpfuncreturn=varptr$(setcntbarsedit(varptr(setcntbarseditstr)))
+    end if
     IF VAL(ini.get("automation" , "")) > 0 THEN beginauto
     IF VAL(ini.get("exitsignal" , "")) > 0 THEN beginexitsignal
 END IF
@@ -11016,6 +11021,7 @@ SUB btndelindi_click()
     indicatorslistsel.Item(indicatorslist.ItemIndex) = ""
     indicatorslist.Item(indicatorslist.ItemIndex) = MID$(indicatorslist.Item(indicatorslist.ItemIndex) , 0 , LEN(indicatorslist.Item(indicatorslist.ItemIndex)) - 2)
     indicatorslist.Item(indicatorslist.ItemIndex) = indicatorslist.Item(indicatorslist.ItemIndex) + " )"
+    if left$(indicatorslist.Item(indicatorslist.ItemIndex),12)="stepftvcprdl" then cntbarsedit.text="1000"
 END SUB
 
 SUB indilist_dblclick
@@ -17198,6 +17204,7 @@ END SUB
 SUB cntbarseditchange
     ini.Section = "Settings"
     ini.Write("countedbars" , cntbarsedit.Text)
+    setcntbarseditstr=cntbarsedit.Text:cpptmpfuncreturn=varptr$(setcntbarsedit(varptr(setcntbarseditstr)))
 END SUB
 
 SUB beginauto

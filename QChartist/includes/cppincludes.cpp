@@ -14,6 +14,7 @@
 // ''RQEXPORT function setchartbarstmp (chartbarstmpdisplayedfilestr,chartbarstmpoffsetstr)
 // ''RQEXPORT function setcharttf (charttfdisplayedfilestr,charttfoffsetstr)
 // ''RQEXPORT function setbars (barsstr)
+// ''RQEXPORT function setcntbarsedit (barsstr)
 // ''RQEXPORT function getbufferdata (buffernamestr,offsetstr)
 // ''RQEXPORT function setimportedfile (importedfilestr,importedfileoffsetstr)
 // ''RQEXPORT function shiftgridsonebackward()

@@ -128,7 +128,26 @@ ObjectsDeleteAll(0,OBJ_ARROW);ObjectDelete(period+"m "+LR.length+" TL");
 
 char* stepftvcprdl (char* period2)
 {
-    
+if (chartbars[displayedfile]<2000) {
+sprintf(debugmsg,"%s","Not enough bars to load the indicator");
+MessageBox( NULL, debugmsg,"Debug",MB_OK);
+for (int iii=0;iii<=chartbars[displayedfile];iii++) {
+Line1Buffer[iii]=0;
+Line2Buffer[iii]=0;
+Line3Buffer[iii]=0;
+}
+return (0);
+}
+if (cntbarsedit<2000) {
+sprintf(debugmsg,"%s","Please set counted bars to 2000 for stepftvcprdl. However, other indicators may not work with this value, that's why you should use stepftvcprdl alone. Don't forget to put counted bars back to 1000 after using this indicator!");
+MessageBox( NULL, debugmsg,"Debug",MB_OK);
+for (int iii=0;iii<=chartbars[displayedfile];iii++) {
+Line1Buffer[iii]=0;
+Line2Buffer[iii]=0;
+Line3Buffer[iii]=0;
+}
+return (0);
+}
 int PeriodRSI=14;
 int StepSizeFast=5;
 int StepSizeSlow=15;
@@ -161,7 +180,7 @@ int bbdev = 2;
    //int counted_bars=IndicatorCounted();
    //if(counted_bars<0) return(-1);
    //if(counted_bars>0) counted_bars--;
-   limit=1000; //Bars-counted_bars;
+   limit=2000; //chartbars[displayedfile]; //2000; //Bars-counted_bars;
 // Past Regression Deviated Log   
 //---- main loop
 int i;
@@ -250,7 +269,7 @@ low3Buffer[i]=meanBuffer[i]-(stdchannel3*stddev);//max.dev;
       */
 //----
    //i=Bars-p1-1;
-   i=500;
+   i=2000; //chartbars[displayedfile]-p1-1; //2000;
    //if(counted_bars>=p1) i=Bars-counted_bars-1;
    while(i>=0)
       {
@@ -318,7 +337,7 @@ low3Buffer[i]=meanBuffer[i]-(stdchannel3*stddev);//max.dev;
        
 int shift,ftrend,strend;
    double fmin0,fmax0,fmin1,fmax1,smin0,smax0,smin1,smax1,RSI0;
-limit=500;
+limit=2000; //chartbars[displayedfile]-1; //2000;
    
    for(shift=limit;shift>=0;shift--)
    {    

@@ -1290,6 +1290,11 @@ buffers with index<0)
 - chm documentation enriched
 - build 68
 
+2016-02-06:
+- stepftvcprdl indicator debugged
+- new cpp function setcntbarsedit
+- build 69
+
 -------------------------------------------------------------------------------------
 Todo list:
 
