@@ -1,0 +1,29 @@
+'------------------------- realMACD -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+if realMACDautotf.checked=0 then curtfstr=realMACDcurtfedit.text
+if realMACDautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(realMACD(varptr(curtfstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(realMACDbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="HistogramBuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=red '<--- replace with your color
+    bufnamestr="SignalLineBuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MACDLineBuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End realMACD -------------------------------------------------

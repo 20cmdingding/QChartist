@@ -154,4 +154,12 @@
 // ''RQEXPORT function TSCD(periodstr)
 #include "indicators\TSCD.cpp"
 
+
+// ''RQEXPORT function TMA_CG(periodstr)
+#include "indicators\TMA_CG.cpp"
+
+
+// ''RQEXPORT function realMACD(periodstr)
+#include "indicators\realMACD.cpp"
+
 #include "includes\getbufferdata.cpp"

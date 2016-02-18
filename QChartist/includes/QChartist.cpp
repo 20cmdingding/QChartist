@@ -1657,16 +1657,17 @@ return 0;
 
 double ima(int timeframe,int period,int ma_shift,int ma_method,int applied_price,int shift)
 {
+int p=1000;
+arrayofdoubles ExtMapBuffer;
+double sum;
+int i,k;
 
 switch(ma_method)
      {
       case 0 : 
-      // SMA
-      double sum;
+      // SMA      
     int per;
-    sum=0;
-    int i;int p;
-    p=1000;
+    sum=0;    
     if (p<period) p=period;
     per=period;
 
@@ -1676,14 +1677,76 @@ switch(ma_method)
                            }
     while (p>=0) {
         sum=sum+iapplied_price(applied_price,timeframe,p);
-        if (p==shift) { return sum/per; break; }
+        if (p==shift+ma_shift) { return sum/per; break; }
         sum=sum-iapplied_price(applied_price,timeframe,p+per-1);
         p--;
                  }
       break;
-      case 1 : /*ema not implemented yet*/ break;
-      case 2 : /*smma not implemented yet*/ break;
-      case 3 : /*lwma not implemented yet*/ break;
+
+      case 1 : // Exponential Moving Average  
+	double pr;
+	pr=2.0/(period+1);
+	//---- main calculation loop
+   	while(p>=0)
+     	{
+      	if(p==1000) ExtMapBuffer[p+1]=iapplied_price(applied_price,timeframe,p+1);
+      	ExtMapBuffer[p]=iapplied_price(applied_price,timeframe,p)*pr+ExtMapBuffer[p+1]*(1-pr);
+	if (p==shift+ma_shift) { return ExtMapBuffer[p]; break; }
+ 	   p--;
+     	}	
+	break;
+
+      case 2 : // Smoothed Moving Average 
+	sum=0;	   
+	//---- main calculation loop
+	   while(p>=0)
+	     {
+	      if(p==1000)
+	        {
+	         //---- initial accumulation
+	         for(i=0,k=p;i<period;i++,k++)
+	           {
+	            sum+=iapplied_price(applied_price,timeframe,k);
+	            //---- zero initial bars
+	            ExtMapBuffer[k]=0;
+	           }
+	        }
+	      else sum=ExtMapBuffer[p+1]*(period-1)+iapplied_price(applied_price,timeframe,p);
+	      ExtMapBuffer[p]=sum/period;
+		if (p==shift+ma_shift) { return ExtMapBuffer[p]; break; }
+	 	p--;
+	     }
+	break;
+
+      case 3 : // Linear Weighted Moving Average
+	sum=0.0; double lsum=0.0;
+	   double price;
+	   int    weight=0;
+	//---- initial accumulation
+	   if(p<period) p=period;
+	   for(i=1;i<=period;i++,p--)
+	     {
+	      price=iapplied_price(applied_price,timeframe,p);
+	      sum+=price*i;
+	      lsum+=price;
+	      weight+=i;
+	     }
+	//---- main calculation loop
+	   p++;
+	   i=p+period;
+	   while(p>=0)
+	     {
+	      ExtMapBuffer[p]=sum/weight;
+		if (p==shift+ma_shift) { return ExtMapBuffer[p]; break; }
+	      if(p==0) break;
+	      p--;
+	      i--;
+	      price=iapplied_price(applied_price,timeframe,p);
+	      sum=sum-lsum+price*period;
+	      lsum-=iapplied_price(applied_price,timeframe,i);
+	      lsum+=price;
+	     }
+	break;
      }
 
     

@@ -943,6 +943,7 @@ if Elliot_Wave_3_Level_ZZ_Semaforautotf.checked=0 then curtfstr=Elliot_Wave_3_Le
 if Elliot_Wave_3_Level_ZZ_Semaforautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(Elliot_Wave_3_Level_ZZ_Semafor(varptr(curtfstr)))
 defint delalli,delallj
+	FOR delallj=1 to 10
 	    FOR delalli = 1 TO 1000 - 1
                     if textlabelsdb.Cell(5 , delalli) = "elliot wave" then			
 			textlabelsdb.deleterow(delalli)
@@ -950,7 +951,8 @@ defint delalli,delallj
 			if textlabelsoffset<0 then textlabelsoffset=0
 		    end if
             NEXT delalli
-textlabelsdb.RowCount = 100
+	textlabelsdb.RowCount = 100
+	next delallj
 defstr year0,month0,day0,hours0,minutes0,$mydate0
 end if
 
@@ -1017,6 +1019,12 @@ textlabelsdb.Cell(3 , textlabelsoffset) = "2"
 textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
 textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
 textlabelsdb.Cell(6 , textlabelsoffset) = str$(mediumvioletred)
+if val(textlabelsdb.Cell(1 , textlabelsoffset-1))=val(textlabelsdb.Cell(1 , textlabelsoffset)) and _
+val(textlabelsdb.Cell(2 , textlabelsoffset-1))=val(textlabelsdb.Cell(2 , textlabelsoffset)) and _
+textlabelsdb.Cell(5 , textlabelsoffset-1)=textlabelsdb.Cell(5 , textlabelsoffset) then
+textlabelsdb.deleterow(textlabelsoffset-1)
+textlabelsoffset--
+end if
 end if
     drawid=drawid+2
 
@@ -1038,6 +1046,12 @@ textlabelsdb.Cell(3 , textlabelsoffset) = "2"
 textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
 textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
 textlabelsdb.Cell(6 , textlabelsoffset) = str$(mediumvioletred)
+if val(textlabelsdb.Cell(1 , textlabelsoffset-1))=val(textlabelsdb.Cell(1 , textlabelsoffset)) and _
+val(textlabelsdb.Cell(2 , textlabelsoffset-1))=val(textlabelsdb.Cell(2 , textlabelsoffset)) and _
+textlabelsdb.Cell(5 , textlabelsoffset-1)=textlabelsdb.Cell(5 , textlabelsoffset) then
+textlabelsdb.deleterow(textlabelsoffset-1)
+textlabelsoffset--
+end if
 end if
     drawid=drawid+2
 
@@ -1059,6 +1073,12 @@ textlabelsdb.Cell(3 , textlabelsoffset) = "3"
 textlabelsdb.Cell(4 , textlabelsoffset) = str$(black)
 textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
 textlabelsdb.Cell(6 , textlabelsoffset) = str$(yellow)
+if val(textlabelsdb.Cell(1 , textlabelsoffset-1))=val(textlabelsdb.Cell(1 , textlabelsoffset)) and _
+val(textlabelsdb.Cell(2 , textlabelsoffset-1))=val(textlabelsdb.Cell(2 , textlabelsoffset)) and _
+textlabelsdb.Cell(5 , textlabelsoffset-1)=textlabelsdb.Cell(5 , textlabelsoffset) then
+textlabelsdb.deleterow(textlabelsoffset-1)
+textlabelsoffset--
+end if
 end if
     drawid=drawid+2
 
@@ -1080,6 +1100,12 @@ textlabelsdb.Cell(3 , textlabelsoffset) = "3"
 textlabelsdb.Cell(4 , textlabelsoffset) = str$(black)
 textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
 textlabelsdb.Cell(6 , textlabelsoffset) = str$(yellow)
+if val(textlabelsdb.Cell(1 , textlabelsoffset-1))=val(textlabelsdb.Cell(1 , textlabelsoffset)) and _
+val(textlabelsdb.Cell(2 , textlabelsoffset-1))=val(textlabelsdb.Cell(2 , textlabelsoffset)) and _
+textlabelsdb.Cell(5 , textlabelsoffset-1)=textlabelsdb.Cell(5 , textlabelsoffset) then
+textlabelsdb.deleterow(textlabelsoffset-1)
+textlabelsoffset--
+end if
 end if
     drawid=drawid+2
 
@@ -1689,6 +1715,81 @@ end if
 
 end if
 '------------------------- End Fibo MA Channels -------------------------------------------------
+'------------------------- Square numbers -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+Square_numbers
+end if
+
+barsback=numbars '<--- can also be something like VAL(Square_numbersbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer1(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer2(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer3(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer4(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer5(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer6(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer7(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer8(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer9(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer10(offset))
+    drawid=drawid+2
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer11(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer12(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer13(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer14(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer15(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer16(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer17(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer18(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer19(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer20(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Square numbers -------------------------------------------------
 '------------------------- Synodic Cycle -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
@@ -1707,6 +1808,35 @@ end if
 
 end if
 '------------------------- End Synodic Cycle -------------------------------------------------
+'------------------------- TMA_CG -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+if TMA_CGautotf.checked=0 then curtfstr=TMA_CGcurtfedit.text
+if TMA_CGautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(TMA_CG(varptr(curtfstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(TMA_CGbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=dimgray '<--- replace with your color
+    bufnamestr="tmBuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="upBuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=limegreen '<--- replace with your color
+    bufnamestr="dnBuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End TMA_CG -------------------------------------------------
 '------------------------- Time Series Forecast -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
@@ -2535,6 +2665,35 @@ end if
 
 end if
 '------------------------- End RBCI -------------------------------------------------
+'------------------------- realMACD -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+if realMACDautotf.checked=0 then curtfstr=realMACDcurtfedit.text
+if realMACDautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(realMACD(varptr(curtfstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(realMACDbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="HistogramBuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=red '<--- replace with your color
+    bufnamestr="SignalLineBuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    sepindicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="MACDLineBuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End realMACD -------------------------------------------------
 '------------------------- Relative Strength Index -------------------------------------------------
 indiid++
          

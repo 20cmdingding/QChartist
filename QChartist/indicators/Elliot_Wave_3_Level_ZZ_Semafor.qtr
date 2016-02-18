@@ -7,6 +7,7 @@ if Elliot_Wave_3_Level_ZZ_Semaforautotf.checked=0 then curtfstr=Elliot_Wave_3_Le
 if Elliot_Wave_3_Level_ZZ_Semaforautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
 cpptmpfuncreturn=varptr$(Elliot_Wave_3_Level_ZZ_Semafor(varptr(curtfstr)))
 defint delalli,delallj
+	FOR delallj=1 to 10
 	    FOR delalli = 1 TO 1000 - 1
                     if textlabelsdb.Cell(5 , delalli) = "elliot wave" then			
 			textlabelsdb.deleterow(delalli)
@@ -14,7 +15,8 @@ defint delalli,delallj
 			if textlabelsoffset<0 then textlabelsoffset=0
 		    end if
             NEXT delalli
-textlabelsdb.RowCount = 100
+	textlabelsdb.RowCount = 100
+	next delallj
 defstr year0,month0,day0,hours0,minutes0,$mydate0
 end if
 
@@ -81,6 +83,12 @@ textlabelsdb.Cell(3 , textlabelsoffset) = "2"
 textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
 textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
 textlabelsdb.Cell(6 , textlabelsoffset) = str$(mediumvioletred)
+if val(textlabelsdb.Cell(1 , textlabelsoffset-1))=val(textlabelsdb.Cell(1 , textlabelsoffset)) and _
+val(textlabelsdb.Cell(2 , textlabelsoffset-1))=val(textlabelsdb.Cell(2 , textlabelsoffset)) and _
+textlabelsdb.Cell(5 , textlabelsoffset-1)=textlabelsdb.Cell(5 , textlabelsoffset) then
+textlabelsdb.deleterow(textlabelsoffset-1)
+textlabelsoffset--
+end if
 end if
     drawid=drawid+2
 
@@ -102,6 +110,12 @@ textlabelsdb.Cell(3 , textlabelsoffset) = "2"
 textlabelsdb.Cell(4 , textlabelsoffset) = str$(white)
 textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
 textlabelsdb.Cell(6 , textlabelsoffset) = str$(mediumvioletred)
+if val(textlabelsdb.Cell(1 , textlabelsoffset-1))=val(textlabelsdb.Cell(1 , textlabelsoffset)) and _
+val(textlabelsdb.Cell(2 , textlabelsoffset-1))=val(textlabelsdb.Cell(2 , textlabelsoffset)) and _
+textlabelsdb.Cell(5 , textlabelsoffset-1)=textlabelsdb.Cell(5 , textlabelsoffset) then
+textlabelsdb.deleterow(textlabelsoffset-1)
+textlabelsoffset--
+end if
 end if
     drawid=drawid+2
 
@@ -123,6 +137,12 @@ textlabelsdb.Cell(3 , textlabelsoffset) = "3"
 textlabelsdb.Cell(4 , textlabelsoffset) = str$(black)
 textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
 textlabelsdb.Cell(6 , textlabelsoffset) = str$(yellow)
+if val(textlabelsdb.Cell(1 , textlabelsoffset-1))=val(textlabelsdb.Cell(1 , textlabelsoffset)) and _
+val(textlabelsdb.Cell(2 , textlabelsoffset-1))=val(textlabelsdb.Cell(2 , textlabelsoffset)) and _
+textlabelsdb.Cell(5 , textlabelsoffset-1)=textlabelsdb.Cell(5 , textlabelsoffset) then
+textlabelsdb.deleterow(textlabelsoffset-1)
+textlabelsoffset--
+end if
 end if
     drawid=drawid+2
 
@@ -144,6 +164,12 @@ textlabelsdb.Cell(3 , textlabelsoffset) = "3"
 textlabelsdb.Cell(4 , textlabelsoffset) = str$(black)
 textlabelsdb.Cell(5 , textlabelsoffset) = "elliot wave"
 textlabelsdb.Cell(6 , textlabelsoffset) = str$(yellow)
+if val(textlabelsdb.Cell(1 , textlabelsoffset-1))=val(textlabelsdb.Cell(1 , textlabelsoffset)) and _
+val(textlabelsdb.Cell(2 , textlabelsoffset-1))=val(textlabelsdb.Cell(2 , textlabelsoffset)) and _
+textlabelsdb.Cell(5 , textlabelsoffset-1)=textlabelsdb.Cell(5 , textlabelsoffset) then
+textlabelsdb.deleterow(textlabelsoffset-1)
+textlabelsoffset--
+end if
 end if
     drawid=drawid+2
 

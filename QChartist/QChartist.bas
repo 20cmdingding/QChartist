@@ -1,5 +1,5 @@
 'QChartist charting software source code
-'Copyright 2010-2015 Julien Moog - All rights reserred
+'Copyright 2010-2016 Julien Moog - All rights reserred
 'Contact email: julien.moog@laposte.net
 'Website: http://www.qchartist.net
 
@@ -58,10 +58,9 @@ busystream.writeline "0"
 busystream.close
 
 PRINT "QChartist charting software"
-PRINT "Copyright 2010-2015 Julien Moog - All rights reserved"
+PRINT "Copyright 2010-2016 Julien Moog - All rights reserved"
 PRINT "Contact email: julien.moog@laposte.net"
 PRINT "Website: http://www.qchartist.net"
-PRINT "If you like my software and find it useful, please consider to make a donation. This will be the counterpart of all my hard work around this project."
 PRINT "This program is free software; you can redistribute it and/or modify " + _
     "it under the terms of the GNU General Public License"
 
@@ -1817,7 +1816,7 @@ colordlg.Caption = "Select Color"
 'Form Event declaring sub routines
 DECLARE SUB btnOnClick(SENDER AS QBUTTON)
 DECLARE SUB frmMainResize(SENDER AS QFORM)
-DECLARE SUB frmMainClose(SENDER AS QFORM)
+DECLARE SUB frmMainClose(action as integer)
 DECLARE SUB Buttonf2Click(Sender AS QBUTTON)
 DECLARE SUB importfile()
 DECLARE SUB importfile2()
@@ -10383,6 +10382,7 @@ SUB exp10sub
 'em.Close
     exportfilename()
     btnOnClick(drwBox)
+    savegridtmp
 
 END SUB
 
@@ -10448,6 +10448,7 @@ SUB changepriceratiosub2
     'chartstart=Scrollchart.Position-numbars
     'btnOnClick(drwBox)
     justrefreshchart
+    savegridtmp
     say "Price ratio set to: "+priceratioedit2.Text
 END SUB
 
@@ -11022,6 +11023,19 @@ SUB btndelindi_click()
     indicatorslist.Item(indicatorslist.ItemIndex) = MID$(indicatorslist.Item(indicatorslist.ItemIndex) , 0 , LEN(indicatorslist.Item(indicatorslist.ItemIndex)) - 2)
     indicatorslist.Item(indicatorslist.ItemIndex) = indicatorslist.Item(indicatorslist.ItemIndex) + " )"
     if left$(indicatorslist.Item(indicatorslist.ItemIndex),12)="stepftvcprdl" then cntbarsedit.text="1000"
+    if left$(indicatorslist.Item(indicatorslist.ItemIndex),30)="Elliot_Wave_3_Level_ZZ_Semafor" then
+    defint delalli,delallj
+        FOR delallj=1 to 10
+        FOR delalli = 1 TO 1000 - 1
+            if textlabelsdb.Cell(5 , delalli) = "elliot wave" then          
+                textlabelsdb.deleterow(delalli)
+                textlabelsoffset--
+                if textlabelsoffset<0 then textlabelsoffset=0
+            end if
+        NEXT delalli        
+        textlabelsdb.RowCount = 100
+        next delallj
+    end if
 END SUB
 
 SUB indilist_dblclick
@@ -11170,11 +11184,14 @@ SUB frmMainResize(SENDER AS QFORM)
 END SUB
 
 '-------------------------------------------------------------------------------------------
-SUB frmMainClose(SENDER AS QFORM)
+SUB frmMainClose(action as integer)
 
 IF usespeech.checked=1 THEN speechdeinitialization     ' CleanUp the Speech (De-Initialize/Un-Initialize).
-
-    Application.Terminate
+ 
+    action=0
+    IF MessageDlg("Quit all instances of QChartist?", mtConfirmation, mbYes OR mbNo, 0) = mrYes THEN
+        run "c:\qchartist\qckill.exe"
+    END IF
 
 END SUB
 
@@ -16101,7 +16118,7 @@ END SUB
 
 
 SUB quit()
-    frmMain.close
+    frmMain.close    
 END SUB
 
 SUB savebmp

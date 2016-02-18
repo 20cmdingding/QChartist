@@ -1,0 +1,75 @@
+'------------------------- Square numbers -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+Square_numbers
+end if
+
+barsback=numbars '<--- can also be something like VAL(Square_numbersbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer1(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer2(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer3(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer4(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer5(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer6(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer7(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer8(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer9(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer10(offset))
+    drawid=drawid+2
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer11(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer12(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer13(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer14(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer15(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer16(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer17(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer18(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer19(offset))
+    drawid=drawid+2
+indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= STR$(Square_numbersbuffer20(offset))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Square numbers -------------------------------------------------

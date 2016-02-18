@@ -1,0 +1,41 @@
+declare sub hiderealMACDform
+
+CREATE realMACDform as qform
+
+    Center
+    Caption = "Settings for: realMACD"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create realMACDcurtflab as qlabel
+        left=0
+        top=0
+        caption="Current timeframe:"
+    end create
+
+    create realMACDcurtfedit as qedit
+        left=realMACDcurtflab.width+100
+        top=0
+        text="1440"
+    end create
+
+    create realMACDautotf as qcheckbox
+        top=20
+        caption="Autodetect current timeframe"
+	width=200
+	checked=1
+    end create
+
+    create realMACDbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hiderealMACDform
+    end create
+
+END CREATE
+
+sub hiderealMACDform
+    realMACDform.visible=0
+end sub

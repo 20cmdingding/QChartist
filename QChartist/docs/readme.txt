@@ -1295,6 +1295,23 @@ buffers with index<0)
 - new cpp function setcntbarsedit
 - build 69
 
+2016-02-08:
+- new indicator Square numbers
+- runtime error 216 on application close bypassed thanks to qckill.exe
+- chm documentation enriched
+
+2016-02-12:
+- new indicator TMA_CG
+- sma debugged
+
+2016-02-17:
+- Elliot_Wave_3_Level_ZZ_Semafor indicator debugged
+
+2016-02-18:
+- added EMA, Smoothed MA and LWMA for the C++ ima function
+- new indicator realMACD
+- build 70
+
 -------------------------------------------------------------------------------------
 Todo list:
 

@@ -1,0 +1,22 @@
+declare sub hideSquare_numbersform
+
+CREATE Square_numbersform as qform
+
+    Center
+    Caption = "Settings for: Square numbers"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Square_numbersbtnok as qbutton
+        left=0
+        top=0
+        caption="OK"
+        onclick=hideSquare_numbersform
+    end create
+
+END CREATE
+
+sub hideSquare_numbersform
+    Square_numbersform.visible=0
+end sub

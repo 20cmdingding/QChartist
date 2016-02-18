@@ -1,0 +1,52 @@
+declare sub Square_numbers ' This line of code must stay here
+dim Square_numbersbuffer1(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer2(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer3(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer4(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer5(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer6(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer7(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer8(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer9(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer10(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer11(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer12(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer13(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer14(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer15(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer16(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer17(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer18(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer19(0 to 1000) as double ' This line of code must stay here.
+dim Square_numbersbuffer20(0 to 1000) as double ' This line of code must stay here.
+
+sub Square_numbers
+' Put your indicator RapidQ code here
+defdbl sqrnum
+sqrnum=sqr(close(0))
+sqrnum=ceil(sqrnum)
+dim i as integer
+for i=0 to numbars
+Square_numbersbuffer1(i)=sqrnum^2
+Square_numbersbuffer2(i)=(sqrnum-1)^2
+Square_numbersbuffer3(i)=(sqrnum-2)^2
+Square_numbersbuffer4(i)=(sqrnum-3)^2
+Square_numbersbuffer5(i)=(sqrnum-4)^2
+Square_numbersbuffer6(i)=(sqrnum-5)^2
+Square_numbersbuffer7(i)=(sqrnum-6)^2
+Square_numbersbuffer8(i)=(sqrnum-7)^2
+Square_numbersbuffer9(i)=(sqrnum-8)^2
+Square_numbersbuffer10(i)=(sqrnum-9)^2
+Square_numbersbuffer11(i)=(sqrnum+1)^2
+Square_numbersbuffer12(i)=(sqrnum+2)^2
+Square_numbersbuffer13(i)=(sqrnum+3)^2
+Square_numbersbuffer14(i)=(sqrnum+4)^2
+Square_numbersbuffer15(i)=(sqrnum+5)^2
+Square_numbersbuffer16(i)=(sqrnum+6)^2
+Square_numbersbuffer17(i)=(sqrnum+7)^2
+Square_numbersbuffer18(i)=(sqrnum+8)^2
+Square_numbersbuffer19(i)=(sqrnum+9)^2
+Square_numbersbuffer20(i)=(sqrnum+10)^2
+next i
+print str$(sqrnum^2)
+end sub

@@ -1,0 +1,29 @@
+'------------------------- TMA_CG -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+if TMA_CGautotf.checked=0 then curtfstr=TMA_CGcurtfedit.text
+if TMA_CGautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(TMA_CG(varptr(curtfstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(TMA_CGbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=dimgray '<--- replace with your color
+    bufnamestr="tmBuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=red '<--- replace with your color
+    bufnamestr="upBuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+    indicolor(drawid)=limegreen '<--- replace with your color
+    bufnamestr="dnBuffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End TMA_CG -------------------------------------------------

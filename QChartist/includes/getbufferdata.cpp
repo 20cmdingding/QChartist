@@ -126,5 +126,11 @@ if (strcmp(buffernamee,"HP_BuferUp")==0) { sprintf(convbuf,"%f",HP_BuferUp[atoi(
 if (strcmp(buffernamee,"HP_BuferDn")==0) { sprintf(convbuf,"%f",HP_BuferDn[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"RBCIbuffer")==0) { sprintf(convbuf,"%f",RBCIbuffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"TSCDbuffer")==0) { sprintf(convbuf,"%f",TSCDbuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"tmBuffer")==0) { sprintf(convbuf,"%f",tmBuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"upBuffer")==0) { sprintf(convbuf,"%f",upBuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"dnBuffer")==0) { sprintf(convbuf,"%f",dnBuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"MACDLineBuffer")==0) { sprintf(convbuf,"%f",MACDLineBuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"SignalLineBuffer")==0) { sprintf(convbuf,"%f",SignalLineBuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"HistogramBuffer")==0) { sprintf(convbuf,"%f",HistogramBuffer[atoi(offsett)]);return convbuf; }
 return 0;
 }
