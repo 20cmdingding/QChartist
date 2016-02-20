@@ -2115,11 +2115,11 @@ IF scrollmode = 0 THEN
         'NEXT lo
         
         if i = chartstart then
-            defint histoincr
-            for histoincr=0 to 100
-            drawhisto(histoincr)=0
+            defint typeincr
+            for typeincr=0 to 100
+            drawtype(typeincr)=0
             doevents
-            next histoincr
+            next typeincr
         end if
         
     END IF
@@ -2160,60 +2160,65 @@ barsback=200 '<--- can also be something like VAL(astro_retrogradebarsbackedit.t
 
 if ibar>=lastbar-barsback then
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_mercurybuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=orange
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_mercurybuffer(offset)=1 then sepindicolormulti(drawid,lbar)=orange
     canvas.separateindicator1.Cell(drawid,lbar)= "0"
     drawid=drawid+2
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_venusbuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=pink
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_venusbuffer(offset)=1 then sepindicolormulti(drawid,lbar)=pink
     canvas.separateindicator1.Cell(drawid,lbar)= "10"
     drawid=drawid+2
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_earthbuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=blue
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_earthbuffer(offset)=1 then sepindicolormulti(drawid,lbar)=blue
     canvas.separateindicator1.Cell(drawid,lbar)= "20"
     drawid=drawid+2
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_marsbuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=red
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_marsbuffer(offset)=1 then sepindicolormulti(drawid,lbar)=red
     canvas.separateindicator1.Cell(drawid,lbar)= "30"
     drawid=drawid+2
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_jupiterbuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=olive
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_jupiterbuffer(offset)=1 then sepindicolormulti(drawid,lbar)=olive
     canvas.separateindicator1.Cell(drawid,lbar)= "40"
     drawid=drawid+2
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_saturnbuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=gray
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_saturnbuffer(offset)=1 then sepindicolormulti(drawid,lbar)=gray
     canvas.separateindicator1.Cell(drawid,lbar)= "50"
     drawid=drawid+2
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_uranusbuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=lightblue
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_uranusbuffer(offset)=1 then sepindicolormulti(drawid,lbar)=lightblue
     canvas.separateindicator1.Cell(drawid,lbar)= "60"
     drawid=drawid+2
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_neptunebuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=purple
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_neptunebuffer(offset)=1 then sepindicolormulti(drawid,lbar)=purple
     canvas.separateindicator1.Cell(drawid,lbar)= "70"
     drawid=drawid+2
 
-drawhisto(drawid)=1
-sepindicolorhisto(drawid,lbar)=white
-if astro_retrograde_plutobuffer(offset)=1 then sepindicolorhisto(drawid,lbar)=black
+drawtype(drawid)=2
+sepindicolormulti(drawid,lbar)=white
+if astro_retrograde_plutobuffer(offset)=1 then sepindicolormulti(drawid,lbar)=black
     canvas.separateindicator1.Cell(drawid,lbar)= "80"
     drawid=drawid+2
 
+end if
+
+if autoadjustsepindi.checked=1 then     
+sepindivalminedit.text="-20"             
+sepindivalmaxedit.text="90"                             
 end if
 
 end if
@@ -2678,7 +2683,8 @@ end if
 barsback=numbars '<--- can also be something like VAL(realMACDbarsbackedit.text)
 
 if ibar>=lastbar-barsback then
-    sepindicolor(drawid)=yellow '<--- replace with your color
+    drawtype(drawid)=1
+    sepindicolormulti(drawid,lbar)=yellow '<--- replace with your color
     bufnamestr="HistogramBuffer"
     canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
     drawid=drawid+2

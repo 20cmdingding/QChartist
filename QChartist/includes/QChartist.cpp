@@ -959,6 +959,7 @@ double proxihighest;double proxilowest;
 
 switch (exact) {
     case 0:
+    /* // this thing is false
     proxihighest = 0;
     for (i = 0;i<=limit;i++) {
         proxiarray[i]=static_cast<double>(idatetimeserial(timeframe,i))/static_cast<double>(datetimeserial);
@@ -976,6 +977,17 @@ switch (exact) {
                 break;
                                             }
         }   
+    */
+    for (i = 0;i<=limit;i++) {
+	if (i==0 && datetimeserial>=idatetimeserial(timeframe,i)) {
+	return i;
+	break;
+	}
+    	if (i>0 && datetimeserial>=idatetimeserial(timeframe,i) && datetimeserial<idatetimeserial(timeframe,i-1)) {
+	return i;
+        break;
+	}
+    }
         break;
         
     case 1:    

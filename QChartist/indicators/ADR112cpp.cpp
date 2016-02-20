@@ -51,7 +51,7 @@ char* ADR112cpp (char* period,char* tfbase)
 	case 2:
         open2=open43200[ibarshift(43200,datetimeserial[iadr],20)];
         break;
-                           }        
+                           }       
         ADR112cppbuffer1[iadr]=open2+adr;
         ADR112cppbuffer2[iadr]=open2+adr/2;
         ADR112cppbuffer3[iadr]=open2;

@@ -13,9 +13,9 @@ sub astro_retrograde
 ' Put your indicator RapidQ code here
 defint Body=2
 defint FutureBars=0
-defint BarsLimit=1000
+defint BarsLimit=300
 defint limit=300
-defint shift
+defint shift=0
 defint period_p = get_period(shift)
 defdbl curr_datetime
 defint ret

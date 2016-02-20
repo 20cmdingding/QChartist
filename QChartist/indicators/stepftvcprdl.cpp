@@ -1,18 +1,27 @@
 //+------------------------------------------------------------------+
-//|                                                     FTVCPRDL.mq4 |
-//|        Fisher Transform Value Chart Past Regression Deviated Log |
-//|                               Copyright © 2009-2010, Julien Moog |
+//|                                                 STEPFTVCPRDL     |
+//|   Step Fisher Transform Value Chart Past Regression Deviated Log |
+//|                               Copyright © 2009-2016, Julien Moog |
 //|                                          julien.moog@lapsote.net |
-//|                                                      Credits to: |
+//|								     |
+//|                              I was inspired from and credits to: |
+//|								     |
 //|            © 2006, tageiger, aka fxid10t@yahoo.com (Todd Geiger) |
+//|                       for the Past Regression Deviated indicator |
+//|								     |
 //|                             Mark W. Helweg and David C. Stendahl |
-//|                                Smallcaps90 http://www.pro-at.com |
+//|                            and Smallcaps90 http://www.pro-at.com |
+//| 				       for the Value Chart indicator |
+//|								     |
 //|                         Copyright © 2005, Luis Guilherme Damiani |
 //|                                      http://www.damianifx.com.br |
+//| 			   for the Cyan_1_Fisher_Transform indicator |
+//|								     |
 //|                                        http://www.metaquotes.net |
+//|Igor Durkin StepRSI_v2.mq4 Copyright © 2005, TrendLaboratory Ltd. |
+//|                                       E-mail: igorad2004@list.ru |
+//|                                   E-mail: igorad2003@yahoo.co.uk |
 //+------------------------------------------------------------------+
-
-// Still buggy
 
 //#property indicator_separate_window
 //#property indicator_buffers 12

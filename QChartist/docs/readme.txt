@@ -1311,6 +1311,16 @@ buffers with index<0)
 - added EMA, Smoothed MA and LWMA for the C++ ima function
 - new indicator realMACD
 - build 70
+- chm documentation and indicators description enriched
+
+2016-02-19:
+- ibarshift C++ function debugged. Now ADR displays correct values.
+- histogram for separate indicators fixed. Now realMACD displays histogram.
+- added chronogram type for separate indicators
+- astro retrograde indicator debugged
+
+2016-02-20:
+- build 71
 
 -------------------------------------------------------------------------------------
 Todo list:

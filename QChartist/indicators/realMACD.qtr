@@ -11,7 +11,8 @@ end if
 barsback=numbars '<--- can also be something like VAL(realMACDbarsbackedit.text)
 
 if ibar>=lastbar-barsback then
-    sepindicolor(drawid)=yellow '<--- replace with your color
+    drawtype(drawid)=1
+    sepindicolormulti(drawid,lbar)=yellow '<--- replace with your color
     bufnamestr="HistogramBuffer"
     canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
     drawid=drawid+2

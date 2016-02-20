@@ -504,7 +504,7 @@ DIM textcolor AS INTEGER
 textcolor = blue
 DIM sepindicolor(1 TO 100) AS INTEGER
 sepindicolor(1) = blue
-DIM sepindicolorhisto(1 TO 100,0 TO 1000) AS INTEGER
+DIM sepindicolormulti(1 TO 100,0 TO 1000) AS INTEGER
 DIM indicolor(1 TO 100) AS INTEGER
 indicolor(1) = blue
 DIM pencolor AS INTEGER
@@ -750,8 +750,8 @@ Dim tjd_ut as double
 Dim tdj_et as double
 defstr parameters
 
-' histogram indicator in separate canvas
-dim drawhisto(0 TO 1000) as integer
+' draw type (line=0 or empty,histogram=1,chronogram=2) indicator in separate canvas
+dim drawtype(0 TO 1000) as integer
 
 ' helps to know pixel positions of the axes graduations
 dim timechartpos(0 to 1000,0 to 1) as long
@@ -2357,14 +2357,17 @@ TYPE qchart2 EXTENDS QCANVAS
                 WITH qchart2
                     'MoveToEx(.bmp.handle,locx,sepindivalue ,0)
                     'LineTo(.bmp.handle,locx+barsize,sepindivalue2 )                    
-                    if drawhisto(j)=1 then
-                    .bmp.fillrect(locx+ barsize/2,sepindivalue2,locx + barsize+ barsize/2,sepindivalue2-9, sepindicolorhisto(j,i+2))
+                    if drawtype(j)=1 then ' histogram
+                    '.bmp.fillrect(locx+ barsize/2,sepindivalue2,locx + barsize+ barsize/2,sepindivalue2-9, sepindicolorhisto(j,i+2))
+                    .bmp.fillrect(locx- barsize/3,canvas.Height-((0-sepindivalmin)*graphratio),locx +barsize/3,sepindivalue, sepindicolormulti(j,i+2))
                     '.BMP.Line(locx , sepindivalue-0.2 , locx + barsize , sepindivalue2-0.2 , sepindicolorhisto(j,i+2))
                     '.BMP.Line(locx , sepindivalue-0.1 , locx + barsize , sepindivalue2-0.1 , sepindicolorhisto(j,i+2))
                     '.BMP.Line(locx , sepindivalue , locx + barsize , sepindivalue2 , sepindicolorhisto(j,i+2))
                     '.BMP.Line(locx , sepindivalue+0.1 , locx + barsize , sepindivalue2+0.1 , sepindicolorhisto(j,i+2))
                     '.BMP.Line(locx , sepindivalue+0.2 , locx + barsize , sepindivalue2+0.2 , sepindicolorhisto(j,i+2))
-                    else
+                    elseif drawtype(j)=2 then ' chronogram
+                    .bmp.fillrect(locx+ barsize/2,sepindivalue2,locx + barsize+ barsize/2,sepindivalue2-9, sepindicolormulti(j,i+2))
+                    else ' line                   
                     .BMP.Line(locx , sepindivalue , locx + barsize , sepindivalue2 , sepindicolor(j))
                     end if
                 END WITH                
@@ -15875,95 +15878,123 @@ SUB paintabout(Sender AS QCANVAS)
     DIM abmargin AS INTEGER
     abmargin = 3
     yposabout = 0
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "QChartist is a free charting software written in Basic and C++ language" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "QChartist is a free charting software written in Basic and C++ language" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Contact email: julien.moog@laposte.net" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Contact email: julien.moog@laposte.net" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Website: http://www.qchartist.net" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Website: http://www.qchartist.net" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Copyright 2010-2015 Julien Moog - All rights reserved" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Copyright 2010-2015 Julien Moog - All rights reserved" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Special thanks to:" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Special thanks to:" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "William Yu for his RAPID-Q compiler and all its extends" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "William Yu for his RAPID-Q compiler and all its extends" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "John Kelly for his RapidQ2.inc and Windows.inc and rapidq.chm" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "John Kelly for his RapidQ2.inc and Windows.inc and rapidq.chm" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Inprise Corporation for the Borland C++ Compiler 5.5" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Inprise Corporation for the Borland C++ Compiler 5.5" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Jacques Phillipe for his excellent RapidQ Pre Compiler and rapidq.chm" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Jacques Phillipe for his excellent RapidQ Pre Compiler and rapidq.chm" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Paul Ludgate for his revised version of the RapidQ Compiler" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Paul Ludgate for his revised version of the RapidQ Compiler" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Michael J. Zito for his great QChart object" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Michael J. Zito for his great QChart object" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Pasquale Battistelli for his Api Date and QCalendar" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Pasquale Battistelli for his Api Date and QCalendar" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Bruno Schäfer for his rq-math.inc" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Bruno Schäfer for his rq-math.inc" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Stanescu Serban for his QInputBox and rapidq.chm" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Stanescu Serban for his QInputBox and rapidq.chm" , lime , 0)    
     yposabout = yposabout + 30  
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Jens Altmann for his File Editor" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Jens Altmann for his File Editor" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Andrew Shelkovenko for rapidq.chm" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Andrew Shelkovenko for rapidq.chm" , lime , 0)    
     yposabout = yposabout + 30 
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "D. Glodt for the rapidq.chm" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "D. Glodt for the rapidq.chm" , lime , 0)    
     yposabout = yposabout + 30 
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the accelerator indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the accelerator indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the ATR indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the ATR indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the Bollinger Bands indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the Bollinger Bands indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Shinigami for his ADR lines indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Shinigami for his ADR lines indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Luis Guilherme Damiani for the ATR Channels indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Luis Guilherme Damiani for the ATR Channels indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "David W. Thomas for the BB - HL indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "David W. Thomas for the BB - HL indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Forex-TSD.com and IgorAD for the CandleAverage indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Forex-TSD.com and IgorAD for the CandleAverage indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "NG3110 and Linuxser for the Center of Gravity indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "NG3110 and Linuxser for the Center of Gravity indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. and Nikolay Kositsin for the Envelope indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. and Nikolay Kositsin for the Envelope indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the Force Index indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the Force Index indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the MFI indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the MFI indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the RSI indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the RSI indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "njel for the smaFibo indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "njel for the smaFibo indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "TrendLaboratory Ltd. and igorad for the StepRSI indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "TrendLaboratory Ltd. and igorad for the StepRSI indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Mark W. Helweg, David C. Stendahl and smallcaps90 for the" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Mark W. Helweg, David C. Stendahl and smallcaps90 for the" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "valuechart indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "valuechart indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "S.B.T. for the Volatility Pivot indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "S.B.T. for the Volatility Pivot indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the Zigzag indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "MetaQuotes Software Corp. for the Zigzag indicator" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Myles Wilson Walker for his article on W.D. Gann methods" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Myles Wilson Walker for his article on W.D. Gann methods" , lime , 0)    
     yposabout = yposabout + 30  
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "for using the planet longitudes" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "for using the planet longitudes" , lime , 0)    
     yposabout = yposabout + 30   
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Mladen for his dynamic balance point indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Mladen for his dynamic balance point indicator" , lime , 0)    
     yposabout = yposabout + 30 
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Brijon, NorthPro, Pipo, Walter, Charvo, Pacific_trip, Habeeb," , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Brijon, NorthPro, Pipo, Walter, Charvo, Pacific_trip, Habeeb," , lime , 0)    
     yposabout = yposabout + 30 
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Skyline & Hornet for the WaterLevel indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Skyline & Hornet for the WaterLevel indicator" , lime , 0)    
     yposabout = yposabout + 30 
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Earik Beann for the declination system" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Earik Beann for his ideas" , lime , 0)    
     yposabout = yposabout + 30 
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Scribd's team for the pdf documentations" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Scribd's team for the pdf documentations" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Traders world magazine for their articles" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Traders world magazine for their articles" , lime , 0)    
     yposabout = yposabout + 30 
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Yuriy Tokman for the spectrometer indicator" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Yuriy Tokman for the spectrometer indicator" , lime , 0)    
     yposabout = yposabout + 30 
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "And many thanks to all thoses who helped me to build this project" , purple , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "William Delbert Gann for the astro indicators" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "T.S. Phillips for the astro indicators" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Diego Ratti for the astro indicators" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "and the ztrendine_slope_pi_ratio indicator" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Igor Durkin for StepRSI and CoronaSwingPosition indicators" , lime , 0)    
+    yposabout = yposabout + 30  
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Goichi Hosoda and MetaQuotes for the Ichimoku indicator" , lime , 0)    
+    yposabout = yposabout + 30   
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "asystem2000 for Elliot_Wave_3_Level_ZZ_Semafor" , lime , 0)    
+    yposabout = yposabout + 30 
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Finware.ru for the RBCI and RSTL indicators" , lime , 0)    
+    yposabout = yposabout + 30  
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Mulyadi for the TSCD indicator" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Glen Ring for the Square numbers indicator idea" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "mladen for the TMA+CG indicator" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "David W. Thomas for the realMACD indicator" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Mostafa Belkhayate for his directives with" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "the COG, Elliott Waves indicators" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "And many thanks to all thoses who helped me to build this project" , lime , 0)    
     yposabout = yposabout + 30
     aboutcanvas.Top = abouty / yposabout + 165
     DIM Istars AS INTEGER
@@ -16057,11 +16088,7 @@ END SUB
 
 SUB about()
     
-    if usespeech.checked=0 then
     aboutTimer.Interval = 35
-    else
-    aboutTimer.Interval = 125
-    end if
     
     InitStars
 
@@ -16071,49 +16098,7 @@ SUB about()
     planettimerred.Enabled = 1
     planettimergreen.Enabled = 1
     planettimerwhite.Enabled = 1
-    if usespeech.checked=0 then PLAYWAV homepath + "\wav\Melody.wav" , SND_ASYNC OR SND_LOOP
-    say "QChartist is a free charting software written in Basic and C++ language"+" . "+_
-    "Contact email: julien.moog@laposte.net"+" . "+_
-    "Website: http://www.qchartist.net"+" . "+_
-    "Copyright 2010-2015 Julien Moog - All rights reserved"+" . "+_
-    "Special thanks to:"+" . "+_
-    "William Yu for his RAPID-Q compiler and all its extends"+" . "+_
-    "John Kelly for his RapidQ2.inc and Windows.inc and rapidq.chm"+" . "+_
-    "Inprise Corporation for the Borland C++ Compiler 5.5"+" . "+_
-    "Jacques Phillipe for his excellent RapidQ Pre Compiler and rapidq.chm"+" . "+_
-    "Paul Ludgate for his revised version of the RapidQ Compiler"+" . "+_
-    "Michael J. Zito for his great QChart object"+" . "+_
-    "Pasquale Battistelli for his Api Date and QCalendar"+" . "+_
-    "Bruno Schäfer for his rq-math.inc"+" . "+_
-    "Stanescu Serban for his QInputBox and rapidq.chm"+" . "+_
-    "Jens Altmann for his File Editor"+" . "+_
-    "Andrew Shelkovenko for rapidq.chm"+" . "+_
-    "D. Glodt for the rapidq.chm"+" . "+_
-    "MetaQuotes Software Corp. for the accelerator indicator"+" . "+_
-    "MetaQuotes Software Corp. for the ATR indicator"+" . "+_
-    "MetaQuotes Software Corp. for the Bollinger Bands indicator"+" . "+_
-    "Shinigami for his ADR lines indicator"+" . "+_
-    "Luis Guilherme Damiani for the ATR Channels indicator"+" . "+_
-    "David W. Thomas for the BB - HL indicator"+" . "+_
-    "Forex-TSD.com and IgorAD for the CandleAverage indicator"+" . "+_
-    "NG3110 and Linuxser for the Center of Gravity indicator"+" . "+_
-    "MetaQuotes Software Corp. and Nikolay Kositsin for the Envelope indicator"+" . "+_
-    "MetaQuotes Software Corp. for the Force Index indicator"+" . "+_
-    "MetaQuotes Software Corp. for the MFI indicator"+" . "+_
-    "MetaQuotes Software Corp. for the RSI indicator"+" . "+_
-    "njel for the smaFibo indicator"+" . "+_
-    "TrendLaboratory Ltd. and igorad for the StepRSI indicator"+" . "+_
-    "Mark W. Helweg, David C. Stendahl and smallcaps90 for the valuechart indicator"+" . "+_
-    "S.B.T. for the Volatility Pivot indicator"+" . "+_
-    "MetaQuotes Software Corp. for the Zigzag indicator"+" . "+_
-    "Myles Wilson Walker for his article on W.D. Gann methods for using the planet longitudes"+" . "+_
-    "Mladen for his dynamic balance point indicator"+" . "+_
-    "Brijon, NorthPro, Pipo, Walter, Charvo, Pacific_trip, Habeeb, Skyline & Hornet for the WaterLevel indicator"+" . "+_
-    "Earik Beann for the declination system"+" . "+_
-    "Scribd's team for the pdf documentations"+" . "+_
-    "Traders world magazine for their articles"+" . "+_
-    "Yuriy Tokman for the spectrometer indicator"+" . "+_
-    "And many thanks to all thoses who helped me to build this project"+" . "
+    PLAYWAV homepath + "\wav\Melody.wav" , SND_ASYNC OR SND_LOOP
 END SUB
 
 

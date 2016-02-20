@@ -36,11 +36,11 @@ IF scrollmode = 0 THEN
         'NEXT lo
         
         if i = chartstart then
-            defint histoincr
-            for histoincr=0 to 100
-            drawhisto(histoincr)=0
+            defint typeincr
+            for typeincr=0 to 100
+            drawtype(typeincr)=0
             doevents
-            next histoincr
+            next typeincr
         end if
         
     END IF
