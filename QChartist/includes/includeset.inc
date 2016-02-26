@@ -101,32 +101,34 @@ LSSform.visible=1
 case 49
 mfiform.visible=1
 case 50
-planetary_speedform.visible=1
+moon_scaleform.visible=1
 case 51
-planets_scaleform.visible=1
+planetary_speedform.visible=1
 case 52
-pricecloseform.visible=1
+planets_scaleform.visible=1
 case 53
-RBCIform.visible=1
+pricecloseform.visible=1
 case 54
-realMACDform.visible=1
+RBCIform.visible=1
 case 55
-rsiform.visible=1
+realMACDform.visible=1
 case 56
-smFisherTransform3nrform.visible=1
+rsiform.visible=1
 case 57
-spectrometerform.visible=1
+smFisherTransform3nrform.visible=1
 case 58
-stepftvcprdlform.visible=1
+spectrometerform.visible=1
 case 59
-steprsiform.visible=1
+stepftvcprdlform.visible=1
 case 60
-threeD_Oscilatorform.visible=1
+steprsiform.visible=1
 case 61
-TSCDform.visible=1
+threeD_Oscilatorform.visible=1
 case 62
-valuechartform.visible=1
+TSCDform.visible=1
 case 63
+valuechartform.visible=1
+case 64
 vcatrcform.visible=1
 end select
 end sub

@@ -1,0 +1,14 @@
+%BorderFo_p
+addmenu
+clipboard
+close
+createBorder
+createBorderFont
+createWindow
+findobj
+getvalue
+menubar
+tree_show
+uitable
+x_choices
+x_matrix

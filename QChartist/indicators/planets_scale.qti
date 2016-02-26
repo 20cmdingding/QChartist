@@ -103,6 +103,14 @@ if price_scalebuffer2(i)/360>1 then
 	price_scalebuffer2(i)=360*price_scalebuffer2(i)
 end if
 
+if scale_Planetary_method.itemindex=1 then ' sinusoidal
+defdbl scalepricelongitude
+scalepricelongitude=deg2rad(price_scalebuffer(i))
+price_scalebuffer(i)=(sin(scalepricelongitude)+0*0.628) ' *val(planets_scale_ratio.text)
+scalepricelongitude=deg2rad(price_scalebuffer2(i))
+price_scalebuffer2(i)=(sin(scalepricelongitude)+0*0.628) ' *val(planets_scale_ratio.text)
+end if
+
 
 year=mid$(date2(i),1,4)
 month=mid$(date2(i),6,2)
@@ -233,12 +241,19 @@ end select
         cpptmpfuncreturn=varptr$(swe_get_planet_name(varptr(pparameters),varptr(plnam$)))
 
         plnam$ = set_strlen(plnam$)
-        plnam$ = Left$(plnam$, 10)	
+        plnam$ = Left$(plnam$, 10)
+
+defdbl scalelongitude=deg2rad(x(0))*planets_scale_inv	
 
 defint incrplanet
     for incrplanet=0 to 10
 
+if scale_Planetary_method.itemindex=1 then ' sinusoidal
+planets_scalebuffer(j,i)=(sin(scalelongitude)+incrplanet*0.628)
+exit for
+else
 planets_scalebuffer(j,i)=x(0)*planets_scale_inv+360*incrplanet
+end if
 
 j++
 

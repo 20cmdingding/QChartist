@@ -29,7 +29,7 @@ CREATE realMACDform as qform
 
     create realMACDbtnok as qbutton
         left=0
-        top=20
+        top=40
         caption="OK"
         onclick=hiderealMACDform
     end create

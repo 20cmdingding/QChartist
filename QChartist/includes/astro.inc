@@ -1,6 +1,6 @@
 const one_day_in_years=0.00273790926
 
-' Period of revolution in years
+' Period of revolution in years (around the sun)
 const mercury_period_of_revolution=0.24093601488
 const venus_period_of_revolution=0.615208210722
 const earth_period_of_revolution=1
@@ -10,6 +10,9 @@ const saturn_period_of_revolution=29.46
 const uranus_period_of_revolution=83.75
 const neptune_period_of_revolution=163.72
 const pluto_period_of_revolution=247.92
+
+' Moon synodic month (long-term average duration) in years (29.530587981 days)
+const moon_synodic_month_avg=0.08085207028642460406
 
 ' Rotation period in years
 const mercury_rotation_period=0.16153664634

@@ -5775,6 +5775,83 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
         END WITH
         
     END SUB
+    
+    private :
+    SUB drawconic(xb , yb , xc , yc,xd,yd)   
+        
+        if conicpointclicknb<6 then
+        
+        fibofanangonce=0
+        'DEFSNG x2 , y2 , x3 , y3 , x4 , y4
+        'DEFSNG x4
+        'DEFSNG y4
+        defint x2 = xb
+        defint y2 = yb
+        defint x3 = xc
+        defint y3 = yc
+        defint x4 = xd
+        defint y4 = yd
+
+        WITH QChart
+            .ClearBuffer
+            .buffer.BMP = .buffertmpz.BMP
+            'MoveToEx(.Buffer.handle,x2,y2,0)
+            'LineTo(.Buffer.handle,x2,y3)
+            graphcursorpos2
+            .Buffer.Line(x2 , y2-5 , x2 , y2+5 , pencolor)
+            '.Buffer.TextOut(x3 , graphvspace + 45 , graphdateoncur , pencolor , &hffffff)
+            .Buffer.Line(x2-5 , y2 , x2+5 , y2 , pencolor)
+            '.Buffer.TextOut(0 , y3 , STR$(graphpriceoncur) , pencolor , &hffffff)
+            .buffertmp.BMP = .buffer.BMP
+            .PaintChart
+            DIM a AS DOUBLE , b AS DOUBLE , c AS DOUBLE , ang_a AS DOUBLE
+            a = x3 - x2
+            b = y3 - y2
+            c = SQR(a^2 + b^2)
+            IF c <> 0 THEN
+                ang_a = ACOS(a / c) * 180 / 3.1415927
+        ang_a_pub=ang_a
+                dispinfotext("Angle: " + STR$(ang_a) + CHR$(10) + _
+                    "Length: " + STR$(c) _
+                    + CHR$(10) + "x1: " + STR$(x2) _
+                    + CHR$(10) + "y1: " + STR$(y2) _
+                    + CHR$(10) + "x2: " + STR$(x3) _
+                    + CHR$(10) + "y2: " + STR$(y3) _
+                    )
+            END IF
+
+        END WITH
+        
+        if conicpointclicknb=5 then 
+        
+        defint ret
+        dim xx(10000) as double
+        dim yy(10000) as double
+        dim xx2(10000) as double
+        dim yy2(10000) as double
+        parameters=str$(conicpointsx(1))+";"+str$(conicpointsy(1)*(-1))+";"+str$(conicpointsx(2))+";"+str$(conicpointsy(2)*(-1))+";"+_
+        str$(conicpointsx(3))+";"+str$(conicpointsy(3)*(-1))+";"+str$(conicpointsx(4))+";"+str$(conicpointsy(4)*(-1))+";"+_
+        str$(conicpointsx(5))+";"+str$(conicpointsy(5)*(-1))+";"+str$(graph.height*(-1))+";"+str$(graph.width)
+        ret = conic_section(varptr(parameters),varptr(xx(0)),varptr(yy(0)))
+        
+        WITH QChart
+        defint i
+        .ClearBuffer
+        .buffer.BMP = .buffertmpz.BMP
+        for i=0 to 10000
+            'if yy(i+1)>yy(i) then                                
+            .Buffer.pset(round(xx(i)) , round(yy(i)*(-1)) , pencolor)                   
+            'end if
+        next i    
+        .buffertmp.BMP = .buffer.BMP
+        .PaintChart 
+        END WITH
+        conicpointclicknb=0                               
+        end if
+        
+        end if                  
+
+    END SUB
 
     '------------------------------------------------------------------------------------------
     PRIVATE :
@@ -6044,6 +6121,8 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
                     .draworderbuy(x2 , y2 , 0 , 0)
                 CASE 35 :
                     .drawordersell(x2 , y2 , 0 , 0)
+                CASE 36 :
+                    .drawconic(x2 , y2 , x3 , y3 , x4 , y4)
             END SELECT
         END WITH
     END SUB

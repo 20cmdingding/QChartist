@@ -1,0 +1,4 @@
+scilab_en_US_help.chm
+scilab_fr_FR_help.chm
+scilab_ja_JP_help.chm
+scilab_pt_BR_help.chm

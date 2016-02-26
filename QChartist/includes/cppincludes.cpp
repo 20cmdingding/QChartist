@@ -44,9 +44,12 @@
 // ''RQEXPORT function timebcpp(bar)
 // ''RQEXPORT function calculate_seconds_since_1_1_1970_cpp(parameters)
 // ''RQEXPORT function current_time()
+// ''RQEXPORT function Scilab_test()
+// ''RQEXPORT function conic_section(parameters,x,y)
 
 #include "includes\QChartist.cpp"
 #include "includes\swedll32.cpp"
+#include "includes\scilab.cpp"
 
 // ''RQEXPORT function bandscpp(periodstr)
 #include "indicators\bandscpp.cpp"

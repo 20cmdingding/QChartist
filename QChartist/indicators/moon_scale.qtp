@@ -1,0 +1,86 @@
+declare sub hidemoon_scaleform
+
+CREATE moon_scaleform as qform
+
+    Center
+    Caption = "Settings for: moon_scale"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create moonplanets_scale_ratio_label as qlabel
+	top=0
+	left=0
+	caption="ratio:"
+end create
+
+create moonplanets_scale_ratio as qedit
+	top=0
+	left=moonplanets_scale_ratio_label.left+moonplanets_scale_ratio_label.width
+	text="1000"
+end create
+
+create moonplanets_scale_planet as qcombobox
+	top=20
+	left=0
+	additems "Moon"
+	itemindex=0
+end create
+
+create moonplanets_scale_limit_label as qlabel
+top=40
+left=0
+caption="Bars limit:"
+end create
+
+create moonplanets_scale_limit as qedit
+top=40
+left=moonplanets_scale_limit_label.left+moonplanets_scale_limit_label.width
+text="300"
+end create
+
+create moonplanets_scale_helio_geo as qcombobox
+	top=60
+	left=0
+	additems "Geocentric"
+	itemindex=0
+end create
+
+create moonplanets_scale_inverted as qcheckbox
+	top=80
+	left=0
+	caption="Inverted"
+end create
+
+create moonplanets_scale_ratio2_label as qlabel
+	top=100
+	left=0
+	caption="ratio2:"
+end create
+
+create moonplanets_scale_ratio2 as qedit
+	top=100
+	left=moonplanets_scale_ratio2_label.left+moonplanets_scale_ratio2_label.width
+	text="1"
+end create
+
+create moonPlanetary_method as qcombobox
+left=0
+        top=120
+        additems "Orthogonal"
+        additems "Sinusoidal"
+	itemindex=0
+    end create
+
+    create moon_scalebtnok as qbutton
+        left=0
+        top=140
+        caption="OK"
+        onclick=hidemoon_scaleform
+    end create
+
+END CREATE
+
+sub hidemoon_scaleform
+    moon_scaleform.visible=0
+end sub

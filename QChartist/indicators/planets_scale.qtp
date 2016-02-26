@@ -64,9 +64,17 @@ create planets_scale_inverted as qcheckbox
 	onclick=planets_scale_inverted_click
 end create
 
+create scale_Planetary_method as qcombobox
+left=0
+        top=100
+        additems "Orthogonal"
+        additems "Sinusoidal"
+	itemindex=0
+    end create
+
     create planets_scalebtnok as qbutton
         left=0
-        top=100
+        top=120
         caption="OK"
         onclick=hideplanets_scaleform
     end create

@@ -1322,6 +1322,21 @@ buffers with index<0)
 2016-02-20:
 - build 71
 
+2016-02-22:
+- new indicator moon_scale
+- sinusoidal method added to the planet_scale indicator
+
+2016-02-23:
+- new chart conversion to sinusoidal in the Edit menu
+
+2016-02-24:
+- added Scilab distribution and a sample code to be used with QChartist
+
+2016-02-26:
+- added Scilab documentation
+- new drawing tool: conic drawn from five points
+- build 72
+
 -------------------------------------------------------------------------------------
 Todo list:
 

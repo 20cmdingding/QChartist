@@ -1,0 +1,11 @@
+assert_checkalmostequal
+assert_checkequal
+assert_checkerror
+assert_checkfalse
+assert_checkfilesequal
+assert_checktrue
+assert_comparecomplex
+assert_computedigits
+assert_cond2reltol
+assert_cond2reqdigits
+assert_generror

@@ -1,0 +1,31 @@
+'------------------------- moon_scale -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+moon_scale
+end if
+
+barsback=numbars '<--- can also be something like VAL(moon_scalebarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+
+defint incrplanetmoon
+for incrplanetmoon=0 to 10
+    sepindicolor(drawid)=olive '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(moonplanets_scalebuffer(incrplanetmoon,offset))
+    drawid=drawid+2
+next incrplanetmoon
+
+sepindicolor(drawid)=red '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(moonprice_scalebuffer(offset))
+    drawid=drawid+2
+
+sepindicolor(drawid)=blue '<--- replace with your color
+    canvas.separateindicator1.Cell(drawid,lbar)= STR$(moonprice_scalebuffer2(offset))
+    drawid=drawid+2
+
+end if
+
+end if
+'------------------------- End moon_scale -------------------------------------------------

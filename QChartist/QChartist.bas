@@ -662,6 +662,9 @@ DIM ptl(600) AS QPANEL
 dim cpptmpfuncreturn as string
 dim symetryfrompoint as integer
 symetryfrompoint=0
+dim conicpointsx(5) as integer
+dim conicpointsy(5) as integer
+defint conicpointclicknb=0
 
 trendlinesoffset = 0
 fibofanoffset = 0
@@ -1779,6 +1782,7 @@ $RESOURCE iconsqr AS "images\sqr.bmp"
 $RESOURCE icontrendline AS "images\trendline.bmp"
 $RESOURCE iconcursor AS "images\cursor.bmp"
 $RESOURCE icontri AS "images\tri.bmp"
+$RESOURCE iconconic AS "images\conic.bmp"
 $RESOURCE iconvline AS "images\vline.bmp"
 $RESOURCE iconclose AS "images\closebtn.bmp"
 $RESOURCE iconmove AS "images\move_rl.bmp"
@@ -1893,6 +1897,7 @@ DECLARE SUB sqrbtnclick
 DECLARE SUB tribtnclick
 DECLARE SUB sqr2btnclick
 DECLARE SUB tri2btnclick
+DECLARE SUB conicbtnclick
 DECLARE SUB circlebtnclick
 DECLARE SUB crossbtnclick
 DECLARE SUB invcirclebtnclick
@@ -2009,6 +2014,7 @@ DECLARE SUB reversetillendnorefresh
 DECLARE SUB reversetillendfromfile
 DECLARE SUB chartconvsub
 DECLARE SUB exp10sub
+DECLARE SUB sinusoidalsub
 DECLARE SUB showfrmlogreverse
 DECLARE SUB frmlogreverseresized
 DECLARE SUB frmreadmeresized
@@ -3758,6 +3764,19 @@ CREATE frmMain AS QFORMEX
                 BMPHandle = icontri
                 Cursor = 2
             END CREATE
+            
+            CREATE conicbtn AS QOVALBTN
+                Top = 160
+                Left = 5
+                Width = 30
+                Height = 30
+                Color = &Hcccccc
+                Hint = "Draw conic from five points"
+                ShowHint = 1
+                OnClick = conicbtnclick
+                BMPHandle = iconconic
+                Cursor = 2
+            END CREATE
 
             CREATE vlinebtn AS QOVALBTN
                 Top = 70
@@ -5113,6 +5132,7 @@ SUB nexttoolsclick
     tribtn.Visible = 0
     sqr2btn.Visible = 1
     tri2btn.Visible = 1
+    conicbtn.Visible = 1
     circlebtn.Visible = 0
     crossbtn.Visible = 0
     invcirclebtn.Visible = 0
@@ -5158,6 +5178,7 @@ SUB previoustoolsclick
     tribtn.Visible = 1
     sqr2btn.Visible = 0
     tri2btn.Visible = 0
+    conicbtn.Visible = 0
     circlebtn.Visible = 1
     crossbtn.Visible = 1
     invcirclebtn.Visible = 1
@@ -5714,6 +5735,8 @@ SUB resetbtns
     sqr2btn.Color = &Hcccccc
     tri2btn.Flat = 0
     tri2btn.Color = &Hcccccc
+    conicbtn.Flat = 0
+    conicbtn.Color = &Hcccccc
     circlebtn.Flat = 0
     circlebtn.Color = &Hcccccc
     crossbtn.Flat = 0
@@ -6048,6 +6071,23 @@ SUB tri2btnclick
     IF tri2btn.Flat = 1 THEN
         tri2btn.Flat = 0
         tri2btn.Color = &Hcccccc
+        chartscursormode = 0
+        EXIT SUB
+    END IF
+END SUB
+
+SUB conicbtnclick
+    IF conicbtn.Flat = 0 THEN
+        resetbtns
+        conicbtn.Flat = 1
+        conicbtn.Color = &H88cc88
+        chartscursormode = 1
+        say conicbtn.hint
+        EXIT SUB
+    END IF
+    IF conicbtn.Flat = 1 THEN
+        conicbtn.Flat = 0
+        conicbtn.Color = &Hcccccc
         chartscursormode = 0
         EXIT SUB
     END IF
@@ -9523,6 +9563,13 @@ CREATE chartconvform AS QFORM
         Width = 300
         OnClick = exp10sub
     END CREATE
+    CREATE sinusoidalbtn AS QBUTTON
+        Left = 0
+        Top = 30
+        Caption = "Convert chart to sinusoidal"
+        Width = 300
+        OnClick = sinusoidalsub
+    END CREATE
 END CREATE
 
 CREATE attribtfform AS QFORM
@@ -10383,6 +10430,69 @@ SUB exp10sub
 '       next i        
 '   next j
 'em.Close
+    exportfilename()
+    btnOnClick(drwBox)
+    savegridtmp
+
+END SUB
+
+SUB sinusoidalsub
+    IF openedfilesnb = 0 THEN
+        EXIT SUB
+    END IF
+    
+    DIM inputsinratio AS qinputbox , inputsinratiotxt AS STRING
+    inputsinratiotxt = inputsinratio.INPUT("Enter your ratio (0.1 or 1 or 10 for example):")
+    
+    DIM i AS INTEGER
+    DIM j AS INTEGER
+    'chartbars(displayedfile)=chartbarstmp(displayedfile)
+    'dim j as integer
+    'dim high as double
+    'dim low as double
+    'dim vol as integer
+    'dim lines as integer
+    'lines=1
+    defdbl pricesin
+    
+        FOR i = 1 TO chartbars(displayedfile)
+            'Grid.Cell(rowgridoffset+1,i)=str$(val(Grid.Cell(rowgridoffset+1,i)))
+            'Grid.Cell(rowgridoffset+2,i)=Gridtmp.Cell(rowgridoffset+2,i)
+            pricesin=val(inputsinratiotxt)*VAL(Grid.Cell(rowgridoffset + 3 , i))
+            if pricesin/360>1 then
+                pricesin=frac(pricesin/360)
+                pricesin=360*pricesin
+            end if
+            pricesin=deg2rad(pricesin)
+            Grid.Cell(rowgridoffset + 3 , i)=str$(sin(pricesin)+0*0.628) ' *val(inputsinratiotxt)
+
+            pricesin=val(inputsinratiotxt)*VAL(Grid.Cell(rowgridoffset + 4 , i))
+            if pricesin/360>1 then
+                pricesin=frac(pricesin/360)
+                pricesin=360*pricesin
+            end if
+            pricesin=deg2rad(pricesin)
+            Grid.Cell(rowgridoffset + 4 , i)=str$(sin(pricesin)+0*0.628)
+            
+            pricesin=val(inputsinratiotxt)*VAL(Grid.Cell(rowgridoffset + 5 , i))
+            if pricesin/360>1 then
+                pricesin=frac(pricesin/360)
+                pricesin=360*pricesin
+            end if
+            pricesin=deg2rad(pricesin)
+            Grid.Cell(rowgridoffset + 5 , i)=str$(sin(pricesin)+0*0.628)
+            
+            pricesin=val(inputsinratiotxt)*VAL(Grid.Cell(rowgridoffset + 6 , i))
+            if pricesin/360>1 then
+                pricesin=frac(pricesin/360)
+                pricesin=360*pricesin
+            end if
+            pricesin=deg2rad(pricesin)
+            Grid.Cell(rowgridoffset + 6 , i)=str$(sin(pricesin)+0*0.628)           
+            
+            'Grid.Cell(rowgridoffset+7,i)=Gridtmp.Cell(rowgridoffset+7,i)
+        NEXT i
+
     exportfilename()
     btnOnClick(drwBox)
     savegridtmp
@@ -15044,7 +15154,7 @@ SUB graphclicked
         textbtn.Flat = 1 OR aimingbtn.Flat = 1 OR handdbtn.Flat = 1 OR sinbtn.Flat = 1 OR logbtn.Flat = 1 OR expbtn.Flat = 1 OR ellipsebtn.Flat = 1 OR _
         pitchforkbtn.Flat = 1 OR priceextbtn.Flat = 1 OR sq9fbtn.Flat = 1 OR sq144btn.Flat = 1 OR timeextbtn.Flat = 1 OR tsq9fbtn.Flat = 1 _
         OR tsq144btn.Flat = 1 OR pricecyclesbtn.Flat = 1 OR timecyclesbtn.Flat = 1 OR logspiralbtn.Flat = 1 OR pentagbtn.Flat = 1 OR orcyclesbtn.Flat = 1 _
-        OR polygbtn.flat=1 OR sqr2btn.Flat = 1 OR tri2btn.Flat THEN
+        OR polygbtn.flat=1 OR sqr2btn.Flat = 1 OR tri2btn.Flat OR conicbtn.Flat THEN
 
         IF graphclick = 0 THEN
             graphcursorpos2
@@ -15105,8 +15215,28 @@ SUB graphclicked
                 firstclickgraph = 0  
                 EXIT SUB    
                 
-            end if                
+            end if  
+            
+            if conicpointclicknb<6 and conicbtn.Flat = 1 then
+                conicpointclicknb++
+                conicpointsx(conicpointclicknb)=firstclickgraphx
+                conicpointsy(conicpointclicknb)=firstclickgraphy
+                'Graph.savebuffertmpsimplez
+                graphcursorpos2 
+                'graphclicktimer.Enabled = 1
+                detpos
+                
+                'XVAL = mousemovegraphx
+                'YVAL = mousemovegraphy
+                secondclickgraphx = mousemovegraphx
+                secondclickgraphy = mousemovegraphy  
+                graphclick = 0                                                                         
 
+                'graphclicktimer.Enabled = 0
+                firstclickgraph = 0  
+                EXIT SUB    
+                
+            end if                                      
 
             IF textbtn.Flat = 1 THEN
                 enterdrawtxt
@@ -15759,6 +15889,9 @@ SUB DetPos
         END IF
         IF tri2btn.Flat = 1 THEN
             .drawp(32 , firstclickgraphx , firstclickgraphy , XVAL , YVAL , 0 , 0)
+        END IF
+        IF conicbtn.Flat = 1 THEN
+            .drawp(36 , firstclickgraphx , firstclickgraphy , XVAL , YVAL , secondclickgraphx , secondclickgraphy)
         END IF
         '.visible=0
         '.visible=1
@@ -18587,9 +18720,10 @@ end if
 
 cnthotkey=84
 If GetAsyncKeyState(Cnthotkey) <> 0 Then
-showmessage str$(datetimeserial(0))
-defint zeroint=0
-showmessage varptr$(timebcpp(varptr(zeroint)))
+'showmessage str$(datetimeserial(0))
+'defint zeroint=0
+'showmessage varptr$(timebcpp(varptr(zeroint)))
+cpptmpfuncreturn=Scilab_test()
 end if
 
 cnthotkey=32
