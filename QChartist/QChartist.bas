@@ -4860,6 +4860,7 @@ SUB dispbarsswitchsub
         dispbarsswitch.Flat = 1
         barsdisplayed.Text = "10"
         numbars = VAL(barsdisplayed.Text)
+        defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
         chartstart = Scrollchart.Position - numbars
         justrefreshchart
         say "Displayed bars set to: "+barsdisplayed.Text
@@ -4869,6 +4870,7 @@ SUB dispbarsswitchsub
         dispbarsswitch.Flat = 0
         barsdisplayed.Text = "100"
         numbars = VAL(barsdisplayed.Text)
+        numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
         chartstart = Scrollchart.Position - numbars
         justrefreshchart
         say "Displayed bars set to: "+barsdisplayed.Text
@@ -7655,10 +7657,12 @@ trendlinesdb.Parent = objectslistfrm
 trendlinesdb.Top = 50
 trendlinesdb.AddOptions(goEditing , goThumbTracking ,)
 trendlinesdb.Width = objectslistfrm.Width - 30
+trendlinesdb.colcount=6
 trendlinesdb.Cell(1 , 0) = "Price 1"
 trendlinesdb.Cell(2 , 0) = "Price 2"
 trendlinesdb.Cell(3 , 0) = "Unix time 1"
 trendlinesdb.Cell(4 , 0) = "Unix time 2"
+trendlinesdb.Cell(5 , 0) = "Label name"
 trendlinesdb.RowCount = 100
 
 fibofandb.Parent = objectslistfrm
@@ -9153,6 +9157,7 @@ END SUB
 
 SUB dispbarsok_click()
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
     IF openedfilesnb = 0 THEN
         EXIT SUB
     END IF
@@ -11149,6 +11154,19 @@ SUB btndelindi_click()
         textlabelsdb.RowCount = 100
         next delallj
     end if
+    if left$(indicatorslist.Item(indicatorslist.ItemIndex),10)="ZigZag cpp" then
+    'defint delalli,delallj
+        FOR delallj=1 to 10
+        FOR delalli = 1 TO 1000 - 1
+            if trendlinesdb.Cell(5 , delalli) = "zigzagcpp" then          
+                trendlinesdb.deleterow(delalli)
+                trendlinesoffset--
+                if trendlinesoffset<0 then trendlinesoffset=0
+            end if
+        NEXT delalli        
+        trendlinesdb.RowCount = 100
+        next delallj
+    end if
 END SUB
 
 SUB indilist_dblclick
@@ -11517,6 +11535,7 @@ SUB importfileyahoo()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
 
     DIM OpenDialog AS QOPENDIALOG
@@ -11810,7 +11829,7 @@ SUB importfilestooq()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
-
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM OpenDialog AS QOPENDIALOG
     'OpenDialog.initialdir=homepath+"\csv"'mtpathedit.text
@@ -12074,6 +12093,7 @@ SUB importfile2()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM OpenDialog AS QOPENDIALOG
     OpenDialog.InitialDir = mtpathedit.Text
@@ -12430,6 +12450,7 @@ SUB importfile()
     scrollchartpositionwait = 1
     if val(barsdisplayed.text)>chartbars(displayedfile) then barsdisplayed.text=str$(chartbars(displayedfile))
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
     chartstart = Scrollchart.Position - numbars
     updatemixerlists
 
@@ -12520,6 +12541,7 @@ SUB importfileauto(ifafilename AS STRING)  ' use this sub to open the file in th
 '    volpos = VAL(form2Edit7.Text)
 '    separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     'DIM OpenDialog AS QOpenDialog
     'IF OpenDialog.Execute THEN
@@ -12742,6 +12764,7 @@ SUB importfileauto2(filenameauto AS STRING) ' use this sub to open the file in a
 '    volpos = VAL(form2Edit7.Text)
 '    separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     'DIM OpenDialog AS QOpenDialog
     'IF OpenDialog.Execute THEN
@@ -12945,6 +12968,7 @@ SUB importfile1m(filenameauto AS STRING) ' use this sub to open the file in a ne
     DIM i AS INTEGER , j AS INTEGER
 
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
 
     openedfilesnb ++
@@ -13059,6 +13083,7 @@ SUB reimportfile()
 '    volpos = VAL(form2Edit7.Text)
 '    separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
 '    DIM OpenDialog AS QOPENDIALOG
 
@@ -13253,6 +13278,7 @@ SUB importfilemultiply()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM OpenDialog AS QOPENDIALOG
     IF OpenDialog.Execute THEN
@@ -13411,6 +13437,7 @@ SUB importfilemultiplydel()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM file AS QFILESTREAM
     file.open(multiplylist.Item(multiplylist.ItemIndex) , 0)
@@ -13561,6 +13588,7 @@ SUB importfiledivide()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM OpenDialog AS QOPENDIALOG
     IF OpenDialog.Execute THEN
@@ -13719,6 +13747,7 @@ SUB importfiledividedel()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM file AS QFILESTREAM
     file.open(dividelist.Item(dividelist.ItemIndex) , 0)
@@ -13860,6 +13889,7 @@ SUB reversebarscomputesub
     DIM i AS INTEGER , j AS INTEGER
 
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM k AS INTEGER , l AS INTEGER , m AS INTEGER , incr AS INTEGER
     m = 1
@@ -14037,6 +14067,7 @@ SUB reversebarscomputesubb(referencialk AS INTEGER)
 
 
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM k AS INTEGER , l AS INTEGER , m AS INTEGER , incr AS INTEGER
     m = 1
@@ -14164,6 +14195,7 @@ SUB importfileaddition()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM OpenDialog AS QOPENDIALOG
     IF OpenDialog.Execute THEN
@@ -14323,6 +14355,7 @@ SUB importfileadditiondel()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM file AS QFILESTREAM
     file.open(additionlist.Item(additionlist.ItemIndex) , 0)
@@ -14472,6 +14505,7 @@ SUB importfilesubtraction()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM OpenDialog AS QOPENDIALOG
     IF OpenDialog.Execute THEN
@@ -14626,6 +14660,7 @@ SUB importfilesubtractiondel()
     volpos = VAL(form2Edit7.Text)
     separator = VAL(form2Edit8.Text)
     numbars = VAL(barsdisplayed.Text)
+    defstr numbarsstr=str$(numbars):cpptmpfuncreturn=varptr$(setnumbars(varptr(numbarsstr)))
 
     DIM file AS QFILESTREAM
     file.open(subtractionlist.Item(subtractionlist.ItemIndex) , 0)

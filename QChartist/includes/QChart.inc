@@ -5838,9 +5838,9 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
         defint i
         .ClearBuffer
         .buffer.BMP = .buffertmpz.BMP
-        for i=0 to 10000
+        for i=0 to graph.height*2*5
             'if yy(i+1)>yy(i) then                                
-            .Buffer.pset(round(xx(i)) , round(yy(i)*(-1)) , pencolor)                   
+            .Buffer.pset(round(xx(i)) , round(yy(i)*(-1)) , pencolor)
             'end if
         next i    
         .buffertmp.BMP = .buffer.BMP

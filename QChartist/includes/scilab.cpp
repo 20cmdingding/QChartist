@@ -247,13 +247,13 @@ std::strcpy (workingspacechar, workingspace.c_str());
 			std::string myheight=boost::lexical_cast<std::string>(height);
 			std::string mywidth=boost::lexical_cast<std::string>(width);
 
-			std::string forline1="for i="+myheight+":1:0;rep=fsolve([0,i],coniques);n=n+1;a(n)=rep(1);b(n)=rep(2);end;";
+			std::string forline1="for i="+myheight+":0.2:0;rep=fsolve([0,i],coniques);n=n+1;a(n)=rep(1);b(n)=rep(2);end;";
 			char * forline1char = new char [forline1.length()+1];
 			std::strcpy (forline1char, forline1.c_str());
 
 			std::string fsolveline="rep=fsolve(["+mywidth+",i],coniques);";  			
 			
-			std::string forline2="for i="+myheight+":1:0;"+fsolveline+"n=n+1;a(n)=rep(1);b(n)=rep(2);end;";
+			std::string forline2="for i="+myheight+":0.2:0;"+fsolveline+"n=n+1;a(n)=rep(1);b(n)=rep(2);end;";
 			char * forline2char = new char [forline2.length()+1];
 			std::strcpy (forline2char, forline2.c_str());
 

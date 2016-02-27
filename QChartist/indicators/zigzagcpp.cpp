@@ -42,7 +42,7 @@ curhigh=0;
 lasthigh=0;
 lastlow=0;
 
-for (i=0;i<=1000;i++) {
+for (i=0;i<=numbars_last+numbars+1000;i++) {
 zigzagbuffer[i]=0;
 highmapbuffer[i]=0;
 lowmapbuffer[i]=0;
@@ -50,7 +50,7 @@ lowmapbuffer[i]=0;
                                             
 
 
-while ((counterz<level) && (i<intbarsback)) {
+while ((counterz<level) && (i<numbars_last+numbars+1000)) {
     res=zigzagbuffer[i];
     if (res!=0) counterz++;      
     i++;
@@ -67,13 +67,13 @@ else {
     curhigh=highmapbuffer[i];
     whatlookfor=-1;
      }
-for (i=limit-1;i>=0;i--) {
+for (i=numbars_last+numbars+1000-1;i>=0;i--) {
     zigzagbuffer[i]=0;
     lowmapbuffer[i]=0;
     highmapbuffer[i]=0;
                          }
 
-for (shift=limit;shift>=0;shift--) {
+for (shift=numbars_last+numbars+1000;shift>=numbars_last;shift--) {
 
 //find min element of array
 //defint p
@@ -141,7 +141,7 @@ else {
     lastlow=curlow;
     lasthigh=curhigh;
      }
-for (shift=limit;shift>=0;shift--) {
+for (shift=numbars_last+numbars+1000;shift>=numbars_last;shift--) {
     res=0;
     switch (whatlookfor) {
         case 0:

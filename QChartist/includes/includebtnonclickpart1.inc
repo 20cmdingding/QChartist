@@ -482,7 +482,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
                 barsstr=str$(bars):cpptmpfuncreturn=varptr$(setbars(varptr(barsstr)))
                 numbars_first=chartbars(displayedfile)-scrollchart.position+numbars-1
                 numbars_last=chartbars(displayedfile)-scrollchart.position
-                        
+                defstr numbars_firststr=str$(numbars_first):cpptmpfuncreturn=varptr$(setnumbars_first(varptr(numbars_firststr)))
+                defstr numbars_laststr=str$(numbars_last):cpptmpfuncreturn=varptr$(setnumbars_last(varptr(numbars_laststr)))        
                 
                 FOR i = chartstart TO chartstart + .DATA.ColCount + val(generalsettingsfuturebarsedit.text)  'for each col
                     l ++

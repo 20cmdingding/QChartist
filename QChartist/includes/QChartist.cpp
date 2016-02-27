@@ -161,6 +161,9 @@ static arrayofints chartbars;
 static arrayofints chartbarstmp;
 static arrayofints charttf;
 static int displayedfile;
+static int numbars_first;
+static int numbars_last;
+static int numbars;
 static int rowgridoffset=0;
 static int openedfilesnb=0;
 static int bars;  
@@ -610,6 +613,30 @@ strncpy(chartbarsdisplayedfileintt, chartbarsdisplayedfileint, 1000);
 static char chartbarsoffsett[1000];
 strncpy(chartbarsoffsett, chartbarsoffset, 1000);
 chartbars[atoi(chartbarsoffsett)]=atoi(chartbarsdisplayedfileintt);
+return 0;
+}
+
+char* setnumbars (char* numbarsint)
+{  
+static char numbarsintt[1000];
+strncpy(numbarsintt, numbarsint, 1000);
+numbars=atoi(numbarsintt);
+return 0;
+}
+
+char* setnumbars_first (char* numbars_firstint)
+{  
+static char numbars_firstintt[1000];
+strncpy(numbars_firstintt, numbars_firstint, 1000);
+numbars_first=atoi(numbars_firstintt);
+return 0;
+}
+
+char* setnumbars_last (char* numbars_lastint)
+{  
+static char numbars_lastintt[1000];
+strncpy(numbars_lastintt, numbars_lastint, 1000);
+numbars_last=atoi(numbars_lastintt);
 return 0;
 }
 

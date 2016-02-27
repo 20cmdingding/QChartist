@@ -482,7 +482,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
                 barsstr=str$(bars):cpptmpfuncreturn=varptr$(setbars(varptr(barsstr)))
                 numbars_first=chartbars(displayedfile)-scrollchart.position+numbars-1
                 numbars_last=chartbars(displayedfile)-scrollchart.position
-                        
+                defstr numbars_firststr=str$(numbars_first):cpptmpfuncreturn=varptr$(setnumbars_first(varptr(numbars_firststr)))
+                defstr numbars_laststr=str$(numbars_last):cpptmpfuncreturn=varptr$(setnumbars_last(varptr(numbars_laststr)))        
                 
                 FOR i = chartstart TO chartstart + .DATA.ColCount + val(generalsettingsfuturebarsedit.text)  'for each col
                     l ++
@@ -2043,14 +2044,57 @@ if lbar=1 then
 barsbackstr=zigzagcppbarsbackedit.text
 defstr extdepthstr=zzcppextdepthedit.text
 cpptmpfuncreturn=varptr$(zigzagcpp(varptr(barsbackstr),varptr(extdepthstr)))
+FOR delallj=1 to 10
+	    FOR delalli = 1 TO 1000 - 1
+                    if trendlinesdb.Cell(5 , delalli) = "zigzagcpp" then			
+			trendlinesdb.deleterow(delalli)
+			trendlinesoffset--
+			if trendlinesoffset<0 then trendlinesoffset=0
+		    end if
+            NEXT delalli
+	trendlinesdb.RowCount = 100
+	next delallj
 end if
 
-barsback=val(zigzagcppbarsbackedit.text) '<--- can also be something like VAL(zigzagcppbarsbackedit.text)
+barsback=numbars 'val(zigzagcppbarsbackedit.text) '<--- can also be something like VAL(zigzagcppbarsbackedit.text)
 
 if ibar>=lastbar-barsback then
     indicolor(drawid)=purple '<--- replace with your color
     bufnamestr="zigzagbuffer"
-    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    '.Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr))))>0 then
+defint ijk
+defstr ijkstr
+for ijk=offset-1 to 0 step -1
+ijkstr=str$(ijk)
+if val(varptr$(getbufferdata(varptr(bufnamestr),varptr(ijkstr))))>0 then
+
+year0=mid$(date(offset),1,4)
+month0=mid$(date(offset),6,2)
+day0=mid$(date(offset),9,2)
+hours0=mid$(time(offset),1,2)
+minutes0=mid$(time(offset),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+trendlinesoffset++
+trendlinesdb.Cell(1 , trendlinesoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+trendlinesdb.Cell(3 , trendlinesoffset) = cpptmpfuncreturn
+
+year0=mid$(date(ijk),1,4)
+month0=mid$(date(ijk),6,2)
+day0=mid$(date(ijk),9,2)
+hours0=mid$(time(ijk),1,2)
+minutes0=mid$(time(ijk),4,2) 
+$mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
+trendlinesdb.Cell(2 , trendlinesoffset) = varptr$(getbufferdata(varptr(bufnamestr),varptr(ijkstr)))
+trendlinesdb.Cell(4 , trendlinesoffset) = cpptmpfuncreturn
+trendlinesdb.Cell(5 , trendlinesoffset) = "zigzagcpp"
+exit for
+
+end if
+next ijk
+end if
     drawid=drawid+2
 end if
 

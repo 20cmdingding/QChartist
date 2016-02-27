@@ -1336,6 +1336,13 @@ buffers with index<0)
 - added Scilab documentation
 - new drawing tool: conic drawn from five points
 - build 72
+- conic drawing tool improved (QChart.inc and scilab.cpp modified)
+
+2016-02-27:
+- numbars, numbars_first, numbars_last variables added to C++
+- added text label for the trendlines db
+- ZigZag cpp indicator improved
+- build 73
 
 -------------------------------------------------------------------------------------
 Todo list:
