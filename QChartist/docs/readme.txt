@@ -1344,6 +1344,10 @@ buffers with index<0)
 - ZigZag cpp indicator improved
 - build 73
 
+2016-02-28:
+- check for updates function debugged
+- build 74
+
 -------------------------------------------------------------------------------------
 Todo list:
 
