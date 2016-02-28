@@ -18613,7 +18613,7 @@ if (val(QC_build)<val(lastver)) then
 IF MessageDlg("A new version of QChartist is available (your build: "+QC_build+", last build: "+lastver+")"+chr$(10)+"Upgrade now?", mtConfirmation, mbYes OR mbNo, 0) = mrYes THEN
     '-- Upgrade
     run homepath+"\update.exe"
-    application.terminate
+    run "c:\qchartist\qckill.exe"
 
 end if
 
