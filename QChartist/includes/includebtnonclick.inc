@@ -333,8 +333,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
 
             '-=============================== Case CandleSticks ==============================================-
 
-        CASE "Candlesticks"
-
+        CASE "Candlesticks"                    
+            
             frmmain.Caption = "QChartist - Please wait while loading chart..."
             Graph.Visible = 1
             split.Visible = 1
@@ -3143,7 +3143,7 @@ WITH graph
 END WITH
 
 IF scrollmode = 0 THEN
-
+    
     graphcursorpos2
 
     DIM drawi AS INTEGER
@@ -3996,7 +3996,7 @@ IF (googlerealtimecheckbox.checked=1) THEN
             graph.savebuffertmp
             graph.paintchart
 
-        END IF    
+        END IF                                    
 
 END IF
 

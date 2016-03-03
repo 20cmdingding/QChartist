@@ -53,7 +53,7 @@ WITH graph
 END WITH
 
 IF scrollmode = 0 THEN
-
+    
     graphcursorpos2
 
     DIM drawi AS INTEGER
@@ -906,7 +906,7 @@ IF (googlerealtimecheckbox.checked=1) THEN
             graph.savebuffertmp
             graph.paintchart
 
-        END IF    
+        END IF                                    
 
 END IF
 

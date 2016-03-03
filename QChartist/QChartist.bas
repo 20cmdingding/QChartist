@@ -8356,7 +8356,8 @@ SUB datasource
     setfocus(datasourcefrm.handle)
 END SUB
 
-SUB dsokclick
+SUB dsokclick    
+    
     useindiCheckedtmp=0
     if useindi.Checked=1 then useindiCheckedtmp=1
     useindi.Checked = 0
@@ -8461,6 +8462,7 @@ SUB dsokclick
             END IF
             importfilestooq()
         END IF
+
     END IF
 
 END SUB
@@ -19782,48 +19784,44 @@ end sub
 
 sub detect_timeframe
 
-defstr year0,month0,day0,hours0,minutes0
-defstr year1,month1,day1,hours1,minutes1
-defstr year2,month2,day2,hours2,minutes2
-defdbl unix0,unix1,unix2
+defstr year,month,day,hours,minutes,$mydate
+defint i,j
+defint n=5 ' number of successive different intervals of time to check from the bar 0
+defdbl unix(n+1)
 
-year0=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)),1,4)
-month0=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)),6,2)
-day0=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)),9,2)
-hours0=mid$(Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)),1,2)
-minutes0=mid$(Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)),4,2)
+for i=0 to n
 
-year1=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-1),1,4)
-month1=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-1),6,2)
-day1=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-1),9,2)
-hours1=mid$(Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)-1),1,2)
-minutes1=mid$(Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)-1),4,2)
+year=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-i),1,4)
+month=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-i),6,2)
+day=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-i),9,2)
+hours=mid$(Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)-i),1,2)
+minutes=mid$(Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)-i),4,2)
 
-year2=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-2),1,4)
-month2=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-2),6,2)
-day2=mid$(Grid.Cell(rowgridoffset + 1 , chartbars(displayedfile)-2),9,2)
-hours2=mid$(Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)-2),1,2)
-minutes2=mid$(Grid.Cell(rowgridoffset + 2 , chartbars(displayedfile)-2),4,2)
+$mydate=year+";"+month+";"+day+";"+hours+";"+minutes+";"+"00"
+cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate)))
+unix(i)=val(cpptmpfuncreturn)
 
-defstr $mydate0=year0+";"+month0+";"+day0+";"+hours0+";"+minutes0+";"+"00"
-cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate0)))
-unix0=val(cpptmpfuncreturn)
-defstr $mydate1=year1+";"+month1+";"+day1+";"+hours1+";"+minutes1+";"+"00"
-cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate1)))
-unix1=val(cpptmpfuncreturn)
-defstr $mydate2=year2+";"+month2+";"+day2+";"+hours2+";"+minutes2+";"+"00"
-cpptmpfuncreturn=varptr$(date_to_unix_time(varptr($mydate2)))
-unix2=val(cpptmpfuncreturn)
+next i
 
-' Check if there is a week end in the interval
-defdbl unixdiff_minutes
-if (unix0-unix1)>(unix1-unix2) then
-unixdiff_minutes=(unix1-unix2)/60
-else
-unixdiff_minutes=(unix0-unix1)/60
+defdbl unixdiff_minutes(n)
+for i=0 to n-1
+unixdiff_minutes(i)=(unix(i)-unix(i+1))/60
+next i
+
+defdbl real_tf
+defint how_often(n),max_how_often=0
+for j=0 to n-1
+how_often(j)=1
+for i=0 to n-1
+if unixdiff_minutes(j)=unixdiff_minutes(i) and j<>i then how_often(j)=how_often(j)+1
+next i
+if how_often(j)>max_how_often then 
+max_how_often=how_often(j)
+real_tf=unixdiff_minutes(j)
 end if
+next j
 
-charttf(displayedfile)=unixdiff_minutes
+charttf(displayedfile)=real_tf
 displayedfilestr=str$(displayedfile):defstr charttfdisplayedfilestr=str$(charttf(displayedfile)):cpptmpfuncreturn=varptr$(setcharttf(varptr(charttfdisplayedfilestr),varptr(displayedfilestr)))
 writetf(displayedfile,charttf(displayedfile))
 defstr tftowritestr=str$(charttf(displayedfile)):cpptmpfuncreturn=varptr$(writetfcpp(varptr(tftowritestr)))
@@ -19837,7 +19835,7 @@ charttf(displayedfile)<>240 and _
 charttf(displayedfile)<>1440 and _
 charttf(displayedfile)<>10080 and _
 charttf(displayedfile)<>43200 then
-print "Warning: uncommon timeframe detected: unable to attribute a timeframe"
+print "Warning: uncommon timeframe detected: unable to attribute a timeframe, indicators may not work correctly"
 end if
 
 end sub

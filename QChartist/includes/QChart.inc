@@ -5823,7 +5823,7 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
         END WITH
         
         if conicpointclicknb=5 then 
-        
+                
         defint ret
         dim xx(10000) as double
         dim yy(10000) as double
@@ -5836,7 +5836,7 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
         
         WITH QChart
         defint i
-        .ClearBuffer
+        '.ClearBuffer
         .buffer.BMP = .buffertmpz.BMP
         for i=0 to graph.height*2*5
             'if yy(i+1)>yy(i) then                                
@@ -5846,7 +5846,8 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
         .buffertmp.BMP = .buffer.BMP
         .PaintChart 
         END WITH
-        conicpointclicknb=0                               
+        conicpointclicknb=0
+                                       
         end if
         
         end if                  

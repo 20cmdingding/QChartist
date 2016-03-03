@@ -1348,6 +1348,13 @@ buffers with index<0)
 - check for updates function debugged
 - build 74
 
+2016-02-29:
+- chm doc enriched
+
+2016-03-03:
+- detect_timeframe function debugged. Now MTF indicators work properly on common timeframes.
+- build 75
+
 -------------------------------------------------------------------------------------
 Todo list:
 

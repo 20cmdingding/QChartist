@@ -333,8 +333,8 @@ SUB btnOnClick(SENDER AS QBUTTON)
 
             '-=============================== Case CandleSticks ==============================================-
 
-        CASE "Candlesticks"
-
+        CASE "Candlesticks"                    
+            
             frmmain.Caption = "QChartist - Please wait while loading chart..."
             Graph.Visible = 1
             split.Visible = 1
