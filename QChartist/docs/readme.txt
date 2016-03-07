@@ -1354,6 +1354,13 @@ buffers with index<0)
 2016-03-03:
 - detect_timeframe function debugged. Now MTF indicators work properly on common timeframes.
 - build 75
+- new C++ function to get the day number of the year
+
+2016-03-04:
+- chm documentation enriched
+
+2016-03-07:
+- build 76
 
 -------------------------------------------------------------------------------------
 Todo list:

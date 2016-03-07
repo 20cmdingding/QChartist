@@ -23,6 +23,7 @@
 #include <math.h>
 #include <map>
 #include <time.h>
+#include <boost/date_time/gregorian/gregorian.hpp>
 
 using namespace std;
 
@@ -2631,4 +2632,23 @@ int toconic(FLOAT p0[3], FLOAT p1[3], FLOAT p2[3], FLOAT p3[3], FLOAT p4[3],
     *e = ee;
     *f = ff;
     return 1;
+}
+
+int getdayofyear (char* year,char* month,char* day)
+{  
+static char yearr[1000];
+strncpy(yearr, year, 1000);
+static char monthh[1000];
+strncpy(monthh, month, 1000);
+static char dayy[1000];
+strncpy(dayy, day, 1000);
+int yearint=atoi(yearr);
+int monthint=atoi(monthh);
+int dayint=atoi(dayy);
+//sprintf(debugmsg,"%i",yearint);MessageBox( NULL, debugmsg,"Debug",MB_OK); 
+//sprintf(debugmsg,"%i",monthint);MessageBox( NULL, debugmsg,"Debug",MB_OK); 
+//sprintf(debugmsg,"%i",dayint);MessageBox( NULL, debugmsg,"Debug",MB_OK);
+boost::gregorian::date d ( yearint,monthint,dayint );
+int dayNumber = static_cast<short>(d.day_of_year());
+return dayNumber;
 }

@@ -49,6 +49,7 @@
 // ''RQEXPORT function current_time()
 // ''RQEXPORT function Scilab_test()
 // ''RQEXPORT function conic_section(parameters,x,y)
+// ''RQEXPORT function getdayofyear (year,month,day)
 
 #include "includes\QChartist.cpp"
 #include "includes\swedll32.cpp"
