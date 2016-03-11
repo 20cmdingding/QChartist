@@ -1362,6 +1362,10 @@ buffers with index<0)
 2016-03-07:
 - build 76
 
+2016-03-11:
+- Now the app checks for updates on startup (can be disabled in menu Tools > Settings)
+- build 77
+
 -------------------------------------------------------------------------------------
 Todo list:
 

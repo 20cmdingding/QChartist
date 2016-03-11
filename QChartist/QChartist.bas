@@ -1751,6 +1751,8 @@ create astrowheelheliogeocombo as qcombobox
     
 end create
 
+declare sub checkupdatesstartupcheckboxonchange
+
 CREATE generalsettingsfrm AS QFORM
     Height = 300    
     Visible = 0
@@ -1763,6 +1765,13 @@ CREATE generalsettingsfrm AS QFORM
     top=0
     left=generalsettingsfuturebarslabel.left+generalsettingsfuturebarslabel.width
     text="0"
+    end create
+    create checkupdatesstartupcheckbox as qcheckbox
+    top=30
+    width=200
+    caption="Always check for updates on startup"    
+    checked=1
+    onclick=checkupdatesstartupcheckboxonchange
     end create
 END CREATE
 
@@ -1821,6 +1830,7 @@ colordlg.Caption = "Select Color"
 DECLARE SUB btnOnClick(SENDER AS QBUTTON)
 DECLARE SUB frmMainResize(SENDER AS QFORM)
 DECLARE SUB frmMainClose(action as integer)
+DECLARE SUB frmMainonshowsub
 DECLARE SUB Buttonf2Click(Sender AS QBUTTON)
 DECLARE SUB importfile()
 DECLARE SUB importfile2()
@@ -3501,6 +3511,7 @@ CREATE frmMain AS QFORMEX
     onmousewheel = frmmainonmw
     AutoScroll = 0
     onkeydown=hotkeysub
+    onshow=frmMainonshowsub
     'WndProc = FormWndProc ' Used for global hotkeys
 
     'create bgimg as qimage
@@ -8605,6 +8616,8 @@ IF ini.exist THEN
     if val(cntbarsedit.Text)>1000 then cntbarsedit.Text="1000"
     setcntbarseditstr=cntbarsedit.Text:cpptmpfuncreturn=varptr$(setcntbarsedit(varptr(setcntbarseditstr)))
     end if
+    IF val(ini.get("checkforupdates" , "")) = 1 THEN checkupdatesstartupcheckbox.checked=1
+    IF val(ini.get("checkforupdates" , "")) = 0 THEN checkupdatesstartupcheckbox.checked=0
     IF VAL(ini.get("automation" , "")) > 0 THEN beginauto
     IF VAL(ini.get("exitsignal" , "")) > 0 THEN beginexitsignal
 END IF
@@ -21956,5 +21969,70 @@ if val(generalsettingsfuturebarsedit.text)=0 then
 generalsettingsfuturebarsedit.text="50"
 btnOnClick(drwBox)
 exit sub
+end if
+end sub
+
+sub frmMainonshowsub
+if checkupdatesstartupcheckbox.checked=1 then
+
+'InetIsOffline returns 0 if you're connected
+DefInt A
+
+A = InetIsOffLine(0)
+If A = 0 Then
+'Print "Connected To Internet"
+Else
+'Print "Not Connected to Internet"
+'showmessage "No internet connection"
+exit sub
+End If
+
+DEFSTR url = "http://www.qchartist.net/updates/builds.txt?"+STR$(timeGetTime)
+
+    DEFSTR outFileName = "builds.txt"
+
+    CHDIR homepath + "\updates"
+
+    IF GetFileHTTP(url , outFileName) THEN
+        'SHOWMESSAGE "Download Error : " & url
+        EXIT SUB
+    ELSE
+        'SHOWMESSAGE "Download Finished & OK : " & URL
+    END IF
+    
+DIM lastver AS STRING
+DIM lastverfile AS QFILESTREAM
+lastverfile.open(homepath + "\updates\builds.txt" , fmOpenRead)
+do
+lastver = lastverfile.ReadLine() 'Read an entire line
+loop until lastverfile.eof
+lastverfile.close  
+
+if (val(QC_build)<val(lastver)) then
+'using DateFromSerial
+'DEFLNG yy, mm, dd,DayOfWeek
+'DayOfWeek = DateFromSerial(val(lastver), yy, mm, dd)
+'defstr lastverstr=str$(yy)+"-"+str$(mm)+"-"+str$(dd)
+'showmessage "A new version of QChartist is available (your version: "+QC_version+", last version: "+lastver+")"+chr$(10)+"Go to http://www.qchartist.net to download it."
+IF MessageDlg("A new version of QChartist is available (your build: "+QC_build+", last build: "+lastver+")"+chr$(10)+"Upgrade now?", mtConfirmation, mbYes OR mbNo, 0) = mrYes THEN
+    '-- Upgrade
+    run homepath+"\update.exe"
+    run "c:\qchartist\qckill.exe"
+
+end if
+
+else
+'showmessage "Your already have the lastest version of QChartist (build: "+QC_build+")"
+end if
+
+end if
+end sub
+
+sub checkupdatesstartupcheckboxonchange
+ini.Section = "Settings"
+if checkupdatesstartupcheckbox.checked=1 then
+ini.Write("checkforupdates" , "1")
+else
+ini.Write("checkforupdates" , "0")
 end if
 end sub
