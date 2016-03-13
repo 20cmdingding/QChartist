@@ -1366,6 +1366,10 @@ buffers with index<0)
 - Now the app checks for updates on startup (can be disabled in menu Tools > Settings)
 - build 77
 
+2016-03-13:
+- timeframe detection debugged
+- build 78
+
 -------------------------------------------------------------------------------------
 Todo list:
 

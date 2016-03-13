@@ -11804,9 +11804,9 @@ SUB importfileyahoo()
     'writetolog(DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb))
     dim impfdispfcsv as string:impfdispfcsv=MID$(importedfile(displayedfile) , 0 , LEN(importedfile(displayedfile)) - 4) + ".csv"
     cpptmpfuncreturn=varptr$(filegetlinesarray(varptr(impfdispfcsv)))
-    if useindiCheckedtmp=1 then
-    useindi.checked=1
     detect_timeframe
+    if useindiCheckedtmp=1 then
+    useindi.checked=1    
     btnOnClick(drwBox)
     end if    
     dsok.Enabled = 1
@@ -12075,9 +12075,9 @@ SUB importfilestooq()
     'writetolog(DATE$ + " " + TIME$ + " " + "Import csv " + importedfile(openedfilesnb))
     dim impfdispfcsv as string:impfdispfcsv=MID$(importedfile(displayedfile) , 0 , LEN(importedfile(displayedfile)) - 4) + ".csv"
     cpptmpfuncreturn=varptr$(filegetlinesarray(varptr(impfdispfcsv)))
-    if useindiCheckedtmp=1 then
-    useindi.checked=1
     detect_timeframe
+    if useindiCheckedtmp=1 then
+    useindi.checked=1    
     btnOnClick(drwBox)
     end if    
     dsok.Enabled = 1
@@ -20749,9 +20749,9 @@ SUB googlebusytimersub
     timclock.Enabled = 0
 
     IF googlerealtimecheckbox.Checked = 0 THEN
-        if useindiCheckedtmp=1 then
-        useindi.checked=1
         detect_timeframe
+        if useindiCheckedtmp=1 then
+        useindi.checked=1        
         btnOnClick(drwBox)
         end if        
         dsok.Enabled = 1
