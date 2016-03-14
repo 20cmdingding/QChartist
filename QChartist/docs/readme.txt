@@ -1370,6 +1370,10 @@ buffers with index<0)
 - timeframe detection debugged
 - build 78
 
+2016-03-14:
+- conflict between form onshow (check for updates) and onmousewheel debugged
+- build 79
+
 -------------------------------------------------------------------------------------
 Todo list:
 

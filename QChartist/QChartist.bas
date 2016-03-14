@@ -3511,7 +3511,7 @@ CREATE frmMain AS QFORMEX
     onmousewheel = frmmainonmw
     AutoScroll = 0
     onkeydown=hotkeysub
-    onshow=frmMainonshowsub
+    'onshow=frmMainonshowsub ' bug with mouse wheel
     'WndProc = FormWndProc ' Used for global hotkeys
 
     'create bgimg as qimage
@@ -11266,6 +11266,7 @@ canvas.ClearAll2
 hidedescindmsgbox=1
 showdescrindi
 hidedescindmsgbox=0
+frmMainonshowsub ' check for updates on startup
 
 frmMain.ShowModal
 
