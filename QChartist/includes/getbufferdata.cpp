@@ -132,5 +132,15 @@ if (strcmp(buffernamee,"dnBuffer")==0) { sprintf(convbuf,"%f",dnBuffer[atoi(offs
 if (strcmp(buffernamee,"MACDLineBuffer")==0) { sprintf(convbuf,"%f",MACDLineBuffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"SignalLineBuffer")==0) { sprintf(convbuf,"%f",SignalLineBuffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"HistogramBuffer")==0) { sprintf(convbuf,"%f",HistogramBuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"WCCIExtMapBuffer1")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer1[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"WCCIExtMapBuffer2")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer2[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"WCCIExtMapBuffer3")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer3[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"WCCIExtMapBuffer4")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer4[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"WCCIExtMapBuffer5")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer5[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"WCCIExtMapBuffer6")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer6[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"WCCIExtMapBuffer7")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer7[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"WCCIExtMapBuffer8")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer8[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"prd_high2Buffer")==0) { sprintf(convbuf,"%f",prd_high2Buffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"prd_low2Buffer")==0) { sprintf(convbuf,"%f",prd_low2Buffer[atoi(offsett)]);return convbuf; }
 return 0;
 }

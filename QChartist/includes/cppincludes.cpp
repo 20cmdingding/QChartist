@@ -169,4 +169,12 @@
 // ''RQEXPORT function realMACD(periodstr)
 #include "indicators\realMACD.cpp"
 
+
+// ''RQEXPORT function Weighted_WCCI(periodstr)
+#include "indicators\Weighted_WCCI.cpp"
+
+
+// ''RQEXPORT function past_regression_deviated(periodstr)
+#include "indicators\past_regression_deviated.cpp"
+
 #include "includes\getbufferdata.cpp"

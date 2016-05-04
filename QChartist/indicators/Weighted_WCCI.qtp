@@ -1,0 +1,41 @@
+declare sub hideWeighted_WCCIform
+
+CREATE Weighted_WCCIform as qform
+
+    Center
+    Caption = "Settings for: Weighted WCCI"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create Weighted_WCCIcurrenttflab as qlabel
+        left=0
+        top=0
+        caption="Current timeframe:"
+    end create
+
+    create Weighted_WCCIcurrenttfedit as qedit
+        left=Weighted_WCCIcurrenttflab.width+100
+        top=0
+        text="1440"
+    end create
+
+create Weighted_WCCIautotf as qcheckbox
+        top=20
+        caption="Autodetect current timeframe"
+	width=200
+	checked=1
+    end create
+
+    create Weighted_WCCIbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hideWeighted_WCCIform
+    end create
+
+END CREATE
+
+sub hideWeighted_WCCIform
+    Weighted_WCCIform.visible=0
+end sub

@@ -3482,7 +3482,7 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
                 FOR i = 2 TO drawidmaincanvas STEP 2
                     .hPen = CreatePen(.Series(i \ 2).LineStyle , .Series(i \ 2).LineWidth , indicolor(i)) '.Series(i\2).Color)
                     .OldPen = SelectObject(.Buffer.Handle , .hPen)
-                    FOR j = 1 TO .DATA_INDI.RowCount - 1 + val(generalsettingsfuturebarsedit.text)
+                    FOR j = 1 TO .DATA_INDI.RowCount + val(generalsettingsfuturebarsedit.text)
 
                         'IF .DATA_INDI.Cell(i - 1 , j) = .Missing OR .DATA_INDI.Cell(i - 1 , j + 1) = .Missing _  'If data missing
                         '    THEN GOTO NoPlotXYLn
@@ -3517,7 +3517,7 @@ cpptmpfuncreturn=varptr$(unix_time_to_date(varptr(myunixtimestr)))
                         '--- Use API to draw lines
                         'MoveToEx(.Buffer.handle,x1,y1,0)
                         'LineTo(.Buffer.handle,x2,y2)
-                        .Buffer.Line(x1 , y1 , x2 , y2 , indicolor(i))                                                                        
+                        if j<.DATA_INDI.RowCount + val(generalsettingsfuturebarsedit.text) then .Buffer.Line(x1 , y1 , x2 , y2 , indicolor(i))                                                                        
                         .DATA_INDI.Cell(i , j)=""
                         
                         NoPlotXYLn :

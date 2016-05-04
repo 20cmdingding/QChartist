@@ -1407,6 +1407,30 @@ end if
 
 end if
 '------------------------- End Murrey_Math -------------------------------------------------
+'------------------------- past regression deviated -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=past_regression_deviatedperiodedit.text
+cpptmpfuncreturn=varptr$(past_regression_deviated(varptr(periodstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(past_regression_deviatedbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="prd_high2Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+indicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="prd_low2Buffer"
+    .Data_Indi.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End past regression deviated -------------------------------------------------
 '------------------------- Planetary lines -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then
@@ -3088,6 +3112,55 @@ indiid++
                 end if                                  
 
         '------------------------- End Value Chart of ATR Channels  ------------------------------------------------- 
+'------------------------- Weighted WCCI -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+if Weighted_WCCIautotf.checked=0 then curtfstr=Weighted_WCCIcurrenttfedit.text
+if Weighted_WCCIautotf.checked=1 then curtfstr=str$(charttf(displayedfile))
+cpptmpfuncreturn=varptr$(Weighted_WCCI(varptr(curtfstr)))
+end if
+
+barsback=numbars '<--- can also be something like VAL(Weighted_WCCIbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=Red '<--- replace with your color
+    bufnamestr="WCCIExtMapBuffer1"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=DodgerBlue '<--- replace with your color
+    bufnamestr="WCCIExtMapBuffer2"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=CadetBlue '<--- replace with your color
+    bufnamestr="WCCIExtMapBuffer3"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=Red '<--- replace with your color
+    bufnamestr="WCCIExtMapBuffer4"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=Red '<--- replace with your color
+    bufnamestr="WCCIExtMapBuffer5"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=RoyalBlue '<--- replace with your color
+    bufnamestr="WCCIExtMapBuffer6"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=RoyalBlue '<--- replace with your color
+    bufnamestr="WCCIExtMapBuffer7"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=PaleGreen '<--- replace with your color
+    bufnamestr="WCCIExtMapBuffer8"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+end if
+
+end if
+'------------------------- End Weighted WCCI -------------------------------------------------
 '-==================================== End Separate indicators area ==============================-
 
 drawidseparatecanvas=drawid

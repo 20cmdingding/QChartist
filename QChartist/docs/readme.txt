@@ -1374,6 +1374,16 @@ buffers with index<0)
 - conflict between form onshow (check for updates) and onmousewheel debugged
 - build 79
 
+2016-05-02:
+- bug when drawing indicators solved in qchart.inc
+
+2016-05-04:
+- new C++ function iatr(int timeframe,int period,int shift)
+- new indicator Weighted WCCI
+- new indicator past regression deviated (TSF channel)
+- chm documentation enriched
+- build 80
+
 -------------------------------------------------------------------------------------
 Todo list:
 

@@ -47,6 +47,7 @@ double itype(int,int,int);
 double ima(int,int,int,int,int,int);
 double irsi(int,int,int,int);
 double icci(int,int,int,int);
+double iatr(int,int,int);
 int ihighest(int,int,int,int);
 int ilowest(int,int,int,int);
 long calculate_seconds_since_1_1_1970(long,long,long, int, int, int);
@@ -1906,6 +1907,43 @@ int    i, k;
 	if (i==shift) { return (CCIBuffer[i]); break; }
        i--;
      }
+//----
+   return(0);
+}
+
+double iatr(int timeframe,int period,int shift)
+{
+int AtrPeriod=period;
+arrayofdoubles AtrBuffer;
+arrayofdoubles TempBuffer;
+int i;//,counted_bars=IndicatorCounted();
+//----
+   //if(Bars<=AtrPeriod) return(0);
+//---- initial zero
+   //if(counted_bars<1)
+      //for(i=1;i<=AtrPeriod;i++) AtrBuffer[Bars-i]=0.0;
+//----
+int Bars=300;
+   i=Bars;//Bars-counted_bars-1;
+   while(i>=0)
+     {
+      double high=higha[i];
+      double low =lowa[i];
+      if(i==Bars-1) TempBuffer[i]=high-low;
+      else
+        {
+         double prevclose=closea[i+1];
+         TempBuffer[i]=mathmax(high,prevclose)-mathmin(low,prevclose);
+        }
+      i--;
+     } 
+//----
+   //if(counted_bars>0) counted_bars--;
+   int limit=Bars;//-counted_bars;
+   for(i=0; i<limit; i++) {
+	AtrBuffer[i]=imaonarray(TempBuffer,Bars,AtrPeriod,0,MODE_SMA,i);
+	if (i==shift) { return (AtrBuffer[i]); break; }
+	}
 //----
    return(0);
 }

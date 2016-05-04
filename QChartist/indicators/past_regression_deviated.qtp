@@ -1,0 +1,34 @@
+declare sub hidepast_regression_deviatedform
+
+CREATE past_regression_deviatedform as qform
+
+    Center
+    Caption = "Settings for: past regression deviated"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create past_regression_deviatedperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create past_regression_deviatedperiodedit as qedit
+        left=past_regression_deviatedperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create past_regression_deviatedbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hidepast_regression_deviatedform
+    end create
+
+END CREATE
+
+sub hidepast_regression_deviatedform
+    past_regression_deviatedform.visible=0
+end sub
