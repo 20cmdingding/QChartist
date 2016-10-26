@@ -129,7 +129,7 @@ ObjName=ObjNPref+"zero line";
    //======================================================================================================      
          
       //int N=ArraySize(Arr);
-      int N=Arr.size();
+      int N=iPeriod; //Arr.size();
 
          for(int i=0;i<N;i++){
             int ii=i+iStartFrom;

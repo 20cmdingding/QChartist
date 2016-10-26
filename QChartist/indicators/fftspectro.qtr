@@ -6,7 +6,7 @@ if lbar=1 then
 fftspectro
 end if
 
-barsback=300 '<--- can also be something like VAL(fftspectrobarsbackedit.text)
+barsback=511 '<--- can also be something like VAL(fftspectrobarsbackedit.text)
 
 if ibar>=lastbar-barsback then
     sepindicolor(drawid)=blue '<--- replace with your color

@@ -11,7 +11,7 @@ sub fftspectro
 
 'set the number of data points 
  DIM n AS INTEGER
-   n = 256 'try 256, or 512, 1024, 4096 8192, etc. 
+   n = 512 'try 256, or 512, 1024, 4096 8192, etc. 
 
 DIM pi2 as single
    pi2 =  rqpi * 2
@@ -65,14 +65,15 @@ QUICKSORT(Amp2(0), Amp2(n\2 -1), descend)
 
 For j = 0 To n\2 -1
 	for jj=0 to n-1            		
-		fftspectrobuffer(9,n-1-jj) = fftspectrobuffer(9,n-1-jj) + amp(j)*sin(Hz(j)*(jj*2*rqpi/(n-1))+((ph(j)/3)-(rqpi/6))) '/(n\2 -1)
+		fftspectrobuffer(9,n-1-jj) = fftspectrobuffer(9,n-1-jj) + amp(j)*sin(Hz(j)*(jj*2*rqpi/(n-1))-(ph(j)-(rqpi/2))) '/(n\2 -1)
         next jj
 	if amp(j)>amp2(8) then
 		k++
         	for jj=0 to n-1            		
-				fftspectrobuffer(k,n-1-jj) = amp(j)*sin(Hz(j)*(jj*2*rqpi/(n-1))+((ph(j)/3)-(rqpi/6))) '/(n\2 -1)
+				fftspectrobuffer(k,n-1-jj) = amp(j)*sin(Hz(j)*(jj*2*rqpi/(n-1))-(ph(j)-(rqpi/2))) '/(n\2 -1)
             	next jj
 	end if
+
 Next j
 
 end sub

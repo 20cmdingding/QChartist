@@ -1384,6 +1384,17 @@ buffers with index<0)
 - chm documentation enriched
 - build 80
 
+2016-10-24:
+- spectrometer indicator fixed
+
+2016-10-25:
+- fftspectro indicator fixed:
+to show the component curves, you need to display at least 513 bars (because n = 512 in fftspectro.qti file)
+then ajust the max and min values of the separate indicator
+
+2016-10-26:
+- build 81
+
 -------------------------------------------------------------------------------------
 Todo list:
 

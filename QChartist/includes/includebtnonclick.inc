@@ -2428,7 +2428,7 @@ if lbar=1 then
 fftspectro
 end if
 
-barsback=300 '<--- can also be something like VAL(fftspectrobarsbackedit.text)
+barsback=511 '<--- can also be something like VAL(fftspectrobarsbackedit.text)
 
 if ibar>=lastbar-barsback then
     sepindicolor(drawid)=blue '<--- replace with your color
@@ -2870,34 +2870,34 @@ if ibar>=lastbar-barsback then
     bufnamestr="spectrometerbuffer1"
     canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
     drawid=drawid+2
-'sepindicolor(drawid)=orange '<--- replace with your color
-'    bufnamestr="spectrometerbuffer2"
-'    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
-'    drawid=drawid+2
-'sepindicolor(drawid)=yellow '<--- replace with your color
-'    bufnamestr="spectrometerbuffer3"
-'    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
-'    drawid=drawid+2
-'sepindicolor(drawid)=green '<--- replace with your color
-'    bufnamestr="spectrometerbuffer4"
-'    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
-'    drawid=drawid+2
-'sepindicolor(drawid)=blue '<--- replace with your color
-'    bufnamestr="spectrometerbuffer5"
-'    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
-'    drawid=drawid+2
-'sepindicolor(drawid)=lightblue '<--- replace with your color
-'    bufnamestr="spectrometerbuffer6"
-'    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
-'    drawid=drawid+2
-'sepindicolor(drawid)=purple '<--- replace with your color
-'    bufnamestr="spectrometerbuffer7"
-'    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
-'    drawid=drawid+2
-'sepindicolor(drawid)=gray '<--- replace with your color
-'    bufnamestr="spectrometerbuffer8"
-'    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
-'    drawid=drawid+2
+sepindicolor(drawid)=orange '<--- replace with your color
+    bufnamestr="spectrometerbuffer2"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=yellow '<--- replace with your color
+    bufnamestr="spectrometerbuffer3"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=lime '<--- replace with your color
+    bufnamestr="spectrometerbuffer4"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=blue '<--- replace with your color
+    bufnamestr="spectrometerbuffer5"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=dodgerblue '<--- replace with your color
+    bufnamestr="spectrometerbuffer6"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=darkviolet '<--- replace with your color
+    bufnamestr="spectrometerbuffer7"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+sepindicolor(drawid)=dimgray '<--- replace with your color
+    bufnamestr="spectrometerbuffer8"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
 end if
 
 end if
