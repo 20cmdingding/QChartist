@@ -125,14 +125,16 @@ stepftvcprdlform.visible=1
 case 61
 steprsiform.visible=1
 case 62
-threeD_Oscilatorform.visible=1
+stochasticform.visible=1
 case 63
-TSCDform.visible=1
+threeD_Oscilatorform.visible=1
 case 64
-valuechartform.visible=1
+TSCDform.visible=1
 case 65
-vcatrcform.visible=1
+valuechartform.visible=1
 case 66
+vcatrcform.visible=1
+case 67
 Weighted_WCCIform.visible=1
 end select
 end sub

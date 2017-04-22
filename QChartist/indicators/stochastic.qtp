@@ -1,0 +1,34 @@
+declare sub hidestochasticform
+
+CREATE stochasticform as qform
+
+    Center
+    Caption = "Settings for: Stochastic"
+    visible=0
+
+    ' Put your indicator settings code here
+
+    create stochasticperiodlab as qlabel
+        left=0
+        top=0
+        caption="Period:"
+    end create
+
+    create stochasticperiodedit as qedit
+        left=stochasticperiodlab.width+100
+        top=0
+        text="20"
+    end create
+
+    create stochasticbtnok as qbutton
+        left=0
+        top=20
+        caption="OK"
+        onclick=hidestochasticform
+    end create
+
+END CREATE
+
+sub hidestochasticform
+    stochasticform.visible=0
+end sub

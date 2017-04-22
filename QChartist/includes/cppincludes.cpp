@@ -177,4 +177,8 @@
 // ''RQEXPORT function past_regression_deviated(periodstr)
 #include "indicators\past_regression_deviated.cpp"
 
+
+// ''RQEXPORT function stochastic(periodstr)
+#include "indicators\stochastic.cpp"
+
 #include "includes\getbufferdata.cpp"

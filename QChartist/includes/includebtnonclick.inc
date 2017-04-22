@@ -2973,6 +2973,42 @@ end if
 
 end if
 '------------------------- End StepRSI -------------------------------------------------
+'------------------------- Stochastic -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+periodstr=stochasticperiodedit.text
+cpptmpfuncreturn=varptr$(stochastic(varptr(periodstr)))
+end if
+
+barsback=200 '<--- can also be something like VAL(stochasticbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+    sepindicolor(drawid)=lightseagreen '<--- replace with your color
+    bufnamestr="MainBuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+    sepindicolor(drawid)=red '<--- replace with your color
+    bufnamestr="SignalBuffer"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+sepindicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="stochup"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+sepindicolor(drawid)=gray '<--- replace with your color
+    bufnamestr="stochdn"
+    canvas.separateindicator1.Cell(drawid,lbar)= varptr$(getbufferdata(varptr(bufnamestr),varptr(offsetstr)))
+    drawid=drawid+2
+
+end if
+
+end if
+'------------------------- End Stochastic -------------------------------------------------
 '------------------------- threeD Oscilator -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then

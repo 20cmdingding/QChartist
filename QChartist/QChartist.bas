@@ -1,5 +1,5 @@
 'QChartist charting software source code
-'Copyright 2010-2016 Julien Moog - All rights reserred
+'Copyright 2010-2017 Julien Moog - All rights reserred
 'Contact email: julien.moog@laposte.net
 'Website: http://www.qchartist.net
 
@@ -58,7 +58,7 @@ busystream.writeline "0"
 busystream.close
 
 PRINT "QChartist charting software"
-PRINT "Copyright 2010-2016 Julien Moog - All rights reserved"
+PRINT "Copyright 2010-2017 Julien Moog - All rights reserved"
 PRINT "Contact email: julien.moog@laposte.net"
 PRINT "Website: http://www.qchartist.net"
 PRINT "This program is free software; you can redistribute it and/or modify " + _
@@ -10875,6 +10875,7 @@ CREATE chatform AS QFORM
     width=350
     height=300
     scrollbars=ssboth
+    hideselection=0
     end create
     create usernameslist as qlistbox
     top=chatbox.top
@@ -16068,7 +16069,7 @@ SUB paintabout(Sender AS QCANVAS)
     yposabout = yposabout + 30
     aboutcanvas.TextOut(abmargin , abouty - yposabout , "Website: http://www.qchartist.net" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Copyright 2010-2015 Julien Moog - All rights reserved" , lime , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Copyright 2010-2017 Julien Moog - All rights reserved" , lime , 0)    
     yposabout = yposabout + 30
     aboutcanvas.TextOut(abmargin , abouty - yposabout , "Special thanks to:" , lime , 0)    
     yposabout = yposabout + 30
@@ -16177,6 +16178,14 @@ SUB paintabout(Sender AS QCANVAS)
     aboutcanvas.TextOut(abmargin , abouty - yposabout , "Mostafa Belkhayate for his directives with" , lime , 0)    
     yposabout = yposabout + 30
     aboutcanvas.TextOut(abmargin , abouty - yposabout , "the COG, Elliott Waves indicators" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Dieter Koch and Dr. Alois Treindl for" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "the Swiss Ephemeris" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Thomas Henning Murrey for" , lime , 0)    
+    yposabout = yposabout + 30
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "the Murrey Math indicator" , lime , 0)    
     yposabout = yposabout + 30
     aboutcanvas.TextOut(abmargin , abouty - yposabout , "And many thanks to all thoses who helped me to build this project" , lime , 0)    
     yposabout = yposabout + 30
@@ -18867,8 +18876,7 @@ do
 chatbox.text=chatbox.text+readmsgfile.ReadLine()+chr$(10) 'Read an entire line
 loop until readmsgfile.eof
 readmsgfile.close 
-
-
+chatbox.selstart=len(chatbox.text)
 end sub
 
 sub chatformonshowsub

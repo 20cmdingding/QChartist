@@ -1,4 +1,4 @@
-QChartist copyright (c) 2010-2015 Julien Moog
+QChartist copyright (c) 2010-2017 Julien Moog
 Contact email: julien.moog@laposte.net
 Website: http://www.qchartist.net
 
@@ -1394,6 +1394,11 @@ then ajust the max and min values of the separate indicator
 
 2016-10-26:
 - build 81
+
+2017-04-22:
+- now the chat box automatically scroll to show new content
+- new indicator : Stochastic(5,3,3)
+- build 82
 
 -------------------------------------------------------------------------------------
 Todo list:

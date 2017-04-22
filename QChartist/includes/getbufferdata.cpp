@@ -142,5 +142,9 @@ if (strcmp(buffernamee,"WCCIExtMapBuffer7")==0) { sprintf(convbuf,"%f",WCCIExtMa
 if (strcmp(buffernamee,"WCCIExtMapBuffer8")==0) { sprintf(convbuf,"%f",WCCIExtMapBuffer8[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"prd_high2Buffer")==0) { sprintf(convbuf,"%f",prd_high2Buffer[atoi(offsett)]);return convbuf; }
 if (strcmp(buffernamee,"prd_low2Buffer")==0) { sprintf(convbuf,"%f",prd_low2Buffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"MainBuffer")==0) { sprintf(convbuf,"%f",MainBuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"SignalBuffer")==0) { sprintf(convbuf,"%f",SignalBuffer[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"stochup")==0) { sprintf(convbuf,"%f",stochup[atoi(offsett)]);return convbuf; }
+if (strcmp(buffernamee,"stochdn")==0) { sprintf(convbuf,"%f",stochdn[atoi(offsett)]);return convbuf; }
 return 0;
 }
