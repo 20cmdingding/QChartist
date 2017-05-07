@@ -1663,6 +1663,27 @@ end if
 
 end if
 '------------------------- End Planetary lines -------------------------------------------------
+'------------------------- planetsqn -------------------------------------------------
+indiid++
+if indicatorslistsel.item(indiid)="x" then
+
+if lbar=1 then
+planetsqn
+end if
+
+barsback=numbars '<--- can also be something like VAL(planetsqnbarsbackedit.text)
+
+if ibar>=lastbar-barsback then
+'defint incrj
+for incrj=0 to 12
+    indicolor(drawid)=blue '<--- replace with your color
+    .Data_Indi.Cell(drawid,lbar)= planetsqnbuffer2.cell(incrj,offset)
+    drawid=drawid+2
+next incrj
+end if
+
+end if
+'------------------------- End planetsqn -------------------------------------------------
 '------------------------- priceclose1440 -------------------------------------------------
 indiid++
 if indicatorslistsel.item(indiid)="x" then

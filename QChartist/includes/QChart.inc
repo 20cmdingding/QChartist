@@ -1080,7 +1080,7 @@ TYPE QChart EXTENDS QCANVAS
             .Buffer.Font = .AxisFont  'both x and y axis
             .XTitle.Left = .XAxis.Ori - 70
             .XTitle.Top = .YAxis.Ori - 10 + .Buffer.TextHeight(.XTitle.Text) * 2.75
-            .Buffer.TextOut(.XTitle.Left , .XTitle.Top , RTRIM$("QChartist (c) 2010-2016 Julien Moog - http://www.qchartist.net") , _
+            .Buffer.TextOut(.XTitle.Left , .XTitle.Top , RTRIM$("QChartist (c) 2010-2017 Julien Moog - http://www.qchartist.net") , _
                 .AxisFont.Color , .bgColor)
 
             '--- Y Axis Title

@@ -1775,6 +1775,194 @@ CREATE generalsettingsfrm AS QFORM
     end create
 END CREATE
 
+' Square of Nine
+
+'DEFSNG rad = 3.1415927/180 ' to convert to radians
+     DECLARE SUB paintsq9
+     DECLARE SUB drawsq9
+     declare sub getanglesubsq9
+     declare function getanglesubsq9_2(cellnbsq9 as single) as double
+     
+     
+     defsng middlex
+     defsng middley
+
+     dim cellanglistx as qstringlist
+     dim cellanglisty as qstringlist
+
+     CREATE bmpsq9 AS QBITMAP
+      height = screen.height
+      width = screen.width
+     END CREATE
+
+     CREATE formsq9 AS QFORM
+      clientheight = screen.height
+      clientwidth = screen.width
+      center
+      CREATE canvassq9 AS QCANVAS
+       align = alclient
+       height=formsq9.clientheight
+       width=formsq9.clientwidth
+       onpaint = paintsq9
+      END CREATE
+      create cellnuminputlabel as qlabel
+      caption="Enter a cell number:"
+      end create
+      create cellnuminput as qedit
+      left=cellnuminputlabel.width
+      text="961"
+      end create
+      create getcellanglebtn as qbutton
+      caption="Get angle"
+      left=cellnuminputlabel.width+cellnuminput.width
+      onclick=getanglesubsq9
+      end create
+      
+     END CREATE
+
+     drawsq9
+
+     
+
+     SUB paintsq9
+      canvassq9.draw(0,0,bmpsq9.bmp)
+     END SUB
+
+
+
+     SUB drawsq9
+      
+
+
+dim sqrlocx(1 to 961) as single
+dim sqrlocy(1 to 961) as single
+
+middlex=canvassq9.width/2
+middley=canvassq9.height/2
+
+DEFSNG x2 , y2 , x3 , y3
+
+        
+        defsng sqrwidth=10
+        
+        
+        x2=middlex
+        y2=middley
+        x3=middlex
+        y3=middley
+        defstr direction
+        
+        defint i,j,k=1
+        defint sqrnb=0
+                    
+            bmpsq9.rectangle(x3-sqrwidth,y3-sqrwidth,x3+sqrwidth,y3+sqrwidth,0)            
+            sqrnb++            
+            sqrlocx(sqrnb)=x3
+            sqrlocy(sqrnb)=y3
+            bmpsq9.textout(x3-sqrwidth,y3-sqrwidth,str$(sqrnb),0,&HFFFFFF)            
+            
+            direction="left"
+            for i=1 to k
+            if direction="left" then x3=x3-(sqrwidth*2-1)                                   
+            if direction="right" then x3=x3+(sqrwidth*2-1)
+            bmpsq9.rectangle(x3-sqrwidth,y3-sqrwidth,x3+sqrwidth,y3+sqrwidth,0)
+            sqrnb++
+            sqrlocx(sqrnb)=x3
+            sqrlocy(sqrnb)=y3
+            bmpsq9.textout(x3-sqrwidth,y3-sqrwidth,str$(sqrnb),0,&HFFFFFF)
+            next i
+            
+            for j=1 to 15
+            
+            direction="up"
+            for i=1 to k            
+            if direction="up" then y3=y3-(sqrwidth*2-1)  
+            if direction="down" then y3=y3+(sqrwidth*2-1)                                                        
+            bmpsq9.rectangle(x3-sqrwidth,y3-sqrwidth,x3+sqrwidth,y3+sqrwidth,0)
+            sqrnb++
+            sqrlocx(sqrnb)=x3
+            sqrlocy(sqrnb)=y3
+            bmpsq9.textout(x3-sqrwidth,y3-sqrwidth,str$(sqrnb),0,&HFFFFFF)
+            next i
+            
+            k++
+            direction="right"
+            for i=1 to k                                                         
+            if direction="left" then x3=x3-(sqrwidth*2-1)                                   
+            if direction="right" then x3=x3+(sqrwidth*2-1)
+            bmpsq9.rectangle(x3-sqrwidth,y3-sqrwidth,x3+sqrwidth,y3+sqrwidth,0)
+            sqrnb++
+            sqrlocx(sqrnb)=x3
+            sqrlocy(sqrnb)=y3
+            bmpsq9.textout(x3-sqrwidth,y3-sqrwidth,str$(sqrnb),0,&HFFFFFF)
+            next i
+            
+            direction="down"
+            for i=1 to k             
+            if direction="up" then y3=y3-(sqrwidth*2-1)  
+            if direction="down" then y3=y3+(sqrwidth*2-1)                                                        
+            bmpsq9.rectangle(x3-sqrwidth,y3-sqrwidth,x3+sqrwidth,y3+sqrwidth,0)
+            sqrnb++
+            sqrlocx(sqrnb)=x3
+            sqrlocy(sqrnb)=y3
+            bmpsq9.textout(x3-sqrwidth,y3-sqrwidth,str$(sqrnb),0,&HFFFFFF)                      
+            next i
+            
+            k++
+            direction="left"
+            for i=1 to k                                                         
+            if direction="left" then x3=x3-(sqrwidth*2-1)                                   
+            if direction="right" then x3=x3+(sqrwidth*2-1)
+            bmpsq9.rectangle(x3-sqrwidth,y3-sqrwidth,x3+sqrwidth,y3+sqrwidth,0)
+            sqrnb++
+            sqrlocx(sqrnb)=x3
+            sqrlocy(sqrnb)=y3
+            bmpsq9.textout(x3-sqrwidth,y3-sqrwidth,str$(sqrnb),0,&HFFFFFF)
+            next i            
+            
+            next j
+                                      
+            for i=1 to 961
+            cellanglistx.additems str$(sqrlocx(i))
+            cellanglisty.additems str$(sqrlocy(i))
+            next i 
+                             
+     END SUB
+     
+     sub getanglesubsq9
+     DIM a AS DOUBLE , b AS DOUBLE , c AS DOUBLE , ang_a AS DOUBLE
+             defsng cellnb
+            cellnb=val(cellnuminput.text)-1                         
+            a = val(cellanglistx.item(cellnb)) - middlex            
+            b = val(cellanglisty.item(cellnb)) - middley            
+            c = SQR(a^2 + b^2)
+            IF c <> 0 THEN
+                ang_a = ACOS(a / c) * 180 / 3.1415927
+            end if     
+            if val(cellanglisty.item(cellnb))>middley then
+            ang_a=360-ang_a
+            end if
+            showmessage str$(ang_a)
+     end sub
+     
+     function getanglesubsq9_2(cellnbsq9 as single)
+            DIM a AS DOUBLE , b AS DOUBLE , c AS DOUBLE , ang_a AS DOUBLE
+             defsng cellnb
+            cellnb=cellnbsq9-1                         
+            a = val(cellanglistx.item(cellnb)) - middlex            
+            b = val(cellanglisty.item(cellnb)) - middley            
+            c = SQR(a^2 + b^2)
+            IF c <> 0 THEN
+                ang_a = ACOS(a / c) * 180 / 3.1415927
+            end if     
+            if val(cellanglisty.item(cellnb))>middley then
+            ang_a=360-ang_a
+            end if
+            result=ang_a
+     end sub
+
+' End Square of Nine
+
 $INCLUDE "includes\QChart.inc"
 '$Include "includes\Qcolordialog.inc"
 '$RESOURCE zoommore AS "images\zoommore.bmp"
@@ -2155,6 +2343,7 @@ declare sub addbars
 declare sub shiftchart
 
 declare sub astrowheelsettingssub
+declare sub formsq9showsub
 
 declare sub googlebusytimersub
 declare sub googlerealtimebusytimersub
@@ -7069,6 +7258,10 @@ ToolsMenu.AddItems(MenuItem3(menui3))
 menui3 ++
 MenuItem3(menui3).Caption = "Astro wheel settings"
 MenuItem3(menui3).OnClick = astrowheelsettingssub
+ToolsMenu.AddItems(MenuItem3(menui3))
+menui3 ++
+MenuItem3(menui3).Caption = "Gann Square of Nine spiral"
+MenuItem3(menui3).OnClick = formsq9showsub
 ToolsMenu.AddItems(MenuItem3(menui3))
 
 DIM MenuItem5(100) AS QMENUITEM
@@ -19922,6 +20115,10 @@ end sub
 
 sub astrowheelsettingssub
 astrowheelsettingsform.visible=1
+end sub
+
+sub formsq9showsub
+formsq9.visible=1
 end sub
 
 sub clockontimersub

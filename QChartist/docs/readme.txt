@@ -1400,6 +1400,15 @@ then ajust the max and min values of the separate indicator
 - new indicator : Stochastic(5,3,3)
 - build 82
 
+2017-05-07:
+- added the Gann Square of Nine spiral ; you can get the 
+angle of a given cell number (in menu: Tools)
+- the memory is full when you declare an array ; solution:
+use a qstringgrid instead
+- indicator planetsqn not finished ; the goal is to draw
+Mikula's Square of Nine Planetary Angles
+- build 83
+
 -------------------------------------------------------------------------------------
 Todo list:
 

@@ -1,0 +1,55 @@
+declare sub hideplanetsqnform
+
+CREATE planetsqnform as qform
+
+    Center
+    Caption = "Settings for: planetsqn"
+    visible=0
+
+    ' Put your indicator settings code here
+
+create planetsqn_invert_checkbox as qcheckbox
+top=0
+caption="Invert"
+end create
+
+create planetsqn_offset_label as qlabel
+top=20
+caption="Offset (360 multiple):"
+end create
+
+create planetsqn_offset_edit as qedit
+top=20
+left=planetsqn_offset_label.left+planetsqn_offset_label.width+10
+text="0"
+end create
+
+create planetsqn_heliogeo as qcombobox
+top=40
+additems "Geocentric"
+itemindex=0
+end create
+
+create planetsqn_ratio_label as qlabel
+top=60
+caption="Ratio:"
+end create
+
+create planetsqn_ratio_edit as qedit
+top=60
+left=planetsqn_ratio_label.left+planetsqn_ratio_label.width+10
+text="1"
+end create
+
+    create planetsqnbtnok as qbutton
+        left=0
+        top=80
+        caption="OK"
+        onclick=hideplanetsqnform
+    end create
+
+END CREATE
+
+sub hideplanetsqnform
+    planetsqnform.visible=0
+end sub
