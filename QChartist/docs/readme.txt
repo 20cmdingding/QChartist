@@ -1409,6 +1409,10 @@ use a qstringgrid instead
 Mikula's Square of Nine Planetary Angles
 - build 83
 
+2017-05-08:
+- indicator planetsqn works better but slow
+- build 84
+
 -------------------------------------------------------------------------------------
 Todo list:
 

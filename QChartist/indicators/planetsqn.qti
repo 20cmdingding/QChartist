@@ -1,16 +1,35 @@
 declare sub planetsqn ' This line of code must stay here
 dim planetsqnbuffer(0 to 1000) as double ' This line of code must stay here.
 dim planetsqnbuffer2 as qstringgrid
+dim planetsqnbuffer3 as qstringgrid
 
 sub planetsqn
 ' Put your indicator RapidQ code here
 
+defint k,l
+for k=0 to planetsqnbuffer3.rowcount-1
+for l=0 to planetsqnbuffer3.colcount-1
+planetsqnbuffer3.cell(l,k)=""
+next l
+next k
+
+for k=0 to planetsqnbuffer3.rowcount-1
+for l=0 to planetsqnbuffer3.colcount-1
+planetsqnbuffer2.cell(l,k)=""
+next l
+next k
+
+for k=0 to 1000
+planetsqnbuffer(k)=0
+next k
+
+
 dim anglist as qstringgrid
 
-defint k
-for k=2 to 961
-anglist.cell(0,k)=getanglesubsq9_2(k)
-next k
+'defint k
+'for k=2 to 961
+'anglist.cell(0,k)=getanglesubsq9_2(k)
+'next k
 
 defstr year,month,day,hours,minutes
 defstr coordinates

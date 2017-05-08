@@ -1676,8 +1676,30 @@ barsback=numbars '<--- can also be something like VAL(planetsqnbarsbackedit.text
 if ibar>=lastbar-barsback then
 'defint incrj
 for incrj=0 to 12
+.Data_Indi.Cell(drawid,lbar)=""
     indicolor(drawid)=blue '<--- replace with your color
-    .Data_Indi.Cell(drawid,lbar)= planetsqnbuffer2.cell(incrj,offset)
+
+'defint k
+'for k=2 to 961
+'anglist.cell(0,k)=getanglesubsq9_2(k)
+'next k
+
+defstr tempsqn
+
+for k=ceil(graphvhigh) to floor(graphvlow) step -1
+if round(getanglesubsq9_2(k))=round(val(planetsqnbuffer2.cell(incrj,offset))) then
+planetsqnbuffer3.cell(incrj,offset)=str$(k)
+tempsqn=str$(k)
+exit for
+end if
+next k
+
+if planetsqnbuffer3.cell(incrj,offset)="" then
+planetsqnbuffer3.cell(incrj,offset)=tempsqn
+end if
+
+    .Data_Indi.Cell(drawid,lbar)= planetsqnbuffer3.cell(incrj,offset)
+planetsqnbuffer3.cell(incrj,offset)=""
     drawid=drawid+2
 next incrj
 end if
