@@ -41,9 +41,24 @@ left=planetsqn_ratio_label.left+planetsqn_ratio_label.width+10
 text="1"
 end create
 
+create planetsqn_planet as qcombobox
+	top=80
+	left=0
+	additems "Mars"
+	additems "Venus"
+	additems "Saturn"
+	additems "Neptune"
+	additems "Pluto"
+	additems "Jupiter"
+	additems "Uranus"
+	additems "Mercury"
+	additems "Sun"
+	itemindex=8
+end create
+
     create planetsqnbtnok as qbutton
         left=0
-        top=80
+        top=100
         caption="OK"
         onclick=hideplanetsqnform
     end create

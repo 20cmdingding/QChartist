@@ -154,7 +154,28 @@ defstr iflagstr
 defstr x0str
 defdbl ret_flag
 
+select case planetsqn_planet.item(planetsqn_planet.itemindex)
+
+case "Mars":
+planet=SE_MARS
+case "Venus":
+planet=SE_VENUS
+case "Saturn":
+planet=SE_SATURN
+case "Neptune":
+planet=SE_NEPTUNE
+case "Pluto":
+planet=SE_PLUTO
+case "Jupiter":
+planet=SE_JUPITER
+case "Uranus":
+planet=SE_URANUS
+case "Mercury":
+planet=SE_MERCURY
+case "Sun":
 planet=SE_SUN
+
+end select
 
         serr$ = String$(255, 0)
         plnam$ = String$(20, 0)

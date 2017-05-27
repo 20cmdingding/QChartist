@@ -1412,6 +1412,10 @@ Mikula's Square of Nine Planetary Angles
 2017-05-08:
 - indicator planetsqn works better but slow
 - build 84
+- added planet selection for the planetsqn indicator
+
+2017-05-27:
+- build 85
 
 -------------------------------------------------------------------------------------
 Todo list:

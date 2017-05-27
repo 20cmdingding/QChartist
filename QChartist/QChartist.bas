@@ -16376,9 +16376,9 @@ SUB paintabout(Sender AS QCANVAS)
     yposabout = yposabout + 30
     aboutcanvas.TextOut(abmargin , abouty - yposabout , "the Swiss Ephemeris" , lime , 0)    
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Thomas Henning Murrey for" , lime , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Thomas Henning Murrey for the Murrey Math indicator" , lime , 0)        
     yposabout = yposabout + 30
-    aboutcanvas.TextOut(abmargin , abouty - yposabout , "the Murrey Math indicator" , lime , 0)    
+    aboutcanvas.TextOut(abmargin , abouty - yposabout , "Patrick Mikula for his ideas with the Square of Nine" , lime , 0)    
     yposabout = yposabout + 30
     aboutcanvas.TextOut(abmargin , abouty - yposabout , "And many thanks to all thoses who helped me to build this project" , lime , 0)    
     yposabout = yposabout + 30
